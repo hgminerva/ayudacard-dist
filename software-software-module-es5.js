@@ -13324,6 +13324,621 @@ var MatSelectModule = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./node_modules/ngx-webcam/fesm5/ngx-webcam.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/ngx-webcam/fesm5/ngx-webcam.js ***!
+  \*****************************************************/
+/*! exports provided: WebcamComponent, WebcamImage, WebcamInitError, WebcamMirrorProperties, WebcamModule, WebcamUtil */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WebcamComponent", function() { return WebcamComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WebcamImage", function() { return WebcamImage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WebcamInitError", function() { return WebcamInitError; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WebcamMirrorProperties", function() { return WebcamMirrorProperties; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WebcamModule", function() { return WebcamModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WebcamUtil", function() { return WebcamUtil; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+
+
+
+
+
+/**
+ * Container class for a captured webcam image
+ * @author basst314, davidshen84
+ */
+var WebcamImage = /** @class */ (function () {
+    function WebcamImage(imageAsDataUrl, mimeType, imageData) {
+        this._mimeType = null;
+        this._imageAsBase64 = null;
+        this._imageAsDataUrl = null;
+        this._imageData = null;
+        this._mimeType = mimeType;
+        this._imageAsDataUrl = imageAsDataUrl;
+        this._imageData = imageData;
+    }
+    /**
+     * Extracts the Base64 data out of the given dataUrl.
+     * @param dataUrl the given dataUrl
+     * @param mimeType the mimeType of the data
+     */
+    WebcamImage.getDataFromDataUrl = function (dataUrl, mimeType) {
+        return dataUrl.replace("data:" + mimeType + ";base64,", '');
+    };
+    Object.defineProperty(WebcamImage.prototype, "imageAsBase64", {
+        /**
+         * Get the base64 encoded image data
+         * @returns base64 data of the image
+         */
+        get: function () {
+            return this._imageAsBase64 ? this._imageAsBase64
+                : this._imageAsBase64 = WebcamImage.getDataFromDataUrl(this._imageAsDataUrl, this._mimeType);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(WebcamImage.prototype, "imageAsDataUrl", {
+        /**
+         * Get the encoded image as dataUrl
+         * @returns the dataUrl of the image
+         */
+        get: function () {
+            return this._imageAsDataUrl;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(WebcamImage.prototype, "imageData", {
+        /**
+         * Get the ImageData object associated with the canvas' 2d context.
+         * @returns the ImageData of the canvas's 2d context.
+         */
+        get: function () {
+            return this._imageData;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return WebcamImage;
+}());
+
+var WebcamUtil = /** @class */ (function () {
+    function WebcamUtil() {
+    }
+    /**
+     * Lists available videoInput devices
+     * @returns a list of media device info.
+     */
+    WebcamUtil.getAvailableVideoInputs = function () {
+        if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
+            return Promise.reject('enumerateDevices() not supported.');
+        }
+        return new Promise(function (resolve, reject) {
+            navigator.mediaDevices.enumerateDevices()
+                .then(function (devices) {
+                resolve(devices.filter(function (device) { return device.kind === 'videoinput'; }));
+            })
+                .catch(function (err) {
+                reject(err.message || err);
+            });
+        });
+    };
+    return WebcamUtil;
+}());
+
+var WebcamComponent = /** @class */ (function () {
+    function WebcamComponent() {
+        /** Defines the max width of the webcam area in px */
+        this.width = 640;
+        /** Defines the max height of the webcam area in px */
+        this.height = 480;
+        /** Defines base constraints to apply when requesting video track from UserMedia */
+        this.videoOptions = WebcamComponent_1.DEFAULT_VIDEO_OPTIONS;
+        /** Flag to enable/disable camera switch. If enabled, a switch icon will be displayed if multiple cameras were found */
+        this.allowCameraSwitch = true;
+        /** Flag to control whether an ImageData object is stored into the WebcamImage object. */
+        this.captureImageData = false;
+        /** The image type to use when capturing snapshots */
+        this.imageType = WebcamComponent_1.DEFAULT_IMAGE_TYPE;
+        /** The image quality to use when capturing snapshots (number between 0 and 1) */
+        this.imageQuality = WebcamComponent_1.DEFAULT_IMAGE_QUALITY;
+        /** EventEmitter which fires when an image has been captured */
+        this.imageCapture = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+        /** Emits a mediaError if webcam cannot be initialized (e.g. missing user permissions) */
+        this.initError = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+        /** Emits when the webcam video was clicked */
+        this.imageClick = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+        /** Emits the active deviceId after the active video device was switched */
+        this.cameraSwitched = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+        /** available video devices */
+        this.availableVideoInputs = [];
+        /** Indicates whether the video device is ready to be switched */
+        this.videoInitialized = false;
+        /** Index of active video in availableVideoInputs */
+        this.activeVideoInputIndex = -1;
+        /** MediaStream object in use for streaming UserMedia data */
+        this.mediaStream = null;
+        /** width and height of the active video stream */
+        this.activeVideoSettings = null;
+    }
+    WebcamComponent_1 = WebcamComponent;
+    Object.defineProperty(WebcamComponent.prototype, "trigger", {
+        /**
+         * If the given Observable emits, an image will be captured and emitted through 'imageCapture' EventEmitter
+         */
+        set: function (trigger) {
+            var _this = this;
+            if (this.triggerSubscription) {
+                this.triggerSubscription.unsubscribe();
+            }
+            // Subscribe to events from this Observable to take snapshots
+            this.triggerSubscription = trigger.subscribe(function () {
+                _this.takeSnapshot();
+            });
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(WebcamComponent.prototype, "switchCamera", {
+        /**
+         * If the given Observable emits, the active webcam will be switched to the one indicated by the emitted value.
+         * @param switchCamera Indicates which webcam to switch to
+         *   true: cycle forwards through available webcams
+         *   false: cycle backwards through available webcams
+         *   string: activate the webcam with the given id
+         */
+        set: function (switchCamera) {
+            var _this = this;
+            if (this.switchCameraSubscription) {
+                this.switchCameraSubscription.unsubscribe();
+            }
+            // Subscribe to events from this Observable to switch video device
+            this.switchCameraSubscription = switchCamera.subscribe(function (value) {
+                if (typeof value === 'string') {
+                    // deviceId was specified
+                    _this.switchToVideoInput(value);
+                }
+                else {
+                    // direction was specified
+                    _this.rotateVideoInput(value !== false);
+                }
+            });
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * Get MediaTrackConstraints to request streaming the given device
+     * @param deviceId
+     * @param baseMediaTrackConstraints base constraints to merge deviceId-constraint into
+     * @returns
+     */
+    WebcamComponent.getMediaConstraintsForDevice = function (deviceId, baseMediaTrackConstraints) {
+        var result = baseMediaTrackConstraints ? baseMediaTrackConstraints : this.DEFAULT_VIDEO_OPTIONS;
+        if (deviceId) {
+            result.deviceId = { exact: deviceId };
+        }
+        return result;
+    };
+    /**
+     * Tries to harvest the deviceId from the given mediaStreamTrack object.
+     * Browsers populate this object differently; this method tries some different approaches
+     * to read the id.
+     * @param mediaStreamTrack
+     * @returns deviceId if found in the mediaStreamTrack
+     */
+    WebcamComponent.getDeviceIdFromMediaStreamTrack = function (mediaStreamTrack) {
+        if (mediaStreamTrack.getSettings && mediaStreamTrack.getSettings() && mediaStreamTrack.getSettings().deviceId) {
+            return mediaStreamTrack.getSettings().deviceId;
+        }
+        else if (mediaStreamTrack.getConstraints && mediaStreamTrack.getConstraints() && mediaStreamTrack.getConstraints().deviceId) {
+            var deviceIdObj = mediaStreamTrack.getConstraints().deviceId;
+            return WebcamComponent_1.getValueFromConstrainDOMString(deviceIdObj);
+        }
+    };
+    /**
+     * Tries to harvest the facingMode from the given mediaStreamTrack object.
+     * Browsers populate this object differently; this method tries some different approaches
+     * to read the value.
+     * @param mediaStreamTrack
+     * @returns facingMode if found in the mediaStreamTrack
+     */
+    WebcamComponent.getFacingModeFromMediaStreamTrack = function (mediaStreamTrack) {
+        if (mediaStreamTrack) {
+            if (mediaStreamTrack.getSettings && mediaStreamTrack.getSettings() && mediaStreamTrack.getSettings().facingMode) {
+                return mediaStreamTrack.getSettings().facingMode;
+            }
+            else if (mediaStreamTrack.getConstraints && mediaStreamTrack.getConstraints() && mediaStreamTrack.getConstraints().facingMode) {
+                var facingModeConstraint = mediaStreamTrack.getConstraints().facingMode;
+                return WebcamComponent_1.getValueFromConstrainDOMString(facingModeConstraint);
+            }
+        }
+    };
+    /**
+     * Determines whether the given mediaStreamTrack claims itself as user facing
+     * @param mediaStreamTrack
+     */
+    WebcamComponent.isUserFacing = function (mediaStreamTrack) {
+        var facingMode = WebcamComponent_1.getFacingModeFromMediaStreamTrack(mediaStreamTrack);
+        return facingMode ? 'user' === facingMode.toLowerCase() : false;
+    };
+    /**
+     * Extracts the value from the given ConstrainDOMString
+     * @param constrainDOMString
+     */
+    WebcamComponent.getValueFromConstrainDOMString = function (constrainDOMString) {
+        if (constrainDOMString) {
+            if (constrainDOMString instanceof String) {
+                return String(constrainDOMString);
+            }
+            else if (Array.isArray(constrainDOMString) && Array(constrainDOMString).length > 0) {
+                return String(constrainDOMString[0]);
+            }
+            else if (typeof constrainDOMString === 'object') {
+                if (constrainDOMString['exact']) {
+                    return String(constrainDOMString['exact']);
+                }
+                else if (constrainDOMString['ideal']) {
+                    return String(constrainDOMString['ideal']);
+                }
+            }
+        }
+        return null;
+    };
+    WebcamComponent.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        this.detectAvailableDevices()
+            .then(function () {
+            // start video
+            _this.switchToVideoInput(null);
+        })
+            .catch(function (err) {
+            _this.initError.next({ message: err });
+            // fallback: still try to load webcam, even if device enumeration failed
+            _this.switchToVideoInput(null);
+        });
+    };
+    WebcamComponent.prototype.ngOnDestroy = function () {
+        this.stopMediaTracks();
+        this.unsubscribeFromSubscriptions();
+    };
+    /**
+     * Takes a snapshot of the current webcam's view and emits the image as an event
+     */
+    WebcamComponent.prototype.takeSnapshot = function () {
+        // set canvas size to actual video size
+        var _video = this.nativeVideoElement;
+        var dimensions = { width: this.width, height: this.height };
+        if (_video.videoWidth) {
+            dimensions.width = _video.videoWidth;
+            dimensions.height = _video.videoHeight;
+        }
+        var _canvas = this.canvas.nativeElement;
+        _canvas.width = dimensions.width;
+        _canvas.height = dimensions.height;
+        // paint snapshot image to canvas
+        var context2d = _canvas.getContext('2d');
+        context2d.drawImage(_video, 0, 0);
+        // read canvas content as image
+        var mimeType = this.imageType ? this.imageType : WebcamComponent_1.DEFAULT_IMAGE_TYPE;
+        var quality = this.imageQuality ? this.imageQuality : WebcamComponent_1.DEFAULT_IMAGE_QUALITY;
+        var dataUrl = _canvas.toDataURL(mimeType, quality);
+        // get the ImageData object from the canvas' context.
+        var imageData = null;
+        if (this.captureImageData) {
+            imageData = context2d.getImageData(0, 0, _canvas.width, _canvas.height);
+        }
+        this.imageCapture.next(new WebcamImage(dataUrl, mimeType, imageData));
+    };
+    /**
+     * Switches to the next/previous video device
+     * @param forward
+     */
+    WebcamComponent.prototype.rotateVideoInput = function (forward) {
+        if (this.availableVideoInputs && this.availableVideoInputs.length > 1) {
+            var increment = forward ? 1 : (this.availableVideoInputs.length - 1);
+            var nextInputIndex = (this.activeVideoInputIndex + increment) % this.availableVideoInputs.length;
+            this.switchToVideoInput(this.availableVideoInputs[nextInputIndex].deviceId);
+        }
+    };
+    /**
+     * Switches the camera-view to the specified video device
+     */
+    WebcamComponent.prototype.switchToVideoInput = function (deviceId) {
+        this.videoInitialized = false;
+        this.stopMediaTracks();
+        this.initWebcam(deviceId, this.videoOptions);
+    };
+    /**
+     * Event-handler for video resize event.
+     * Triggers Angular change detection so that new video dimensions get applied
+     */
+    WebcamComponent.prototype.videoResize = function () {
+        // here to trigger Angular change detection
+    };
+    Object.defineProperty(WebcamComponent.prototype, "videoWidth", {
+        get: function () {
+            var videoRatio = this.getVideoAspectRatio();
+            return Math.min(this.width, this.height * videoRatio);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(WebcamComponent.prototype, "videoHeight", {
+        get: function () {
+            var videoRatio = this.getVideoAspectRatio();
+            return Math.min(this.height, this.width / videoRatio);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(WebcamComponent.prototype, "videoStyleClasses", {
+        get: function () {
+            var classes = '';
+            if (this.isMirrorImage()) {
+                classes += 'mirrored ';
+            }
+            return classes.trim();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(WebcamComponent.prototype, "nativeVideoElement", {
+        get: function () {
+            return this.video.nativeElement;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * Returns the video aspect ratio of the active video stream
+     */
+    WebcamComponent.prototype.getVideoAspectRatio = function () {
+        // calculate ratio from video element dimensions if present
+        var videoElement = this.nativeVideoElement;
+        if (videoElement.videoWidth && videoElement.videoWidth > 0 &&
+            videoElement.videoHeight && videoElement.videoHeight > 0) {
+            return videoElement.videoWidth / videoElement.videoHeight;
+        }
+        // nothing present - calculate ratio based on width/height params
+        return this.width / this.height;
+    };
+    /**
+     * Init webcam live view
+     */
+    WebcamComponent.prototype.initWebcam = function (deviceId, userVideoTrackConstraints) {
+        var _this = this;
+        var _video = this.nativeVideoElement;
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            // merge deviceId -> userVideoTrackConstraints
+            var videoTrackConstraints = WebcamComponent_1.getMediaConstraintsForDevice(deviceId, userVideoTrackConstraints);
+            navigator.mediaDevices.getUserMedia({ video: videoTrackConstraints })
+                .then(function (stream) {
+                _this.mediaStream = stream;
+                _video.srcObject = stream;
+                _video.play();
+                _this.activeVideoSettings = stream.getVideoTracks()[0].getSettings();
+                var activeDeviceId = WebcamComponent_1.getDeviceIdFromMediaStreamTrack(stream.getVideoTracks()[0]);
+                _this.cameraSwitched.next(activeDeviceId);
+                // Initial detect may run before user gave permissions, returning no deviceIds. This prevents later camera switches. (#47)
+                // Run detect once again within getUserMedia callback, to make sure this time we have permissions and get deviceIds.
+                _this.detectAvailableDevices()
+                    .then(function () {
+                    _this.activeVideoInputIndex = activeDeviceId ? _this.availableVideoInputs
+                        .findIndex(function (mediaDeviceInfo) { return mediaDeviceInfo.deviceId === activeDeviceId; }) : -1;
+                    _this.videoInitialized = true;
+                })
+                    .catch(function () {
+                    _this.activeVideoInputIndex = -1;
+                    _this.videoInitialized = true;
+                });
+            })
+                .catch(function (err) {
+                _this.initError.next({ message: err.message, mediaStreamError: err });
+            });
+        }
+        else {
+            this.initError.next({ message: 'Cannot read UserMedia from MediaDevices.' });
+        }
+    };
+    WebcamComponent.prototype.getActiveVideoTrack = function () {
+        return this.mediaStream ? this.mediaStream.getVideoTracks()[0] : null;
+    };
+    WebcamComponent.prototype.isMirrorImage = function () {
+        if (!this.getActiveVideoTrack()) {
+            return false;
+        }
+        // check for explicit mirror override parameter
+        {
+            var mirror = 'auto';
+            if (this.mirrorImage) {
+                if (typeof this.mirrorImage === 'string') {
+                    mirror = String(this.mirrorImage).toLowerCase();
+                }
+                else {
+                    // WebcamMirrorProperties
+                    if (this.mirrorImage.x) {
+                        mirror = this.mirrorImage.x.toLowerCase();
+                    }
+                }
+            }
+            switch (mirror) {
+                case 'always':
+                    return true;
+                case 'never':
+                    return false;
+            }
+        }
+        // default: enable mirroring if webcam is user facing
+        return WebcamComponent_1.isUserFacing(this.getActiveVideoTrack());
+    };
+    /**
+     * Stops all active media tracks.
+     * This prevents the webcam from being indicated as active,
+     * even if it is no longer used by this component.
+     */
+    WebcamComponent.prototype.stopMediaTracks = function () {
+        if (this.mediaStream && this.mediaStream.getTracks) {
+            // getTracks() returns all media tracks (video+audio)
+            this.mediaStream.getTracks()
+                .forEach(function (track) { return track.stop(); });
+        }
+    };
+    /**
+     * Unsubscribe from all open subscriptions
+     */
+    WebcamComponent.prototype.unsubscribeFromSubscriptions = function () {
+        if (this.triggerSubscription) {
+            this.triggerSubscription.unsubscribe();
+        }
+        if (this.switchCameraSubscription) {
+            this.switchCameraSubscription.unsubscribe();
+        }
+    };
+    /**
+     * Reads available input devices
+     */
+    WebcamComponent.prototype.detectAvailableDevices = function () {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            WebcamUtil.getAvailableVideoInputs()
+                .then(function (devices) {
+                _this.availableVideoInputs = devices;
+                resolve(devices);
+            })
+                .catch(function (err) {
+                _this.availableVideoInputs = [];
+                reject(err);
+            });
+        });
+    };
+    var WebcamComponent_1;
+    WebcamComponent.DEFAULT_VIDEO_OPTIONS = { facingMode: 'environment' };
+    WebcamComponent.DEFAULT_IMAGE_TYPE = 'image/jpeg';
+    WebcamComponent.DEFAULT_IMAGE_QUALITY = 0.92;
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", Number)
+    ], WebcamComponent.prototype, "width", void 0);
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", Number)
+    ], WebcamComponent.prototype, "height", void 0);
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", Object)
+    ], WebcamComponent.prototype, "videoOptions", void 0);
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", Boolean)
+    ], WebcamComponent.prototype, "allowCameraSwitch", void 0);
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", Object)
+    ], WebcamComponent.prototype, "mirrorImage", void 0);
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", Boolean)
+    ], WebcamComponent.prototype, "captureImageData", void 0);
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", String)
+    ], WebcamComponent.prototype, "imageType", void 0);
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", Number)
+    ], WebcamComponent.prototype, "imageQuality", void 0);
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
+        Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"])
+    ], WebcamComponent.prototype, "imageCapture", void 0);
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
+        Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"])
+    ], WebcamComponent.prototype, "initError", void 0);
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
+        Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"])
+    ], WebcamComponent.prototype, "imageClick", void 0);
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
+        Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"])
+    ], WebcamComponent.prototype, "cameraSwitched", void 0);
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('video', { static: true }),
+        Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", Object)
+    ], WebcamComponent.prototype, "video", void 0);
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('canvas', { static: true }),
+        Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", Object)
+    ], WebcamComponent.prototype, "canvas", void 0);
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", rxjs__WEBPACK_IMPORTED_MODULE_3__["Observable"]),
+        Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [rxjs__WEBPACK_IMPORTED_MODULE_3__["Observable"]])
+    ], WebcamComponent.prototype, "trigger", null);
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:type", rxjs__WEBPACK_IMPORTED_MODULE_3__["Observable"]),
+        Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [rxjs__WEBPACK_IMPORTED_MODULE_3__["Observable"]])
+    ], WebcamComponent.prototype, "switchCamera", null);
+    WebcamComponent = WebcamComponent_1 = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'webcam',
+            template: "<div class=\"webcam-wrapper\" (click)=\"imageClick.next();\">\r\n  <video #video [width]=\"videoWidth\" [height]=\"videoHeight\" [class]=\"videoStyleClasses\" autoplay muted playsinline (resize)=\"videoResize()\"></video>\r\n  <div class=\"camera-switch\" *ngIf=\"allowCameraSwitch && availableVideoInputs.length > 1 && videoInitialized\" (click)=\"rotateVideoInput(true)\"></div>\r\n  <canvas #canvas [width]=\"width\" [height]=\"height\"></canvas>\r\n</div>\r\n",
+            styles: [".webcam-wrapper{display:inline-block;position:relative;line-height:0}.webcam-wrapper video.mirrored{transform:scale(-1,1)}.webcam-wrapper canvas{display:none}.webcam-wrapper .camera-switch{background-color:rgba(0,0,0,.1);background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAE9UlEQVR42u2aT2hdRRTGf+cRQqghSqihdBFDkRISK2KDfzDWxHaRQHEhaINKqa1gKQhd6EZLN+IidCH+Q0oWIkVRC21BQxXRitVaSbKoJSGtYGoK2tQ/tU1jY5v0c5F54Xl7b/KSO/PyEt+3e5f75p7zzZwzZ74zUEIJJfyfYaEGllQGVAGZlENdBy6Z2cSiYFTSKkkfS/pH/nBF0kFJdUW9AiRVASeAukD8DgNrzOySrwEzng18KaDzALXuG8W3AiStAvqBisBRNg40mtlPxbYCOgvgPO4bncWW+JpVeDQXRQhIygDfA00F5r0XuNfMrgclQFI98DDQCNQA5ZFXqoCWBVp8XwHRHeEqcN7loy/NbHBesyqpQ1KfFj/6nC+ZvFaApFrgPaCZpYVvgCfNbDiRAElNwGFg+RIt/X8H2s2s9wYCJDUAR4HqJX7++RN40MwGpgmQVAH0AQ2BPz4AHHPl8nBOAqtyFWQjsA6oL4Ada81sPDv7uwImod8kvSJp9RyS8O2SXnb/DYVd2Y9VSroQ4ANXJO2WVJmixqh0kzMWwL4LkiqRtDnA4D1zmfE8j9g9AezcnAHaPcfXdbfdnPZ2Yps6+DwAvO/Z1naTdApY7Xng48BDZnY1MpMVQBuw3iXc5Tnb0wBwBPjUzP6eoezuArZ6svM0geJLkvZEYnl3nkntoqROSbckSW2Suj3ZOIangc7GPJuUtNGdFIfmMeavktoSSKiW9LMPw30Q8JqkekmjCbOZRhuclLQjgYSNxUBAj6RyZ9ATgUJpUtJTCSR8vpAEXHAyWK5BXYFIGHOlepSAloUk4NEYgyoknQhEwhFJ0e8h6VSaQeerCb5uZgdi9utxYBNwOUD93hIVXswM4INCi6K9wAszFC2DwLOBDjHbYp59karIUnRdzYy/3ClqVklaUhfwTICj7K25OqA7a4wWagVsm4Me/xzwg2cCqqONFzO7DPxSCAJi436GUBgHHguQD2oTlJ55oSzP9ybccsttSJw1szdjFOSnI/8dTCGZHwcORp4Nx7y3B1iZ8/sm4MW8/Euxg5wIsS/HaAp3zeP4/G7obRDXI4jiTIA22H7Xdc7X+S3A5lC7QBQ357aq3VAjCeSkwUfAJrfvz+R8A9ADLAtZB+TinpjC5JMA+//jwPZZnF8G7J+L8z4IWB/zbG+gIujVWfLBW/NStVMmqaG4POJRsIjix7h8IGnLQuoBbQki5sVAJHyYm7YkNaRRtXwQ8G1cHpX0iKRrgUjYno17Sf0LrQhJUkdCeHWkVITGJI0k1QeS3ikGSUzOyJUJJNznYneuOCnpTldcxa2kP3xJYqOeSDjqZG8ShJLnE8TTuMS6Iyu1BW7djZqkfo9N0QOuYJmYQddfB7RG+gLTNzqAY9FrL+5/nwEbvDdJJe3zzOrhNP3AWRqmk55t3ZcBuj3b2gb0Sbrbo/NNzk7fFzu7s/E5EiC+rrmeQU0Kx2skvRFoOx2ZzlmSdgbsw49JetvtBpk8nM64d/cGbNtJ0s7cGyJlwHeEv+t3nqnLSgPAUOSGyG3AHUxdzqoJbEcvcL+ZTeTeEapzJKxgaeOcc/7Mf06D7kFrguS0VDAMtGadv+E47DT9tcChJej8ISfpD+abgTe45uOkFi8mnQ+JBVQ+d4VXuOptjavcyot8pq86mfwk8LWZnaOEEkoooYQSSojDv8AhQNeGfe0jAAAAAElFTkSuQmCC);background-repeat:no-repeat;border-radius:5px;position:absolute;right:13px;top:10px;height:48px;width:48px;background-size:80%;cursor:pointer;background-position:center;transition:background-color .2s}.webcam-wrapper .camera-switch:hover{background-color:rgba(0,0,0,.18)}"]
+        })
+    ], WebcamComponent);
+    return WebcamComponent;
+}());
+
+var COMPONENTS = [
+    WebcamComponent
+];
+var WebcamModule = /** @class */ (function () {
+    function WebcamModule() {
+    }
+    WebcamModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+            imports: [
+                _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"]
+            ],
+            declarations: [
+                COMPONENTS
+            ],
+            exports: [
+                COMPONENTS
+            ]
+        })
+    ], WebcamModule);
+    return WebcamModule;
+}());
+
+var WebcamInitError = /** @class */ (function () {
+    function WebcamInitError() {
+        this.message = null;
+        this.mediaStreamError = null;
+    }
+    return WebcamInitError;
+}());
+
+var WebcamMirrorProperties = /** @class */ (function () {
+    function WebcamMirrorProperties() {
+    }
+    return WebcamMirrorProperties;
+}());
+
+
+//# sourceMappingURL=ngx-webcam.js.map
+
+
+/***/ }),
+
 /***/ "./node_modules/raw-loader/index.js!./src/app/software/citizen/citizen-delete-dialog/citizen-delete-dialog.component.html":
 /*!***********************************************************************************************************************!*\
   !*** ./node_modules/raw-loader!./src/app/software/citizen/citizen-delete-dialog/citizen-delete-dialog.component.html ***!
@@ -13335,6 +13950,39 @@ module.exports = "<h1 mat-dialog-title>\n    Delete Citizen\n</h1>\n<mat-divider
 
 /***/ }),
 
+/***/ "./node_modules/raw-loader/index.js!./src/app/software/citizen/citizen-detail-dialog/citizen-camera-dialog/citizen-camera-dialog.component.html":
+/*!*********************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/software/citizen/citizen-detail-dialog/citizen-camera-dialog/citizen-camera-dialog.component.html ***!
+  \*********************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h1 mat-dialog-title>\n    Camera\n</h1>\n<mat-divider></mat-divider>\n<div mat-dialog-content style=\"display: flex; justify-content: center; padding: 15px;\">\n    <webcam [height]=\"500\" [width]=\"500\" [trigger]=\"triggerObservable\" (imageCapture)=\"handleImage($event)\">\n    </webcam>\n</div>\n<mat-divider></mat-divider>\n<div mat-dialog-actions align=\"right\">\n    <button mat-stroked-button color=\"\" style=\"margin-right: 5px;\" (click)=\"btnCapturePhoto()\" id=\"btnCapture\">\n        <fa-icon icon=\"camera\" fixedWidth=\"true\"></fa-icon> Capture\n    </button>\n    <button mat-stroked-button color=\"\" (click)=\"btnCloseCameraDialog()\" id=\"btnCloseCamera\">\n        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Close\n    </button>\n</div>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/software/citizen/citizen-detail-dialog/citizen-children-delete-dialog/citizen-children-delete-dialog.component.html":
+/*!***************************************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/software/citizen/citizen-detail-dialog/citizen-children-delete-dialog/citizen-children-delete-dialog.component.html ***!
+  \***************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h1 mat-dialog-title>\n    Delete Child\n</h1>\n<mat-divider></mat-divider>\n<div mat-dialog-content>\n    <p>Are you sure you want to delete this child?</p>\n</div>\n<mat-divider></mat-divider>\n<div mat-dialog-actions align=\"right\">\n    <button mat-flat-button color=\"warn\" style=\"margin-right: 5px;\" (click)=\"btnDeleteChildren()\" id=\"btnDeleteChildren\">\n        <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Yes\n    </button>\n    <button mat-flat-button (click)=\"btnCloseDeleteDialog()\" id=\"btnCloseDeleteDialog\">\n        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> No\n    </button>\n</div>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/software/citizen/citizen-detail-dialog/citizen-children-detail-dialog/citizen-children-detail-dialog.component.html":
+/*!***************************************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/software/citizen/citizen-detail-dialog/citizen-children-detail-dialog/citizen-children-detail-dialog.component.html ***!
+  \***************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h1 mat-dialog-title>\n    {{ dialogTitle }}\n</h1>\n<mat-divider></mat-divider>\n<div mat-dialog-content>\n    <br />\n    <div fxLayout fxLayout.xs=\"column\">\n        <div fxFlex=\"100%\">\n            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                <input matInput placeholder=\"Fullname\" [(ngModel)]=\"citizensChildrenModel.Fullname\" required>\n            </mat-form-field>\n        </div>\n    </div>\n    <div fxLayout fxLayout.xs=\"column\">\n        <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n            <input matInput [matDatepicker]=\"picker\" placeholder=\"Date of Birth\"\n                [(ngModel)]=\"citizensChildrenModel.DateOfBirth\">\n            <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n            <mat-datepicker #picker></mat-datepicker>\n        </mat-form-field>\n    </div>\n</div>\n<mat-divider></mat-divider>\n<div mat-dialog-actions align=\"right\">\n    <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnSaveCitizensChildren()\"\n        id=\"btnSaveCitizensChildren\">\n        <fa-icon icon=\"save\" fixedWidth=\"true\"></fa-icon> Save\n    </button>\n    <button mat-flat-button color=\"warn\" (click)=\"btnCloseCitizensChildrenDialog()\" id=\"btnCloseCitizensChildrenDialog\">\n        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Cancel\n    </button>\n</div>"
+
+/***/ }),
+
 /***/ "./node_modules/raw-loader/index.js!./src/app/software/citizen/citizen-detail-dialog/citizen-detail-dialog.component.html":
 /*!***********************************************************************************************************************!*\
   !*** ./node_modules/raw-loader!./src/app/software/citizen/citizen-detail-dialog/citizen-detail-dialog.component.html ***!
@@ -13342,7 +13990,40 @@ module.exports = "<h1 mat-dialog-title>\n    Delete Citizen\n</h1>\n<mat-divider
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h1 mat-dialog-title>\n    {{ dialogTitle }}\n</h1>\n<mat-divider></mat-divider>\n<div mat-dialog-content>\n    <mat-tab-group>\n        <mat-tab label=\"I. PERSONAL INFORMATION\">\n            <h5><i>Basic Information</i></h5>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Surname\" [(ngModel)]=\"citizenModel.Surname\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Firstname\" [(ngModel)]=\"citizenModel.Firstname\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Middle Name\" [(ngModel)]=\"citizenModel.Middlename\">\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Extension Name (If any)\" [(ngModel)]=\"citizenModel.Extensionname\">\n                    </mat-form-field>\n                </div>\n            </div>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput [matDatepicker]=\"picker\" placeholder=\"Date of Birth\"\n                            [(ngModel)]=\"citizenModel.DateOfBirth\">\n                        <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n                        <mat-datepicker #picker></mat-datepicker>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Palce of Birth\" [(ngModel)]=\"citizenModel.PlaceOfBirth\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"50%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <mat-label>Sex</mat-label>\n                        <mat-select [(ngModel)]=\"citizenModel.SexId\" required>\n                            <mat-option *ngFor=\"let sex of listSexObservableArray\" [value]=\"sex.Id\">\n                                {{ sex.Sex }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <mat-label>Civil Status</mat-label>\n                        <mat-select [(ngModel)]=\"citizenModel.CivilStatusId\" required>\n                            <mat-option *ngFor=\"let civilStatus of listCivilStatusObservableArray\"\n                                [value]=\"civilStatus.Id\">\n                                {{ civilStatus.CivilStatus }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                </div>\n            </div>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <div fxLayout fxLayout.xs=\"column\">\n                        <div fxFlex=\"100%\" style=\"margin-right: 5px;\">\n                            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                                <mat-label>Citizen Ship</mat-label>\n                                <mat-select [(ngModel)]=\"citizenModel.CitizenshipId\" required>\n                                    <mat-option *ngFor=\"let citizenship of listCitizenshipObservableArray\"\n                                        [value]=\"citizenship.Id\">\n                                        {{ citizenship.Citizenship }}\n                                    </mat-option>\n                                </mat-select>\n                            </mat-form-field>\n                        </div>\n                        <div fxFlex=\"100%\" style=\"margin-right: 5px;\">\n                            <mat-form-field [hideRequiredMarker]=\"true\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                                <mat-label>Type Citizen Ship (If dual)</mat-label>\n                                <mat-select [(ngModel)]=\"citizenModel.TypeOfCitizenshipId\">\n                                    <mat-option [value]=\"\"></mat-option>\n                                    <mat-option *ngFor=\"let typeOfCitizenship of listTypeOfCitizenshipObservableArray\"\n                                        [value]=\"typeOfCitizenship.Id\">\n                                        {{ typeOfCitizenship.TypeOfCitizenship }}\n                                    </mat-option>\n                                </mat-select>\n                            </mat-form-field>\n                        </div>\n                    </div>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Dual Citizenship Country\"\n                            [(ngModel)]=\"citizenModel.DualCitizenshipCountry\">\n                    </mat-form-field>\n                </div>\n            </div>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <div fxLayout fxLayout.xs=\"column\">\n                        <div fxFlex=\"100%\" style=\"margin-right: 5px;\">\n                            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                                <input matInput type=\"number\" placeholder=\"Height\" [(ngModel)]=\"citizenModel.Height\">\n                                <span matSuffix>cm</span>\n                            </mat-form-field>\n                        </div>\n                        <div fxFlex=\"100%\" style=\"margin-right: 5px;\">\n                            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                                <input matInput type=\"number\" placeholder=\"Weight\" [(ngModel)]=\"citizenModel.Weight\">\n                                <span matSuffix>kg</span>\n                            </mat-form-field>\n                        </div>\n                    </div>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"true\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <mat-label>Blood Type</mat-label>\n                        <mat-select [(ngModel)]=\"citizenModel.BloodTypeId\" required>\n                            <mat-option *ngFor=\"let bloodType of listBloodTypeObservableArray\" [value]=\"bloodType.Id\">\n                                {{ bloodType.BloodType }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Agency Employee No.\"\n                            [(ngModel)]=\"citizenModel.AgencyEmployeeNumber\" required>\n                    </mat-form-field>\n                </div>\n            </div>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"GSIS ID No.\" [(ngModel)]=\"citizenModel.GSISNumber\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"PAG IBIG No.\" [(ngModel)]=\"citizenModel.HDMFNumber\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"PHILHEALTH No.\" [(ngModel)]=\"citizenModel.PhilHealthNumber\"\n                            required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"SSS No.\" [(ngModel)]=\"citizenModel.SSSNumber\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"TIN No.\" [(ngModel)]=\"citizenModel.TINNumber\" required>\n                    </mat-form-field>\n                </div>\n            </div>\n            <h5><i>Residential Address</i></h5>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Residential No.\" [(ngModel)]=\"citizenModel.ResidentialNumber\"\n                            required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Residential St.\" [(ngModel)]=\"citizenModel.ResidentialStreet\"\n                            required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"50%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Residential Village\" [(ngModel)]=\"citizenModel.ResidentialVillage\"\n                            required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <mat-label>Residential Barangay</mat-label>\n                        <mat-select [(ngModel)]=\"citizenModel.ResidentialBarangayId\" required>\n                            <mat-option *ngFor=\"let barangay of listBarangayObservableArray\" [value]=\"barangay.Id\">\n                                {{ barangay.Barangay }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                </div>\n            </div>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <mat-label>Residential City</mat-label>\n                        <mat-select [(ngModel)]=\"citizenModel.ResidentialCityId\" required>\n                            <mat-option *ngFor=\"let city of listCityObservableArray\" [value]=\"city.Id\">\n                                {{ city.City }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <mat-label>Residential Province</mat-label>\n                        <mat-select [(ngModel)]=\"citizenModel.ResidentialProvinceId\" required>\n                            <mat-option *ngFor=\"let province of listProvinceObservableArray\" [value]=\"province.Id\">\n                                {{ province.Province }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Residential Zip Code\" [(ngModel)]=\"citizenModel.ResidentialZipCode\"\n                            required>\n                    </mat-form-field>\n                </div>\n            </div>\n            <h5><i>Permanent Address</i></h5>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Permanent No.\" [(ngModel)]=\"citizenModel.PermanentNumber\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Permanent St.\" [(ngModel)]=\"citizenModel.PermanentStreet\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"50%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Permanent Village\" [(ngModel)]=\"citizenModel.PermanentVillage\"\n                            required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <mat-label>Permanent Barangay</mat-label>\n                        <mat-select [(ngModel)]=\"citizenModel.PermanentBarangayId\" required>\n                            <mat-option *ngFor=\"let barangay of listBarangayObservableArray\" [value]=\"barangay.Id\">\n                                {{ barangay.Barangay }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                </div>\n            </div>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <mat-label>Permanent City</mat-label>\n                        <mat-select [(ngModel)]=\"citizenModel.PermanentCityId\" required>\n                            <mat-option *ngFor=\"let city of listCityObservableArray\" [value]=\"city.Id\">\n                                {{ city.City }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <mat-label>Permanent Province</mat-label>\n                        <mat-select [(ngModel)]=\"citizenModel.PermanentProvinceId\" required>\n                            <mat-option *ngFor=\"let province of listProvinceObservableArray\" [value]=\"province.Id\">\n                                {{ province.Province }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Permanent Zip Code\" [(ngModel)]=\"citizenModel.PermanentZipCode\"\n                            required>\n                    </mat-form-field>\n                </div>\n            </div>\n            <h5><i>Contact Information</i></h5>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Telephone No.\" [(ngModel)]=\"citizenModel.TelephoneNumber\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Mobile No.\" [(ngModel)]=\"citizenModel.MobileNumber\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput type=\"email\" placeholder=\"Email Address\" [(ngModel)]=\"citizenModel.EmailAddress\"\n                            required>\n                    </mat-form-field>\n                </div>\n            </div>\n            <h5><i>Status</i></h5>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <mat-label>Citizen Status</mat-label>\n                        <mat-select [(ngModel)]=\"citizenModel.CitizenStatusId\" required>\n                            <mat-option *ngFor=\"let citizenStatus of listCitizenStatusObservableArray\"\n                                [value]=\"citizenStatus.Id\">\n                                {{ citizenStatus.CitizenStatus }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                </div>\n            </div>\n        </mat-tab>\n        <mat-tab label=\"II. FAMILY BACKGROUND\">\n            <h5><i>Employer</i></h5>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <mat-label>Occupation</mat-label>\n                        <mat-select [(ngModel)]=\"citizenModel.OccupationId\" required>\n                            <mat-option *ngFor=\"let occupation of listOccupationObservableArray\"\n                                [value]=\"occupation.Id\">\n                                {{ occupation.Occupation }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Employer Name\" [(ngModel)]=\"citizenModel.EmployerName\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Employer Tel No.\"\n                            [(ngModel)]=\"citizenModel.EmployerTelephoneNumber\" required>\n                    </mat-form-field>\n                </div>\n            </div>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Employer Address\" [(ngModel)]=\"citizenModel.EmployerAddress\"\n                            required>\n                    </mat-form-field>\n                </div>\n            </div>\n            <h5><i>Spouse</i></h5>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Spouse's Surname\" [(ngModel)]=\"citizenModel.SpouseSurname\"\n                            required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Spouse's Firstname\" [(ngModel)]=\"citizenModel.SpouseFirstname\"\n                            required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Spouse's Middle Name\" [(ngModel)]=\"citizenModel.SpouseMiddlename\">\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Spouse's Extension Name (If any)\"\n                            [(ngModel)]=\"citizenModel.SpouseExtensionname\">\n                    </mat-form-field>\n                </div>\n            </div>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <div fxLayout fxLayout.xs=\"column\">\n                        <div fxFlex=\"100%\" style=\"margin-right: 5px;\">\n                            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                                <mat-label>Spouse's Occupation</mat-label>\n                                <mat-select [(ngModel)]=\"citizenModel.SpouseOccupationId\" required>\n                                    <mat-option *ngFor=\"let occupation of listOccupationObservableArray\"\n                                        [value]=\"occupation.Id\">\n                                        {{ occupation.Occupation }}\n                                    </mat-option>\n                                </mat-select>\n                            </mat-form-field>\n                        </div>\n                        <div fxFlex=\"100%\" style=\"margin-right: 5px;\">\n                            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                                <input matInput placeholder=\"Spouse's Employer Name\"\n                                    [(ngModel)]=\"citizenModel.SpouseEmployerName\" required>\n                            </mat-form-field>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Spouse's Employer Address\"\n                            [(ngModel)]=\"citizenModel.SpouseEmployerAddress\" required>\n                    </mat-form-field>\n                </div>\n            </div>\n            <h5><i>Father</i></h5>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Father's Surname\" [(ngModel)]=\"citizenModel.FatherSurname\"\n                            required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Father's Firstname\" [(ngModel)]=\"citizenModel.FatherFirstname\"\n                            required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Father's Middle Name\" [(ngModel)]=\"citizenModel.FatherMiddlename\">\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Father's Extension Name (If any)\"\n                            [(ngModel)]=\"citizenModel.FatherExtensionname\">\n                    </mat-form-field>\n                </div>\n            </div>\n            <h5><i>Mother</i></h5>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Mother's Surname\" [(ngModel)]=\"citizenModel.MotherSurname\"\n                            required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Mother's Firstname\" [(ngModel)]=\"citizenModel.MotherFirstname\"\n                            required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Mother's Middle Name\" [(ngModel)]=\"citizenModel.MotherMiddlename\">\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Mother's Extension Name (If any)\"\n                            [(ngModel)]=\"citizenModel.MotherExtensionname\">\n                    </mat-form-field>\n                </div>\n            </div>\n        </mat-tab>\n        <mat-tab label=\"III. EDUCATIONAL BACKGROUND\">\n\n        </mat-tab>\n    </mat-tab-group>\n</div>\n<mat-divider></mat-divider>\n<div mat-dialog-actions align=\"right\">\n    <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnSaveCitizen()\" id=\"btnSaveCitizen\">\n        <fa-icon icon=\"save\" fixedWidth=\"true\"></fa-icon> Save\n    </button>\n    <button mat-flat-button color=\"warn\" (click)=\"btnCloseDetaileDialog()\" id=\"btnCloseCitizen\">\n        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Cancel\n    </button>\n</div>"
+module.exports = "<h1 mat-dialog-title>\n    {{ dialogTitle }}\n</h1>\n<mat-divider></mat-divider>\n<div mat-dialog-content>\n    <mat-tab-group>\n        <mat-tab label=\"I. PERSONAL INFORMATION\">\n            <h5><i>Picture</i></h5>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <div fxLayout fxLayout.xs=\"column\">\n                        <div fxFlex=\"100%\" style=\"margin-right: 10px;\">\n                            <mat-card>\n                                <img [src]=\"imageAsDataUrl\" style=\"width: 100%;\" />\n                            </mat-card>\n                            <br />\n                            <div>\n                                <button mat-stroked-button color=\"\" style=\"margin-right: 5px;\" id=\"btnTakePhotoCitizen\"\n                                    (click)=\"btnOpenCamera()\">\n                                    <fa-icon icon=\"camera\" fixedWidth=\"true\"></fa-icon> Take a Photo\n                                </button>\n                                <button mat-stroked-button color=\"\" id=\"btnClearPhotoCitizen\" (click)=\"btnClearPhoto()\">\n                                    <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Clear\n                                </button>\n                            </div>\n                        </div>\n                        <div fxFlex=\"100%\"></div>\n                        <div fxFlex=\"100%\"></div>\n                    </div>\n                </div>\n            </div>\n            <h5><i>Basic Information</i></h5>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Surname\" [(ngModel)]=\"citizenModel.Surname\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Firstname\" [(ngModel)]=\"citizenModel.Firstname\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Middle Name\" [(ngModel)]=\"citizenModel.Middlename\">\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Extension Name (If any)\" [(ngModel)]=\"citizenModel.Extensionname\">\n                    </mat-form-field>\n                </div>\n            </div>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput [matDatepicker]=\"picker\" placeholder=\"Date of Birth\"\n                            [(ngModel)]=\"citizenModel.DateOfBirth\">\n                        <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n                        <mat-datepicker #dateOfBirthPicker></mat-datepicker>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Palce of Birth\" [(ngModel)]=\"citizenModel.PlaceOfBirth\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"50%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <mat-label>Sex</mat-label>\n                        <mat-select [(ngModel)]=\"citizenModel.SexId\" required>\n                            <mat-option *ngFor=\"let sex of listSexObservableArray\" [value]=\"sex.Id\">\n                                {{ sex.Sex }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <mat-label>Civil Status</mat-label>\n                        <mat-select [(ngModel)]=\"citizenModel.CivilStatusId\" required>\n                            <mat-option *ngFor=\"let civilStatus of listCivilStatusObservableArray\"\n                                [value]=\"civilStatus.Id\">\n                                {{ civilStatus.CivilStatus }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                </div>\n            </div>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <div fxLayout fxLayout.xs=\"column\">\n                        <div fxFlex=\"100%\" style=\"margin-right: 5px;\">\n                            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                                <mat-label>Citizen Ship</mat-label>\n                                <mat-select [(ngModel)]=\"citizenModel.CitizenshipId\" required>\n                                    <mat-option *ngFor=\"let citizenship of listCitizenshipObservableArray\"\n                                        [value]=\"citizenship.Id\">\n                                        {{ citizenship.Citizenship }}\n                                    </mat-option>\n                                </mat-select>\n                            </mat-form-field>\n                        </div>\n                        <div fxFlex=\"100%\" style=\"margin-right: 5px;\">\n                            <mat-form-field [hideRequiredMarker]=\"true\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                                <mat-label>Type Citizen Ship (If dual)</mat-label>\n                                <mat-select [(ngModel)]=\"citizenModel.TypeOfCitizenshipId\">\n                                    <mat-option [value]=\"\"></mat-option>\n                                    <mat-option *ngFor=\"let typeOfCitizenship of listTypeOfCitizenshipObservableArray\"\n                                        [value]=\"typeOfCitizenship.Id\">\n                                        {{ typeOfCitizenship.TypeOfCitizenship }}\n                                    </mat-option>\n                                </mat-select>\n                            </mat-form-field>\n                        </div>\n                    </div>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Dual Citizenship Country\"\n                            [(ngModel)]=\"citizenModel.DualCitizenshipCountry\">\n                    </mat-form-field>\n                </div>\n            </div>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <div fxLayout fxLayout.xs=\"column\">\n                        <div fxFlex=\"100%\" style=\"margin-right: 5px;\">\n                            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                                <input matInput type=\"number\" placeholder=\"Height\" [(ngModel)]=\"citizenModel.Height\">\n                                <span matSuffix>cm</span>\n                            </mat-form-field>\n                        </div>\n                        <div fxFlex=\"100%\" style=\"margin-right: 5px;\">\n                            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                                <input matInput type=\"number\" placeholder=\"Weight\" [(ngModel)]=\"citizenModel.Weight\">\n                                <span matSuffix>kg</span>\n                            </mat-form-field>\n                        </div>\n                    </div>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"true\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <mat-label>Blood Type</mat-label>\n                        <mat-select [(ngModel)]=\"citizenModel.BloodTypeId\" required>\n                            <mat-option *ngFor=\"let bloodType of listBloodTypeObservableArray\" [value]=\"bloodType.Id\">\n                                {{ bloodType.BloodType }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Agency Employee No.\"\n                            [(ngModel)]=\"citizenModel.AgencyEmployeeNumber\" required>\n                    </mat-form-field>\n                </div>\n            </div>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"GSIS ID No.\" [(ngModel)]=\"citizenModel.GSISNumber\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"PAG IBIG No.\" [(ngModel)]=\"citizenModel.HDMFNumber\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"PHILHEALTH No.\" [(ngModel)]=\"citizenModel.PhilHealthNumber\"\n                            required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"SSS No.\" [(ngModel)]=\"citizenModel.SSSNumber\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"TIN No.\" [(ngModel)]=\"citizenModel.TINNumber\" required>\n                    </mat-form-field>\n                </div>\n            </div>\n            <h5><i>Residential Address</i></h5>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Residential No.\" [(ngModel)]=\"citizenModel.ResidentialNumber\"\n                            required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Residential St.\" [(ngModel)]=\"citizenModel.ResidentialStreet\"\n                            required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"50%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Residential Village\" [(ngModel)]=\"citizenModel.ResidentialVillage\"\n                            required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <mat-label>Residential Barangay</mat-label>\n                        <mat-select [(ngModel)]=\"citizenModel.ResidentialBarangayId\" required>\n                            <mat-option *ngFor=\"let barangay of listBarangayObservableArray\" [value]=\"barangay.Id\">\n                                {{ barangay.Barangay }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                </div>\n            </div>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <mat-label>Residential City</mat-label>\n                        <mat-select [(ngModel)]=\"citizenModel.ResidentialCityId\" required>\n                            <mat-option *ngFor=\"let city of listCityObservableArray\" [value]=\"city.Id\">\n                                {{ city.City }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <mat-label>Residential Province</mat-label>\n                        <mat-select [(ngModel)]=\"citizenModel.ResidentialProvinceId\" required>\n                            <mat-option *ngFor=\"let province of listProvinceObservableArray\" [value]=\"province.Id\">\n                                {{ province.Province }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Residential Zip Code\" [(ngModel)]=\"citizenModel.ResidentialZipCode\"\n                            required>\n                    </mat-form-field>\n                </div>\n            </div>\n            <h5><i>Permanent Address</i></h5>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Permanent No.\" [(ngModel)]=\"citizenModel.PermanentNumber\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Permanent St.\" [(ngModel)]=\"citizenModel.PermanentStreet\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"50%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Permanent Village\" [(ngModel)]=\"citizenModel.PermanentVillage\"\n                            required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <mat-label>Permanent Barangay</mat-label>\n                        <mat-select [(ngModel)]=\"citizenModel.PermanentBarangayId\" required>\n                            <mat-option *ngFor=\"let barangay of listBarangayObservableArray\" [value]=\"barangay.Id\">\n                                {{ barangay.Barangay }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                </div>\n            </div>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <mat-label>Permanent City</mat-label>\n                        <mat-select [(ngModel)]=\"citizenModel.PermanentCityId\" required>\n                            <mat-option *ngFor=\"let city of listCityObservableArray\" [value]=\"city.Id\">\n                                {{ city.City }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <mat-label>Permanent Province</mat-label>\n                        <mat-select [(ngModel)]=\"citizenModel.PermanentProvinceId\" required>\n                            <mat-option *ngFor=\"let province of listProvinceObservableArray\" [value]=\"province.Id\">\n                                {{ province.Province }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Permanent Zip Code\" [(ngModel)]=\"citizenModel.PermanentZipCode\"\n                            required>\n                    </mat-form-field>\n                </div>\n            </div>\n            <h5><i>Contact Information</i></h5>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Telephone No.\" [(ngModel)]=\"citizenModel.TelephoneNumber\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Mobile No.\" [(ngModel)]=\"citizenModel.MobileNumber\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput type=\"email\" placeholder=\"Email Address\" [(ngModel)]=\"citizenModel.EmailAddress\"\n                            required>\n                    </mat-form-field>\n                </div>\n            </div>\n            <h5><i>Status</i></h5>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <mat-label>Citizen Status</mat-label>\n                        <mat-select [(ngModel)]=\"citizenModel.CitizenStatusId\" required>\n                            <mat-option *ngFor=\"let citizenStatus of listCitizenStatusObservableArray\"\n                                [value]=\"citizenStatus.Id\">\n                                {{ citizenStatus.CitizenStatus }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                </div>\n            </div>\n        </mat-tab>\n        <mat-tab label=\"II. FAMILY BACKGROUND\">\n            <h5><i>Employer</i></h5>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <mat-label>Occupation</mat-label>\n                        <mat-select [(ngModel)]=\"citizenModel.OccupationId\" required>\n                            <mat-option *ngFor=\"let occupation of listOccupationObservableArray\"\n                                [value]=\"occupation.Id\">\n                                {{ occupation.Occupation }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Employer Name\" [(ngModel)]=\"citizenModel.EmployerName\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Employer Tel No.\"\n                            [(ngModel)]=\"citizenModel.EmployerTelephoneNumber\" required>\n                    </mat-form-field>\n                </div>\n            </div>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Employer Address\" [(ngModel)]=\"citizenModel.EmployerAddress\"\n                            required>\n                    </mat-form-field>\n                </div>\n            </div>\n            <h5><i>Spouse</i></h5>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Spouse's Surname\" [(ngModel)]=\"citizenModel.SpouseSurname\"\n                            required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Spouse's Firstname\" [(ngModel)]=\"citizenModel.SpouseFirstname\"\n                            required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Spouse's Middle Name\" [(ngModel)]=\"citizenModel.SpouseMiddlename\">\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Spouse's Extension Name (If any)\"\n                            [(ngModel)]=\"citizenModel.SpouseExtensionname\">\n                    </mat-form-field>\n                </div>\n            </div>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <div fxLayout fxLayout.xs=\"column\">\n                        <div fxFlex=\"100%\" style=\"margin-right: 5px;\">\n                            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                                <mat-label>Spouse's Occupation</mat-label>\n                                <mat-select [(ngModel)]=\"citizenModel.SpouseOccupationId\" required>\n                                    <mat-option *ngFor=\"let occupation of listOccupationObservableArray\"\n                                        [value]=\"occupation.Id\">\n                                        {{ occupation.Occupation }}\n                                    </mat-option>\n                                </mat-select>\n                            </mat-form-field>\n                        </div>\n                        <div fxFlex=\"100%\" style=\"margin-right: 5px;\">\n                            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                                <input matInput placeholder=\"Spouse's Employer Name\"\n                                    [(ngModel)]=\"citizenModel.SpouseEmployerName\" required>\n                            </mat-form-field>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Spouse's Employer Address\"\n                            [(ngModel)]=\"citizenModel.SpouseEmployerAddress\" required>\n                    </mat-form-field>\n                </div>\n            </div>\n            <h5><i>Father</i></h5>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Father's Surname\" [(ngModel)]=\"citizenModel.FatherSurname\"\n                            required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Father's Firstname\" [(ngModel)]=\"citizenModel.FatherFirstname\"\n                            required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Father's Middle Name\" [(ngModel)]=\"citizenModel.FatherMiddlename\">\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Father's Extension Name (If any)\"\n                            [(ngModel)]=\"citizenModel.FatherExtensionname\">\n                    </mat-form-field>\n                </div>\n            </div>\n            <h5><i>Mother</i></h5>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Mother's Surname\" [(ngModel)]=\"citizenModel.MotherSurname\"\n                            required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Mother's Firstname\" [(ngModel)]=\"citizenModel.MotherFirstname\"\n                            required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Mother's Middle Name\" [(ngModel)]=\"citizenModel.MotherMiddlename\">\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Mother's Extension Name (If any)\"\n                            [(ngModel)]=\"citizenModel.MotherExtensionname\">\n                    </mat-form-field>\n                </div>\n            </div>\n            <mat-divider></mat-divider>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"padding-top: 3px;\">\n                    <h5><i>Citizen's Children</i></h5>\n                </div>\n                <div fxFlex=\"100%\" style=\"padding-top: 15px; padding-bottom: 15px;\" align=\"right\">\n                    <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\"\n                        (click)=\"btnAddCitizensChildren()\">\n                        <fa-icon icon=\"plus\" fixedWidth=\"true\"></fa-icon> Add\n                    </button>\n                </div>\n            </div>\n            <mat-divider></mat-divider>\n            <div fxLayout fxLayout.xs=\"column\" style=\"padding-top: 15px; padding-bottom: 15px;\">\n                <div fxFlex=\"100%\">\n                    <wj-flex-grid #listCitizenFlexGrid [itemsSource]=\"listCitizensChildrenCollectionView\"\n                        [selectionMode]=\"3\" [frozenColumns]=\"2\">\n                        <wj-flex-grid-filter></wj-flex-grid-filter>\n                        <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"75\">\n                            <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                                <button mat-flat-button color=\"primary\"\n                                    style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                    (click)=\"btnEditCitizensChildren()\">\n                                    <fa-icon icon=\"edit\" fixedWidth=\"true\"></fa-icon> Edit\n                                </button>\n                            </ng-template>\n                        </wj-flex-grid-column>\n                        <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"85\">\n                            <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                                <button mat-flat-button color=\"warn\"\n                                    style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                    (click)=\"btnDeleteCitizensChildren()\">\n                                    <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Delete\n                                </button>\n                            </ng-template>\n                        </wj-flex-grid-column>\n                        <wj-flex-grid-column [header]=\"'Full Name'\" [binding]=\"'Fullname'\" [isReadOnly]=\"true\"\n                            [width]=\"'*'\">\n                        </wj-flex-grid-column>\n                        <wj-flex-grid-column [header]=\"'Birth Date'\" [binding]=\"'DateOfBirth'\" [isReadOnly]=\"true\"\n                            [width]=\"150\">\n                        </wj-flex-grid-column>\n                    </wj-flex-grid>\n                </div>\n            </div>\n            <mat-divider></mat-divider>\n            <div style=\"padding-top: 15px; padding-bottom: 15px;\">\n                <button mat-stroked-button (click)=\"listCitizensChildrenCollectionView.moveToFirstPage()\">\n                    <fa-icon icon=\"fast-backward\" fixedWidth=\"true\"></fa-icon>\n                </button>\n                <button mat-stroked-button (click)=\"listCitizensChildrenCollectionView.moveToPreviousPage()\">\n                    <fa-icon icon=\"step-backward\" fixedWidth=\"true\"></fa-icon>\n                </button>\n                <button mat-button disabled>\n                    {{ listCitizensChildrenCollectionView.pageIndex + 1 }} /\n                    {{ listCitizensChildrenCollectionView.pageCount }}\n                </button>\n                <button mat-stroked-button (click)=\"listCitizensChildrenCollectionView.moveToNextPage()\">\n                    <fa-icon icon=\"step-forward\" fixedWidth=\"true\"></fa-icon>\n                </button>\n                <button mat-stroked-button (click)=\"listCitizensChildrenCollectionView.moveToLastPage()\">\n                    <fa-icon icon=\"fast-forward\" fixedWidth=\"true\"></fa-icon>\n                </button>\n            </div>\n        </mat-tab>\n        <mat-tab label=\"III. EDUCATIONAL BACKGROUND\">\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"padding-top: 3px;\">\n                    <h5><i>Citizen's Educational Background</i></h5>\n                </div>\n                <div fxFlex=\"100%\" style=\"padding-top: 15px; padding-bottom: 15px;\" align=\"right\">\n                    <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\"\n                        (click)=\"btnAddCitizensEducation()\">\n                        <fa-icon icon=\"plus\" fixedWidth=\"true\"></fa-icon> Add\n                    </button>\n                </div>\n            </div>\n            <mat-divider></mat-divider>\n            <div fxLayout fxLayout.xs=\"column\" style=\"padding-top: 15px; padding-bottom: 15px;\">\n                <div fxFlex=\"100%\">\n                    <wj-flex-grid #listCitizenFlexGrid [itemsSource]=\"listCitizensEducationCollectionView\"\n                        [selectionMode]=\"3\" [frozenColumns]=\"2\">\n                        <wj-flex-grid-filter></wj-flex-grid-filter>\n                        <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"75\">\n                            <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                                <button mat-flat-button color=\"primary\"\n                                    style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                    (click)=\"btnEditCitizensEducation()\">\n                                    <fa-icon icon=\"edit\" fixedWidth=\"true\"></fa-icon> Edit\n                                </button>\n                            </ng-template>\n                        </wj-flex-grid-column>\n                        <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"85\">\n                            <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                                <button mat-flat-button color=\"warn\"\n                                    style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                    (click)=\"btnDeleteCitizensEducation()\">\n                                    <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Delete\n                                </button>\n                            </ng-template>\n                        </wj-flex-grid-column>\n                        <wj-flex-grid-column [header]=\"'Level'\" [binding]=\"'EducationLevel'\" [isReadOnly]=\"true\"\n                            [width]=\"100\">\n                        </wj-flex-grid-column>\n                        <wj-flex-grid-column [header]=\"'School'\" [binding]=\"'NameOfSchool'\" [isReadOnly]=\"true\"\n                            [width]=\"250\">\n                        </wj-flex-grid-column>\n                        <wj-flex-grid-column [header]=\"'Degree'\" [binding]=\"'Degree'\" [isReadOnly]=\"true\" [width]=\"250\">\n                        </wj-flex-grid-column>\n                        <wj-flex-grid-column [header]=\"'Period From'\" [binding]=\"'PeriodFrom'\" [isReadOnly]=\"true\"\n                            [width]=\"150\">\n                        </wj-flex-grid-column>\n                        <wj-flex-grid-column [header]=\"'Period To'\" [binding]=\"'PeriodTo'\" [isReadOnly]=\"true\"\n                            [width]=\"150\">\n                        </wj-flex-grid-column>\n                        <wj-flex-grid-column [header]=\"'Units Earned'\" [binding]=\"'UnitsEarned'\" [isReadOnly]=\"true\"\n                            [width]=\"150\">\n                        </wj-flex-grid-column>\n                        <wj-flex-grid-column [header]=\"'Year Graduated'\" [binding]=\"'YearGraduated'\" [isReadOnly]=\"true\"\n                            [width]=\"170\">\n                        </wj-flex-grid-column>\n                    </wj-flex-grid>\n                </div>\n            </div>\n            <mat-divider></mat-divider>\n            <div style=\"padding-top: 15px; padding-bottom: 15px;\">\n                <button mat-stroked-button (click)=\"listCitizensEducationCollectionView.moveToFirstPage()\">\n                    <fa-icon icon=\"fast-backward\" fixedWidth=\"true\"></fa-icon>\n                </button>\n                <button mat-stroked-button (click)=\"listCitizensEducationCollectionView.moveToPreviousPage()\">\n                    <fa-icon icon=\"step-backward\" fixedWidth=\"true\"></fa-icon>\n                </button>\n                <button mat-button disabled>\n                    {{ listCitizensEducationCollectionView.pageIndex + 1 }} /\n                    {{ listCitizensEducationCollectionView.pageCount }}\n                </button>\n                <button mat-stroked-button (click)=\"listCitizensEducationCollectionView.moveToNextPage()\">\n                    <fa-icon icon=\"step-forward\" fixedWidth=\"true\"></fa-icon>\n                </button>\n                <button mat-stroked-button (click)=\"listCitizensEducationCollectionView.moveToLastPage()\">\n                    <fa-icon icon=\"fast-forward\" fixedWidth=\"true\"></fa-icon>\n                </button>\n            </div>\n        </mat-tab>\n    </mat-tab-group>\n</div>\n<mat-divider></mat-divider>\n<div mat-dialog-actions align=\"right\">\n    <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnSaveCitizen()\" id=\"btnSaveCitizen\">\n        <fa-icon icon=\"save\" fixedWidth=\"true\"></fa-icon> Save\n    </button>\n    <button mat-flat-button color=\"warn\" (click)=\"btnCloseDetaileDialog()\" id=\"btnCloseCitizen\">\n        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Cancel\n    </button>\n</div>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/software/citizen/citizen-detail-dialog/citizen-education-delete-dialog/citizen-education-delete-dialog.component.html":
+/*!*****************************************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/software/citizen/citizen-detail-dialog/citizen-education-delete-dialog/citizen-education-delete-dialog.component.html ***!
+  \*****************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h1 mat-dialog-title>\n    Delete Education\n</h1>\n<mat-divider></mat-divider>\n<div mat-dialog-content>\n    <p>Are you sure you want to delete this education?</p>\n</div>\n<mat-divider></mat-divider>\n<div mat-dialog-actions align=\"right\">\n    <button mat-flat-button color=\"warn\" style=\"margin-right: 5px;\" (click)=\"btnDeleteEducation()\" id=\"btnDeleteEducation\">\n        <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Yes\n    </button>\n    <button mat-flat-button (click)=\"btnCloseDeleteDialog()\" id=\"btnCloseDeleteDialog\">\n        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> No\n    </button>\n</div>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/software/citizen/citizen-detail-dialog/citizen-education-detail-dialog/citizen-education-detail-dialog.component.html":
+/*!*****************************************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/software/citizen/citizen-detail-dialog/citizen-education-detail-dialog/citizen-education-detail-dialog.component.html ***!
+  \*****************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h1 mat-dialog-title>\n    {{ dialogTitle }}\n</h1>\n<mat-divider></mat-divider>\n<div mat-dialog-content>\n    <br />\n    <div fxLayout fxLayout.xs=\"column\">\n        <div fxFlex=\"100%\">\n            <mat-form-field [hideRequiredMarker]=\"true\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                <mat-label>Level</mat-label>\n                <mat-select [(ngModel)]=\"citizensEducationModel.EducationLevelId\" required>\n                    <mat-option *ngFor=\"let educationLevel of listEducationLevelObservableArray\"\n                        [value]=\"educationLevel.Id\">\n                        {{ educationLevel.EducationLevel }}\n                    </mat-option>\n                </mat-select>\n            </mat-form-field>\n        </div>\n    </div>\n    <div fxLayout fxLayout.xs=\"column\">\n        <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n            <input matInput placeholder=\"Name of School\" [(ngModel)]=\"citizensEducationModel.NameOfSchool\" required>\n        </mat-form-field>\n    </div>\n    <div fxLayout fxLayout.xs=\"column\">\n        <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n            <input matInput placeholder=\"Degree\" [(ngModel)]=\"citizensEducationModel.Degree\" required>\n        </mat-form-field>\n    </div>\n    <div fxLayout fxLayout.xs=\"column\">\n        <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n            <input matInput [matDatepicker]=\"periodFromPicker\" placeholder=\"Period From\"\n                [(ngModel)]=\"citizensEducationModel.PeriodFrom\">\n            <mat-datepicker-toggle matSuffix [for]=\"periodFromPicker\"></mat-datepicker-toggle>\n            <mat-datepicker #periodFromPicker></mat-datepicker>\n        </mat-form-field>\n    </div>\n    <div fxLayout fxLayout.xs=\"column\">\n        <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n            <input matInput [matDatepicker]=\"periodToPicker\" placeholder=\"Period To\"\n                [(ngModel)]=\"citizensEducationModel.PeriodTo\">\n            <mat-datepicker-toggle matSuffix [for]=\"periodToPicker\"></mat-datepicker-toggle>\n            <mat-datepicker #periodToPicker></mat-datepicker>\n        </mat-form-field>\n    </div>\n    <div fxLayout fxLayout.xs=\"column\">\n        <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n            <input matInput type=\"number\" placeholder=\"Units Earned\" [(ngModel)]=\"citizensEducationModel.UnitsEarned\">\n        </mat-form-field>\n    </div>\n    <div fxLayout fxLayout.xs=\"column\">\n        <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n            <input matInput type=\"number\" placeholder=\"Year Graduated\" [(ngModel)]=\"citizensEducationModel.YearGraduated\">\n        </mat-form-field>\n    </div>\n</div>\n<mat-divider></mat-divider>\n<div mat-dialog-actions align=\"right\">\n    <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnSaveCitizensEducation()\"\n        id=\"btnSaveCitizensEducation\">\n        <fa-icon icon=\"save\" fixedWidth=\"true\"></fa-icon> Save\n    </button>\n    <button mat-flat-button color=\"warn\" (click)=\"btnCloseCitizensEducationDialog()\"\n        id=\"btnCloseCitizensEducationDialog\">\n        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Cancel\n    </button>\n</div>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/software/citizen/citizen-search-dialog/citizen-search-dialog.component.html":
+/*!***********************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/software/citizen/citizen-search-dialog/citizen-search-dialog.component.html ***!
+  \***********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h1 mat-dialog-title>\n    Search Citizen\n</h1>\n<mat-divider></mat-divider>\n<div mat-dialog-content>\n    <br />\n    <div fxLayout fxLayout.xs=\"column\">\n        <div fxFlex=\"100%\" style=\"margin: 5px;\">\n            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                <input maxlength=\"50\" #inputSearch matInput [(ngModel)]=\"searchKeyword\" placeholder=\"Keyword\" required>\n                <mat-hint align=\"end\">{{ inputSearch.value?.length || 0 }}/50</mat-hint>\n            </mat-form-field>\n        </div>\n    </div>\n</div>\n<mat-divider></mat-divider>\n<div mat-dialog-actions align=\"right\">\n    <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnSearchCitizen()\"\n        id=\"btnSearchCitizen\">\n        <fa-icon icon=\"search\" fixedWidth=\"true\"></fa-icon> Search\n    </button>\n    <button mat-flat-button color=\"warn\" (click)=\"btnCloseSearchDialog()\" id=\"btnCloseSearchCitizen\">\n        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Close\n    </button>\n</div>"
 
 /***/ }),
 
@@ -13353,7 +14034,7 @@ module.exports = "<h1 mat-dialog-title>\n    {{ dialogTitle }}\n</h1>\n<mat-divi
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"software-header\">\n    <h2>\n        <fa-icon icon=\"user\" fixedWidth=\"true\"></fa-icon> CITIZENS\n    </h2>\n</div>\n<div class=\"software-body\" align=\"right\">\n    <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnAddCitizen()\">\n        <fa-icon icon=\"plus\" fixedWidth=\"true\"></fa-icon> Add\n    </button>\n    <button mat-flat-button color=\"warn\" routerLink=\"/software\">\n        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Close\n    </button>\n</div>\n<mat-divider></mat-divider>\n<div class=\"software-body\">\n    <wj-flex-grid #listCitizenFlexGrid [itemsSource]=\"listCitizenCollectionView\" [selectionMode]=\"3\"\n        [frozenColumns]=\"2\">\n        <wj-flex-grid-filter></wj-flex-grid-filter>\n        <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"75\">\n            <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                <button mat-flat-button color=\"primary\"\n                    style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\" (click)=\"btnEditCitizen()\">\n                    <fa-icon icon=\"edit\" fixedWidth=\"true\"></fa-icon> Edit\n                </button>\n            </ng-template>\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"85\">\n            <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                <button mat-flat-button color=\"warn\"\n                    style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\" (click)=\"btnDeleteCitizen()\">\n                    <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Delete\n                </button>\n            </ng-template>\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Name'\" [binding]=\"'FullName'\" [isReadOnly]=\"true\" [width]=\"300\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Birth Date'\" [binding]=\"'DateOfBirth'\" [isReadOnly]=\"true\" [width]=\"150\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Birth Palce'\" [binding]=\"'PlaceOfBirth'\" [isReadOnly]=\"true\" [width]=\"200\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Gender'\" [binding]=\"'Sex'\" [isReadOnly]=\"true\" [width]=\"150\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Civil Status'\" [binding]=\"'CivilStatus'\" [isReadOnly]=\"true\" [width]=\"150\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Citizenship'\" [binding]=\"'Citizenship'\" [isReadOnly]=\"true\" [width]=\"200\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Mobile No.'\" [binding]=\"'MobileNumber'\" [isReadOnly]=\"true\" [width]=\"150\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Status'\" [binding]=\"'CitizenStatus'\" [isReadOnly]=\"true\" [width]=\"150\">\n        </wj-flex-grid-column>\n    </wj-flex-grid>\n</div>\n<mat-divider></mat-divider>\n<div class=\"software-body\">\n    <button mat-stroked-button (click)=\"listCitizenCollectionView.moveToFirstPage()\">\n        <fa-icon icon=\"fast-backward\" fixedWidth=\"true\"></fa-icon>\n    </button>\n    <button mat-stroked-button (click)=\"listCitizenCollectionView.moveToPreviousPage()\">\n        <fa-icon icon=\"step-backward\" fixedWidth=\"true\"></fa-icon>\n    </button>\n    <button mat-button disabled>\n        {{ listCitizenCollectionView.pageIndex + 1 }} / {{ listCitizenCollectionView.pageCount }}\n    </button>\n    <button mat-stroked-button (click)=\"listCitizenCollectionView.moveToNextPage()\">\n        <fa-icon icon=\"step-forward\" fixedWidth=\"true\"></fa-icon>\n    </button>\n    <button mat-stroked-button (click)=\"listCitizenCollectionView.moveToLastPage()\">\n        <fa-icon icon=\"fast-forward\" fixedWidth=\"true\"></fa-icon>\n    </button>\n</div>\n<mat-divider></mat-divider>\n<div class=\"software-body\">\n\n</div>"
+module.exports = "<div class=\"software-header\">\n    <h2>\n        <fa-icon icon=\"user\" fixedWidth=\"true\"></fa-icon> CITIZENS\n    </h2>\n</div>\n<div class=\"software-body\">\n    <div fxLayout fxLayout.xs=\"column\">\n        <div fxFlex=\"100%\" style=\"padding-top: 2px;\">\n            <div *ngIf=\"isFilterShow\">\n                <mat-chip-list aria-label=\"\">\n                    <mat-chip>\n                        \"{{ filterString }}\"\n                    </mat-chip>\n                    <button mat-button color=\"warn\" (click)=\"btnClearFilter()\">\n                        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Clear\n                    </button>\n                </mat-chip-list>\n            </div>\n        </div>\n        <div fxFlex=\"100%\" align=\"right\">\n            <button mat-stroked-button color=\"\" style=\"margin-right: 5px;\" (click)=\"btnSearchCitizen()\">\n                <fa-icon icon=\"search\" fixedWidth=\"true\"></fa-icon> Search\n            </button>\n            <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnAddCitizen()\">\n                <fa-icon icon=\"plus\" fixedWidth=\"true\"></fa-icon> Add\n            </button>\n            <button mat-flat-button color=\"warn\" routerLink=\"/software\">\n                <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Close\n            </button>\n        </div>\n    </div>\n</div>\n<mat-divider></mat-divider>\n<div class=\"software-body\">\n    <wj-flex-grid #listCitizenFlexGrid [itemsSource]=\"listCitizenCollectionView\" [selectionMode]=\"3\"\n        [frozenColumns]=\"2\">\n        <wj-flex-grid-filter></wj-flex-grid-filter>\n        <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"75\">\n            <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                <button mat-flat-button color=\"primary\"\n                    style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\" (click)=\"btnEditCitizen()\">\n                    <fa-icon icon=\"edit\" fixedWidth=\"true\"></fa-icon> Edit\n                </button>\n            </ng-template>\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"85\">\n            <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                <button mat-flat-button color=\"warn\"\n                    style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\" (click)=\"btnDeleteCitizen()\">\n                    <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Delete\n                </button>\n            </ng-template>\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Name'\" [binding]=\"'FullName'\" [isReadOnly]=\"true\" [width]=\"300\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Birth Date'\" [binding]=\"'DateOfBirth'\" [isReadOnly]=\"true\" [width]=\"150\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Birth Palce'\" [binding]=\"'PlaceOfBirth'\" [isReadOnly]=\"true\" [width]=\"200\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Gender'\" [binding]=\"'Sex'\" [isReadOnly]=\"true\" [width]=\"150\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Civil Status'\" [binding]=\"'CivilStatus'\" [isReadOnly]=\"true\" [width]=\"150\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Citizenship'\" [binding]=\"'Citizenship'\" [isReadOnly]=\"true\" [width]=\"200\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Mobile No.'\" [binding]=\"'MobileNumber'\" [isReadOnly]=\"true\" [width]=\"150\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Status'\" [binding]=\"'CitizenStatus'\" [isReadOnly]=\"true\" [width]=\"150\">\n        </wj-flex-grid-column>\n    </wj-flex-grid>\n</div>\n<mat-divider></mat-divider>\n<div class=\"software-body\">\n    <button mat-stroked-button (click)=\"listCitizenCollectionView.moveToFirstPage()\">\n        <fa-icon icon=\"fast-backward\" fixedWidth=\"true\"></fa-icon>\n    </button>\n    <button mat-stroked-button (click)=\"listCitizenCollectionView.moveToPreviousPage()\">\n        <fa-icon icon=\"step-backward\" fixedWidth=\"true\"></fa-icon>\n    </button>\n    <button mat-button disabled>\n        {{ listCitizenCollectionView.pageIndex + 1 }} / {{ listCitizenCollectionView.pageCount }}\n    </button>\n    <button mat-stroked-button (click)=\"listCitizenCollectionView.moveToNextPage()\">\n        <fa-icon icon=\"step-forward\" fixedWidth=\"true\"></fa-icon>\n    </button>\n    <button mat-stroked-button (click)=\"listCitizenCollectionView.moveToLastPage()\">\n        <fa-icon icon=\"fast-forward\" fixedWidth=\"true\"></fa-icon>\n    </button>\n</div>\n<mat-divider></mat-divider>\n<div class=\"software-body\">\n\n</div>"
 
 /***/ }),
 
@@ -13364,7 +14045,7 @@ module.exports = "<div class=\"software-header\">\n    <h2>\n        <fa-icon ic
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"software-header\">\n    <h2>\n        <fa-icon icon=\"tachometer-alt\" fixedWidth=\"true\"></fa-icon> DASHBOARD\n    </h2>\n</div>\n\n<div class=\"software-body\">\n    <div fxLayout fxLayout.xs=\"column\">\n        <div fxFlex=\"100%\" style=\"margin: 5px;\">\n            <button mat-stroked-button style=\"width: 100%; height: 250px;\" routerLink=\"/software/citizen\">\n                <h2>\n                    <fa-icon icon=\"user\" fixedWidth=\"true\" size=\"5x\"></fa-icon>\n                    <br /><br />\n                    CITIZENS\n                </h2>\n            </button>\n        </div>\n        <div fxFlex=\"100%\" style=\"margin: 5px;\">\n            <button mat-stroked-button style=\"width: 100%; height: 250px;\" routerLink=\"/software/user\">\n                <h2>\n                    <fa-icon icon=\"key\" fixedWidth=\"true\" size=\"5x\"></fa-icon>\n                    <br /><br />\n                    USERS\n                </h2>\n            </button>\n        </div>\n        <div fxFlex=\"100%\" style=\"margin: 5px;\">\n            <button mat-stroked-button style=\"width: 100%; height: 250px;\">\n                <h2>\n                    <fa-icon icon=\"table\" fixedWidth=\"true\" size=\"5x\"></fa-icon>\n                    <br /><br />\n                    SYSTEM TABLES\n                </h2>\n            </button>\n        </div>\n    </div>\n</div>"
+module.exports = "<div class=\"software-header\">\n    <h2>\n        <fa-icon icon=\"tachometer-alt\" fixedWidth=\"true\"></fa-icon> DASHBOARD\n    </h2>\n</div>\n\n<div class=\"software-body\">\n    <div fxLayout fxLayout.xs=\"column\">\n        <div fxFlex=\"100%\" style=\"margin: 5px;\">\n            <button mat-stroked-button style=\"width: 100%; height: 250px;\" routerLink=\"/software/citizen\">\n                <h2>\n                    <fa-icon icon=\"user\" fixedWidth=\"true\" size=\"5x\"></fa-icon>\n                    <br /><br />\n                    CITIZENS\n                </h2>\n            </button>\n        </div>\n        <div fxFlex=\"100%\" style=\"margin: 5px;\">\n            <button mat-stroked-button style=\"width: 100%; height: 250px;\" routerLink=\"/software/user\">\n                <h2>\n                    <fa-icon icon=\"key\" fixedWidth=\"true\" size=\"5x\"></fa-icon>\n                    <br /><br />\n                    USERS\n                </h2>\n            </button>\n        </div>\n        <div fxFlex=\"100%\" style=\"margin: 5px;\">\n            <button mat-stroked-button style=\"width: 100%; height: 250px;\" routerLink=\"/software/system-tables\">\n                <h2>\n                    <fa-icon icon=\"table\" fixedWidth=\"true\" size=\"5x\"></fa-icon>\n                    <br /><br />\n                    SYSTEM TABLES\n                </h2>\n            </button>\n        </div>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -13375,7 +14056,18 @@ module.exports = "<div class=\"software-header\">\n    <h2>\n        <fa-icon ic
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"landing-navigation-bar\">\n    <mat-toolbar class=\"landing-navigation-toolbar\">\n        <span>Ayuda Card</span>\n        &nbsp;&nbsp;&nbsp;\n\n        <button mat-stroked-button (click)=\"sidenav.toggle()\">\n            <fa-icon icon=\"bars\" fixedWidth=\"true\"></fa-icon>\n        </button>\n\n        <span class=\"landing-header-spacer\"></span>\n\n        <mat-action-list class=\"landing-navigation-action-list\">\n            <a mat-list-item fxFlex style=\"text-decoration: none;\"> Logout </a>\n        </mat-action-list>\n    </mat-toolbar>\n\n    <mat-sidenav-container>\n        <mat-sidenav #sidenav class=\"landing-navigation-sidenav\">\n            <br /><br /><br /><br />\n            <mat-action-list>\n                <br />\n                <mat-divider></mat-divider>\n                <a mat-list-item style=\"text-decoration: none;\" routerLink=\".\">\n                    <fa-icon icon=\"tachometer-alt\" fixedWidth=\"true\"></fa-icon> &nbsp;&nbsp; Dashboard\n                </a>\n                <mat-divider></mat-divider>\n                <a mat-list-item style=\"text-decoration: none;\" routerLink=\"/software/citizen\">\n                    <fa-icon icon=\"user\" fixedWidth=\"true\"></fa-icon> &nbsp;&nbsp; Citizens\n                </a>\n                <mat-divider></mat-divider>\n                <a mat-list-item style=\"text-decoration: none;\" routerLink=\"/software/user\">\n                    <fa-icon icon=\"key\" fixedWidth=\"true\"></fa-icon> &nbsp;&nbsp; Users\n                </a>\n                <mat-divider></mat-divider>\n                <a mat-list-item style=\"text-decoration: none;\" routerLink=\".\">\n                    <fa-icon icon=\"table\" fixedWidth=\"true\"></fa-icon> &nbsp;&nbsp; System Tables\n                </a>\n                <mat-divider></mat-divider>\n                <a mat-list-item style=\"text-decoration: none;\" routerLink=\".\">\n                    <fa-icon icon=\"sign-out-alt\" fixedWidth=\"true\"></fa-icon> &nbsp;&nbsp; Logout\n                </a>\n                <mat-divider></mat-divider>\n            </mat-action-list>\n        </mat-sidenav>\n\n        <div class=\"landing-sidenav-container\">\n            <router-outlet></router-outlet>\n        </div>\n    </mat-sidenav-container>\n</div>"
+module.exports = "<div class=\"landing-navigation-bar\">\n    <mat-toolbar class=\"landing-navigation-toolbar\">\n        <span>Ayuda Card</span>\n        &nbsp;&nbsp;&nbsp;\n\n        <button mat-stroked-button (click)=\"sidenav.toggle()\">\n            <fa-icon icon=\"bars\" fixedWidth=\"true\"></fa-icon>\n        </button>\n\n        <span class=\"landing-header-spacer\"></span>\n\n        <mat-action-list class=\"landing-navigation-action-list\">\n            <a mat-list-item fxFlex style=\"text-decoration: none;\"> Logout </a>\n        </mat-action-list>\n    </mat-toolbar>\n\n    <mat-sidenav-container>\n        <mat-sidenav #sidenav class=\"landing-navigation-sidenav\">\n            <br /><br /><br /><br />\n            <mat-action-list>\n                <br />\n                <mat-divider></mat-divider>\n                <a mat-list-item style=\"text-decoration: none;\" routerLink=\".\">\n                    <fa-icon icon=\"tachometer-alt\" fixedWidth=\"true\"></fa-icon> &nbsp;&nbsp; Dashboard\n                </a>\n                <mat-divider></mat-divider>\n                <a mat-list-item style=\"text-decoration: none;\" routerLink=\"/software/citizen\">\n                    <fa-icon icon=\"user\" fixedWidth=\"true\"></fa-icon> &nbsp;&nbsp; Citizens\n                </a>\n                <mat-divider></mat-divider>\n                <a mat-list-item style=\"text-decoration: none;\" routerLink=\"/software/user\">\n                    <fa-icon icon=\"key\" fixedWidth=\"true\"></fa-icon> &nbsp;&nbsp; Users\n                </a>\n                <mat-divider></mat-divider>\n                <a mat-list-item style=\"text-decoration: none;\" routerLink=\"/software/system-tables\">\n                    <fa-icon icon=\"table\" fixedWidth=\"true\"></fa-icon> &nbsp;&nbsp; System Tables\n                </a>\n                <mat-divider></mat-divider>\n                <a mat-list-item style=\"text-decoration: none;\" routerLink=\".\">\n                    <fa-icon icon=\"sign-out-alt\" fixedWidth=\"true\"></fa-icon> &nbsp;&nbsp; Logout\n                </a>\n                <mat-divider></mat-divider>\n            </mat-action-list>\n        </mat-sidenav>\n\n        <div class=\"landing-sidenav-container\">\n            <router-outlet></router-outlet>\n        </div>\n    </mat-sidenav-container>\n</div>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/software/system-tables/system-tables.component.html":
+/*!***********************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/software/system-tables/system-tables.component.html ***!
+  \***********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"software-header\">\n    <h2>\n        <fa-icon icon=\"key\" fixedWidth=\"true\"></fa-icon> SYSTEM TABLES\n    </h2>\n</div>\n\n<div class=\"software-body\">\n    <mat-tab-group>\n        <mat-tab label=\"CITIZENSHIP\">\n        </mat-tab>\n        <mat-tab label=\"CITIZENSHIP TYPE\">\n        </mat-tab>\n        <mat-tab label=\"GENDER\">\n        </mat-tab>\n        <mat-tab label=\"CIVIL STATUS\">\n        </mat-tab>\n        <mat-tab label=\"EDUCATION LEVEL\">\n        </mat-tab>\n        <mat-tab label=\"OCCUPATION\">\n        </mat-tab>\n        <mat-tab label=\"BLOOD TYPE\">\n        </mat-tab>\n        <mat-tab label=\"CITIZEN STATUS\">\n        </mat-tab>\n        <mat-tab label=\"COUNTRY\">\n        </mat-tab>\n        <mat-tab label=\"REGION\">\n        </mat-tab>\n        <mat-tab label=\"PROVINCE\">\n        </mat-tab>\n        <mat-tab label=\"CITY\">\n        </mat-tab>\n        <mat-tab label=\"BARANGAY\">\n        </mat-tab>\n    </mat-tab-group>\n</div>"
 
 /***/ }),
 
@@ -13386,7 +14078,7 @@ module.exports = "<div class=\"landing-navigation-bar\">\n    <mat-toolbar class
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>user works!</p>\n"
+module.exports = "<div class=\"software-header\">\n    <h2>\n        <fa-icon icon=\"key\" fixedWidth=\"true\"></fa-icon> USERS\n    </h2>\n</div>"
 
 /***/ }),
 
@@ -13651,6 +14343,8 @@ var CitizenDeleteDialogComponent = /** @class */ (function () {
     };
     CitizenDeleteDialogComponent.prototype.btnCloseDeleteDialog = function () {
         this.citizenDeleteDialogRef.close();
+        if (this.deleteCitizenSubscription != null)
+            this.deleteCitizenSubscription.unsubscribe();
     };
     CitizenDeleteDialogComponent.prototype.ngOnInit = function () {
     };
@@ -13673,6 +14367,294 @@ var CitizenDeleteDialogComponent = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"]))
     ], CitizenDeleteDialogComponent);
     return CitizenDeleteDialogComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/citizen/citizen-detail-dialog/citizen-camera-dialog/citizen-camera-dialog.component.css":
+/*!******************************************************************************************************************!*\
+  !*** ./src/app/software/citizen/citizen-detail-dialog/citizen-camera-dialog/citizen-camera-dialog.component.css ***!
+  \******************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL2NpdGl6ZW4vY2l0aXplbi1kZXRhaWwtZGlhbG9nL2NpdGl6ZW4tY2FtZXJhLWRpYWxvZy9jaXRpemVuLWNhbWVyYS1kaWFsb2cuY29tcG9uZW50LmNzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/software/citizen/citizen-detail-dialog/citizen-camera-dialog/citizen-camera-dialog.component.ts":
+/*!*****************************************************************************************************************!*\
+  !*** ./src/app/software/citizen/citizen-detail-dialog/citizen-camera-dialog/citizen-camera-dialog.component.ts ***!
+  \*****************************************************************************************************************/
+/*! exports provided: CitizenCameraDialogComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CitizenCameraDialogComponent", function() { return CitizenCameraDialogComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm5/dialog.es5.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+
+
+
+
+var CitizenCameraDialogComponent = /** @class */ (function () {
+    function CitizenCameraDialogComponent(cameraDialogRef) {
+        this.cameraDialogRef = cameraDialogRef;
+        this.pictureTaken = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+        this.trigger = new rxjs__WEBPACK_IMPORTED_MODULE_3__["Subject"]();
+    }
+    CitizenCameraDialogComponent.prototype.btnCapturePhoto = function () {
+        this.trigger.next();
+    };
+    CitizenCameraDialogComponent.prototype.handleImage = function (webcamImage) {
+        this.pictureTaken.emit(webcamImage);
+        this.cameraDialogRef.close(webcamImage);
+    };
+    Object.defineProperty(CitizenCameraDialogComponent.prototype, "triggerObservable", {
+        get: function () {
+            return this.trigger.asObservable();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    CitizenCameraDialogComponent.prototype.btnCloseCameraDialog = function () {
+        this.cameraDialogRef.close(null);
+    };
+    CitizenCameraDialogComponent.prototype.ngOnInit = function () {
+    };
+    CitizenCameraDialogComponent.ctorParameters = function () { return [
+        { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"] }
+    ]; };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])()
+    ], CitizenCameraDialogComponent.prototype, "pictureTaken", void 0);
+    CitizenCameraDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-citizen-camera-dialog',
+            template: __webpack_require__(/*! raw-loader!./citizen-camera-dialog.component.html */ "./node_modules/raw-loader/index.js!./src/app/software/citizen/citizen-detail-dialog/citizen-camera-dialog/citizen-camera-dialog.component.html"),
+            styles: [__webpack_require__(/*! ./citizen-camera-dialog.component.css */ "./src/app/software/citizen/citizen-detail-dialog/citizen-camera-dialog/citizen-camera-dialog.component.css")]
+        })
+    ], CitizenCameraDialogComponent);
+    return CitizenCameraDialogComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/citizen/citizen-detail-dialog/citizen-children-delete-dialog/citizen-children-delete-dialog.component.css":
+/*!************************************************************************************************************************************!*\
+  !*** ./src/app/software/citizen/citizen-detail-dialog/citizen-children-delete-dialog/citizen-children-delete-dialog.component.css ***!
+  \************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL2NpdGl6ZW4vY2l0aXplbi1kZXRhaWwtZGlhbG9nL2NpdGl6ZW4tY2hpbGRyZW4tZGVsZXRlLWRpYWxvZy9jaXRpemVuLWNoaWxkcmVuLWRlbGV0ZS1kaWFsb2cuY29tcG9uZW50LmNzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/software/citizen/citizen-detail-dialog/citizen-children-delete-dialog/citizen-children-delete-dialog.component.ts":
+/*!***********************************************************************************************************************************!*\
+  !*** ./src/app/software/citizen/citizen-detail-dialog/citizen-children-delete-dialog/citizen-children-delete-dialog.component.ts ***!
+  \***********************************************************************************************************************************/
+/*! exports provided: CitizenChildrenDeleteDialogComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CitizenChildrenDeleteDialogComponent", function() { return CitizenChildrenDeleteDialogComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm5/dialog.es5.js");
+/* harmony import */ var _citizen_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../citizen.service */ "./src/app/software/citizen/citizen.service.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+
+
+
+
+
+var CitizenChildrenDeleteDialogComponent = /** @class */ (function () {
+    function CitizenChildrenDeleteDialogComponent(citizenService, citizenChildrenDeleteDialogRef, childData, toastr) {
+        this.citizenService = citizenService;
+        this.citizenChildrenDeleteDialogRef = citizenChildrenDeleteDialogRef;
+        this.childData = childData;
+        this.toastr = toastr;
+    }
+    CitizenChildrenDeleteDialogComponent.prototype.btnDeleteChildren = function () {
+        var _this = this;
+        var btnDeleteChildren = document.getElementById("btnDeleteChildren");
+        var btnCloseDeleteDialog = document.getElementById("btnCloseDeleteDialog");
+        btnDeleteChildren.setAttribute("disabled", "disabled");
+        btnCloseDeleteDialog.setAttribute("disabled", "disabled");
+        this.citizenService.deleteCitizensChildren(this.childData.objCitizensChildrenModel.Id);
+        this.deleteCitizensChildrenSubscription = this.citizenService.deleteCitizensChildrenObservable.subscribe(function (data) {
+            if (data[0] == "success") {
+                _this.toastr.success("Child was successfully deleted.", "Success");
+                _this.citizenChildrenDeleteDialogRef.close(200);
+            }
+            else if (data[0] == "failed") {
+                _this.toastr.error(data[1], "Error");
+                btnDeleteChildren.removeAttribute("disabled");
+                btnCloseDeleteDialog.removeAttribute("disabled");
+            }
+            if (_this.deleteCitizensChildrenSubscription != null)
+                _this.deleteCitizensChildrenSubscription.unsubscribe();
+        });
+    };
+    CitizenChildrenDeleteDialogComponent.prototype.btnCloseDeleteDialog = function () {
+        this.citizenChildrenDeleteDialogRef.close();
+        if (this.deleteCitizensChildrenSubscription != null)
+            this.deleteCitizensChildrenSubscription.unsubscribe();
+    };
+    CitizenChildrenDeleteDialogComponent.prototype.ngOnInit = function () {
+    };
+    CitizenChildrenDeleteDialogComponent.prototype.ngOnDestroy = function () {
+        if (this.deleteCitizensChildrenSubscription != null)
+            this.deleteCitizensChildrenSubscription.unsubscribe();
+    };
+    CitizenChildrenDeleteDialogComponent.ctorParameters = function () { return [
+        { type: _citizen_service__WEBPACK_IMPORTED_MODULE_3__["CitizenService"] },
+        { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"] },
+        { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"],] }] },
+        { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_4__["ToastrService"] }
+    ]; };
+    CitizenChildrenDeleteDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-citizen-children-delete-dialog',
+            template: __webpack_require__(/*! raw-loader!./citizen-children-delete-dialog.component.html */ "./node_modules/raw-loader/index.js!./src/app/software/citizen/citizen-detail-dialog/citizen-children-delete-dialog/citizen-children-delete-dialog.component.html"),
+            styles: [__webpack_require__(/*! ./citizen-children-delete-dialog.component.css */ "./src/app/software/citizen/citizen-detail-dialog/citizen-children-delete-dialog/citizen-children-delete-dialog.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"]))
+    ], CitizenChildrenDeleteDialogComponent);
+    return CitizenChildrenDeleteDialogComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/citizen/citizen-detail-dialog/citizen-children-detail-dialog/citizen-children-detail-dialog.component.css":
+/*!************************************************************************************************************************************!*\
+  !*** ./src/app/software/citizen/citizen-detail-dialog/citizen-children-detail-dialog/citizen-children-detail-dialog.component.css ***!
+  \************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL2NpdGl6ZW4vY2l0aXplbi1kZXRhaWwtZGlhbG9nL2NpdGl6ZW4tY2hpbGRyZW4tZGV0YWlsLWRpYWxvZy9jaXRpemVuLWNoaWxkcmVuLWRldGFpbC1kaWFsb2cuY29tcG9uZW50LmNzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/software/citizen/citizen-detail-dialog/citizen-children-detail-dialog/citizen-children-detail-dialog.component.ts":
+/*!***********************************************************************************************************************************!*\
+  !*** ./src/app/software/citizen/citizen-detail-dialog/citizen-children-detail-dialog/citizen-children-detail-dialog.component.ts ***!
+  \***********************************************************************************************************************************/
+/*! exports provided: CitizenChildrenDetailDialogComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CitizenChildrenDetailDialogComponent", function() { return CitizenChildrenDetailDialogComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm5/dialog.es5.js");
+/* harmony import */ var _citizen_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../citizen.service */ "./src/app/software/citizen/citizen.service.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+
+
+
+
+
+var CitizenChildrenDetailDialogComponent = /** @class */ (function () {
+    function CitizenChildrenDetailDialogComponent(citizenService, citizenDetailChildrenDialogRef, citizensChildrenData, toastr) {
+        this.citizenService = citizenService;
+        this.citizenDetailChildrenDialogRef = citizenDetailChildrenDialogRef;
+        this.citizensChildrenData = citizensChildrenData;
+        this.toastr = toastr;
+        this.dialogTitle = "Citizen's Child Detail";
+        this.citizensChildrenModel = {
+            Id: this.citizensChildrenData.objCitizensChildrenModel.Id,
+            CitizenId: this.citizensChildrenData.objCitizensChildrenModel.CitizenId,
+            Fullname: this.citizensChildrenData.objCitizensChildrenModel.Fullname,
+            DateOfBirth: this.citizensChildrenData.objCitizensChildrenModel.DateOfBirth
+        };
+    }
+    CitizenChildrenDetailDialogComponent.prototype.btnSaveCitizensChildren = function () {
+        var _this = this;
+        var btnSaveCitizensChildren = document.getElementById("btnSaveCitizensChildren");
+        var btnCloseCitizensChildrenDialog = document.getElementById("btnCloseCitizensChildrenDialog");
+        btnSaveCitizensChildren.setAttribute("disabled", "disabled");
+        btnCloseCitizensChildrenDialog.setAttribute("disabled", "disabled");
+        this.citizenService.saveCitizensChildren(this.citizensChildrenModel);
+        this.saveCitizensChildrenSubscription = this.citizenService.saveCitizensChildrenObservable.subscribe(function (data) {
+            if (data[0] == "success") {
+                _this.toastr.success("Child was successfully saved.", "Success");
+                _this.citizenDetailChildrenDialogRef.close(200);
+            }
+            else if (data[0] == "failed") {
+                _this.toastr.error(data[1], "Error");
+                btnSaveCitizensChildren.removeAttribute("disabled");
+                btnCloseCitizensChildrenDialog.removeAttribute("disabled");
+            }
+            if (_this.saveCitizensChildrenSubscription != null)
+                _this.saveCitizensChildrenSubscription.unsubscribe();
+        });
+    };
+    CitizenChildrenDetailDialogComponent.prototype.btnCloseCitizensChildrenDialog = function () {
+        this.citizenDetailChildrenDialogRef.close();
+        if (this.saveCitizensChildrenSubscription != null)
+            this.saveCitizensChildrenSubscription.unsubscribe();
+    };
+    CitizenChildrenDetailDialogComponent.prototype.ngOnInit = function () {
+        this.dialogTitle = this.citizensChildrenData.objDialogTitle;
+    };
+    CitizenChildrenDetailDialogComponent.prototype.ngOnDestroy = function () {
+        if (this.saveCitizensChildrenSubscription != null)
+            this.saveCitizensChildrenSubscription.unsubscribe();
+    };
+    CitizenChildrenDetailDialogComponent.ctorParameters = function () { return [
+        { type: _citizen_service__WEBPACK_IMPORTED_MODULE_3__["CitizenService"] },
+        { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"] },
+        { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"],] }] },
+        { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_4__["ToastrService"] }
+    ]; };
+    CitizenChildrenDetailDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-citizen-children-detail-dialog',
+            template: __webpack_require__(/*! raw-loader!./citizen-children-detail-dialog.component.html */ "./node_modules/raw-loader/index.js!./src/app/software/citizen/citizen-detail-dialog/citizen-children-detail-dialog/citizen-children-detail-dialog.component.html"),
+            styles: [__webpack_require__(/*! ./citizen-children-detail-dialog.component.css */ "./src/app/software/citizen/citizen-detail-dialog/citizen-children-detail-dialog/citizen-children-detail-dialog.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"]))
+    ], CitizenChildrenDetailDialogComponent);
+    return CitizenChildrenDetailDialogComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/citizen/citizen-detail-dialog/citizen-children-detail-dialog/citizen-children.model.ts":
+/*!*****************************************************************************************************************!*\
+  !*** ./src/app/software/citizen/citizen-detail-dialog/citizen-children-detail-dialog/citizen-children.model.ts ***!
+  \*****************************************************************************************************************/
+/*! exports provided: CitizensChildrenModel */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CitizensChildrenModel", function() { return CitizensChildrenModel; });
+var CitizensChildrenModel = /** @class */ (function () {
+    function CitizensChildrenModel() {
+        this.Id = 0;
+        this.CitizenId = 0;
+        this.Fullname = "";
+        this.DateOfBirth = new Date();
+    }
+    return CitizensChildrenModel;
 }());
 
 
@@ -13703,10 +14685,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm5/dialog.es5.js");
-/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! wijmo/wijmo */ "./node_modules/wijmo/wijmo.js");
-/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _citizen_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../citizen.service */ "./src/app/software/citizen/citizen.service.ts");
-/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var _citizen_children_detail_dialog_citizen_children_model__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./citizen-children-detail-dialog/citizen-children.model */ "./src/app/software/citizen/citizen-detail-dialog/citizen-children-detail-dialog/citizen-children.model.ts");
+/* harmony import */ var _citizen_education_detail_dialog_citizen_education_model__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./citizen-education-detail-dialog/citizen-education.model */ "./src/app/software/citizen/citizen-detail-dialog/citizen-education-detail-dialog/citizen-education.model.ts");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! wijmo/wijmo */ "./node_modules/wijmo/wijmo.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _citizen_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../citizen.service */ "./src/app/software/citizen/citizen.service.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var _citizen_camera_dialog_citizen_camera_dialog_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./citizen-camera-dialog/citizen-camera-dialog.component */ "./src/app/software/citizen/citizen-detail-dialog/citizen-camera-dialog/citizen-camera-dialog.component.ts");
+/* harmony import */ var _citizen_children_detail_dialog_citizen_children_detail_dialog_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./citizen-children-detail-dialog/citizen-children-detail-dialog.component */ "./src/app/software/citizen/citizen-detail-dialog/citizen-children-detail-dialog/citizen-children-detail-dialog.component.ts");
+/* harmony import */ var _citizen_children_delete_dialog_citizen_children_delete_dialog_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./citizen-children-delete-dialog/citizen-children-delete-dialog.component */ "./src/app/software/citizen/citizen-detail-dialog/citizen-children-delete-dialog/citizen-children-delete-dialog.component.ts");
+/* harmony import */ var _citizen_education_detail_dialog_citizen_education_detail_dialog_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./citizen-education-detail-dialog/citizen-education-detail-dialog.component */ "./src/app/software/citizen/citizen-detail-dialog/citizen-education-detail-dialog/citizen-education-detail-dialog.component.ts");
+/* harmony import */ var _citizen_education_delete_dialog_citizen_education_delete_dialog_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./citizen-education-delete-dialog/citizen-education-delete-dialog.component */ "./src/app/software/citizen/citizen-detail-dialog/citizen-education-delete-dialog/citizen-education-delete-dialog.component.ts");
+
+
+
+
+
+
+
 
 
 
@@ -13714,12 +14710,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var CitizenDetailDialogComponent = /** @class */ (function () {
-    function CitizenDetailDialogComponent(citizenService, citizenDetailDialogRef, citizenData, toastr) {
+    function CitizenDetailDialogComponent(citizenService, citizenDetailDialogRef, citizenData, toastr, citizenCameraDialog, citizenChildrenDetailDialog, citizenChildrenDeleteDialog, citizenEducationDetailDialog, citizenEducationDeleteDialog) {
         this.citizenService = citizenService;
         this.citizenDetailDialogRef = citizenDetailDialogRef;
         this.citizenData = citizenData;
         this.toastr = toastr;
+        this.citizenCameraDialog = citizenCameraDialog;
+        this.citizenChildrenDetailDialog = citizenChildrenDetailDialog;
+        this.citizenChildrenDeleteDialog = citizenChildrenDeleteDialog;
+        this.citizenEducationDetailDialog = citizenEducationDetailDialog;
+        this.citizenEducationDeleteDialog = citizenEducationDeleteDialog;
         this.dialogTitle = "Citizen Detail";
+        this.imageAsDataUrl = "";
         this.citizenModel = {
             Id: this.citizenData.objCitizenModel.Id,
             Surname: this.citizenData.objCitizenModel.Surname,
@@ -13781,17 +14783,26 @@ var CitizenDetailDialogComponent = /** @class */ (function () {
             PictureURL: this.citizenData.objCitizenModel.PictureURL,
             CitizenStatusId: this.citizenData.objCitizenModel.CitizenStatusId
         };
-        this.listSexObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
-        this.listCivilStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
-        this.listBloodTypeObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
-        this.listCitizenshipObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
-        this.listTypeOfCitizenshipObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
-        this.listBarangayObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
-        this.listCityObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
-        this.listProvinceObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
-        this.listRegionObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
-        this.listOccupationObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
-        this.listCitizenStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listSexObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5__["ObservableArray"]();
+        this.listCivilStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5__["ObservableArray"]();
+        this.listBloodTypeObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5__["ObservableArray"]();
+        this.listCitizenshipObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5__["ObservableArray"]();
+        this.listTypeOfCitizenshipObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5__["ObservableArray"]();
+        this.listBarangayObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5__["ObservableArray"]();
+        this.listCityObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5__["ObservableArray"]();
+        this.listProvinceObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5__["ObservableArray"]();
+        this.listRegionObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5__["ObservableArray"]();
+        this.listOccupationObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5__["ObservableArray"]();
+        this.listCitizenStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5__["ObservableArray"]();
+        this.webcamImage = null;
+        this.listCitizensChildrenObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5__["ObservableArray"]();
+        this.listCitizensChildrenCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5__["CollectionView"](this.listCitizensChildrenObservableArray);
+        this.listCitizensChildrenPageIndex = 10;
+        this.citizensChildrenModel = new _citizen_children_detail_dialog_citizen_children_model__WEBPACK_IMPORTED_MODULE_3__["CitizensChildrenModel"]();
+        this.listCitizensEducationObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5__["ObservableArray"]();
+        this.listCitizensEducationCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5__["CollectionView"](this.listCitizensEducationObservableArray);
+        this.listCitizensEducationPageIndex = 10;
+        this.citizensEducationModel = new _citizen_education_detail_dialog_citizen_education_model__WEBPACK_IMPORTED_MODULE_4__["CitizensEducationModel"]();
     }
     CitizenDetailDialogComponent.prototype.listSex = function () {
         var _this = this;
@@ -13890,6 +14901,7 @@ var CitizenDetailDialogComponent = /** @class */ (function () {
             _this.listCitizenStatusObservableArray = data;
             if (_this.listCitizenStatusSubscription != null)
                 _this.listCitizenStatusSubscription.unsubscribe();
+            _this.listCitizensChildrenData(_this.citizenModel.Id);
         });
     };
     CitizenDetailDialogComponent.prototype.btnSaveCitizen = function () {
@@ -13898,7 +14910,6 @@ var CitizenDetailDialogComponent = /** @class */ (function () {
         var btnCloseCitizen = document.getElementById("btnCloseCitizen");
         btnSaveCitizen.setAttribute("disabled", "disabled");
         btnCloseCitizen.setAttribute("disabled", "disabled");
-        console.log(this.citizenModel);
         this.citizenService.saveCitizen(this.citizenModel);
         this.saveCitizenSubscription = this.citizenService.saveCitizenObservable.subscribe(function (data) {
             if (data[0] == "success") {
@@ -13938,6 +14949,181 @@ var CitizenDetailDialogComponent = /** @class */ (function () {
             this.listCitizenStatusSubscription.unsubscribe();
         if (this.saveCitizenSubscription != null)
             this.saveCitizenSubscription.unsubscribe();
+        if (this.listCitizensChildrenSubscription != null)
+            this.listCitizensChildrenSubscription.unsubscribe();
+    };
+    CitizenDetailDialogComponent.prototype.btnOpenCamera = function () {
+        var _this = this;
+        var citizenCameraDialogRef = this.citizenCameraDialog.open(_citizen_camera_dialog_citizen_camera_dialog_component__WEBPACK_IMPORTED_MODULE_8__["CitizenCameraDialogComponent"], {
+            width: '600px',
+            data: {},
+            disableClose: true
+        });
+        citizenCameraDialogRef.afterClosed().subscribe(function (result) {
+            if (result != null) {
+                _this.imageAsDataUrl = result.imageAsDataUrl;
+            }
+        });
+    };
+    CitizenDetailDialogComponent.prototype.btnClearPhoto = function () {
+        this.imageAsDataUrl = "";
+    };
+    CitizenDetailDialogComponent.prototype.handleImage = function (webcamImage) {
+        this.webcamImage = webcamImage;
+    };
+    CitizenDetailDialogComponent.prototype.listCitizensChildrenData = function (citizenId) {
+        var _this = this;
+        this.listCitizensChildrenObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5__["ObservableArray"]();
+        this.listCitizensChildrenCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5__["CollectionView"](this.listCitizensChildrenObservableArray);
+        this.listCitizensChildrenCollectionView.pageSize = 15;
+        this.listCitizensChildrenCollectionView.trackChanges = true;
+        this.listCitizensChildrenCollectionView.refresh();
+        this.citizenService.listCitizensChildren(citizenId);
+        this.listCitizensChildrenSubscription = this.citizenService.listCitizensChildrenObservable.subscribe(function (data) {
+            if (data.length > 0) {
+                _this.listCitizensChildrenObservableArray = data;
+                _this.listCitizensChildrenCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5__["CollectionView"](_this.listCitizensChildrenObservableArray);
+                _this.listCitizensChildrenCollectionView.pageSize = _this.listCitizensChildrenPageIndex;
+                _this.listCitizensChildrenCollectionView.trackChanges = true;
+                _this.listCitizensChildrenCollectionView.refresh();
+            }
+            if (_this.listCitizensChildrenSubscription != null)
+                _this.listCitizensChildrenSubscription.unsubscribe();
+            _this.listCitizensEducationData(_this.citizenModel.Id);
+        });
+    };
+    CitizenDetailDialogComponent.prototype.btnAddCitizensChildren = function () {
+        var _this = this;
+        this.citizensChildrenModel = new _citizen_children_detail_dialog_citizen_children_model__WEBPACK_IMPORTED_MODULE_3__["CitizensChildrenModel"]();
+        this.citizensChildrenModel.CitizenId = this.citizenModel.Id;
+        var citizenChildrenDetailDialogRef = this.citizenChildrenDetailDialog.open(_citizen_children_detail_dialog_citizen_children_detail_dialog_component__WEBPACK_IMPORTED_MODULE_9__["CitizenChildrenDetailDialogComponent"], {
+            width: '500px',
+            data: {
+                objDialogTitle: "Add Child",
+                objCitizensChildrenModel: this.citizensChildrenModel
+            },
+            disableClose: true
+        });
+        citizenChildrenDetailDialogRef.afterClosed().subscribe(function (result) {
+            if (result == 200) {
+                _this.listCitizensChildrenData(_this.citizenModel.Id);
+            }
+        });
+    };
+    CitizenDetailDialogComponent.prototype.btnEditCitizensChildren = function () {
+        var _this = this;
+        var currentCitizensChild = this.listCitizensChildrenCollectionView.currentItem;
+        this.citizensChildrenModel.Id = currentCitizensChild.Id;
+        this.citizensChildrenModel.CitizenId = currentCitizensChild.CitizenId;
+        this.citizensChildrenModel.Fullname = currentCitizensChild.Fullname;
+        this.citizensChildrenModel.DateOfBirth = new Date(currentCitizensChild.DateOfBirth);
+        var citizenChildrenDetailDialogRef = this.citizenChildrenDetailDialog.open(_citizen_children_detail_dialog_citizen_children_detail_dialog_component__WEBPACK_IMPORTED_MODULE_9__["CitizenChildrenDetailDialogComponent"], {
+            width: '500px',
+            data: {
+                objDialogTitle: "Edit Child",
+                objCitizensChildrenModel: this.citizensChildrenModel
+            },
+            disableClose: true
+        });
+        citizenChildrenDetailDialogRef.afterClosed().subscribe(function (result) {
+            if (result == 200) {
+                _this.listCitizensChildrenData(_this.citizenModel.Id);
+            }
+        });
+    };
+    CitizenDetailDialogComponent.prototype.btnDeleteCitizensChildren = function () {
+        var _this = this;
+        var currentCitizensChild = this.listCitizensChildrenCollectionView.currentItem;
+        this.citizensChildrenModel.Id = currentCitizensChild.Id;
+        var citizenChildrenDeleteDialogRef = this.citizenChildrenDeleteDialog.open(_citizen_children_delete_dialog_citizen_children_delete_dialog_component__WEBPACK_IMPORTED_MODULE_10__["CitizenChildrenDeleteDialogComponent"], {
+            width: '300px',
+            data: { objCitizensChildrenModel: this.citizensChildrenModel },
+            disableClose: true
+        });
+        citizenChildrenDeleteDialogRef.afterClosed().subscribe(function (result) {
+            if (result == 200) {
+                _this.listCitizensChildrenData(_this.citizenModel.Id);
+            }
+        });
+    };
+    CitizenDetailDialogComponent.prototype.listCitizensEducationData = function (citizenId) {
+        var _this = this;
+        this.listCitizensEducationObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5__["ObservableArray"]();
+        this.listCitizensEducationCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5__["CollectionView"](this.listCitizensEducationObservableArray);
+        this.listCitizensEducationCollectionView.pageSize = 15;
+        this.listCitizensEducationCollectionView.trackChanges = true;
+        this.listCitizensEducationCollectionView.refresh();
+        this.citizenService.listCitizensEducation(citizenId);
+        this.listCitizensEducationSubscription = this.citizenService.listCitizensEducationObservable.subscribe(function (data) {
+            if (data.length > 0) {
+                _this.listCitizensEducationObservableArray = data;
+                _this.listCitizensEducationCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5__["CollectionView"](_this.listCitizensEducationObservableArray);
+                _this.listCitizensEducationCollectionView.pageSize = _this.listCitizensEducationPageIndex;
+                _this.listCitizensEducationCollectionView.trackChanges = true;
+                _this.listCitizensEducationCollectionView.refresh();
+            }
+            if (_this.listCitizensEducationSubscription != null)
+                _this.listCitizensEducationSubscription.unsubscribe();
+        });
+    };
+    CitizenDetailDialogComponent.prototype.btnAddCitizensEducation = function () {
+        var _this = this;
+        this.citizensEducationModel = new _citizen_education_detail_dialog_citizen_education_model__WEBPACK_IMPORTED_MODULE_4__["CitizensEducationModel"]();
+        this.citizensEducationModel.CitizenId = this.citizenModel.Id;
+        var citizenEducationDetailDialogRef = this.citizenEducationDetailDialog.open(_citizen_education_detail_dialog_citizen_education_detail_dialog_component__WEBPACK_IMPORTED_MODULE_11__["CitizenEducationDetailDialogComponent"], {
+            width: '500px',
+            data: {
+                objDialogTitle: "Add Education",
+                objCitizensEducationModel: this.citizensEducationModel
+            },
+            disableClose: true
+        });
+        citizenEducationDetailDialogRef.afterClosed().subscribe(function (result) {
+            if (result == 200) {
+                _this.listCitizensEducationData(_this.citizenModel.Id);
+            }
+        });
+    };
+    CitizenDetailDialogComponent.prototype.btnEditCitizensEducation = function () {
+        var _this = this;
+        var currentCitizensChild = this.listCitizensEducationCollectionView.currentItem;
+        this.citizensEducationModel.Id = currentCitizensChild.Id;
+        this.citizensEducationModel.CitizenId = currentCitizensChild.CitizenId;
+        this.citizensEducationModel.EducationLevelId = currentCitizensChild.EducationLevelId;
+        this.citizensEducationModel.NameOfSchool = currentCitizensChild.NameOfSchool;
+        this.citizensEducationModel.Degree = currentCitizensChild.Degree;
+        this.citizensEducationModel.PeriodFrom = new Date(currentCitizensChild.PeriodFrom);
+        this.citizensEducationModel.PeriodTo = new Date(currentCitizensChild.PeriodTo);
+        this.citizensEducationModel.UnitsEarned = currentCitizensChild.UnitsEarned;
+        this.citizensEducationModel.YearGraduated = currentCitizensChild.YearGraduated;
+        var citizenEducationDetailDialogRef = this.citizenEducationDetailDialog.open(_citizen_education_detail_dialog_citizen_education_detail_dialog_component__WEBPACK_IMPORTED_MODULE_11__["CitizenEducationDetailDialogComponent"], {
+            width: '500px',
+            data: {
+                objDialogTitle: "Edit Education",
+                objCitizensEducationModel: this.citizensEducationModel
+            },
+            disableClose: true
+        });
+        citizenEducationDetailDialogRef.afterClosed().subscribe(function (result) {
+            if (result == 200) {
+                _this.listCitizensEducationData(_this.citizenModel.Id);
+            }
+        });
+    };
+    CitizenDetailDialogComponent.prototype.btnDeleteCitizensEducation = function () {
+        var _this = this;
+        var currentCitizensChild = this.listCitizensEducationCollectionView.currentItem;
+        this.citizensEducationModel.Id = currentCitizensChild.Id;
+        var citizenEducationDeleteDialogRef = this.citizenEducationDeleteDialog.open(_citizen_education_delete_dialog_citizen_education_delete_dialog_component__WEBPACK_IMPORTED_MODULE_12__["CitizenEducationDeleteDialogComponent"], {
+            width: '300px',
+            data: { objCitizensEducationModel: this.citizensEducationModel },
+            disableClose: true
+        });
+        citizenEducationDeleteDialogRef.afterClosed().subscribe(function (result) {
+            if (result == 200) {
+                _this.listCitizensEducationData(_this.citizenModel.Id);
+            }
+        });
     };
     CitizenDetailDialogComponent.prototype.ngOnInit = function () {
         this.dialogTitle = this.citizenData.objDialogTitle;
@@ -13966,12 +15152,21 @@ var CitizenDetailDialogComponent = /** @class */ (function () {
             this.listCitizenStatusSubscription.unsubscribe();
         if (this.saveCitizenSubscription != null)
             this.saveCitizenSubscription.unsubscribe();
+        if (this.listCitizensChildrenSubscription != null)
+            this.listCitizensChildrenSubscription.unsubscribe();
+        if (this.listCitizensEducationSubscription != null)
+            this.listCitizensEducationSubscription.unsubscribe();
     };
     CitizenDetailDialogComponent.ctorParameters = function () { return [
-        { type: _citizen_service__WEBPACK_IMPORTED_MODULE_4__["CitizenService"] },
+        { type: _citizen_service__WEBPACK_IMPORTED_MODULE_6__["CitizenService"] },
         { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"] },
         { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"],] }] },
-        { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_5__["ToastrService"] }
+        { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_7__["ToastrService"] },
+        { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialog"] },
+        { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialog"] },
+        { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialog"] },
+        { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialog"] },
+        { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialog"] }
     ]; };
     CitizenDetailDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -13982,6 +15177,337 @@ var CitizenDetailDialogComponent = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"]))
     ], CitizenDetailDialogComponent);
     return CitizenDetailDialogComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/citizen/citizen-detail-dialog/citizen-education-delete-dialog/citizen-education-delete-dialog.component.css":
+/*!**************************************************************************************************************************************!*\
+  !*** ./src/app/software/citizen/citizen-detail-dialog/citizen-education-delete-dialog/citizen-education-delete-dialog.component.css ***!
+  \**************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL2NpdGl6ZW4vY2l0aXplbi1kZXRhaWwtZGlhbG9nL2NpdGl6ZW4tZWR1Y2F0aW9uLWRlbGV0ZS1kaWFsb2cvY2l0aXplbi1lZHVjYXRpb24tZGVsZXRlLWRpYWxvZy5jb21wb25lbnQuY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/software/citizen/citizen-detail-dialog/citizen-education-delete-dialog/citizen-education-delete-dialog.component.ts":
+/*!*************************************************************************************************************************************!*\
+  !*** ./src/app/software/citizen/citizen-detail-dialog/citizen-education-delete-dialog/citizen-education-delete-dialog.component.ts ***!
+  \*************************************************************************************************************************************/
+/*! exports provided: CitizenEducationDeleteDialogComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CitizenEducationDeleteDialogComponent", function() { return CitizenEducationDeleteDialogComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm5/dialog.es5.js");
+/* harmony import */ var _citizen_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../citizen.service */ "./src/app/software/citizen/citizen.service.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+
+
+
+
+
+var CitizenEducationDeleteDialogComponent = /** @class */ (function () {
+    function CitizenEducationDeleteDialogComponent(citizenService, citizenEducationDeleteDialogRef, childData, toastr) {
+        this.citizenService = citizenService;
+        this.citizenEducationDeleteDialogRef = citizenEducationDeleteDialogRef;
+        this.childData = childData;
+        this.toastr = toastr;
+    }
+    CitizenEducationDeleteDialogComponent.prototype.btnDeleteEducation = function () {
+        var _this = this;
+        var btnDeleteEducation = document.getElementById("btnDeleteEducation");
+        var btnCloseDeleteDialog = document.getElementById("btnCloseDeleteDialog");
+        btnDeleteEducation.setAttribute("disabled", "disabled");
+        btnCloseDeleteDialog.setAttribute("disabled", "disabled");
+        this.citizenService.deleteCitizensEducation(this.childData.objCitizensEducationModel.Id);
+        this.deleteCitizensEducationSubscription = this.citizenService.deleteCitizensEducationObservable.subscribe(function (data) {
+            if (data[0] == "success") {
+                _this.toastr.success("Education was successfully deleted.", "Success");
+                _this.citizenEducationDeleteDialogRef.close(200);
+            }
+            else if (data[0] == "failed") {
+                _this.toastr.error(data[1], "Error");
+                btnDeleteEducation.removeAttribute("disabled");
+                btnCloseDeleteDialog.removeAttribute("disabled");
+            }
+            if (_this.deleteCitizensEducationSubscription != null)
+                _this.deleteCitizensEducationSubscription.unsubscribe();
+        });
+    };
+    CitizenEducationDeleteDialogComponent.prototype.btnCloseDeleteDialog = function () {
+        this.citizenEducationDeleteDialogRef.close();
+        if (this.deleteCitizensEducationSubscription != null)
+            this.deleteCitizensEducationSubscription.unsubscribe();
+    };
+    CitizenEducationDeleteDialogComponent.prototype.ngOnInit = function () {
+    };
+    CitizenEducationDeleteDialogComponent.prototype.ngOnDestroy = function () {
+        if (this.deleteCitizensEducationSubscription != null)
+            this.deleteCitizensEducationSubscription.unsubscribe();
+    };
+    CitizenEducationDeleteDialogComponent.ctorParameters = function () { return [
+        { type: _citizen_service__WEBPACK_IMPORTED_MODULE_3__["CitizenService"] },
+        { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"] },
+        { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"],] }] },
+        { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_4__["ToastrService"] }
+    ]; };
+    CitizenEducationDeleteDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-citizen-education-delete-dialog',
+            template: __webpack_require__(/*! raw-loader!./citizen-education-delete-dialog.component.html */ "./node_modules/raw-loader/index.js!./src/app/software/citizen/citizen-detail-dialog/citizen-education-delete-dialog/citizen-education-delete-dialog.component.html"),
+            styles: [__webpack_require__(/*! ./citizen-education-delete-dialog.component.css */ "./src/app/software/citizen/citizen-detail-dialog/citizen-education-delete-dialog/citizen-education-delete-dialog.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"]))
+    ], CitizenEducationDeleteDialogComponent);
+    return CitizenEducationDeleteDialogComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/citizen/citizen-detail-dialog/citizen-education-detail-dialog/citizen-education-detail-dialog.component.css":
+/*!**************************************************************************************************************************************!*\
+  !*** ./src/app/software/citizen/citizen-detail-dialog/citizen-education-detail-dialog/citizen-education-detail-dialog.component.css ***!
+  \**************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL2NpdGl6ZW4vY2l0aXplbi1kZXRhaWwtZGlhbG9nL2NpdGl6ZW4tZWR1Y2F0aW9uLWRldGFpbC1kaWFsb2cvY2l0aXplbi1lZHVjYXRpb24tZGV0YWlsLWRpYWxvZy5jb21wb25lbnQuY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/software/citizen/citizen-detail-dialog/citizen-education-detail-dialog/citizen-education-detail-dialog.component.ts":
+/*!*************************************************************************************************************************************!*\
+  !*** ./src/app/software/citizen/citizen-detail-dialog/citizen-education-detail-dialog/citizen-education-detail-dialog.component.ts ***!
+  \*************************************************************************************************************************************/
+/*! exports provided: CitizenEducationDetailDialogComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CitizenEducationDetailDialogComponent", function() { return CitizenEducationDetailDialogComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm5/dialog.es5.js");
+/* harmony import */ var _citizen_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../citizen.service */ "./src/app/software/citizen/citizen.service.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! wijmo/wijmo */ "./node_modules/wijmo/wijmo.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5__);
+
+
+
+
+
+
+var CitizenEducationDetailDialogComponent = /** @class */ (function () {
+    function CitizenEducationDetailDialogComponent(citizenService, citizenDetailEducationDialogRef, citizensEducationData, toastr) {
+        this.citizenService = citizenService;
+        this.citizenDetailEducationDialogRef = citizenDetailEducationDialogRef;
+        this.citizensEducationData = citizensEducationData;
+        this.toastr = toastr;
+        this.dialogTitle = "Citizen's Child Detail";
+        this.citizensEducationModel = {
+            Id: this.citizensEducationData.objCitizensEducationModel.Id,
+            CitizenId: this.citizensEducationData.objCitizensEducationModel.CitizenId,
+            EducationLevelId: this.citizensEducationData.objCitizensEducationModel.EducationLevelId,
+            NameOfSchool: this.citizensEducationData.objCitizensEducationModel.NameOfSchool,
+            Degree: this.citizensEducationData.objCitizensEducationModel.Degree,
+            PeriodFrom: this.citizensEducationData.objCitizensEducationModel.PeriodFrom,
+            PeriodTo: this.citizensEducationData.objCitizensEducationModel.PeriodTo,
+            UnitsEarned: this.citizensEducationData.objCitizensEducationModel.UnitsEarned,
+            YearGraduated: this.citizensEducationData.objCitizensEducationModel.YearGraduated,
+        };
+        this.listEducationLevelObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5__["ObservableArray"]();
+    }
+    CitizenEducationDetailDialogComponent.prototype.listEducationLevel = function () {
+        var _this = this;
+        this.citizenService.listEducationLevel();
+        this.listEducationLevelSubscription = this.citizenService.listEducationLevelObservable.subscribe(function (data) {
+            _this.listEducationLevelObservableArray = data;
+            if (_this.listEducationLevelSubscription != null)
+                _this.listEducationLevelSubscription.unsubscribe();
+        });
+    };
+    CitizenEducationDetailDialogComponent.prototype.btnSaveCitizensEducation = function () {
+        var _this = this;
+        var btnSaveCitizensEducation = document.getElementById("btnSaveCitizensEducation");
+        var btnCloseCitizensEducationDialog = document.getElementById("btnCloseCitizensEducationDialog");
+        btnSaveCitizensEducation.setAttribute("disabled", "disabled");
+        btnCloseCitizensEducationDialog.setAttribute("disabled", "disabled");
+        this.citizenService.saveCitizensEducation(this.citizensEducationModel);
+        this.saveCitizensEducationSubscription = this.citizenService.saveCitizensEducationObservable.subscribe(function (data) {
+            if (data[0] == "success") {
+                _this.toastr.success("Child was successfully saved.", "Success");
+                _this.citizenDetailEducationDialogRef.close(200);
+            }
+            else if (data[0] == "failed") {
+                _this.toastr.error(data[1], "Error");
+                btnSaveCitizensEducation.removeAttribute("disabled");
+                btnCloseCitizensEducationDialog.removeAttribute("disabled");
+            }
+            if (_this.saveCitizensEducationSubscription != null)
+                _this.saveCitizensEducationSubscription.unsubscribe();
+        });
+    };
+    CitizenEducationDetailDialogComponent.prototype.btnCloseCitizensEducationDialog = function () {
+        this.citizenDetailEducationDialogRef.close();
+        if (this.listEducationLevelSubscription != null)
+            this.listEducationLevelSubscription.unsubscribe();
+        if (this.saveCitizensEducationSubscription != null)
+            this.saveCitizensEducationSubscription.unsubscribe();
+    };
+    CitizenEducationDetailDialogComponent.prototype.ngOnInit = function () {
+        this.listEducationLevel();
+        this.dialogTitle = this.citizensEducationData.objDialogTitle;
+    };
+    CitizenEducationDetailDialogComponent.prototype.ngOnDestroy = function () {
+        if (this.listEducationLevelSubscription != null)
+            this.listEducationLevelSubscription.unsubscribe();
+        if (this.saveCitizensEducationSubscription != null)
+            this.saveCitizensEducationSubscription.unsubscribe();
+    };
+    CitizenEducationDetailDialogComponent.ctorParameters = function () { return [
+        { type: _citizen_service__WEBPACK_IMPORTED_MODULE_3__["CitizenService"] },
+        { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"] },
+        { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"],] }] },
+        { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_4__["ToastrService"] }
+    ]; };
+    CitizenEducationDetailDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-citizen-education-detail-dialog',
+            template: __webpack_require__(/*! raw-loader!./citizen-education-detail-dialog.component.html */ "./node_modules/raw-loader/index.js!./src/app/software/citizen/citizen-detail-dialog/citizen-education-detail-dialog/citizen-education-detail-dialog.component.html"),
+            styles: [__webpack_require__(/*! ./citizen-education-detail-dialog.component.css */ "./src/app/software/citizen/citizen-detail-dialog/citizen-education-detail-dialog/citizen-education-detail-dialog.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"]))
+    ], CitizenEducationDetailDialogComponent);
+    return CitizenEducationDetailDialogComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/citizen/citizen-detail-dialog/citizen-education-detail-dialog/citizen-education.model.ts":
+/*!*******************************************************************************************************************!*\
+  !*** ./src/app/software/citizen/citizen-detail-dialog/citizen-education-detail-dialog/citizen-education.model.ts ***!
+  \*******************************************************************************************************************/
+/*! exports provided: CitizensEducationModel */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CitizensEducationModel", function() { return CitizensEducationModel; });
+var CitizensEducationModel = /** @class */ (function () {
+    function CitizensEducationModel() {
+        this.Id = 0;
+        this.CitizenId = 0;
+        this.EducationLevelId = 0;
+        this.NameOfSchool = "";
+        this.Degree = "";
+        this.PeriodFrom = new Date();
+        this.PeriodTo = new Date();
+        this.UnitsEarned = 0;
+        this.YearGraduated = 0;
+    }
+    return CitizensEducationModel;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/citizen/citizen-search-dialog/citizen-search-dialog.component.css":
+/*!********************************************************************************************!*\
+  !*** ./src/app/software/citizen/citizen-search-dialog/citizen-search-dialog.component.css ***!
+  \********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL2NpdGl6ZW4vY2l0aXplbi1zZWFyY2gtZGlhbG9nL2NpdGl6ZW4tc2VhcmNoLWRpYWxvZy5jb21wb25lbnQuY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/software/citizen/citizen-search-dialog/citizen-search-dialog.component.ts":
+/*!*******************************************************************************************!*\
+  !*** ./src/app/software/citizen/citizen-search-dialog/citizen-search-dialog.component.ts ***!
+  \*******************************************************************************************/
+/*! exports provided: CitizenSearchDialogComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CitizenSearchDialogComponent", function() { return CitizenSearchDialogComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm5/dialog.es5.js");
+/* harmony import */ var _citizen_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../citizen.service */ "./src/app/software/citizen/citizen.service.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+
+
+
+
+
+var CitizenSearchDialogComponent = /** @class */ (function () {
+    function CitizenSearchDialogComponent(citizenService, citizenSearchDialogRef, toastr) {
+        this.citizenService = citizenService;
+        this.citizenSearchDialogRef = citizenSearchDialogRef;
+        this.toastr = toastr;
+        this.searchKeyword = "";
+    }
+    CitizenSearchDialogComponent.prototype.btnSearchCitizen = function () {
+        var _this = this;
+        if (this.searchKeyword == "" || this.searchKeyword == null) {
+            this.toastr.error("Search input cannot be empty.", "Invalid Search");
+        }
+        else {
+            var btnSearchCitizen_1 = document.getElementById("btnSearchCitizen");
+            var btnCloseSearchCitizen_1 = document.getElementById("btnCloseSearchCitizen");
+            btnSearchCitizen_1.setAttribute("disabled", "disabled");
+            btnCloseSearchCitizen_1.setAttribute("disabled", "disabled");
+            this.citizenService.searchCitizen(this.searchKeyword);
+            this.searchCitizenSubscription = this.citizenService.searchCitizenObservable.subscribe(function (data) {
+                _this.toastr.success("Search successfully done.", "Success");
+                _this.citizenSearchDialogRef.close([data, _this.searchKeyword]);
+                btnSearchCitizen_1.removeAttribute("disabled");
+                btnCloseSearchCitizen_1.removeAttribute("disabled");
+                if (_this.searchCitizenSubscription != null)
+                    _this.searchCitizenSubscription.unsubscribe();
+            });
+        }
+    };
+    CitizenSearchDialogComponent.prototype.btnCloseSearchDialog = function () {
+        this.citizenSearchDialogRef.close();
+        if (this.searchCitizenSubscription != null)
+            this.searchCitizenSubscription.unsubscribe();
+    };
+    CitizenSearchDialogComponent.prototype.ngOnInit = function () {
+    };
+    CitizenSearchDialogComponent.prototype.ngOnDestroy = function () {
+        if (this.searchCitizenSubscription != null)
+            this.searchCitizenSubscription.unsubscribe();
+    };
+    CitizenSearchDialogComponent.ctorParameters = function () { return [
+        { type: _citizen_service__WEBPACK_IMPORTED_MODULE_3__["CitizenService"] },
+        { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"] },
+        { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_4__["ToastrService"] }
+    ]; };
+    CitizenSearchDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-citizen-search-dialog',
+            template: __webpack_require__(/*! raw-loader!./citizen-search-dialog.component.html */ "./node_modules/raw-loader/index.js!./src/app/software/citizen/citizen-search-dialog/citizen-search-dialog.component.html"),
+            styles: [__webpack_require__(/*! ./citizen-search-dialog.component.css */ "./src/app/software/citizen/citizen-search-dialog/citizen-search-dialog.component.css")]
+        })
+    ], CitizenSearchDialogComponent);
+    return CitizenSearchDialogComponent;
 }());
 
 
@@ -14017,7 +15543,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm5/dialog.es5.js");
 /* harmony import */ var _citizen_detail_dialog_citizen_detail_dialog_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./citizen-detail-dialog/citizen-detail-dialog.component */ "./src/app/software/citizen/citizen-detail-dialog/citizen-detail-dialog.component.ts");
 /* harmony import */ var _citizen_delete_dialog_citizen_delete_dialog_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./citizen-delete-dialog/citizen-delete-dialog.component */ "./src/app/software/citizen/citizen-delete-dialog/citizen-delete-dialog.component.ts");
-/* harmony import */ var _citizen_model__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./citizen.model */ "./src/app/software/citizen/citizen.model.ts");
+/* harmony import */ var _citizen_search_dialog_citizen_search_dialog_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./citizen-search-dialog/citizen-search-dialog.component */ "./src/app/software/citizen/citizen-search-dialog/citizen-search-dialog.component.ts");
+/* harmony import */ var _citizen_model__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./citizen.model */ "./src/app/software/citizen/citizen.model.ts");
+
 
 
 
@@ -14027,15 +15555,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var CitizenComponent = /** @class */ (function () {
-    function CitizenComponent(citizenService, citizenAddDialog, citizenEditDialog, citizenDeleteDialog) {
+    function CitizenComponent(citizenService, citizenAddDialog, citizenEditDialog, citizenDeleteDialog, citizenSearchDialog) {
         this.citizenService = citizenService;
         this.citizenAddDialog = citizenAddDialog;
         this.citizenEditDialog = citizenEditDialog;
         this.citizenDeleteDialog = citizenDeleteDialog;
-        this.citizenModel = new _citizen_model__WEBPACK_IMPORTED_MODULE_7__["CitizenModel"]();
+        this.citizenSearchDialog = citizenSearchDialog;
+        this.citizenModel = new _citizen_model__WEBPACK_IMPORTED_MODULE_8__["CitizenModel"]();
         this.listCitizenObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_2__["ObservableArray"]();
         this.listCitizenCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_2__["CollectionView"](this.listCitizenObservableArray);
         this.listCitizenPageIndex = 15;
+        this.isFilterShow = false;
+        this.filterString = "";
     }
     CitizenComponent.prototype.listCitizenData = function () {
         var _this = this;
@@ -14059,7 +15590,7 @@ var CitizenComponent = /** @class */ (function () {
     };
     CitizenComponent.prototype.btnAddCitizen = function () {
         var _this = this;
-        this.citizenModel = new _citizen_model__WEBPACK_IMPORTED_MODULE_7__["CitizenModel"]();
+        this.citizenModel = new _citizen_model__WEBPACK_IMPORTED_MODULE_8__["CitizenModel"]();
         var citizenAddDialogRef = this.citizenAddDialog.open(_citizen_detail_dialog_citizen_detail_dialog_component__WEBPACK_IMPORTED_MODULE_5__["CitizenDetailDialogComponent"], {
             width: '1200px',
             data: {
@@ -14165,6 +15696,31 @@ var CitizenComponent = /** @class */ (function () {
             }
         });
     };
+    CitizenComponent.prototype.btnSearchCitizen = function () {
+        var _this = this;
+        var citizenSearchDialogRef = this.citizenSearchDialog.open(_citizen_search_dialog_citizen_search_dialog_component__WEBPACK_IMPORTED_MODULE_7__["CitizenSearchDialogComponent"], {
+            width: '800px',
+            disableClose: true
+        });
+        citizenSearchDialogRef.afterClosed().subscribe(function (result) {
+            if (result != null) {
+                if (result[1] != "" || result[1] != null) {
+                    _this.isFilterShow = true;
+                    _this.filterString = result[1];
+                }
+                _this.listCitizenObservableArray = result[0];
+                _this.listCitizenCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_2__["CollectionView"](_this.listCitizenObservableArray);
+                _this.listCitizenCollectionView.pageSize = _this.listCitizenPageIndex;
+                _this.listCitizenCollectionView.trackChanges = true;
+                _this.listCitizenCollectionView.refresh();
+            }
+        });
+    };
+    CitizenComponent.prototype.btnClearFilter = function () {
+        this.isFilterShow = false;
+        this.filterString = "";
+        this.listCitizenData();
+    };
     CitizenComponent.prototype.ngOnInit = function () {
         this.listCitizenData();
     };
@@ -14174,6 +15730,7 @@ var CitizenComponent = /** @class */ (function () {
     };
     CitizenComponent.ctorParameters = function () { return [
         { type: _citizen_service__WEBPACK_IMPORTED_MODULE_3__["CitizenService"] },
+        { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_4__["MatDialog"] },
         { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_4__["MatDialog"] },
         { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_4__["MatDialog"] },
         { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_4__["MatDialog"] }
@@ -14333,6 +15890,22 @@ var CitizenService = /** @class */ (function () {
         this.saveCitizenObservable = this.saveCitizenSubject.asObservable();
         this.deleteCitizenSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
         this.deleteCitizenObservable = this.deleteCitizenSubject.asObservable();
+        this.listCitizensChildrenSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listCitizensChildrenObservable = this.listCitizensChildrenSubject.asObservable();
+        this.saveCitizensChildrenSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.saveCitizensChildrenObservable = this.saveCitizensChildrenSubject.asObservable();
+        this.deleteCitizensChildrenSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.deleteCitizensChildrenObservable = this.deleteCitizensChildrenSubject.asObservable();
+        this.listCitizensEducationSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listCitizensEducationObservable = this.listCitizensEducationSubject.asObservable();
+        this.listEducationLevelSource = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listEducationLevelObservable = this.listEducationLevelSource.asObservable();
+        this.saveCitizensEducationSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.saveCitizensEducationObservable = this.saveCitizensEducationSubject.asObservable();
+        this.deleteCitizensEducationSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.deleteCitizensEducationObservable = this.deleteCitizensEducationSubject.asObservable();
+        this.searchCitizenSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.searchCitizenObservable = this.searchCitizenSubject.asObservable();
     }
     CitizenService.prototype.listCitizen = function () {
         var _this = this;
@@ -14647,6 +16220,224 @@ var CitizenService = /** @class */ (function () {
             _this.deleteCitizenSubject.next(errorResults);
         });
     };
+    CitizenService.prototype.listCitizensChildren = function (citizenId) {
+        var _this = this;
+        var listCitizensChildrenObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listCitizensChildrenSubject.next(listCitizensChildrenObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/mst/citizen/children/list/" + citizenId, this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listCitizensChildrenObservableArray.push({
+                        Id: results[i].Id,
+                        CitizenId: results[i].CitizenId,
+                        Fullname: results[i].Fullname,
+                        DateOfBirth: results[i].DateOfBirth,
+                    });
+                }
+            }
+            _this.listCitizensChildrenSubject.next(listCitizensChildrenObservableArray);
+        });
+    };
+    CitizenService.prototype.saveCitizensChildren = function (objCitizensChildModel) {
+        var _this = this;
+        if (objCitizensChildModel.Id == 0) {
+            this.httpClient.post(this.defaultAPIURLHost + "/api/mst/citizen/children/add", JSON.stringify(objCitizensChildModel), this.options).subscribe(function (response) {
+                var responseResults = ["success", response.toString()];
+                _this.saveCitizensChildrenSubject.next(responseResults);
+            }, function (error) {
+                var errorResults = ["failed", error["error"]];
+                _this.saveCitizensChildrenSubject.next(errorResults);
+            });
+        }
+        else {
+            this.httpClient.put(this.defaultAPIURLHost + "/api/mst/citizen/children/update/" + objCitizensChildModel.Id, JSON.stringify(objCitizensChildModel), this.options).subscribe(function (response) {
+                var responseResults = ["success", response.toString()];
+                _this.saveCitizensChildrenSubject.next(responseResults);
+            }, function (error) {
+                var errorResults = ["failed", error["error"]];
+                _this.saveCitizensChildrenSubject.next(errorResults);
+            });
+        }
+    };
+    CitizenService.prototype.deleteCitizensChildren = function (id) {
+        var _this = this;
+        this.httpClient.delete(this.defaultAPIURLHost + "/api/mst/citizen/children/delete/" + id, this.options).subscribe(function (response) {
+            var responseResults = ["success", ""];
+            _this.deleteCitizensChildrenSubject.next(responseResults);
+        }, function (error) {
+            var errorResults = ["failed", error["error"]];
+            _this.deleteCitizensChildrenSubject.next(errorResults);
+        });
+    };
+    CitizenService.prototype.listCitizensEducation = function (citizenId) {
+        var _this = this;
+        var listCitizensEducationObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listCitizensEducationSubject.next(listCitizensEducationObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/mst/citizen/education/list/" + citizenId, this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listCitizensEducationObservableArray.push({
+                        Id: results[i].Id,
+                        CitizenId: results[i].CitizenId,
+                        EducationLevelId: results[i].EducationLevelId,
+                        EducationLevel: results[i].EducationLevel,
+                        NameOfSchool: results[i].NameOfSchool,
+                        Degree: results[i].Degree,
+                        PeriodFrom: results[i].PeriodFrom,
+                        PeriodTo: results[i].PeriodTo,
+                        UnitsEarned: results[i].UnitsEarned,
+                        YearGraduated: results[i].YearGraduated != null ? results[i].YearGraduated.toString() : ""
+                    });
+                }
+            }
+            _this.listCitizensEducationSubject.next(listCitizensEducationObservableArray);
+        });
+    };
+    CitizenService.prototype.listEducationLevel = function () {
+        var _this = this;
+        var listEducationLevelObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listEducationLevelSource.next(listEducationLevelObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/mst/citizen/education/educationLevel/dropdown/list", this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listEducationLevelObservableArray.push({
+                        Id: results[i].Id,
+                        EducationLevel: results[i].EducationLevel
+                    });
+                }
+            }
+            _this.listEducationLevelSource.next(listEducationLevelObservableArray);
+        });
+    };
+    CitizenService.prototype.saveCitizensEducation = function (objCitizensChildModel) {
+        var _this = this;
+        if (objCitizensChildModel.Id == 0) {
+            this.httpClient.post(this.defaultAPIURLHost + "/api/mst/citizen/education/add", JSON.stringify(objCitizensChildModel), this.options).subscribe(function (response) {
+                var responseResults = ["success", response.toString()];
+                _this.saveCitizensEducationSubject.next(responseResults);
+            }, function (error) {
+                var errorResults = ["failed", error["error"]];
+                _this.saveCitizensEducationSubject.next(errorResults);
+            });
+        }
+        else {
+            this.httpClient.put(this.defaultAPIURLHost + "/api/mst/citizen/education/update/" + objCitizensChildModel.Id, JSON.stringify(objCitizensChildModel), this.options).subscribe(function (response) {
+                var responseResults = ["success", response.toString()];
+                _this.saveCitizensEducationSubject.next(responseResults);
+            }, function (error) {
+                var errorResults = ["failed", error["error"]];
+                _this.saveCitizensEducationSubject.next(errorResults);
+            });
+        }
+    };
+    CitizenService.prototype.deleteCitizensEducation = function (id) {
+        var _this = this;
+        this.httpClient.delete(this.defaultAPIURLHost + "/api/mst/citizen/education/delete/" + id, this.options).subscribe(function (response) {
+            var responseResults = ["success", ""];
+            _this.deleteCitizensEducationSubject.next(responseResults);
+        }, function (error) {
+            var errorResults = ["failed", error["error"]];
+            _this.deleteCitizensEducationSubject.next(errorResults);
+        });
+    };
+    CitizenService.prototype.searchCitizen = function (keyword) {
+        var _this = this;
+        var searchCitizenObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.searchCitizenSubject.next(searchCitizenObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/mst/citizen/search?keyword=" + keyword, this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    searchCitizenObservableArray.push({
+                        Id: results[i].Id,
+                        Surname: results[i].Surname,
+                        Firstname: results[i].Firstname,
+                        Middlename: results[i].Middlename,
+                        Extensionname: results[i].Extensionname,
+                        FullName: results[i].Surname + ", " + results[i].Firstname + " " + results[i].Middlename + " " + results[i].Extensionname,
+                        DateOfBirth: results[i].DateOfBirth,
+                        PlaceOfBirth: results[i].PlaceOfBirth,
+                        SexId: results[i].SexId,
+                        Sex: results[i].Sex,
+                        CivilStatusId: results[i].CivilStatusId,
+                        CivilStatus: results[i].CivilStatus,
+                        Height: results[i].Height,
+                        Weight: results[i].Weight,
+                        BloodTypeId: results[i].BloodTypeId,
+                        BloodType: results[i].BloodType,
+                        GSISNumber: results[i].GSISNumber,
+                        HDMFNumber: results[i].HDMFNumber,
+                        PhilHealthNumber: results[i].PhilHealthNumber,
+                        SSSNumber: results[i].SSSNumber,
+                        TINNumber: results[i].TINNumber,
+                        AgencyEmployeeNumber: results[i].AgencyEmployeeNumber,
+                        CitizenshipId: results[i].CitizenshipId,
+                        Citizenship: results[i].Citizenship,
+                        TypeOfCitizenshipId: results[i].TypeOfCitizenshipId,
+                        TypeOfCitizenship: results[i].TypeOfCitizenship,
+                        DualCitizenshipCountry: results[i].DualCitizenshipCountry,
+                        ResidentialNumber: results[i].ResidentialNumber,
+                        ResidentialStreet: results[i].ResidentialStreet,
+                        ResidentialVillage: results[i].ResidentialVillage,
+                        ResidentialBarangayId: results[i].ResidentialBarangayId,
+                        ResidentialBarangay: results[i].Barangay,
+                        ResidentialCityId: results[i].ResidentialCityId,
+                        ResidentialCity: results[i].City,
+                        ResidentialProvinceId: results[i].ResidentialProvinceId,
+                        ResidentialProvince: results[i].Province,
+                        ResidentialZipCode: results[i].ResidentialZipCode,
+                        PermanentNumber: results[i].PermanentNumber,
+                        PermanentStreet: results[i].PermanentStreet,
+                        PermanentVillage: results[i].PermanentVillage,
+                        PermanentBarangayId: results[i].PermanentBarangayId,
+                        PermanentBarangay: results[i].Barangay,
+                        PermanentCityId: results[i].PermanentCityId,
+                        PermanentCity: results[i].City,
+                        PermanentProvinceId: results[i].PermanentProvinceId,
+                        PermanentProvince: results[i].Province,
+                        PermanentZipCode: results[i].PermanentZipCode,
+                        TelephoneNumber: results[i].TelephoneNumber,
+                        MobileNumber: results[i].MobileNumber,
+                        EmailAddress: results[i].EmailAddress,
+                        OccupationId: results[i].OccupationId,
+                        Occupation: results[i].Occupation,
+                        EmployerName: results[i].EmployerName,
+                        EmployerAddress: results[i].EmployerAddress,
+                        EmployerTelephoneNumber: results[i].EmployerTelephoneNumber,
+                        SpouseSurname: results[i].SpouseSurname,
+                        SpouseFirstname: results[i].SpouseFirstname,
+                        SpouseMiddlename: results[i].SpouseMiddlename,
+                        SpouseExtensionname: results[i].SpouseExtensionname,
+                        SpouseOccupationId: results[i].SpouseOccupationId,
+                        SpouseOccupation: results[i].Occupation,
+                        SpouseEmployerName: results[i].SpouseEmployerName,
+                        SpouseEmployerAddress: results[i].SpouseEmployerAddress,
+                        FatherSurname: results[i].FatherSurname,
+                        FatherFirstname: results[i].FatherFirstname,
+                        FatherMiddlename: results[i].FatherMiddlename,
+                        FatherExtensionname: results[i].FatherExtensionname,
+                        MotherSurname: results[i].MotherSurname,
+                        MotherFirstname: results[i].MotherFirstname,
+                        MotherMiddlename: results[i].MotherMiddlename,
+                        MotherExtensionname: results[i].MotherExtensionname,
+                        PictureURL: results[i].PictureURL,
+                        CitizenStatusId: results[i].CitizenStatusId,
+                        CitizenStatus: results[i].CitizenStatus,
+                        CreatedByUserId: results[i].CreatedByUserId,
+                        CreatedByUser: results[i].Fullname,
+                        CreatedDateTime: results[i].CreatedDateTime,
+                        UpdatedByUserId: results[i].UpdatedByUserId,
+                        UpdatedByUser: results[i].Fullname,
+                        UpdatedDateTime: results[i].UpdatedDateTime
+                    });
+                }
+            }
+            _this.searchCitizenSubject.next(searchCitizenObservableArray);
+        });
+    };
     CitizenService.ctorParameters = function () { return [
         { type: _app_settings__WEBPACK_IMPORTED_MODULE_2__["AppSettings"] },
         { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] }
@@ -14724,6 +16515,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./dashboard/dashboard.component */ "./src/app/software/dashboard/dashboard.component.ts");
 /* harmony import */ var _citizen_citizen_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./citizen/citizen.component */ "./src/app/software/citizen/citizen.component.ts");
 /* harmony import */ var _user_user_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./user/user.component */ "./src/app/software/user/user.component.ts");
+/* harmony import */ var _system_tables_system_tables_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./system-tables/system-tables.component */ "./src/app/software/system-tables/system-tables.component.ts");
+
 
 
 
@@ -14751,6 +16544,10 @@ var routes = [
             {
                 path: 'user',
                 component: _user_user_component__WEBPACK_IMPORTED_MODULE_6__["UserComponent"]
+            },
+            {
+                path: 'system-tables',
+                component: _system_tables_system_tables_component__WEBPACK_IMPORTED_MODULE_7__["SystemTablesComponent"]
             }
         ]
     }
@@ -14856,16 +16653,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./dashboard/dashboard.component */ "./src/app/software/dashboard/dashboard.component.ts");
 /* harmony import */ var _citizen_citizen_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./citizen/citizen.component */ "./src/app/software/citizen/citizen.component.ts");
 /* harmony import */ var _citizen_citizen_detail_dialog_citizen_detail_dialog_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./citizen/citizen-detail-dialog/citizen-detail-dialog.component */ "./src/app/software/citizen/citizen-detail-dialog/citizen-detail-dialog.component.ts");
-/* harmony import */ var _user_user_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./user/user.component */ "./src/app/software/user/user.component.ts");
-/* harmony import */ var wijmo_wijmo_angular2_grid_filter__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! wijmo/wijmo.angular2.grid.filter */ "./node_modules/wijmo/wijmo.angular2.grid.filter.js");
-/* harmony import */ var wijmo_wijmo_angular2_grid_filter__WEBPACK_IMPORTED_MODULE_27___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo_angular2_grid_filter__WEBPACK_IMPORTED_MODULE_27__);
-/* harmony import */ var wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! wijmo/wijmo.angular2.grid */ "./node_modules/wijmo/wijmo.angular2.grid.js");
-/* harmony import */ var wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_28___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_28__);
-/* harmony import */ var wijmo_wijmo_angular2_input__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! wijmo/wijmo.angular2.input */ "./node_modules/wijmo/wijmo.angular2.input.js");
-/* harmony import */ var wijmo_wijmo_angular2_input__WEBPACK_IMPORTED_MODULE_29___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo_angular2_input__WEBPACK_IMPORTED_MODULE_29__);
-/* harmony import */ var _angular_flex_layout__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! @angular/flex-layout */ "./node_modules/@angular/flex-layout/esm5/flex-layout.es5.js");
-/* harmony import */ var _fortawesome_angular_fontawesome__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! @fortawesome/angular-fontawesome */ "./node_modules/@fortawesome/angular-fontawesome/fesm5/angular-fontawesome.js");
-/* harmony import */ var _citizen_citizen_delete_dialog_citizen_delete_dialog_component__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./citizen/citizen-delete-dialog/citizen-delete-dialog.component */ "./src/app/software/citizen/citizen-delete-dialog/citizen-delete-dialog.component.ts");
+/* harmony import */ var _citizen_citizen_delete_dialog_citizen_delete_dialog_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./citizen/citizen-delete-dialog/citizen-delete-dialog.component */ "./src/app/software/citizen/citizen-delete-dialog/citizen-delete-dialog.component.ts");
+/* harmony import */ var _citizen_citizen_detail_dialog_citizen_camera_dialog_citizen_camera_dialog_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./citizen/citizen-detail-dialog/citizen-camera-dialog/citizen-camera-dialog.component */ "./src/app/software/citizen/citizen-detail-dialog/citizen-camera-dialog/citizen-camera-dialog.component.ts");
+/* harmony import */ var _citizen_citizen_detail_dialog_citizen_children_detail_dialog_citizen_children_detail_dialog_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./citizen/citizen-detail-dialog/citizen-children-detail-dialog/citizen-children-detail-dialog.component */ "./src/app/software/citizen/citizen-detail-dialog/citizen-children-detail-dialog/citizen-children-detail-dialog.component.ts");
+/* harmony import */ var _citizen_citizen_detail_dialog_citizen_children_delete_dialog_citizen_children_delete_dialog_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./citizen/citizen-detail-dialog/citizen-children-delete-dialog/citizen-children-delete-dialog.component */ "./src/app/software/citizen/citizen-detail-dialog/citizen-children-delete-dialog/citizen-children-delete-dialog.component.ts");
+/* harmony import */ var _citizen_citizen_detail_dialog_citizen_education_detail_dialog_citizen_education_detail_dialog_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./citizen/citizen-detail-dialog/citizen-education-detail-dialog/citizen-education-detail-dialog.component */ "./src/app/software/citizen/citizen-detail-dialog/citizen-education-detail-dialog/citizen-education-detail-dialog.component.ts");
+/* harmony import */ var _citizen_citizen_detail_dialog_citizen_education_delete_dialog_citizen_education_delete_dialog_component__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./citizen/citizen-detail-dialog/citizen-education-delete-dialog/citizen-education-delete-dialog.component */ "./src/app/software/citizen/citizen-detail-dialog/citizen-education-delete-dialog/citizen-education-delete-dialog.component.ts");
+/* harmony import */ var _citizen_citizen_search_dialog_citizen_search_dialog_component__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./citizen/citizen-search-dialog/citizen-search-dialog.component */ "./src/app/software/citizen/citizen-search-dialog/citizen-search-dialog.component.ts");
+/* harmony import */ var _user_user_component__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./user/user.component */ "./src/app/software/user/user.component.ts");
+/* harmony import */ var _system_tables_system_tables_component__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./system-tables/system-tables.component */ "./src/app/software/system-tables/system-tables.component.ts");
+/* harmony import */ var wijmo_wijmo_angular2_grid_filter__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! wijmo/wijmo.angular2.grid.filter */ "./node_modules/wijmo/wijmo.angular2.grid.filter.js");
+/* harmony import */ var wijmo_wijmo_angular2_grid_filter__WEBPACK_IMPORTED_MODULE_35___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo_angular2_grid_filter__WEBPACK_IMPORTED_MODULE_35__);
+/* harmony import */ var wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! wijmo/wijmo.angular2.grid */ "./node_modules/wijmo/wijmo.angular2.grid.js");
+/* harmony import */ var wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_36___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_36__);
+/* harmony import */ var wijmo_wijmo_angular2_input__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! wijmo/wijmo.angular2.input */ "./node_modules/wijmo/wijmo.angular2.input.js");
+/* harmony import */ var wijmo_wijmo_angular2_input__WEBPACK_IMPORTED_MODULE_37___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo_angular2_input__WEBPACK_IMPORTED_MODULE_37__);
+/* harmony import */ var _angular_flex_layout__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! @angular/flex-layout */ "./node_modules/@angular/flex-layout/esm5/flex-layout.es5.js");
+/* harmony import */ var _fortawesome_angular_fontawesome__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! @fortawesome/angular-fontawesome */ "./node_modules/@fortawesome/angular-fontawesome/fesm5/angular-fontawesome.js");
+/* harmony import */ var ngx_webcam__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ngx-webcam */ "./node_modules/ngx-webcam/fesm5/ngx-webcam.js");
 
 // Modules
 
@@ -14897,6 +16702,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
 // Wijmo
 
 
@@ -14915,30 +16728,88 @@ var SoftwareModule = /** @class */ (function () {
                 _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_23__["DashboardComponent"],
                 _citizen_citizen_component__WEBPACK_IMPORTED_MODULE_24__["CitizenComponent"],
                 _citizen_citizen_detail_dialog_citizen_detail_dialog_component__WEBPACK_IMPORTED_MODULE_25__["CitizenDetailDialogComponent"],
-                _citizen_citizen_delete_dialog_citizen_delete_dialog_component__WEBPACK_IMPORTED_MODULE_32__["CitizenDeleteDialogComponent"],
-                _user_user_component__WEBPACK_IMPORTED_MODULE_26__["UserComponent"]
+                _citizen_citizen_delete_dialog_citizen_delete_dialog_component__WEBPACK_IMPORTED_MODULE_26__["CitizenDeleteDialogComponent"],
+                _citizen_citizen_detail_dialog_citizen_camera_dialog_citizen_camera_dialog_component__WEBPACK_IMPORTED_MODULE_27__["CitizenCameraDialogComponent"],
+                _citizen_citizen_detail_dialog_citizen_children_detail_dialog_citizen_children_detail_dialog_component__WEBPACK_IMPORTED_MODULE_28__["CitizenChildrenDetailDialogComponent"],
+                _citizen_citizen_detail_dialog_citizen_children_delete_dialog_citizen_children_delete_dialog_component__WEBPACK_IMPORTED_MODULE_29__["CitizenChildrenDeleteDialogComponent"],
+                _citizen_citizen_detail_dialog_citizen_education_detail_dialog_citizen_education_detail_dialog_component__WEBPACK_IMPORTED_MODULE_30__["CitizenEducationDetailDialogComponent"],
+                _citizen_citizen_detail_dialog_citizen_education_delete_dialog_citizen_education_delete_dialog_component__WEBPACK_IMPORTED_MODULE_31__["CitizenEducationDeleteDialogComponent"],
+                _citizen_citizen_search_dialog_citizen_search_dialog_component__WEBPACK_IMPORTED_MODULE_32__["CitizenSearchDialogComponent"],
+                _user_user_component__WEBPACK_IMPORTED_MODULE_33__["UserComponent"],
+                _system_tables_system_tables_component__WEBPACK_IMPORTED_MODULE_34__["SystemTablesComponent"]
             ],
             entryComponents: [
                 _citizen_citizen_detail_dialog_citizen_detail_dialog_component__WEBPACK_IMPORTED_MODULE_25__["CitizenDetailDialogComponent"],
-                _citizen_citizen_delete_dialog_citizen_delete_dialog_component__WEBPACK_IMPORTED_MODULE_32__["CitizenDeleteDialogComponent"]
+                _citizen_citizen_delete_dialog_citizen_delete_dialog_component__WEBPACK_IMPORTED_MODULE_26__["CitizenDeleteDialogComponent"],
+                _citizen_citizen_detail_dialog_citizen_camera_dialog_citizen_camera_dialog_component__WEBPACK_IMPORTED_MODULE_27__["CitizenCameraDialogComponent"],
+                _citizen_citizen_detail_dialog_citizen_children_detail_dialog_citizen_children_detail_dialog_component__WEBPACK_IMPORTED_MODULE_28__["CitizenChildrenDetailDialogComponent"],
+                _citizen_citizen_detail_dialog_citizen_children_delete_dialog_citizen_children_delete_dialog_component__WEBPACK_IMPORTED_MODULE_29__["CitizenChildrenDeleteDialogComponent"],
+                _citizen_citizen_detail_dialog_citizen_education_detail_dialog_citizen_education_detail_dialog_component__WEBPACK_IMPORTED_MODULE_30__["CitizenEducationDetailDialogComponent"],
+                _citizen_citizen_detail_dialog_citizen_education_delete_dialog_citizen_education_delete_dialog_component__WEBPACK_IMPORTED_MODULE_31__["CitizenEducationDeleteDialogComponent"],
+                _citizen_citizen_search_dialog_citizen_search_dialog_component__WEBPACK_IMPORTED_MODULE_32__["CitizenSearchDialogComponent"]
             ],
             imports: [
                 _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"],
                 _software_routing_module__WEBPACK_IMPORTED_MODULE_5__["SoftwareRoutingModule"],
-                _angular_flex_layout__WEBPACK_IMPORTED_MODULE_30__["FlexLayoutModule"],
-                _fortawesome_angular_fontawesome__WEBPACK_IMPORTED_MODULE_31__["FontAwesomeModule"],
+                _angular_flex_layout__WEBPACK_IMPORTED_MODULE_38__["FlexLayoutModule"],
+                _fortawesome_angular_fontawesome__WEBPACK_IMPORTED_MODULE_39__["FontAwesomeModule"],
                 _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_6__["MatToolbarModule"], _angular_material_button__WEBPACK_IMPORTED_MODULE_7__["MatButtonModule"], _angular_material_menu__WEBPACK_IMPORTED_MODULE_8__["MatMenuModule"], _angular_material_sidenav__WEBPACK_IMPORTED_MODULE_9__["MatSidenavModule"], _angular_material_tabs__WEBPACK_IMPORTED_MODULE_10__["MatTabsModule"], _angular_material_list__WEBPACK_IMPORTED_MODULE_11__["MatListModule"], _angular_material_grid_list__WEBPACK_IMPORTED_MODULE_12__["MatGridListModule"], _angular_material_button_toggle__WEBPACK_IMPORTED_MODULE_13__["MatButtonToggleModule"],
                 _angular_material_card__WEBPACK_IMPORTED_MODULE_14__["MatCardModule"], _angular_material_expansion__WEBPACK_IMPORTED_MODULE_15__["MatExpansionModule"], _angular_material_input__WEBPACK_IMPORTED_MODULE_16__["MatInputModule"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_17__["MatFormFieldModule"], _angular_material_chips__WEBPACK_IMPORTED_MODULE_18__["MatChipsModule"], _angular_material_dialog__WEBPACK_IMPORTED_MODULE_19__["MatDialogModule"],
                 _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_20__["MatDatepickerModule"], _angular_material_core__WEBPACK_IMPORTED_MODULE_4__["MatNativeDateModule"], _angular_material_select__WEBPACK_IMPORTED_MODULE_21__["MatSelectModule"],
-                wijmo_wijmo_angular2_grid_filter__WEBPACK_IMPORTED_MODULE_27__["WjGridFilterModule"],
-                wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_28__["WjGridModule"],
-                wijmo_wijmo_angular2_input__WEBPACK_IMPORTED_MODULE_29__["WjInputModule"]
+                wijmo_wijmo_angular2_grid_filter__WEBPACK_IMPORTED_MODULE_35__["WjGridFilterModule"],
+                wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_36__["WjGridModule"],
+                wijmo_wijmo_angular2_input__WEBPACK_IMPORTED_MODULE_37__["WjInputModule"],
+                ngx_webcam__WEBPACK_IMPORTED_MODULE_40__["WebcamModule"]
             ]
         })
     ], SoftwareModule);
     return SoftwareModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/system-tables/system-tables.component.css":
+/*!********************************************************************!*\
+  !*** ./src/app/software/system-tables/system-tables.component.css ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL3N5c3RlbS10YWJsZXMvc3lzdGVtLXRhYmxlcy5jb21wb25lbnQuY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/software/system-tables/system-tables.component.ts":
+/*!*******************************************************************!*\
+  !*** ./src/app/software/system-tables/system-tables.component.ts ***!
+  \*******************************************************************/
+/*! exports provided: SystemTablesComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SystemTablesComponent", function() { return SystemTablesComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+var SystemTablesComponent = /** @class */ (function () {
+    function SystemTablesComponent() {
+    }
+    SystemTablesComponent.prototype.ngOnInit = function () {
+    };
+    SystemTablesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-system-tables',
+            template: __webpack_require__(/*! raw-loader!./system-tables.component.html */ "./node_modules/raw-loader/index.js!./src/app/software/system-tables/system-tables.component.html"),
+            styles: [__webpack_require__(/*! ./system-tables.component.css */ "./src/app/software/system-tables/system-tables.component.css")]
+        })
+    ], SystemTablesComponent);
+    return SystemTablesComponent;
 }());
 
 
