@@ -11181,7 +11181,7 @@ module.exports = "<h1 mat-dialog-title>\n    {{ dialogTitle }}\n</h1>\n<mat-divi
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h1 mat-dialog-title>\n    {{ dialogTitle }}\n</h1>\n<mat-divider></mat-divider>\n<div mat-dialog-content>\n    <mat-tab-group>\n        <mat-tab label=\"I. PERSONAL INFORMATION\">\n            <h5><i>Picture</i></h5>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <div fxLayout fxLayout.xs=\"column\">\n                        <div fxFlex=\"100%\" style=\"margin-right: 10px;\">\n                            <mat-card>\n                                <img [src]=\"imageAsDataUrl\" style=\"width: 100%;\" />\n                            </mat-card>\n                            <br />\n                            <div>\n                                <button mat-stroked-button color=\"\" style=\"margin-right: 5px;\" id=\"btnTakePhotoCitizen\"\n                                    (click)=\"btnOpenCamera()\">\n                                    <fa-icon icon=\"camera\" fixedWidth=\"true\"></fa-icon> Take a Photo\n                                </button>\n                                <button mat-stroked-button color=\"\" id=\"btnClearPhotoCitizen\" (click)=\"btnClearPhoto()\">\n                                    <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Clear\n                                </button>\n                            </div>\n                        </div>\n                        <div fxFlex=\"100%\"></div>\n                        <div fxFlex=\"100%\"></div>\n                    </div>\n                </div>\n            </div>\n            <h5><i>Basic Information</i></h5>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Surname\" [(ngModel)]=\"citizenModel.Surname\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Firstname\" [(ngModel)]=\"citizenModel.Firstname\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Middle Name\" [(ngModel)]=\"citizenModel.Middlename\">\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Extension Name (If any)\" [(ngModel)]=\"citizenModel.Extensionname\">\n                    </mat-form-field>\n                </div>\n            </div>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput [matDatepicker]=\"picker\" placeholder=\"Date of Birth\"\n                            [(ngModel)]=\"citizenModel.DateOfBirth\">\n                        <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n                        <mat-datepicker #dateOfBirthPicker></mat-datepicker>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Palce of Birth\" [(ngModel)]=\"citizenModel.PlaceOfBirth\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"50%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <mat-label>Sex</mat-label>\n                        <mat-select [(ngModel)]=\"citizenModel.SexId\" required>\n                            <mat-option *ngFor=\"let sex of listSexObservableArray\" [value]=\"sex.Id\">\n                                {{ sex.Sex }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <mat-label>Civil Status</mat-label>\n                        <mat-select [(ngModel)]=\"citizenModel.CivilStatusId\" required>\n                            <mat-option *ngFor=\"let civilStatus of listCivilStatusObservableArray\"\n                                [value]=\"civilStatus.Id\">\n                                {{ civilStatus.CivilStatus }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                </div>\n            </div>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <div fxLayout fxLayout.xs=\"column\">\n                        <div fxFlex=\"100%\" style=\"margin-right: 5px;\">\n                            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                                <mat-label>Citizen Ship</mat-label>\n                                <mat-select [(ngModel)]=\"citizenModel.CitizenshipId\" required>\n                                    <mat-option *ngFor=\"let citizenship of listCitizenshipObservableArray\"\n                                        [value]=\"citizenship.Id\">\n                                        {{ citizenship.Citizenship }}\n                                    </mat-option>\n                                </mat-select>\n                            </mat-form-field>\n                        </div>\n                        <div fxFlex=\"100%\" style=\"margin-right: 5px;\">\n                            <mat-form-field [hideRequiredMarker]=\"true\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                                <mat-label>Type Citizen Ship (If dual)</mat-label>\n                                <mat-select [(ngModel)]=\"citizenModel.TypeOfCitizenshipId\">\n                                    <mat-option [value]=\"\"></mat-option>\n                                    <mat-option *ngFor=\"let typeOfCitizenship of listTypeOfCitizenshipObservableArray\"\n                                        [value]=\"typeOfCitizenship.Id\">\n                                        {{ typeOfCitizenship.TypeOfCitizenship }}\n                                    </mat-option>\n                                </mat-select>\n                            </mat-form-field>\n                        </div>\n                    </div>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Dual Citizenship Country\"\n                            [(ngModel)]=\"citizenModel.DualCitizenshipCountry\">\n                    </mat-form-field>\n                </div>\n            </div>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <div fxLayout fxLayout.xs=\"column\">\n                        <div fxFlex=\"100%\" style=\"margin-right: 5px;\">\n                            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                                <input matInput type=\"number\" placeholder=\"Height\" [(ngModel)]=\"citizenModel.Height\">\n                                <span matSuffix>cm</span>\n                            </mat-form-field>\n                        </div>\n                        <div fxFlex=\"100%\" style=\"margin-right: 5px;\">\n                            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                                <input matInput type=\"number\" placeholder=\"Weight\" [(ngModel)]=\"citizenModel.Weight\">\n                                <span matSuffix>kg</span>\n                            </mat-form-field>\n                        </div>\n                    </div>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"true\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <mat-label>Blood Type</mat-label>\n                        <mat-select [(ngModel)]=\"citizenModel.BloodTypeId\" required>\n                            <mat-option *ngFor=\"let bloodType of listBloodTypeObservableArray\" [value]=\"bloodType.Id\">\n                                {{ bloodType.BloodType }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Agency Employee No.\"\n                            [(ngModel)]=\"citizenModel.AgencyEmployeeNumber\" required>\n                    </mat-form-field>\n                </div>\n            </div>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"GSIS ID No.\" [(ngModel)]=\"citizenModel.GSISNumber\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"PAG IBIG No.\" [(ngModel)]=\"citizenModel.HDMFNumber\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"PHILHEALTH No.\" [(ngModel)]=\"citizenModel.PhilHealthNumber\"\n                            required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"SSS No.\" [(ngModel)]=\"citizenModel.SSSNumber\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"TIN No.\" [(ngModel)]=\"citizenModel.TINNumber\" required>\n                    </mat-form-field>\n                </div>\n            </div>\n            <h5><i>Residential Address</i></h5>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Residential No.\" [(ngModel)]=\"citizenModel.ResidentialNumber\"\n                            required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Residential St.\" [(ngModel)]=\"citizenModel.ResidentialStreet\"\n                            required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"50%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Residential Village\" [(ngModel)]=\"citizenModel.ResidentialVillage\"\n                            required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <mat-label>Residential Barangay</mat-label>\n                        <mat-select [(ngModel)]=\"citizenModel.ResidentialBarangayId\" required>\n                            <mat-option *ngFor=\"let barangay of listBarangayObservableArray\" [value]=\"barangay.Id\">\n                                {{ barangay.Barangay }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                </div>\n            </div>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <mat-label>Residential City</mat-label>\n                        <mat-select [(ngModel)]=\"citizenModel.ResidentialCityId\" required>\n                            <mat-option *ngFor=\"let city of listCityObservableArray\" [value]=\"city.Id\">\n                                {{ city.City }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <mat-label>Residential Province</mat-label>\n                        <mat-select [(ngModel)]=\"citizenModel.ResidentialProvinceId\" required>\n                            <mat-option *ngFor=\"let province of listProvinceObservableArray\" [value]=\"province.Id\">\n                                {{ province.Province }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Residential Zip Code\" [(ngModel)]=\"citizenModel.ResidentialZipCode\"\n                            required>\n                    </mat-form-field>\n                </div>\n            </div>\n            <h5><i>Permanent Address</i></h5>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Permanent No.\" [(ngModel)]=\"citizenModel.PermanentNumber\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Permanent St.\" [(ngModel)]=\"citizenModel.PermanentStreet\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"50%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Permanent Village\" [(ngModel)]=\"citizenModel.PermanentVillage\"\n                            required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <mat-label>Permanent Barangay</mat-label>\n                        <mat-select [(ngModel)]=\"citizenModel.PermanentBarangayId\" required>\n                            <mat-option *ngFor=\"let barangay of listBarangayObservableArray\" [value]=\"barangay.Id\">\n                                {{ barangay.Barangay }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                </div>\n            </div>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <mat-label>Permanent City</mat-label>\n                        <mat-select [(ngModel)]=\"citizenModel.PermanentCityId\" required>\n                            <mat-option *ngFor=\"let city of listCityObservableArray\" [value]=\"city.Id\">\n                                {{ city.City }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <mat-label>Permanent Province</mat-label>\n                        <mat-select [(ngModel)]=\"citizenModel.PermanentProvinceId\" required>\n                            <mat-option *ngFor=\"let province of listProvinceObservableArray\" [value]=\"province.Id\">\n                                {{ province.Province }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Permanent Zip Code\" [(ngModel)]=\"citizenModel.PermanentZipCode\"\n                            required>\n                    </mat-form-field>\n                </div>\n            </div>\n            <h5><i>Contact Information</i></h5>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Telephone No.\" [(ngModel)]=\"citizenModel.TelephoneNumber\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Mobile No.\" [(ngModel)]=\"citizenModel.MobileNumber\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput type=\"email\" placeholder=\"Email Address\" [(ngModel)]=\"citizenModel.EmailAddress\"\n                            required>\n                    </mat-form-field>\n                </div>\n            </div>\n            <h5><i>Status</i></h5>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <mat-label>Citizen Status</mat-label>\n                        <mat-select [(ngModel)]=\"citizenModel.CitizenStatusId\" required>\n                            <mat-option *ngFor=\"let citizenStatus of listCitizenStatusObservableArray\"\n                                [value]=\"citizenStatus.Id\">\n                                {{ citizenStatus.CitizenStatus }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                </div>\n            </div>\n        </mat-tab>\n        <mat-tab label=\"II. FAMILY BACKGROUND\">\n            <h5><i>Employer</i></h5>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <mat-label>Occupation</mat-label>\n                        <mat-select [(ngModel)]=\"citizenModel.OccupationId\" required>\n                            <mat-option *ngFor=\"let occupation of listOccupationObservableArray\"\n                                [value]=\"occupation.Id\">\n                                {{ occupation.Occupation }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Employer Name\" [(ngModel)]=\"citizenModel.EmployerName\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Employer Tel No.\"\n                            [(ngModel)]=\"citizenModel.EmployerTelephoneNumber\" required>\n                    </mat-form-field>\n                </div>\n            </div>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Employer Address\" [(ngModel)]=\"citizenModel.EmployerAddress\"\n                            required>\n                    </mat-form-field>\n                </div>\n            </div>\n            <h5><i>Spouse</i></h5>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Spouse's Surname\" [(ngModel)]=\"citizenModel.SpouseSurname\"\n                            required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Spouse's Firstname\" [(ngModel)]=\"citizenModel.SpouseFirstname\"\n                            required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Spouse's Middle Name\" [(ngModel)]=\"citizenModel.SpouseMiddlename\">\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Spouse's Extension Name (If any)\"\n                            [(ngModel)]=\"citizenModel.SpouseExtensionname\">\n                    </mat-form-field>\n                </div>\n            </div>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <div fxLayout fxLayout.xs=\"column\">\n                        <div fxFlex=\"100%\" style=\"margin-right: 5px;\">\n                            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                                <mat-label>Spouse's Occupation</mat-label>\n                                <mat-select [(ngModel)]=\"citizenModel.SpouseOccupationId\" required>\n                                    <mat-option *ngFor=\"let occupation of listOccupationObservableArray\"\n                                        [value]=\"occupation.Id\">\n                                        {{ occupation.Occupation }}\n                                    </mat-option>\n                                </mat-select>\n                            </mat-form-field>\n                        </div>\n                        <div fxFlex=\"100%\" style=\"margin-right: 5px;\">\n                            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                                <input matInput placeholder=\"Spouse's Employer Name\"\n                                    [(ngModel)]=\"citizenModel.SpouseEmployerName\" required>\n                            </mat-form-field>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Spouse's Employer Address\"\n                            [(ngModel)]=\"citizenModel.SpouseEmployerAddress\" required>\n                    </mat-form-field>\n                </div>\n            </div>\n            <h5><i>Father</i></h5>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Father's Surname\" [(ngModel)]=\"citizenModel.FatherSurname\"\n                            required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Father's Firstname\" [(ngModel)]=\"citizenModel.FatherFirstname\"\n                            required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Father's Middle Name\" [(ngModel)]=\"citizenModel.FatherMiddlename\">\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Father's Extension Name (If any)\"\n                            [(ngModel)]=\"citizenModel.FatherExtensionname\">\n                    </mat-form-field>\n                </div>\n            </div>\n            <h5><i>Mother</i></h5>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Mother's Surname\" [(ngModel)]=\"citizenModel.MotherSurname\"\n                            required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Mother's Firstname\" [(ngModel)]=\"citizenModel.MotherFirstname\"\n                            required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Mother's Middle Name\" [(ngModel)]=\"citizenModel.MotherMiddlename\">\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Mother's Extension Name (If any)\"\n                            [(ngModel)]=\"citizenModel.MotherExtensionname\">\n                    </mat-form-field>\n                </div>\n            </div>\n            <mat-divider></mat-divider>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"padding-top: 3px;\">\n                    <h5><i>Citizen's Children</i></h5>\n                </div>\n                <div fxFlex=\"100%\" style=\"padding-top: 15px; padding-bottom: 15px;\" align=\"right\">\n                    <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\"\n                        (click)=\"btnAddCitizensChildren()\">\n                        <fa-icon icon=\"plus\" fixedWidth=\"true\"></fa-icon> Add\n                    </button>\n                </div>\n            </div>\n            <mat-divider></mat-divider>\n            <div fxLayout fxLayout.xs=\"column\" style=\"padding-top: 15px; padding-bottom: 15px;\">\n                <div fxFlex=\"100%\">\n                    <wj-flex-grid #listCitizenFlexGrid [itemsSource]=\"listCitizensChildrenCollectionView\"\n                        [selectionMode]=\"3\" [frozenColumns]=\"2\">\n                        <wj-flex-grid-filter></wj-flex-grid-filter>\n                        <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"75\">\n                            <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                                <button mat-flat-button color=\"primary\"\n                                    style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                    (click)=\"btnEditCitizensChildren()\">\n                                    <fa-icon icon=\"edit\" fixedWidth=\"true\"></fa-icon> Edit\n                                </button>\n                            </ng-template>\n                        </wj-flex-grid-column>\n                        <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"85\">\n                            <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                                <button mat-flat-button color=\"warn\"\n                                    style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                    (click)=\"btnDeleteCitizensChildren()\">\n                                    <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Delete\n                                </button>\n                            </ng-template>\n                        </wj-flex-grid-column>\n                        <wj-flex-grid-column [header]=\"'Full Name'\" [binding]=\"'Fullname'\" [isReadOnly]=\"true\"\n                            [width]=\"'*'\">\n                        </wj-flex-grid-column>\n                        <wj-flex-grid-column [header]=\"'Birth Date'\" [binding]=\"'DateOfBirth'\" [isReadOnly]=\"true\"\n                            [width]=\"150\">\n                        </wj-flex-grid-column>\n                    </wj-flex-grid>\n                </div>\n            </div>\n            <mat-divider></mat-divider>\n            <div style=\"padding-top: 15px; padding-bottom: 15px;\">\n                <button mat-stroked-button (click)=\"listCitizensChildrenCollectionView.moveToFirstPage()\">\n                    <fa-icon icon=\"fast-backward\" fixedWidth=\"true\"></fa-icon>\n                </button>\n                <button mat-stroked-button (click)=\"listCitizensChildrenCollectionView.moveToPreviousPage()\">\n                    <fa-icon icon=\"step-backward\" fixedWidth=\"true\"></fa-icon>\n                </button>\n                <button mat-button disabled>\n                    {{ listCitizensChildrenCollectionView.pageIndex + 1 }} /\n                    {{ listCitizensChildrenCollectionView.pageCount }}\n                </button>\n                <button mat-stroked-button (click)=\"listCitizensChildrenCollectionView.moveToNextPage()\">\n                    <fa-icon icon=\"step-forward\" fixedWidth=\"true\"></fa-icon>\n                </button>\n                <button mat-stroked-button (click)=\"listCitizensChildrenCollectionView.moveToLastPage()\">\n                    <fa-icon icon=\"fast-forward\" fixedWidth=\"true\"></fa-icon>\n                </button>\n            </div>\n        </mat-tab>\n        <mat-tab label=\"III. EDUCATIONAL BACKGROUND\">\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"padding-top: 3px;\">\n                    <h5><i>Citizen's Educational Background</i></h5>\n                </div>\n                <div fxFlex=\"100%\" style=\"padding-top: 15px; padding-bottom: 15px;\" align=\"right\">\n                    <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\"\n                        (click)=\"btnAddCitizensEducation()\">\n                        <fa-icon icon=\"plus\" fixedWidth=\"true\"></fa-icon> Add\n                    </button>\n                </div>\n            </div>\n            <mat-divider></mat-divider>\n            <div fxLayout fxLayout.xs=\"column\" style=\"padding-top: 15px; padding-bottom: 15px;\">\n                <div fxFlex=\"100%\">\n                    <wj-flex-grid #listCitizenFlexGrid [itemsSource]=\"listCitizensEducationCollectionView\"\n                        [selectionMode]=\"3\" [frozenColumns]=\"2\">\n                        <wj-flex-grid-filter></wj-flex-grid-filter>\n                        <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"75\">\n                            <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                                <button mat-flat-button color=\"primary\"\n                                    style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                    (click)=\"btnEditCitizensEducation()\">\n                                    <fa-icon icon=\"edit\" fixedWidth=\"true\"></fa-icon> Edit\n                                </button>\n                            </ng-template>\n                        </wj-flex-grid-column>\n                        <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"85\">\n                            <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                                <button mat-flat-button color=\"warn\"\n                                    style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                    (click)=\"btnDeleteCitizensEducation()\">\n                                    <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Delete\n                                </button>\n                            </ng-template>\n                        </wj-flex-grid-column>\n                        <wj-flex-grid-column [header]=\"'Level'\" [binding]=\"'EducationLevel'\" [isReadOnly]=\"true\"\n                            [width]=\"100\">\n                        </wj-flex-grid-column>\n                        <wj-flex-grid-column [header]=\"'School'\" [binding]=\"'NameOfSchool'\" [isReadOnly]=\"true\"\n                            [width]=\"250\">\n                        </wj-flex-grid-column>\n                        <wj-flex-grid-column [header]=\"'Degree'\" [binding]=\"'Degree'\" [isReadOnly]=\"true\" [width]=\"250\">\n                        </wj-flex-grid-column>\n                        <wj-flex-grid-column [header]=\"'Period From'\" [binding]=\"'PeriodFrom'\" [isReadOnly]=\"true\"\n                            [width]=\"150\">\n                        </wj-flex-grid-column>\n                        <wj-flex-grid-column [header]=\"'Period To'\" [binding]=\"'PeriodTo'\" [isReadOnly]=\"true\"\n                            [width]=\"150\">\n                        </wj-flex-grid-column>\n                        <wj-flex-grid-column [header]=\"'Units Earned'\" [binding]=\"'UnitsEarned'\" [isReadOnly]=\"true\"\n                            [width]=\"150\">\n                        </wj-flex-grid-column>\n                        <wj-flex-grid-column [header]=\"'Year Graduated'\" [binding]=\"'YearGraduated'\" [isReadOnly]=\"true\"\n                            [width]=\"170\">\n                        </wj-flex-grid-column>\n                    </wj-flex-grid>\n                </div>\n            </div>\n            <mat-divider></mat-divider>\n            <div style=\"padding-top: 15px; padding-bottom: 15px;\">\n                <button mat-stroked-button (click)=\"listCitizensEducationCollectionView.moveToFirstPage()\">\n                    <fa-icon icon=\"fast-backward\" fixedWidth=\"true\"></fa-icon>\n                </button>\n                <button mat-stroked-button (click)=\"listCitizensEducationCollectionView.moveToPreviousPage()\">\n                    <fa-icon icon=\"step-backward\" fixedWidth=\"true\"></fa-icon>\n                </button>\n                <button mat-button disabled>\n                    {{ listCitizensEducationCollectionView.pageIndex + 1 }} /\n                    {{ listCitizensEducationCollectionView.pageCount }}\n                </button>\n                <button mat-stroked-button (click)=\"listCitizensEducationCollectionView.moveToNextPage()\">\n                    <fa-icon icon=\"step-forward\" fixedWidth=\"true\"></fa-icon>\n                </button>\n                <button mat-stroked-button (click)=\"listCitizensEducationCollectionView.moveToLastPage()\">\n                    <fa-icon icon=\"fast-forward\" fixedWidth=\"true\"></fa-icon>\n                </button>\n            </div>\n        </mat-tab>\n    </mat-tab-group>\n</div>\n<mat-divider></mat-divider>\n<div mat-dialog-actions align=\"right\">\n    <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnSaveCitizen()\" id=\"btnSaveCitizen\">\n        <fa-icon icon=\"save\" fixedWidth=\"true\"></fa-icon> Save\n    </button>\n    <button mat-flat-button color=\"warn\" (click)=\"btnCloseDetaileDialog()\" id=\"btnCloseCitizen\">\n        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Cancel\n    </button>\n</div>"
+module.exports = "<h1 mat-dialog-title>\n    {{ dialogTitle }}\n</h1>\n<mat-divider></mat-divider>\n<div mat-dialog-content>\n    <mat-tab-group>\n        <mat-tab label=\"I. PERSONAL INFORMATION\">\n            <h5><i>Picture</i></h5>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <div fxLayout fxLayout.xs=\"column\">\n                        <div fxFlex=\"100%\" style=\"margin-right: 10px;\">\n                            <mat-card>\n                                <img [src]=\"imageAsDataUrl\" style=\"width: 100%;\" />\n                            </mat-card>\n                            <br />\n                            <div>\n                                <button mat-stroked-button color=\"\" style=\"margin-right: 5px;\" id=\"btnTakePhotoCitizen\"\n                                    (click)=\"btnOpenCamera()\" [disabled]=\"citizenModel.IsLocked\">\n                                    <fa-icon icon=\"camera\" fixedWidth=\"true\"></fa-icon> Take a Photo\n                                </button>\n                                <button mat-stroked-button color=\"\" id=\"btnClearPhotoCitizen\" (click)=\"btnClearPhoto()\"\n                                    [disabled]=\"citizenModel.IsLocked\">\n                                    <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Clear\n                                </button>\n                            </div>\n                        </div>\n                        <div fxFlex=\"100%\"></div>\n                        <div fxFlex=\"100%\"></div>\n                    </div>\n                </div>\n            </div>\n            <h5><i>Basic Information</i></h5>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Surname\" [(ngModel)]=\"citizenModel.Surname\"\n                            [disabled]=\"citizenModel.IsLocked\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Firstname\" [(ngModel)]=\"citizenModel.Firstname\"\n                            [disabled]=\"citizenModel.IsLocked\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Middle Name\" [(ngModel)]=\"citizenModel.Middlename\"\n                            [disabled]=\"citizenModel.IsLocked\">\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Extension Name (If any)\" [(ngModel)]=\"citizenModel.Extensionname\"\n                            [disabled]=\"citizenModel.IsLocked\">\n                    </mat-form-field>\n                </div>\n            </div>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput [matDatepicker]=\"picker\" placeholder=\"Date of Birth\"\n                            [(ngModel)]=\"citizenModel.DateOfBirth\" [disabled]=\"citizenModel.IsLocked\">\n                        <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n                        <mat-datepicker #dateOfBirthPicker></mat-datepicker>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Palce of Birth\" [(ngModel)]=\"citizenModel.PlaceOfBirth\"\n                            [disabled]=\"citizenModel.IsLocked\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"50%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <mat-label>Sex</mat-label>\n                        <mat-select [(ngModel)]=\"citizenModel.SexId\" [disabled]=\"citizenModel.IsLocked\" required>\n                            <mat-option *ngFor=\"let sex of listSexObservableArray\" [value]=\"sex.Id\">\n                                {{ sex.Sex }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <mat-label>Civil Status</mat-label>\n                        <mat-select [(ngModel)]=\"citizenModel.CivilStatusId\" [disabled]=\"citizenModel.IsLocked\"\n                            required>\n                            <mat-option *ngFor=\"let civilStatus of listCivilStatusObservableArray\"\n                                [value]=\"civilStatus.Id\">\n                                {{ civilStatus.CivilStatus }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                </div>\n            </div>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <div fxLayout fxLayout.xs=\"column\">\n                        <div fxFlex=\"100%\" style=\"margin-right: 5px;\">\n                            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                                <mat-label>Citizen Ship</mat-label>\n                                <mat-select [(ngModel)]=\"citizenModel.CitizenshipId\" [disabled]=\"citizenModel.IsLocked\"\n                                    required>\n                                    <mat-option *ngFor=\"let citizenship of listCitizenshipObservableArray\"\n                                        [value]=\"citizenship.Id\">\n                                        {{ citizenship.Citizenship }}\n                                    </mat-option>\n                                </mat-select>\n                            </mat-form-field>\n                        </div>\n                        <div fxFlex=\"100%\" style=\"margin-right: 5px;\">\n                            <mat-form-field [hideRequiredMarker]=\"true\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                                <mat-label>Type Citizen Ship (If dual)</mat-label>\n                                <mat-select [(ngModel)]=\"citizenModel.TypeOfCitizenshipId\"\n                                    [disabled]=\"citizenModel.IsLocked\">\n                                    <mat-option [value]=\"\"></mat-option>\n                                    <mat-option *ngFor=\"let typeOfCitizenship of listTypeOfCitizenshipObservableArray\"\n                                        [value]=\"typeOfCitizenship.Id\">\n                                        {{ typeOfCitizenship.TypeOfCitizenship }}\n                                    </mat-option>\n                                </mat-select>\n                            </mat-form-field>\n                        </div>\n                    </div>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Dual Citizenship Country\"\n                            [(ngModel)]=\"citizenModel.DualCitizenshipCountry\" [disabled]=\"citizenModel.IsLocked\">\n                    </mat-form-field>\n                </div>\n            </div>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <div fxLayout fxLayout.xs=\"column\">\n                        <div fxFlex=\"100%\" style=\"margin-right: 5px;\">\n                            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                                <input matInput type=\"number\" placeholder=\"Height\" [(ngModel)]=\"citizenModel.Height\"\n                                    [disabled]=\"citizenModel.IsLocked\">\n                                <span matSuffix>cm</span>\n                            </mat-form-field>\n                        </div>\n                        <div fxFlex=\"100%\" style=\"margin-right: 5px;\">\n                            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                                <input matInput type=\"number\" placeholder=\"Weight\" [(ngModel)]=\"citizenModel.Weight\"\n                                    [disabled]=\"citizenModel.IsLocked\">\n                                <span matSuffix>kg</span>\n                            </mat-form-field>\n                        </div>\n                    </div>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"true\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <mat-label>Blood Type</mat-label>\n                        <mat-select [(ngModel)]=\"citizenModel.BloodTypeId\" [disabled]=\"citizenModel.IsLocked\" required>\n                            <mat-option *ngFor=\"let bloodType of listBloodTypeObservableArray\" [value]=\"bloodType.Id\">\n                                {{ bloodType.BloodType }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Agency Employee No.\"\n                            [(ngModel)]=\"citizenModel.AgencyEmployeeNumber\" [disabled]=\"citizenModel.IsLocked\" required>\n                    </mat-form-field>\n                </div>\n            </div>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"GSIS ID No.\" [(ngModel)]=\"citizenModel.GSISNumber\"\n                            [disabled]=\"citizenModel.IsLocked\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"PAG IBIG No.\" [(ngModel)]=\"citizenModel.HDMFNumber\"\n                            [disabled]=\"citizenModel.IsLocked\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"PHILHEALTH No.\" [(ngModel)]=\"citizenModel.PhilHealthNumber\"\n                            [disabled]=\"citizenModel.IsLocked\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"SSS No.\" [(ngModel)]=\"citizenModel.SSSNumber\"\n                            [disabled]=\"citizenModel.IsLocked\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"TIN No.\" [(ngModel)]=\"citizenModel.TINNumber\"\n                            [disabled]=\"citizenModel.IsLocked\" required>\n                    </mat-form-field>\n                </div>\n            </div>\n            <h5><i>Residential Address</i></h5>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Residential No.\" [(ngModel)]=\"citizenModel.ResidentialNumber\"\n                            [disabled]=\"citizenModel.IsLocked\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Residential St.\" [(ngModel)]=\"citizenModel.ResidentialStreet\"\n                            [disabled]=\"citizenModel.IsLocked\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"50%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Residential Village\" [(ngModel)]=\"citizenModel.ResidentialVillage\"\n                            [disabled]=\"citizenModel.IsLocked\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <mat-label>Residential Barangay</mat-label>\n                        <mat-select [(ngModel)]=\"citizenModel.ResidentialBarangayId\" [disabled]=\"citizenModel.IsLocked\"\n                            required>\n                            <mat-option *ngFor=\"let barangay of listBarangayObservableArray\" [value]=\"barangay.Id\">\n                                {{ barangay.Barangay }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                </div>\n            </div>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <mat-label>Residential City</mat-label>\n                        <mat-select [(ngModel)]=\"citizenModel.ResidentialCityId\" [disabled]=\"citizenModel.IsLocked\"\n                            required>\n                            <mat-option *ngFor=\"let city of listCityObservableArray\" [value]=\"city.Id\">\n                                {{ city.City }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <mat-label>Residential Province</mat-label>\n                        <mat-select [(ngModel)]=\"citizenModel.ResidentialProvinceId\" [disabled]=\"citizenModel.IsLocked\"\n                            required>\n                            <mat-option *ngFor=\"let province of listProvinceObservableArray\" [value]=\"province.Id\">\n                                {{ province.Province }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Residential Zip Code\" [(ngModel)]=\"citizenModel.ResidentialZipCode\"\n                            [disabled]=\"citizenModel.IsLocked\" required>\n                    </mat-form-field>\n                </div>\n            </div>\n            <h5><i>Permanent Address</i></h5>\n            <button mat-stroked-button color=\"\" style=\"margin-right: 5px;\" (click)=\"btnCopyResidentialAddress()\"\n                id=\"btnCopyResidentialAddress\" [disabled]=\"citizenModel.IsLocked\">\n                <fa-icon icon=\"copy\" fixedWidth=\"true\"></fa-icon> Same Residential Address\n            </button>\n            <br />\n            <br />\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Permanent No.\" [(ngModel)]=\"citizenModel.PermanentNumber\"\n                            [disabled]=\"citizenModel.IsLocked\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Permanent St.\" [(ngModel)]=\"citizenModel.PermanentStreet\"\n                            [disabled]=\"citizenModel.IsLocked\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"50%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Permanent Village\" [(ngModel)]=\"citizenModel.PermanentVillage\"\n                            [disabled]=\"citizenModel.IsLocked\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <mat-label>Permanent Barangay</mat-label>\n                        <mat-select [(ngModel)]=\"citizenModel.PermanentBarangayId\" [disabled]=\"citizenModel.IsLocked\"\n                            required>\n                            <mat-option *ngFor=\"let barangay of listBarangayObservableArray\" [value]=\"barangay.Id\">\n                                {{ barangay.Barangay }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                </div>\n            </div>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <mat-label>Permanent City</mat-label>\n                        <mat-select [(ngModel)]=\"citizenModel.PermanentCityId\" [disabled]=\"citizenModel.IsLocked\"\n                            required>\n                            <mat-option *ngFor=\"let city of listCityObservableArray\" [value]=\"city.Id\">\n                                {{ city.City }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <mat-label>Permanent Province</mat-label>\n                        <mat-select [(ngModel)]=\"citizenModel.PermanentProvinceId\" [disabled]=\"citizenModel.IsLocked\"\n                            required>\n                            <mat-option *ngFor=\"let province of listProvinceObservableArray\" [value]=\"province.Id\">\n                                {{ province.Province }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Permanent Zip Code\" [(ngModel)]=\"citizenModel.PermanentZipCode\"\n                            [disabled]=\"citizenModel.IsLocked\" required>\n                    </mat-form-field>\n                </div>\n            </div>\n            <h5><i>Contact Information</i></h5>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Telephone No.\" [(ngModel)]=\"citizenModel.TelephoneNumber\"\n                            [disabled]=\"citizenModel.IsLocked\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Mobile No.\" [(ngModel)]=\"citizenModel.MobileNumber\"\n                            [disabled]=\"citizenModel.IsLocked\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput type=\"email\" placeholder=\"Email Address\" [(ngModel)]=\"citizenModel.EmailAddress\"\n                            [disabled]=\"citizenModel.IsLocked\" required>\n                    </mat-form-field>\n                </div>\n            </div>\n            <h5><i>Status</i></h5>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <mat-label>Status</mat-label>\n                        <mat-select [(ngModel)]=\"citizenModel.StatusId\" [disabled]=\"citizenModel.IsLocked\" required>\n                            <mat-option *ngFor=\"let status of listStatusObservableArray\" [value]=\"status.Id\">\n                                {{ status.Status }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                </div>\n            </div>\n        </mat-tab>\n        <mat-tab label=\"II. FAMILY BACKGROUND\">\n            <h5><i>Employer</i></h5>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <mat-label>Occupation</mat-label>\n                        <mat-select [(ngModel)]=\"citizenModel.OccupationId\" [disabled]=\"citizenModel.IsLocked\" required>\n                            <mat-option *ngFor=\"let occupation of listOccupationObservableArray\"\n                                [value]=\"occupation.Id\">\n                                {{ occupation.Occupation }}\n                            </mat-option>\n                        </mat-select>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Employer Name\" [(ngModel)]=\"citizenModel.EmployerName\"\n                            [disabled]=\"citizenModel.IsLocked\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Employer Tel No.\"\n                            [(ngModel)]=\"citizenModel.EmployerTelephoneNumber\" [disabled]=\"citizenModel.IsLocked\"\n                            required>\n                    </mat-form-field>\n                </div>\n            </div>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Employer Address\" [(ngModel)]=\"citizenModel.EmployerAddress\"\n                            [disabled]=\"citizenModel.IsLocked\" required>\n                    </mat-form-field>\n                </div>\n            </div>\n            <h5><i>Spouse</i></h5>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Spouse's Surname\" [(ngModel)]=\"citizenModel.SpouseSurname\"\n                            [disabled]=\"citizenModel.IsLocked\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Spouse's Firstname\" [(ngModel)]=\"citizenModel.SpouseFirstname\"\n                            [disabled]=\"citizenModel.IsLocked\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Spouse's Middle Name\" [(ngModel)]=\"citizenModel.SpouseMiddlename\"\n                            [disabled]=\"citizenModel.IsLocked\">\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Spouse's Extension Name (If any)\"\n                            [(ngModel)]=\"citizenModel.SpouseExtensionname\" [disabled]=\"citizenModel.IsLocked\">\n                    </mat-form-field>\n                </div>\n            </div>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <div fxLayout fxLayout.xs=\"column\">\n                        <div fxFlex=\"100%\" style=\"margin-right: 5px;\">\n                            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                                <mat-label>Spouse's Occupation</mat-label>\n                                <mat-select [(ngModel)]=\"citizenModel.SpouseOccupationId\"\n                                    [disabled]=\"citizenModel.IsLocked\" required>\n                                    <mat-option *ngFor=\"let occupation of listOccupationObservableArray\"\n                                        [value]=\"occupation.Id\">\n                                        {{ occupation.Occupation }}\n                                    </mat-option>\n                                </mat-select>\n                            </mat-form-field>\n                        </div>\n                        <div fxFlex=\"100%\" style=\"margin-right: 5px;\">\n                            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                                <input matInput placeholder=\"Spouse's Employer Name\"\n                                    [(ngModel)]=\"citizenModel.SpouseEmployerName\" [disabled]=\"citizenModel.IsLocked\"\n                                    required>\n                            </mat-form-field>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Spouse's Employer Address\"\n                            [(ngModel)]=\"citizenModel.SpouseEmployerAddress\" [disabled]=\"citizenModel.IsLocked\"\n                            required>\n                    </mat-form-field>\n                </div>\n            </div>\n            <h5><i>Father</i></h5>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Father's Surname\" [(ngModel)]=\"citizenModel.FatherSurname\"\n                            [disabled]=\"citizenModel.IsLocked\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Father's Firstname\" [(ngModel)]=\"citizenModel.FatherFirstname\"\n                            [disabled]=\"citizenModel.IsLocked\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Father's Middle Name\" [(ngModel)]=\"citizenModel.FatherMiddlename\"\n                            [disabled]=\"citizenModel.IsLocked\">\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Father's Extension Name (If any)\"\n                            [(ngModel)]=\"citizenModel.FatherExtensionname\" [disabled]=\"citizenModel.IsLocked\">\n                    </mat-form-field>\n                </div>\n            </div>\n            <h5><i>Mother</i></h5>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Mother's Surname\" [(ngModel)]=\"citizenModel.MotherSurname\"\n                            [disabled]=\"citizenModel.IsLocked\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Mother's Firstname\" [(ngModel)]=\"citizenModel.MotherFirstname\"\n                            [disabled]=\"citizenModel.IsLocked\" required>\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Mother's Middle Name\" [(ngModel)]=\"citizenModel.MotherMiddlename\"\n                            [disabled]=\"citizenModel.IsLocked\">\n                    </mat-form-field>\n                </div>\n                <div fxFlex=\"100%\" style=\"margin: 5px;\">\n                    <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                        <input matInput placeholder=\"Mother's Extension Name (If any)\"\n                            [(ngModel)]=\"citizenModel.MotherExtensionname\" [disabled]=\"citizenModel.IsLocked\">\n                    </mat-form-field>\n                </div>\n            </div>\n            <mat-divider></mat-divider>\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"padding-top: 3px;\">\n                    <h5><i>Citizen's Children</i></h5>\n                </div>\n                <div fxFlex=\"100%\" style=\"padding-top: 15px; padding-bottom: 15px;\" align=\"right\">\n                    <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\"\n                        (click)=\"btnAddCitizensChildren()\" [disabled]=\"citizenModel.IsLocked\">\n                        <fa-icon icon=\"plus\" fixedWidth=\"true\"></fa-icon> Add\n                    </button>\n                </div>\n            </div>\n            <mat-divider></mat-divider>\n            <div fxLayout fxLayout.xs=\"column\" style=\"padding-top: 15px; padding-bottom: 15px;\">\n                <div fxFlex=\"100%\">\n                    <wj-flex-grid #listCitizenFlexGrid [itemsSource]=\"listCitizensChildrenCollectionView\"\n                        [selectionMode]=\"3\" [frozenColumns]=\"2\">\n                        <wj-flex-grid-filter></wj-flex-grid-filter>\n                        <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"75\">\n                            <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                                <button mat-flat-button color=\"primary\"\n                                    style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                    (click)=\"btnEditCitizensChildren()\" [disabled]=\"citizenModel.IsLocked\">\n                                    <fa-icon icon=\"edit\" fixedWidth=\"true\"></fa-icon> Edit\n                                </button>\n                            </ng-template>\n                        </wj-flex-grid-column>\n                        <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"85\">\n                            <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                                <button mat-flat-button color=\"warn\"\n                                    style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                    (click)=\"btnDeleteCitizensChildren()\" [disabled]=\"citizenModel.IsLocked\">\n                                    <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Delete\n                                </button>\n                            </ng-template>\n                        </wj-flex-grid-column>\n                        <wj-flex-grid-column [header]=\"'Full Name'\" [binding]=\"'Fullname'\" [isReadOnly]=\"true\"\n                            [width]=\"'*'\">\n                        </wj-flex-grid-column>\n                        <wj-flex-grid-column [header]=\"'Birth Date'\" [binding]=\"'DateOfBirth'\" [isReadOnly]=\"true\"\n                            [width]=\"150\">\n                        </wj-flex-grid-column>\n                    </wj-flex-grid>\n                </div>\n            </div>\n            <mat-divider></mat-divider>\n            <div style=\"padding-top: 15px; padding-bottom: 15px;\">\n                <button mat-stroked-button (click)=\"listCitizensChildrenCollectionView.moveToFirstPage()\">\n                    <fa-icon icon=\"fast-backward\" fixedWidth=\"true\"></fa-icon>\n                </button>\n                <button mat-stroked-button (click)=\"listCitizensChildrenCollectionView.moveToPreviousPage()\">\n                    <fa-icon icon=\"step-backward\" fixedWidth=\"true\"></fa-icon>\n                </button>\n                <button mat-button disabled>\n                    {{ listCitizensChildrenCollectionView.pageIndex + 1 }} /\n                    {{ listCitizensChildrenCollectionView.pageCount }}\n                </button>\n                <button mat-stroked-button (click)=\"listCitizensChildrenCollectionView.moveToNextPage()\">\n                    <fa-icon icon=\"step-forward\" fixedWidth=\"true\"></fa-icon>\n                </button>\n                <button mat-stroked-button (click)=\"listCitizensChildrenCollectionView.moveToLastPage()\">\n                    <fa-icon icon=\"fast-forward\" fixedWidth=\"true\"></fa-icon>\n                </button>\n            </div>\n        </mat-tab>\n        <mat-tab label=\"III. EDUCATIONAL BACKGROUND\">\n            <div fxLayout fxLayout.xs=\"column\">\n                <div fxFlex=\"100%\" style=\"padding-top: 3px;\">\n                    <h5><i>Citizen's Educational Background</i></h5>\n                </div>\n                <div fxFlex=\"100%\" style=\"padding-top: 15px; padding-bottom: 15px;\" align=\"right\">\n                    <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\"\n                        (click)=\"btnAddCitizensEducation()\" [disabled]=\"citizenModel.IsLocked\">\n                        <fa-icon icon=\"plus\" fixedWidth=\"true\"></fa-icon> Add\n                    </button>\n                </div>\n            </div>\n            <mat-divider></mat-divider>\n            <div fxLayout fxLayout.xs=\"column\" style=\"padding-top: 15px; padding-bottom: 15px;\">\n                <div fxFlex=\"100%\">\n                    <wj-flex-grid #listCitizenFlexGrid [itemsSource]=\"listCitizensEducationCollectionView\"\n                        [selectionMode]=\"3\" [frozenColumns]=\"2\">\n                        <wj-flex-grid-filter></wj-flex-grid-filter>\n                        <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"75\">\n                            <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                                <button mat-flat-button color=\"primary\"\n                                    style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                    (click)=\"btnEditCitizensEducation()\" [disabled]=\"citizenModel.IsLocked\">\n                                    <fa-icon icon=\"edit\" fixedWidth=\"true\"></fa-icon> Edit\n                                </button>\n                            </ng-template>\n                        </wj-flex-grid-column>\n                        <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"85\">\n                            <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                                <button mat-flat-button color=\"warn\"\n                                    style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                    (click)=\"btnDeleteCitizensEducation()\" [disabled]=\"citizenModel.IsLocked\">\n                                    <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Delete\n                                </button>\n                            </ng-template>\n                        </wj-flex-grid-column>\n                        <wj-flex-grid-column [header]=\"'Level'\" [binding]=\"'EducationLevel'\" [isReadOnly]=\"true\"\n                            [width]=\"100\">\n                        </wj-flex-grid-column>\n                        <wj-flex-grid-column [header]=\"'School'\" [binding]=\"'NameOfSchool'\" [isReadOnly]=\"true\"\n                            [width]=\"250\">\n                        </wj-flex-grid-column>\n                        <wj-flex-grid-column [header]=\"'Degree'\" [binding]=\"'Degree'\" [isReadOnly]=\"true\" [width]=\"250\">\n                        </wj-flex-grid-column>\n                        <wj-flex-grid-column [header]=\"'Period From'\" [binding]=\"'PeriodFrom'\" [isReadOnly]=\"true\"\n                            [width]=\"150\">\n                        </wj-flex-grid-column>\n                        <wj-flex-grid-column [header]=\"'Period To'\" [binding]=\"'PeriodTo'\" [isReadOnly]=\"true\"\n                            [width]=\"150\">\n                        </wj-flex-grid-column>\n                        <wj-flex-grid-column [header]=\"'Units Earned'\" [binding]=\"'UnitsEarned'\" [isReadOnly]=\"true\"\n                            [width]=\"150\">\n                        </wj-flex-grid-column>\n                        <wj-flex-grid-column [header]=\"'Year Graduated'\" [binding]=\"'YearGraduated'\" [isReadOnly]=\"true\"\n                            [width]=\"170\">\n                        </wj-flex-grid-column>\n                    </wj-flex-grid>\n                </div>\n            </div>\n            <mat-divider></mat-divider>\n            <div style=\"padding-top: 15px; padding-bottom: 15px;\">\n                <button mat-stroked-button (click)=\"listCitizensEducationCollectionView.moveToFirstPage()\">\n                    <fa-icon icon=\"fast-backward\" fixedWidth=\"true\"></fa-icon>\n                </button>\n                <button mat-stroked-button (click)=\"listCitizensEducationCollectionView.moveToPreviousPage()\">\n                    <fa-icon icon=\"step-backward\" fixedWidth=\"true\"></fa-icon>\n                </button>\n                <button mat-button disabled>\n                    {{ listCitizensEducationCollectionView.pageIndex + 1 }} /\n                    {{ listCitizensEducationCollectionView.pageCount }}\n                </button>\n                <button mat-stroked-button (click)=\"listCitizensEducationCollectionView.moveToNextPage()\">\n                    <fa-icon icon=\"step-forward\" fixedWidth=\"true\"></fa-icon>\n                </button>\n                <button mat-stroked-button (click)=\"listCitizensEducationCollectionView.moveToLastPage()\">\n                    <fa-icon icon=\"fast-forward\" fixedWidth=\"true\"></fa-icon>\n                </button>\n            </div>\n        </mat-tab>\n    </mat-tab-group>\n</div>\n<mat-divider></mat-divider>\n<div mat-dialog-actions align=\"right\">\n    <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnSaveCitizen()\" id=\"btnSaveCitizen\"\n        [disabled]=\"citizenModel.IsLocked\">\n        <fa-icon icon=\"save\" fixedWidth=\"true\"></fa-icon> Save\n    </button>\n    <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnLockCitizen()\" id=\"btnLockCitizen\"\n        [disabled]=\"citizenModel.IsLocked\">\n        <fa-icon icon=\"lock\" fixedWidth=\"true\"></fa-icon> Lock\n    </button>\n    <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnUnlockCitizen()\"\n        id=\"btnUnlockCitizen\" [disabled]=\"!citizenModel.IsLocked\">\n        <fa-icon icon=\"unlock\" fixedWidth=\"true\"></fa-icon> Unlock\n    </button>\n    <button mat-flat-button color=\"warn\" (click)=\"btnCloseDetaileDialog()\" id=\"btnCloseCitizen\">\n        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Cancel\n    </button>\n</div>"
 
 /***/ }),
 
@@ -11225,7 +11225,7 @@ module.exports = "<h1 mat-dialog-title>\n    Search Citizen\n</h1>\n<mat-divider
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"software-header\">\n    <h2>\n        <fa-icon icon=\"user\" fixedWidth=\"true\"></fa-icon> CITIZENS\n    </h2>\n</div>\n<div class=\"software-body\">\n    <div fxLayout fxLayout.xs=\"column\">\n        <div fxFlex=\"100%\" style=\"padding-top: 2px;\">\n            <div *ngIf=\"isFilterShow\">\n                <mat-chip-list aria-label=\"\">\n                    <mat-chip>\n                        \"{{ filterString }}\"\n                    </mat-chip>\n                    <button mat-button color=\"warn\" (click)=\"btnClearFilter()\">\n                        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Clear\n                    </button>\n                </mat-chip-list>\n            </div>\n        </div>\n        <div fxFlex=\"100%\" align=\"right\">\n            <button mat-stroked-button color=\"\" style=\"margin-right: 5px;\" (click)=\"btnSearchCitizen()\">\n                <fa-icon icon=\"search\" fixedWidth=\"true\"></fa-icon> Search\n            </button>\n            <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnAddCitizen()\">\n                <fa-icon icon=\"plus\" fixedWidth=\"true\"></fa-icon> Add\n            </button>\n            <button mat-flat-button color=\"warn\" routerLink=\"/software\">\n                <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Close\n            </button>\n        </div>\n    </div>\n</div>\n<mat-divider></mat-divider>\n<div class=\"software-body\">\n    <wj-flex-grid #listCitizenFlexGrid [itemsSource]=\"listCitizenCollectionView\" [selectionMode]=\"3\"\n        [frozenColumns]=\"2\">\n        <wj-flex-grid-filter></wj-flex-grid-filter>\n        <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"75\">\n            <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                <button mat-flat-button color=\"primary\"\n                    style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\" (click)=\"btnEditCitizen()\">\n                    <fa-icon icon=\"edit\" fixedWidth=\"true\"></fa-icon> Edit\n                </button>\n            </ng-template>\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"85\">\n            <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                <button mat-flat-button color=\"warn\"\n                    style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\" (click)=\"btnDeleteCitizen()\">\n                    <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Delete\n                </button>\n            </ng-template>\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Name'\" [binding]=\"'FullName'\" [isReadOnly]=\"true\" [width]=\"300\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Birth Date'\" [binding]=\"'DateOfBirth'\" [isReadOnly]=\"true\" [width]=\"150\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Birth Palce'\" [binding]=\"'PlaceOfBirth'\" [isReadOnly]=\"true\" [width]=\"200\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Gender'\" [binding]=\"'Sex'\" [isReadOnly]=\"true\" [width]=\"150\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Civil Status'\" [binding]=\"'CivilStatus'\" [isReadOnly]=\"true\" [width]=\"150\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Citizenship'\" [binding]=\"'Citizenship'\" [isReadOnly]=\"true\" [width]=\"200\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Mobile No.'\" [binding]=\"'MobileNumber'\" [isReadOnly]=\"true\" [width]=\"150\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Status'\" [binding]=\"'CitizenStatus'\" [isReadOnly]=\"true\" [width]=\"150\">\n        </wj-flex-grid-column>\n    </wj-flex-grid>\n</div>\n<mat-divider></mat-divider>\n<div class=\"software-body\">\n    <button mat-stroked-button (click)=\"listCitizenCollectionView.moveToFirstPage()\">\n        <fa-icon icon=\"fast-backward\" fixedWidth=\"true\"></fa-icon>\n    </button>\n    <button mat-stroked-button (click)=\"listCitizenCollectionView.moveToPreviousPage()\">\n        <fa-icon icon=\"step-backward\" fixedWidth=\"true\"></fa-icon>\n    </button>\n    <button mat-button disabled>\n        {{ listCitizenCollectionView.pageIndex + 1 }} / {{ listCitizenCollectionView.pageCount }}\n    </button>\n    <button mat-stroked-button (click)=\"listCitizenCollectionView.moveToNextPage()\">\n        <fa-icon icon=\"step-forward\" fixedWidth=\"true\"></fa-icon>\n    </button>\n    <button mat-stroked-button (click)=\"listCitizenCollectionView.moveToLastPage()\">\n        <fa-icon icon=\"fast-forward\" fixedWidth=\"true\"></fa-icon>\n    </button>\n</div>\n<mat-divider></mat-divider>\n<div class=\"software-body\">\n\n</div>"
+module.exports = "<div class=\"software-header\">\n    <h2>\n        <fa-icon icon=\"user\" fixedWidth=\"true\"></fa-icon> CITIZENS\n    </h2>\n</div>\n<div class=\"software-body\">\n    <div fxLayout fxLayout.xs=\"column\">\n        <div fxFlex=\"100%\" style=\"padding-top: 2px;\">\n            <div *ngIf=\"isFilterShow\">\n                <mat-chip-list aria-label=\"\">\n                    <mat-chip>\n                        \"{{ filterString }}\"\n                    </mat-chip>\n                    <button mat-button color=\"warn\" (click)=\"btnClearFilter()\">\n                        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Clear\n                    </button>\n                </mat-chip-list>\n            </div>\n        </div>\n        <div fxFlex=\"100%\" align=\"right\">\n            <button mat-stroked-button color=\"\" style=\"margin-right: 5px;\" (click)=\"btnSearchCitizen()\">\n                <fa-icon icon=\"search\" fixedWidth=\"true\"></fa-icon> Search\n            </button>\n            <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnAddCitizen()\"\n                id=\"btnAddCitizen\">\n                <fa-icon icon=\"plus\" fixedWidth=\"true\"></fa-icon> Add\n            </button>\n            <button mat-flat-button color=\"warn\" routerLink=\"/software\">\n                <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Close\n            </button>\n        </div>\n    </div>\n</div>\n<mat-divider></mat-divider>\n<div class=\"software-body\">\n    <wj-flex-grid #listCitizenFlexGrid [itemsSource]=\"listCitizenCollectionView\" [selectionMode]=\"3\"\n        [frozenColumns]=\"3\">\n        <wj-flex-grid-filter></wj-flex-grid-filter>\n        <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"75\">\n            <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                <button mat-flat-button color=\"primary\"\n                    style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\" (click)=\"btnEditCitizen()\">\n                    <fa-icon icon=\"edit\" fixedWidth=\"true\"></fa-icon> Edit\n                </button>\n            </ng-template>\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"85\">\n            <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                <button mat-flat-button color=\"warn\"\n                    style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\" (click)=\"btnDeleteCitizen()\">\n                    <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Delete\n                </button>\n            </ng-template>\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'L'\" [binding]=\"'IsLocked'\" [isReadOnly]=\"true\" [width]=\"50\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Name'\" [binding]=\"'FullName'\" [isReadOnly]=\"true\" [width]=\"300\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Birth Date'\" [binding]=\"'DateOfBirth'\" [isReadOnly]=\"true\" [width]=\"150\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Birth Palce'\" [binding]=\"'PlaceOfBirth'\" [isReadOnly]=\"true\" [width]=\"200\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Gender'\" [binding]=\"'Sex'\" [isReadOnly]=\"true\" [width]=\"150\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Civil Status'\" [binding]=\"'CivilStatus'\" [isReadOnly]=\"true\" [width]=\"150\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Citizenship'\" [binding]=\"'Citizenship'\" [isReadOnly]=\"true\" [width]=\"200\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Mobile No.'\" [binding]=\"'MobileNumber'\" [isReadOnly]=\"true\" [width]=\"150\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Status'\" [binding]=\"'Status'\" [isReadOnly]=\"true\" [width]=\"150\">\n        </wj-flex-grid-column>\n    </wj-flex-grid>\n</div>\n<mat-divider></mat-divider>\n<div class=\"software-body\">\n    <button mat-stroked-button (click)=\"listCitizenCollectionView.moveToFirstPage()\">\n        <fa-icon icon=\"fast-backward\" fixedWidth=\"true\"></fa-icon>\n    </button>\n    <button mat-stroked-button (click)=\"listCitizenCollectionView.moveToPreviousPage()\">\n        <fa-icon icon=\"step-backward\" fixedWidth=\"true\"></fa-icon>\n    </button>\n    <button mat-button disabled>\n        {{ listCitizenCollectionView.pageIndex + 1 }} / {{ listCitizenCollectionView.pageCount }}\n    </button>\n    <button mat-stroked-button (click)=\"listCitizenCollectionView.moveToNextPage()\">\n        <fa-icon icon=\"step-forward\" fixedWidth=\"true\"></fa-icon>\n    </button>\n    <button mat-stroked-button (click)=\"listCitizenCollectionView.moveToLastPage()\">\n        <fa-icon icon=\"fast-forward\" fixedWidth=\"true\"></fa-icon>\n    </button>\n</div>\n<mat-divider></mat-divider>\n<div class=\"software-body\">\n\n</div>"
 
 /***/ }),
 
@@ -11247,7 +11247,161 @@ module.exports = "<div class=\"software-header\">\n    <h2>\n        <fa-icon ic
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"landing-navigation-bar\">\n    <mat-toolbar class=\"landing-navigation-toolbar\">\n        <span>Ayuda Card</span>\n        &nbsp;&nbsp;&nbsp;\n\n        <button mat-stroked-button (click)=\"sidenav.toggle()\">\n            <fa-icon icon=\"bars\" fixedWidth=\"true\"></fa-icon>\n        </button>\n\n        <span class=\"landing-header-spacer\"></span>\n\n        <mat-action-list class=\"landing-navigation-action-list\">\n            <a mat-list-item fxFlex style=\"text-decoration: none;\"> Logout </a>\n        </mat-action-list>\n    </mat-toolbar>\n\n    <mat-sidenav-container>\n        <mat-sidenav #sidenav class=\"landing-navigation-sidenav\">\n            <br /><br /><br /><br />\n            <mat-action-list>\n                <br />\n                <mat-divider></mat-divider>\n                <a mat-list-item style=\"text-decoration: none;\" routerLink=\".\">\n                    <fa-icon icon=\"tachometer-alt\" fixedWidth=\"true\"></fa-icon> &nbsp;&nbsp; Dashboard\n                </a>\n                <mat-divider></mat-divider>\n                <a mat-list-item style=\"text-decoration: none;\" routerLink=\"/software/citizen\">\n                    <fa-icon icon=\"user\" fixedWidth=\"true\"></fa-icon> &nbsp;&nbsp; Citizens\n                </a>\n                <mat-divider></mat-divider>\n                <a mat-list-item style=\"text-decoration: none;\" routerLink=\"/software/user\">\n                    <fa-icon icon=\"key\" fixedWidth=\"true\"></fa-icon> &nbsp;&nbsp; Users\n                </a>\n                <mat-divider></mat-divider>\n                <a mat-list-item style=\"text-decoration: none;\" routerLink=\"/software/system-tables\">\n                    <fa-icon icon=\"table\" fixedWidth=\"true\"></fa-icon> &nbsp;&nbsp; System Tables\n                </a>\n                <mat-divider></mat-divider>\n                <a mat-list-item style=\"text-decoration: none;\" routerLink=\".\">\n                    <fa-icon icon=\"sign-out-alt\" fixedWidth=\"true\"></fa-icon> &nbsp;&nbsp; Logout\n                </a>\n                <mat-divider></mat-divider>\n            </mat-action-list>\n        </mat-sidenav>\n\n        <div class=\"landing-sidenav-container\">\n            <router-outlet></router-outlet>\n        </div>\n    </mat-sidenav-container>\n</div>"
+module.exports = "<div class=\"landing-navigation-bar\">\n    <mat-toolbar class=\"landing-navigation-toolbar\">\n        <span routerLink=\"/landing\" style=\"cursor: pointer;\">\n            <b>\n                <fa-icon icon=\"id-card\" fixedWidth=\"true\"></fa-icon> Ayuda Card\n            </b>\n        </span>\n        &nbsp;&nbsp;&nbsp;\n\n        <button mat-stroked-button (click)=\"sidenav.toggle()\">\n            <fa-icon icon=\"bars\" fixedWidth=\"true\"></fa-icon>\n        </button>\n\n        <span class=\"landing-header-spacer\"></span>\n\n        <mat-action-list class=\"landing-navigation-action-list\">\n            <a mat-list-item fxFlex style=\"text-decoration: none;\" routerLink=\"#\" (click)=\"logOut()\"> Logout </a>\n        </mat-action-list>\n    </mat-toolbar>\n\n    <mat-sidenav-container>\n        <mat-sidenav #sidenav class=\"landing-navigation-sidenav\">\n            <br /><br /><br /><br />\n            <mat-action-list>\n                <br />\n                <mat-divider></mat-divider>\n                <a mat-list-item style=\"text-decoration: none;\" routerLink=\".\">\n                    <fa-icon icon=\"tachometer-alt\" fixedWidth=\"true\"></fa-icon> &nbsp;&nbsp; Dashboard\n                </a>\n                <mat-divider></mat-divider>\n                <a mat-list-item style=\"text-decoration: none;\" routerLink=\"/software/citizen\">\n                    <fa-icon icon=\"user\" fixedWidth=\"true\"></fa-icon> &nbsp;&nbsp; Citizens\n                </a>\n                <mat-divider></mat-divider>\n                <a mat-list-item style=\"text-decoration: none;\" routerLink=\"/software/user\">\n                    <fa-icon icon=\"key\" fixedWidth=\"true\"></fa-icon> &nbsp;&nbsp; Users\n                </a>\n                <mat-divider></mat-divider>\n                <a mat-list-item style=\"text-decoration: none;\" routerLink=\"/software/system-tables\">\n                    <fa-icon icon=\"table\" fixedWidth=\"true\"></fa-icon> &nbsp;&nbsp; System Tables\n                </a>\n                <mat-divider></mat-divider>\n                <a mat-list-item style=\"text-decoration: none;\" routerLink=\"#\" (click)=\"logOut()\">\n                    <fa-icon icon=\"sign-out-alt\" fixedWidth=\"true\"></fa-icon> &nbsp;&nbsp; Logout\n                </a>\n                <mat-divider></mat-divider>\n            </mat-action-list>\n        </mat-sidenav>\n\n        <div class=\"landing-sidenav-container\">\n            <router-outlet></router-outlet>\n        </div>\n    </mat-sidenav-container>\n</div>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/software/system-tables/blood-type-delete-dialog/blood-type-delete-dialog.component.html":
+/*!***********************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/software/system-tables/blood-type-delete-dialog/blood-type-delete-dialog.component.html ***!
+  \***********************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h1 mat-dialog-title>\n    Delete BloodType\n</h1>\n<mat-divider></mat-divider>\n<div mat-dialog-content>\n    <p>Are you sure you want to delete this blood type?</p>\n</div>\n<mat-divider></mat-divider>\n<div mat-dialog-actions align=\"right\">\n    <button mat-flat-button color=\"warn\" style=\"margin-right: 5px;\" (click)=\"btnDeleteBloodType()\"\n        id=\"btnDeleteBloodType\">\n        <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Yes\n    </button>\n    <button mat-flat-button (click)=\"btnCloseDeleteDialog()\" id=\"btnCloseDeleteDialog\">\n        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> No\n    </button>\n</div>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/software/system-tables/blood-type-detail-dialog/blood-type-detail-dialog.component.html":
+/*!***********************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/software/system-tables/blood-type-detail-dialog/blood-type-detail-dialog.component.html ***!
+  \***********************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h1 mat-dialog-title>\n    {{ dialogTitle }}\n</h1>\n<mat-divider></mat-divider>\n<div mat-dialog-content>\n    <br />\n    <div fxLayout fxLayout.xs=\"column\">\n        <div fxFlex=\"100%\">\n            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                <input matInput placeholder=\"Blood Type\" [(ngModel)]=\"bloodTypeModel.BloodType\" required>\n            </mat-form-field>\n        </div>\n    </div>\n</div>\n<mat-divider></mat-divider>\n<div mat-dialog-actions align=\"right\">\n    <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnSaveBloodType()\"\n        id=\"btnSaveBloodType\">\n        <fa-icon icon=\"save\" fixedWidth=\"true\"></fa-icon> Save\n    </button>\n    <button mat-flat-button color=\"warn\" (click)=\"btnCloseBloodTypeDialog()\" id=\"btnCloseBloodTypeDialog\">\n        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Cancel\n    </button>\n</div>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/software/system-tables/citizenship-delete-dialog/citizenship-delete-dialog.component.html":
+/*!*************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/software/system-tables/citizenship-delete-dialog/citizenship-delete-dialog.component.html ***!
+  \*************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h1 mat-dialog-title>\n    Delete Citizenship\n</h1>\n<mat-divider></mat-divider>\n<div mat-dialog-content>\n    <p>Are you sure you want to delete this citizenship?</p>\n</div>\n<mat-divider></mat-divider>\n<div mat-dialog-actions align=\"right\">\n    <button mat-flat-button color=\"warn\" style=\"margin-right: 5px;\" (click)=\"btnDeleteCitizenship()\"\n        id=\"btnDeleteCitizenship\">\n        <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Yes\n    </button>\n    <button mat-flat-button (click)=\"btnCloseDeleteDialog()\" id=\"btnCloseDeleteDialog\">\n        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> No\n    </button>\n</div>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/software/system-tables/citizenship-detail-dialog/citizenship-detail-dialog.component.html":
+/*!*************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/software/system-tables/citizenship-detail-dialog/citizenship-detail-dialog.component.html ***!
+  \*************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h1 mat-dialog-title>\n    {{ dialogTitle }}\n</h1>\n<mat-divider></mat-divider>\n<div mat-dialog-content>\n    <br />\n    <div fxLayout fxLayout.xs=\"column\">\n        <div fxFlex=\"100%\">\n            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                <input matInput placeholder=\"Citizenship\" [(ngModel)]=\"citizenshipModel.Citizenship\" required>\n            </mat-form-field>\n        </div>\n    </div>\n</div>\n<mat-divider></mat-divider>\n<div mat-dialog-actions align=\"right\">\n    <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnSaveCitizenship()\"\n        id=\"btnSaveCitizenship\">\n        <fa-icon icon=\"save\" fixedWidth=\"true\"></fa-icon> Save\n    </button>\n    <button mat-flat-button color=\"warn\" (click)=\"btnCloseCitizenshipDialog()\" id=\"btnCloseCitizenshipDialog\">\n        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Cancel\n    </button>\n</div>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/software/system-tables/civil-status-delete-dialog/civil-status-delete-dialog.component.html":
+/*!***************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/software/system-tables/civil-status-delete-dialog/civil-status-delete-dialog.component.html ***!
+  \***************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h1 mat-dialog-title>\n    Delete Civil Status\n</h1>\n<mat-divider></mat-divider>\n<div mat-dialog-content>\n    <p>Are you sure you want to delete this civil status?</p>\n</div>\n<mat-divider></mat-divider>\n<div mat-dialog-actions align=\"right\">\n    <button mat-flat-button color=\"warn\" style=\"margin-right: 5px;\" (click)=\"btnDeleteCivilStatus()\"\n        id=\"btnDeleteCivilStatus\">\n        <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Yes\n    </button>\n    <button mat-flat-button (click)=\"btnCloseDeleteDialog()\" id=\"btnCloseDeleteDialog\">\n        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> No\n    </button>\n</div>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/software/system-tables/civil-status-detail-dialog/civil-status-detail-dialog.component.html":
+/*!***************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/software/system-tables/civil-status-detail-dialog/civil-status-detail-dialog.component.html ***!
+  \***************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h1 mat-dialog-title>\n    {{ dialogTitle }}\n</h1>\n<mat-divider></mat-divider>\n<div mat-dialog-content>\n    <br />\n    <div fxLayout fxLayout.xs=\"column\">\n        <div fxFlex=\"100%\">\n            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                <input matInput placeholder=\"Civil Status\" [(ngModel)]=\"civilStatusModel.CivilStatus\" required>\n            </mat-form-field>\n        </div>\n    </div>\n</div>\n<mat-divider></mat-divider>\n<div mat-dialog-actions align=\"right\">\n    <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnSaveCivilStatus()\"\n        id=\"btnSaveCivilStatus\">\n        <fa-icon icon=\"save\" fixedWidth=\"true\"></fa-icon> Save\n    </button>\n    <button mat-flat-button color=\"warn\" (click)=\"btnCloseCivilStatusDialog()\" id=\"btnCloseCivilStatusDialog\">\n        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Cancel\n    </button>\n</div>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/software/system-tables/education-level-delete-dialog/education-level-delete-dialog.component.html":
+/*!*********************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/software/system-tables/education-level-delete-dialog/education-level-delete-dialog.component.html ***!
+  \*********************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h1 mat-dialog-title>\n    Delete Education Level\n</h1>\n<mat-divider></mat-divider>\n<div mat-dialog-content>\n    <p>Are you sure you want to delete this education level?</p>\n</div>\n<mat-divider></mat-divider>\n<div mat-dialog-actions align=\"right\">\n    <button mat-flat-button color=\"warn\" style=\"margin-right: 5px;\" (click)=\"btnDeleteEducationLevel()\"\n        id=\"btnDeleteEducationLevel\">\n        <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Yes\n    </button>\n    <button mat-flat-button (click)=\"btnCloseDeleteDialog()\" id=\"btnCloseDeleteDialog\">\n        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> No\n    </button>\n</div>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/software/system-tables/education-level-detail-dialog/education-level-detail-dialog.component.html":
+/*!*********************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/software/system-tables/education-level-detail-dialog/education-level-detail-dialog.component.html ***!
+  \*********************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h1 mat-dialog-title>\n    {{ dialogTitle }}\n</h1>\n<mat-divider></mat-divider>\n<div mat-dialog-content>\n    <br />\n    <div fxLayout fxLayout.xs=\"column\">\n        <div fxFlex=\"100%\">\n            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                <input matInput placeholder=\"Education Level\" [(ngModel)]=\"educationLevelModel.EducationLevel\" required>\n            </mat-form-field>\n        </div>\n    </div>\n</div>\n<mat-divider></mat-divider>\n<div mat-dialog-actions align=\"right\">\n    <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnSaveEducationLevel()\"\n        id=\"btnSaveEducationLevel\">\n        <fa-icon icon=\"save\" fixedWidth=\"true\"></fa-icon> Save\n    </button>\n    <button mat-flat-button color=\"warn\" (click)=\"btnCloseEducationLevelDialog()\" id=\"btnCloseEducationLevelDialog\">\n        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Cancel\n    </button>\n</div>\n"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/software/system-tables/occupation-delete-dialog/occupation-delete-dialog.component.html":
+/*!***********************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/software/system-tables/occupation-delete-dialog/occupation-delete-dialog.component.html ***!
+  \***********************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h1 mat-dialog-title>\n    Delete Occupation\n</h1>\n<mat-divider></mat-divider>\n<div mat-dialog-content>\n    <p>Are you sure you want to delete this occupation?</p>\n</div>\n<mat-divider></mat-divider>\n<div mat-dialog-actions align=\"right\">\n    <button mat-flat-button color=\"warn\" style=\"margin-right: 5px;\" (click)=\"btnDeleteOccupation()\"\n        id=\"btnDeleteOccupation\">\n        <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Yes\n    </button>\n    <button mat-flat-button (click)=\"btnCloseDeleteDialog()\" id=\"btnCloseDeleteDialog\">\n        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> No\n    </button>\n</div>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/software/system-tables/occupation-detail-dialog/occupation-detail-dialog.component.html":
+/*!***********************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/software/system-tables/occupation-detail-dialog/occupation-detail-dialog.component.html ***!
+  \***********************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h1 mat-dialog-title>\n    {{ dialogTitle }}\n</h1>\n<mat-divider></mat-divider>\n<div mat-dialog-content>\n    <br />\n    <div fxLayout fxLayout.xs=\"column\">\n        <div fxFlex=\"100%\">\n            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                <input matInput placeholder=\"Occupation\" [(ngModel)]=\"occupationModel.Occupation\" required>\n            </mat-form-field>\n        </div>\n    </div>\n</div>\n<mat-divider></mat-divider>\n<div mat-dialog-actions align=\"right\">\n    <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnSaveOccupation()\"\n        id=\"btnSaveOccupation\">\n        <fa-icon icon=\"save\" fixedWidth=\"true\"></fa-icon> Save\n    </button>\n    <button mat-flat-button color=\"warn\" (click)=\"btnCloseOccupationDialog()\" id=\"btnCloseOccupationDialog\">\n        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Cancel\n    </button>\n</div>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/software/system-tables/sex-delete-dialog/sex-delete-dialog.component.html":
+/*!*********************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/software/system-tables/sex-delete-dialog/sex-delete-dialog.component.html ***!
+  \*********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h1 mat-dialog-title>\n    Delete Gender\n</h1>\n<mat-divider></mat-divider>\n<div mat-dialog-content>\n    <p>Are you sure you want to delete this gender?</p>\n</div>\n<mat-divider></mat-divider>\n<div mat-dialog-actions align=\"right\">\n    <button mat-flat-button color=\"warn\" style=\"margin-right: 5px;\" (click)=\"btnDeleteSex()\" id=\"btnDeleteSex\">\n        <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Yes\n    </button>\n    <button mat-flat-button (click)=\"btnCloseDeleteDialog()\" id=\"btnCloseDeleteDialog\">\n        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> No\n    </button>\n</div>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/software/system-tables/sex-detail-dialog/sex-detail-dialog.component.html":
+/*!*********************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/software/system-tables/sex-detail-dialog/sex-detail-dialog.component.html ***!
+  \*********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h1 mat-dialog-title>\n    {{ dialogTitle }}\n</h1>\n<mat-divider></mat-divider>\n<div mat-dialog-content>\n    <br />\n    <div fxLayout fxLayout.xs=\"column\">\n        <div fxFlex=\"100%\">\n            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                <input matInput placeholder=\"Gender\" [(ngModel)]=\"sexModel.Sex\" required>\n            </mat-form-field>\n        </div>\n    </div>\n</div>\n<mat-divider></mat-divider>\n<div mat-dialog-actions align=\"right\">\n    <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnSaveSex()\" id=\"btnSaveSex\">\n        <fa-icon icon=\"save\" fixedWidth=\"true\"></fa-icon> Save\n    </button>\n    <button mat-flat-button color=\"warn\" (click)=\"btnCloseSexDialog()\" id=\"btnCloseSexDialog\">\n        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Cancel\n    </button>\n</div>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/software/system-tables/status-delete-dialog/status-delete-dialog.component.html":
+/*!***************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/software/system-tables/status-delete-dialog/status-delete-dialog.component.html ***!
+  \***************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h1 mat-dialog-title>\n    Delete Status\n</h1>\n<mat-divider></mat-divider>\n<div mat-dialog-content>\n    <p>Are you sure you want to delete this status?</p>\n</div>\n<mat-divider></mat-divider>\n<div mat-dialog-actions align=\"right\">\n    <button mat-flat-button color=\"warn\" style=\"margin-right: 5px;\" (click)=\"btnDeleteStatus()\" id=\"btnDeleteStatus\">\n        <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Yes\n    </button>\n    <button mat-flat-button (click)=\"btnCloseDeleteDialog()\" id=\"btnCloseDeleteDialog\">\n        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> No\n    </button>\n</div>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/software/system-tables/status-detail-dialog/status-detail-dialog.component.html":
+/*!***************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/software/system-tables/status-detail-dialog/status-detail-dialog.component.html ***!
+  \***************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h1 mat-dialog-title>\n    {{ dialogTitle }}\n</h1>\n<mat-divider></mat-divider>\n<div mat-dialog-content>\n    <br />\n    <div fxLayout fxLayout.xs=\"column\">\n        <div fxFlex=\"100%\">\n            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                <input matInput placeholder=\"Status\" [(ngModel)]=\"statusModel.Status\" required>\n            </mat-form-field>\n        </div>\n    </div>\n    <div fxLayout fxLayout.xs=\"column\">\n        <div fxFlex=\"100%\">\n            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                <input matInput placeholder=\"Category\" [(ngModel)]=\"statusModel.Category\" required>\n            </mat-form-field>\n        </div>\n    </div>\n</div>\n<mat-divider></mat-divider>\n<div mat-dialog-actions align=\"right\">\n    <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnSaveStatus()\" id=\"btnSaveStatus\">\n        <fa-icon icon=\"save\" fixedWidth=\"true\"></fa-icon> Save\n    </button>\n    <button mat-flat-button color=\"warn\" (click)=\"btnCloseStatusDialog()\" id=\"btnCloseStatusDialog\">\n        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Cancel\n    </button>\n</div>"
 
 /***/ }),
 
@@ -11258,7 +11412,29 @@ module.exports = "<div class=\"landing-navigation-bar\">\n    <mat-toolbar class
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"software-header\">\n    <h2>\n        <fa-icon icon=\"key\" fixedWidth=\"true\"></fa-icon> SYSTEM TABLES\n    </h2>\n</div>\n\n<div class=\"software-body\">\n    <mat-tab-group>\n        <mat-tab label=\"CITIZENSHIP\">\n        </mat-tab>\n        <mat-tab label=\"CITIZENSHIP TYPE\">\n        </mat-tab>\n        <mat-tab label=\"GENDER\">\n        </mat-tab>\n        <mat-tab label=\"CIVIL STATUS\">\n        </mat-tab>\n        <mat-tab label=\"EDUCATION LEVEL\">\n        </mat-tab>\n        <mat-tab label=\"OCCUPATION\">\n        </mat-tab>\n        <mat-tab label=\"BLOOD TYPE\">\n        </mat-tab>\n        <mat-tab label=\"CITIZEN STATUS\">\n        </mat-tab>\n        <mat-tab label=\"COUNTRY\">\n        </mat-tab>\n        <mat-tab label=\"REGION\">\n        </mat-tab>\n        <mat-tab label=\"PROVINCE\">\n        </mat-tab>\n        <mat-tab label=\"CITY\">\n        </mat-tab>\n        <mat-tab label=\"BARANGAY\">\n        </mat-tab>\n    </mat-tab-group>\n</div>"
+module.exports = "<div class=\"software-header\">\n    <h2>\n        <fa-icon icon=\"key\" fixedWidth=\"true\"></fa-icon> SYSTEM TABLES\n    </h2>\n</div>\n<mat-tab-group>\n    <mat-tab label=\"CITIZENSHIP\">\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\"></div>\n            <div fxFlex=\"100%\" align=\"right\">\n                <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnAddCitizenship()\">\n                    <fa-icon icon=\"plus\" fixedWidth=\"true\"></fa-icon> Add\n                </button>\n                <button mat-flat-button color=\"warn\" routerLink=\"/software\">\n                    <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Close\n                </button>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\">\n                <wj-flex-grid #listCitizenFlexGrid [itemsSource]=\"listCitizenshipCollectionView\" [selectionMode]=\"3\"\n                    [frozenColumns]=\"2\">\n                    <wj-flex-grid-filter></wj-flex-grid-filter>\n                    <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"75\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"primary\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnEditCitizenship()\">\n                                <fa-icon icon=\"edit\" fixedWidth=\"true\"></fa-icon> Edit\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"85\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"warn\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnDeleteCitizenship()\">\n                                <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Delete\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"'Citizenship'\" [binding]=\"'Citizenship'\" [isReadOnly]=\"true\"\n                        [width]=\"'*'\">\n                    </wj-flex-grid-column>\n                </wj-flex-grid>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div style=\"padding: 15px;\">\n            <button mat-stroked-button (click)=\"listCitizenshipCollectionView.moveToFirstPage()\">\n                <fa-icon icon=\"fast-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listCitizenshipCollectionView.moveToPreviousPage()\">\n                <fa-icon icon=\"step-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-button disabled>\n                {{ listCitizenshipCollectionView.pageIndex + 1 }} /\n                {{ listCitizenshipCollectionView.pageCount }}\n            </button>\n            <button mat-stroked-button (click)=\"listCitizenshipCollectionView.moveToNextPage()\">\n                <fa-icon icon=\"step-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listCitizenshipCollectionView.moveToLastPage()\">\n                <fa-icon icon=\"fast-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n        </div>\n        <mat-divider></mat-divider>\n    </mat-tab>\n    <mat-tab label=\"CITIZENSHIP TYPE\">\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\"></div>\n            <div fxFlex=\"100%\" align=\"right\">\n                <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnAddTypeOfCitizenship()\">\n                    <fa-icon icon=\"plus\" fixedWidth=\"true\"></fa-icon> Add\n                </button>\n                <button mat-flat-button color=\"warn\" routerLink=\"/software\">\n                    <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Close\n                </button>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\">\n                <wj-flex-grid #listCitizenFlexGrid [itemsSource]=\"listTypeOfCitizenshipCollectionView\"\n                    [selectionMode]=\"3\" [frozenColumns]=\"2\">\n                    <wj-flex-grid-filter></wj-flex-grid-filter>\n                    <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"75\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"primary\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnEditTypeOfCitizenship()\">\n                                <fa-icon icon=\"edit\" fixedWidth=\"true\"></fa-icon> Edit\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"85\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"warn\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnDeleteTypeOfCitizenship()\">\n                                <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Delete\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"'Citizenship Type'\" [binding]=\"'TypeOfCitizenship'\"\n                        [isReadOnly]=\"true\" [width]=\"'*'\">\n                    </wj-flex-grid-column>\n                </wj-flex-grid>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div style=\"padding: 15px;\">\n            <button mat-stroked-button (click)=\"listTypeOfCitizenshipCollectionView.moveToFirstPage()\">\n                <fa-icon icon=\"fast-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listTypeOfCitizenshipCollectionView.moveToPreviousPage()\">\n                <fa-icon icon=\"step-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-button disabled>\n                {{ listTypeOfCitizenshipCollectionView.pageIndex + 1 }} /\n                {{ listTypeOfCitizenshipCollectionView.pageCount }}\n            </button>\n            <button mat-stroked-button (click)=\"listTypeOfCitizenshipCollectionView.moveToNextPage()\">\n                <fa-icon icon=\"step-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listTypeOfCitizenshipCollectionView.moveToLastPage()\">\n                <fa-icon icon=\"fast-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n        </div>\n        <mat-divider></mat-divider>\n    </mat-tab>\n    <mat-tab label=\"GENDER\">\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\"></div>\n            <div fxFlex=\"100%\" align=\"right\">\n                <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnAddSex()\">\n                    <fa-icon icon=\"plus\" fixedWidth=\"true\"></fa-icon> Add\n                </button>\n                <button mat-flat-button color=\"warn\" routerLink=\"/software\">\n                    <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Close\n                </button>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\">\n                <wj-flex-grid #listCitizenFlexGrid [itemsSource]=\"listSexCollectionView\" [selectionMode]=\"3\"\n                    [frozenColumns]=\"2\">\n                    <wj-flex-grid-filter></wj-flex-grid-filter>\n                    <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"75\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"primary\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnEditSex()\">\n                                <fa-icon icon=\"edit\" fixedWidth=\"true\"></fa-icon> Edit\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"85\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"warn\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnDeleteSex()\">\n                                <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Delete\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"'Gender'\" [binding]=\"'Sex'\" [isReadOnly]=\"true\" [width]=\"'*'\">\n                    </wj-flex-grid-column>\n                </wj-flex-grid>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div style=\"padding: 15px;\">\n            <button mat-stroked-button (click)=\"listSexCollectionView.moveToFirstPage()\">\n                <fa-icon icon=\"fast-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listSexCollectionView.moveToPreviousPage()\">\n                <fa-icon icon=\"step-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-button disabled>\n                {{ listSexCollectionView.pageIndex + 1 }} /\n                {{ listSexCollectionView.pageCount }}\n            </button>\n            <button mat-stroked-button (click)=\"listSexCollectionView.moveToNextPage()\">\n                <fa-icon icon=\"step-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listSexCollectionView.moveToLastPage()\">\n                <fa-icon icon=\"fast-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n        </div>\n        <mat-divider></mat-divider>\n    </mat-tab>\n    <mat-tab label=\"CIVIL STATUS\">\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\"></div>\n            <div fxFlex=\"100%\" align=\"right\">\n                <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnAddCivilStatus()\">\n                    <fa-icon icon=\"plus\" fixedWidth=\"true\"></fa-icon> Add\n                </button>\n                <button mat-flat-button color=\"warn\" routerLink=\"/software\">\n                    <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Close\n                </button>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\">\n                <wj-flex-grid #listCitizenFlexGrid [itemsSource]=\"listCivilStatusCollectionView\" [selectionMode]=\"3\"\n                    [frozenColumns]=\"2\">\n                    <wj-flex-grid-filter></wj-flex-grid-filter>\n                    <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"75\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"primary\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnEditCivilStatus()\">\n                                <fa-icon icon=\"edit\" fixedWidth=\"true\"></fa-icon> Edit\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"85\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"warn\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnDeleteCivilStatus()\">\n                                <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Delete\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"'Civil Status'\" [binding]=\"'CivilStatus'\" [isReadOnly]=\"true\"\n                        [width]=\"'*'\">\n                    </wj-flex-grid-column>\n                </wj-flex-grid>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div style=\"padding: 15px;\">\n            <button mat-stroked-button (click)=\"listCivilStatusCollectionView.moveToFirstPage()\">\n                <fa-icon icon=\"fast-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listCivilStatusCollectionView.moveToPreviousPage()\">\n                <fa-icon icon=\"step-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-button disabled>\n                {{ listCivilStatusCollectionView.pageIndex + 1 }} /\n                {{ listCivilStatusCollectionView.pageCount }}\n            </button>\n            <button mat-stroked-button (click)=\"listCivilStatusCollectionView.moveToNextPage()\">\n                <fa-icon icon=\"step-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listCivilStatusCollectionView.moveToLastPage()\">\n                <fa-icon icon=\"fast-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n        </div>\n        <mat-divider></mat-divider>\n    </mat-tab>\n    <mat-tab label=\"EDUCATION LEVEL\">\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\"></div>\n            <div fxFlex=\"100%\" align=\"right\">\n                <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnAddEducationLevel()\">\n                    <fa-icon icon=\"plus\" fixedWidth=\"true\"></fa-icon> Add\n                </button>\n                <button mat-flat-button color=\"warn\" routerLink=\"/software\">\n                    <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Close\n                </button>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\">\n                <wj-flex-grid #listCitizenFlexGrid [itemsSource]=\"listEducationLevelCollectionView\" [selectionMode]=\"3\"\n                    [frozenColumns]=\"2\">\n                    <wj-flex-grid-filter></wj-flex-grid-filter>\n                    <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"75\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"primary\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnEditEducationLevel()\">\n                                <fa-icon icon=\"edit\" fixedWidth=\"true\"></fa-icon> Edit\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"85\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"warn\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnDeleteEducationLevel()\">\n                                <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Delete\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"'Education Level'\" [binding]=\"'EducationLevel'\" [isReadOnly]=\"true\"\n                        [width]=\"'*'\">\n                    </wj-flex-grid-column>\n                </wj-flex-grid>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div style=\"padding: 15px;\">\n            <button mat-stroked-button (click)=\"listEducationLevelCollectionView.moveToFirstPage()\">\n                <fa-icon icon=\"fast-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listEducationLevelCollectionView.moveToPreviousPage()\">\n                <fa-icon icon=\"step-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-button disabled>\n                {{ listEducationLevelCollectionView.pageIndex + 1 }} /\n                {{ listEducationLevelCollectionView.pageCount }}\n            </button>\n            <button mat-stroked-button (click)=\"listEducationLevelCollectionView.moveToNextPage()\">\n                <fa-icon icon=\"step-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listEducationLevelCollectionView.moveToLastPage()\">\n                <fa-icon icon=\"fast-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n        </div>\n        <mat-divider></mat-divider>\n    </mat-tab>\n    <mat-tab label=\"OCCUPATION\">\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\"></div>\n            <div fxFlex=\"100%\" align=\"right\">\n                <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnAddOccupation()\">\n                    <fa-icon icon=\"plus\" fixedWidth=\"true\"></fa-icon> Add\n                </button>\n                <button mat-flat-button color=\"warn\" routerLink=\"/software\">\n                    <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Close\n                </button>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\">\n                <wj-flex-grid #listCitizenFlexGrid [itemsSource]=\"listOccupationCollectionView\" [selectionMode]=\"3\"\n                    [frozenColumns]=\"2\">\n                    <wj-flex-grid-filter></wj-flex-grid-filter>\n                    <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"75\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"primary\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnEditOccupation()\">\n                                <fa-icon icon=\"edit\" fixedWidth=\"true\"></fa-icon> Edit\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"85\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"warn\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnDeleteOccupation()\">\n                                <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Delete\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"'Occupation'\" [binding]=\"'Occupation'\" [isReadOnly]=\"true\"\n                        [width]=\"'*'\">\n                    </wj-flex-grid-column>\n                </wj-flex-grid>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div style=\"padding: 15px;\">\n            <button mat-stroked-button (click)=\"listOccupationCollectionView.moveToFirstPage()\">\n                <fa-icon icon=\"fast-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listOccupationCollectionView.moveToPreviousPage()\">\n                <fa-icon icon=\"step-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-button disabled>\n                {{ listOccupationCollectionView.pageIndex + 1 }} /\n                {{ listOccupationCollectionView.pageCount }}\n            </button>\n            <button mat-stroked-button (click)=\"listOccupationCollectionView.moveToNextPage()\">\n                <fa-icon icon=\"step-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listOccupationCollectionView.moveToLastPage()\">\n                <fa-icon icon=\"fast-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n        </div>\n        <mat-divider></mat-divider>\n    </mat-tab>\n    <mat-tab label=\"BLOOD TYPE\">\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\"></div>\n            <div fxFlex=\"100%\" align=\"right\">\n                <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnAddBloodType()\">\n                    <fa-icon icon=\"plus\" fixedWidth=\"true\"></fa-icon> Add\n                </button>\n                <button mat-flat-button color=\"warn\" routerLink=\"/software\">\n                    <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Close\n                </button>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\">\n                <wj-flex-grid #listCitizenFlexGrid [itemsSource]=\"listBloodTypeCollectionView\" [selectionMode]=\"3\"\n                    [frozenColumns]=\"2\">\n                    <wj-flex-grid-filter></wj-flex-grid-filter>\n                    <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"75\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"primary\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnEditBloodType()\">\n                                <fa-icon icon=\"edit\" fixedWidth=\"true\"></fa-icon> Edit\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"85\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"warn\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnDeleteBloodType()\">\n                                <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Delete\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"'Blood Type'\" [binding]=\"'BloodType'\" [isReadOnly]=\"true\"\n                        [width]=\"'*'\">\n                    </wj-flex-grid-column>\n                </wj-flex-grid>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div style=\"padding: 15px;\">\n            <button mat-stroked-button (click)=\"listBloodTypeCollectionView.moveToFirstPage()\">\n                <fa-icon icon=\"fast-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listBloodTypeCollectionView.moveToPreviousPage()\">\n                <fa-icon icon=\"step-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-button disabled>\n                {{ listBloodTypeCollectionView.pageIndex + 1 }} /\n                {{ listBloodTypeCollectionView.pageCount }}\n            </button>\n            <button mat-stroked-button (click)=\"listBloodTypeCollectionView.moveToNextPage()\">\n                <fa-icon icon=\"step-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listBloodTypeCollectionView.moveToLastPage()\">\n                <fa-icon icon=\"fast-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n        </div>\n        <mat-divider></mat-divider>\n    </mat-tab>\n    <mat-tab label=\"STATUS\">\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\"></div>\n            <div fxFlex=\"100%\" align=\"right\">\n                <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnAddStatus()\">\n                    <fa-icon icon=\"plus\" fixedWidth=\"true\"></fa-icon> Add\n                </button>\n                <button mat-flat-button color=\"warn\" routerLink=\"/software\">\n                    <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Close\n                </button>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\">\n                <wj-flex-grid #listCitizenFlexGrid [itemsSource]=\"listStatusCollectionView\" [selectionMode]=\"3\"\n                    [frozenColumns]=\"2\">\n                    <wj-flex-grid-filter></wj-flex-grid-filter>\n                    <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"75\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"primary\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnEditStatus()\">\n                                <fa-icon icon=\"edit\" fixedWidth=\"true\"></fa-icon> Edit\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"85\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"warn\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnDeleteStatus()\">\n                                <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Delete\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"'Status'\" [binding]=\"'Status'\" [isReadOnly]=\"true\" [width]=\"'*'\">\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"'Category'\" [binding]=\"'Category'\" [isReadOnly]=\"true\" [width]=\"'*'\">\n                    </wj-flex-grid-column>\n                </wj-flex-grid>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div style=\"padding: 15px;\">\n            <button mat-stroked-button (click)=\"listStatusCollectionView.moveToFirstPage()\">\n                <fa-icon icon=\"fast-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listStatusCollectionView.moveToPreviousPage()\">\n                <fa-icon icon=\"step-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-button disabled>\n                {{ listStatusCollectionView.pageIndex + 1 }} /\n                {{ listStatusCollectionView.pageCount }}\n            </button>\n            <button mat-stroked-button (click)=\"listStatusCollectionView.moveToNextPage()\">\n                <fa-icon icon=\"step-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listStatusCollectionView.moveToLastPage()\">\n                <fa-icon icon=\"fast-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n        </div>\n        <mat-divider></mat-divider>\n    </mat-tab>\n    <mat-tab label=\"COUNTRY\">\n    </mat-tab>\n    <mat-tab label=\"REGION\">\n    </mat-tab>\n    <mat-tab label=\"PROVINCE\">\n    </mat-tab>\n    <mat-tab label=\"CITY\">\n    </mat-tab>\n    <mat-tab label=\"BARANGAY\">\n    </mat-tab>\n</mat-tab-group>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/software/system-tables/type-of-citizenship-delete-dialog/type-of-citizenship-delete-dialog.component.html":
+/*!*****************************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/software/system-tables/type-of-citizenship-delete-dialog/type-of-citizenship-delete-dialog.component.html ***!
+  \*****************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h1 mat-dialog-title>\r\n    Delete Citizenship Type\r\n</h1>\r\n<mat-divider></mat-divider>\r\n<div mat-dialog-content>\r\n    <p>Are you sure you want to delete this citizenship type?</p>\r\n</div>\r\n<mat-divider></mat-divider>\r\n<div mat-dialog-actions align=\"right\">\r\n    <button mat-flat-button color=\"warn\" style=\"margin-right: 5px;\" (click)=\"btnDeleteTypeOfCitizenship()\"\r\n        id=\"btnDeleteTypeOfCitizenship\">\r\n        <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Yes\r\n    </button>\r\n    <button mat-flat-button (click)=\"btnCloseDeleteDialog()\" id=\"btnCloseDeleteDialog\">\r\n        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> No\r\n    </button>\r\n</div>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/software/system-tables/type-of-citizenship-detail-dialog/type-of-citizenship-detail-dialog.component.html":
+/*!*****************************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/software/system-tables/type-of-citizenship-detail-dialog/type-of-citizenship-detail-dialog.component.html ***!
+  \*****************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h1 mat-dialog-title>\r\n    {{ dialogTitle }}\r\n</h1>\r\n<mat-divider></mat-divider>\r\n<div mat-dialog-content>\r\n    <br />\r\n    <div fxLayout fxLayout.xs=\"column\">\r\n        <div fxFlex=\"100%\">\r\n            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\r\n                <input matInput placeholder=\"Citizenship Type\" [(ngModel)]=\"typeOfCitizenshipModel.TypeOfCitizenship\"\r\n                    required>\r\n            </mat-form-field>\r\n        </div>\r\n    </div>\r\n</div>\r\n<mat-divider></mat-divider>\r\n<div mat-dialog-actions align=\"right\">\r\n    <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnSaveTypeOfCitizenship()\"\r\n        id=\"btnSaveTypeOfCitizenship\">\r\n        <fa-icon icon=\"save\" fixedWidth=\"true\"></fa-icon> Save\r\n    </button>\r\n    <button mat-flat-button color=\"warn\" (click)=\"btnCloseTypeOfCitizenshipDialog()\"\r\n        id=\"btnCloseTypeOfCitizenshipDialog\">\r\n        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Cancel\r\n    </button>\r\n</div>"
 
 /***/ }),
 
@@ -11959,7 +12135,8 @@ let CitizenDetailDialogComponent = class CitizenDetailDialogComponent {
             MotherMiddlename: this.citizenData.objCitizenModel.MotherMiddlename,
             MotherExtensionname: this.citizenData.objCitizenModel.MotherExtensionname,
             PictureURL: this.citizenData.objCitizenModel.PictureURL,
-            CitizenStatusId: this.citizenData.objCitizenModel.CitizenStatusId
+            StatusId: this.citizenData.objCitizenModel.StatusId,
+            IsLocked: this.citizenData.objCitizenModel.IsLocked
         };
         this.listSexObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5__["ObservableArray"]();
         this.listCivilStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5__["ObservableArray"]();
@@ -11971,7 +12148,7 @@ let CitizenDetailDialogComponent = class CitizenDetailDialogComponent {
         this.listProvinceObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5__["ObservableArray"]();
         this.listRegionObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5__["ObservableArray"]();
         this.listOccupationObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5__["ObservableArray"]();
-        this.listCitizenStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5__["ObservableArray"]();
+        this.listStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5__["ObservableArray"]();
         this.webcamImage = null;
         this.listCitizensChildrenObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5__["ObservableArray"]();
         this.listCitizensChildrenCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5__["CollectionView"](this.listCitizensChildrenObservableArray);
@@ -12060,40 +12237,91 @@ let CitizenDetailDialogComponent = class CitizenDetailDialogComponent {
             this.listOccupationObservableArray = data;
             if (this.listOccupationSubscription != null)
                 this.listOccupationSubscription.unsubscribe();
-            this.listCitizenStatus();
+            this.listStatus();
         });
     }
-    listCitizenStatus() {
-        this.citizenService.listCitizenStatus();
-        this.listCitizenStatusSubscription = this.citizenService.listCitizenStatusObservable.subscribe(data => {
-            this.listCitizenStatusObservableArray = data;
-            if (this.listCitizenStatusSubscription != null)
-                this.listCitizenStatusSubscription.unsubscribe();
+    listStatus() {
+        this.citizenService.listStatus();
+        this.listStatusSubscription = this.citizenService.listStatusObservable.subscribe(data => {
+            this.listStatusObservableArray = data;
+            if (this.listStatusSubscription != null)
+                this.listStatusSubscription.unsubscribe();
             this.listCitizensChildrenData(this.citizenModel.Id);
         });
     }
     btnSaveCitizen() {
         let btnSaveCitizen = document.getElementById("btnSaveCitizen");
+        let btnLockCitizen = document.getElementById("btnLockCitizen");
         let btnCloseCitizen = document.getElementById("btnCloseCitizen");
         btnSaveCitizen.setAttribute("disabled", "disabled");
+        btnLockCitizen.setAttribute("disabled", "disabled");
         btnCloseCitizen.setAttribute("disabled", "disabled");
         this.citizenService.saveCitizen(this.citizenModel);
         this.saveCitizenSubscription = this.citizenService.saveCitizenObservable.subscribe(data => {
             if (data[0] == "success") {
                 this.toastr.success("Citizen was successfully saved.", "Success");
-                this.citizenDetailDialogRef.close(200);
             }
             else if (data[0] == "failed") {
                 this.toastr.error(data[1], "Error");
-                btnSaveCitizen.removeAttribute("disabled");
-                btnCloseCitizen.removeAttribute("disabled");
             }
+            btnSaveCitizen.removeAttribute("disabled");
+            btnLockCitizen.removeAttribute("disabled");
+            btnCloseCitizen.removeAttribute("disabled");
             if (this.saveCitizenSubscription != null)
                 this.saveCitizenSubscription.unsubscribe();
         });
     }
+    btnLockCitizen() {
+        let btnSaveCitizen = document.getElementById("btnSaveCitizen");
+        let btnLockCitizen = document.getElementById("btnLockCitizen");
+        let btnCloseCitizen = document.getElementById("btnCloseCitizen");
+        btnSaveCitizen.setAttribute("disabled", "disabled");
+        btnLockCitizen.setAttribute("disabled", "disabled");
+        btnCloseCitizen.setAttribute("disabled", "disabled");
+        this.citizenService.lockCitizen(this.citizenModel);
+        this.lockCitizenSubscription = this.citizenService.lockCitizenObservable.subscribe(data => {
+            if (data[0] == "success") {
+                this.toastr.success("Citizen was successfully locked.", "Success");
+                this.citizenModel.IsLocked = true;
+                btnCloseCitizen.removeAttribute("disabled");
+            }
+            else if (data[0] == "failed") {
+                this.toastr.error(data[1], "Error");
+                btnSaveCitizen.removeAttribute("disabled");
+                btnLockCitizen.removeAttribute("disabled");
+                btnCloseCitizen.removeAttribute("disabled");
+            }
+            if (this.lockCitizenSubscription != null)
+                this.lockCitizenSubscription.unsubscribe();
+        });
+    }
+    btnUnlockCitizen() {
+        let btnSaveCitizen = document.getElementById("btnSaveCitizen");
+        let btnLockCitizen = document.getElementById("btnLockCitizen");
+        let btnUnlockCitizen = document.getElementById("btnUnlockCitizen");
+        let btnCloseCitizen = document.getElementById("btnCloseCitizen");
+        btnSaveCitizen.setAttribute("disabled", "disabled");
+        btnLockCitizen.setAttribute("disabled", "disabled");
+        btnUnlockCitizen.setAttribute("disabled", "disabled");
+        btnCloseCitizen.setAttribute("disabled", "disabled");
+        this.citizenService.unlockCitizen(this.citizenModel);
+        this.unlockCitizenSubscription = this.citizenService.unlockCitizenObservable.subscribe(data => {
+            if (data[0] == "success") {
+                this.toastr.success("Citizen was successfully unlocked.", "Success");
+                this.citizenModel.IsLocked = false;
+                btnCloseCitizen.removeAttribute("disabled");
+            }
+            else if (data[0] == "failed") {
+                this.toastr.error(data[1], "Error");
+                btnUnlockCitizen.removeAttribute("disabled");
+                btnCloseCitizen.removeAttribute("disabled");
+            }
+            if (this.unlockCitizenSubscription != null)
+                this.unlockCitizenSubscription.unsubscribe();
+        });
+    }
     btnCloseDetaileDialog() {
-        this.citizenDetailDialogRef.close();
+        this.citizenDetailDialogRef.close(200);
         if (this.listSexSubscription != null)
             this.listSexSubscription.unsubscribe();
         if (this.listCivilStatusSubscription != null)
@@ -12112,10 +12340,14 @@ let CitizenDetailDialogComponent = class CitizenDetailDialogComponent {
             this.listProvinceSubscription.unsubscribe();
         if (this.listOccupationSubscription != null)
             this.listOccupationSubscription.unsubscribe();
-        if (this.listCitizenStatusSubscription != null)
-            this.listCitizenStatusSubscription.unsubscribe();
+        if (this.listStatusSubscription != null)
+            this.listStatusSubscription.unsubscribe();
         if (this.saveCitizenSubscription != null)
             this.saveCitizenSubscription.unsubscribe();
+        if (this.lockCitizenSubscription != null)
+            this.lockCitizenSubscription.unsubscribe();
+        if (this.unlockCitizenSubscription != null)
+            this.unlockCitizenSubscription.unsubscribe();
         if (this.listCitizensChildrenSubscription != null)
             this.listCitizensChildrenSubscription.unsubscribe();
     }
@@ -12283,6 +12515,16 @@ let CitizenDetailDialogComponent = class CitizenDetailDialogComponent {
             }
         });
     }
+    btnCopyResidentialAddress() {
+        this.citizenModel.PermanentNumber = this.citizenModel.ResidentialNumber;
+        this.citizenModel.PermanentStreet = this.citizenModel.ResidentialStreet;
+        this.citizenModel.PermanentVillage = this.citizenModel.ResidentialVillage;
+        this.citizenModel.PermanentBarangayId = this.citizenModel.ResidentialBarangayId;
+        this.citizenModel.PermanentCityId = this.citizenModel.ResidentialCityId;
+        this.citizenModel.PermanentProvinceId = this.citizenModel.ResidentialProvinceId;
+        this.citizenModel.PermanentZipCode = this.citizenModel.ResidentialZipCode;
+        this.toastr.success("Copy Successful.", "Success");
+    }
     ngOnInit() {
         this.dialogTitle = this.citizenData.objDialogTitle;
         this.listSex();
@@ -12306,10 +12548,14 @@ let CitizenDetailDialogComponent = class CitizenDetailDialogComponent {
             this.listProvinceSubscription.unsubscribe();
         if (this.listOccupationSubscription != null)
             this.listOccupationSubscription.unsubscribe();
-        if (this.listCitizenStatusSubscription != null)
-            this.listCitizenStatusSubscription.unsubscribe();
+        if (this.listStatusSubscription != null)
+            this.listStatusSubscription.unsubscribe();
         if (this.saveCitizenSubscription != null)
             this.saveCitizenSubscription.unsubscribe();
+        if (this.lockCitizenSubscription != null)
+            this.lockCitizenSubscription.unsubscribe();
+        if (this.unlockCitizenSubscription != null)
+            this.unlockCitizenSubscription.unsubscribe();
         if (this.listCitizensChildrenSubscription != null)
             this.listCitizensChildrenSubscription.unsubscribe();
         if (this.listCitizensEducationSubscription != null)
@@ -12688,11 +12934,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! wijmo/wijmo */ "./node_modules/wijmo/wijmo.js");
 /* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _citizen_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./citizen.service */ "./src/app/software/citizen/citizen.service.ts");
-/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm2015/dialog.js");
-/* harmony import */ var _citizen_detail_dialog_citizen_detail_dialog_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./citizen-detail-dialog/citizen-detail-dialog.component */ "./src/app/software/citizen/citizen-detail-dialog/citizen-detail-dialog.component.ts");
-/* harmony import */ var _citizen_delete_dialog_citizen_delete_dialog_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./citizen-delete-dialog/citizen-delete-dialog.component */ "./src/app/software/citizen/citizen-delete-dialog/citizen-delete-dialog.component.ts");
-/* harmony import */ var _citizen_search_dialog_citizen_search_dialog_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./citizen-search-dialog/citizen-search-dialog.component */ "./src/app/software/citizen/citizen-search-dialog/citizen-search-dialog.component.ts");
-/* harmony import */ var _citizen_model__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./citizen.model */ "./src/app/software/citizen/citizen.model.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm2015/ngx-toastr.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm2015/dialog.js");
+/* harmony import */ var _citizen_detail_dialog_citizen_detail_dialog_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./citizen-detail-dialog/citizen-detail-dialog.component */ "./src/app/software/citizen/citizen-detail-dialog/citizen-detail-dialog.component.ts");
+/* harmony import */ var _citizen_delete_dialog_citizen_delete_dialog_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./citizen-delete-dialog/citizen-delete-dialog.component */ "./src/app/software/citizen/citizen-delete-dialog/citizen-delete-dialog.component.ts");
+/* harmony import */ var _citizen_search_dialog_citizen_search_dialog_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./citizen-search-dialog/citizen-search-dialog.component */ "./src/app/software/citizen/citizen-search-dialog/citizen-search-dialog.component.ts");
+/* harmony import */ var _citizen_model__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./citizen.model */ "./src/app/software/citizen/citizen.model.ts");
+
 
 
 
@@ -12703,13 +12951,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let CitizenComponent = class CitizenComponent {
-    constructor(citizenService, citizenAddDialog, citizenEditDialog, citizenDeleteDialog, citizenSearchDialog) {
+    constructor(citizenService, citizenAddDialog, citizenEditDialog, citizenDeleteDialog, citizenSearchDialog, toastr) {
         this.citizenService = citizenService;
         this.citizenAddDialog = citizenAddDialog;
         this.citizenEditDialog = citizenEditDialog;
         this.citizenDeleteDialog = citizenDeleteDialog;
         this.citizenSearchDialog = citizenSearchDialog;
-        this.citizenModel = new _citizen_model__WEBPACK_IMPORTED_MODULE_8__["CitizenModel"]();
+        this.toastr = toastr;
+        this.citizenModel = new _citizen_model__WEBPACK_IMPORTED_MODULE_9__["CitizenModel"]();
         this.listCitizenObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_2__["ObservableArray"]();
         this.listCitizenCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_2__["CollectionView"](this.listCitizenObservableArray);
         this.listCitizenPageIndex = 15;
@@ -12736,19 +12985,104 @@ let CitizenComponent = class CitizenComponent {
         });
     }
     btnAddCitizen() {
-        this.citizenModel = new _citizen_model__WEBPACK_IMPORTED_MODULE_8__["CitizenModel"]();
-        const citizenAddDialogRef = this.citizenAddDialog.open(_citizen_detail_dialog_citizen_detail_dialog_component__WEBPACK_IMPORTED_MODULE_5__["CitizenDetailDialogComponent"], {
-            width: '1200px',
-            data: {
-                objDialogTitle: "Add Citizen",
-                objCitizenModel: this.citizenModel
-            },
-            disableClose: true
-        });
-        citizenAddDialogRef.afterClosed().subscribe(result => {
-            if (result == 200) {
-                this.listCitizenData();
+        let btnAddCitizen = document.getElementById("btnAddCitizen");
+        btnAddCitizen.setAttribute("disabled", "disabled");
+        this.citizenService.addCitizen();
+        this.addCitizenSubscription = this.citizenService.addCitizenObservable.subscribe(data => {
+            if (data[0] == "success") {
+                this.toastr.success("Citizen was successfully created.", "Success");
+                this.getCitizenDetail(parseInt(data[1]));
             }
+            else if (data[0] == "failed") {
+                this.toastr.error(data[1], "Error");
+            }
+            if (this.addCitizenSubscription != null)
+                this.addCitizenSubscription.unsubscribe();
+        });
+    }
+    getCitizenDetail(id) {
+        let btnAddCitizen = document.getElementById("btnAddCitizen");
+        this.citizenService.detailCitizen(id);
+        this.detailCitizenSubscription = this.citizenService.detailCitizenObservable.subscribe(data => {
+            if (data != null) {
+                this.listCitizenData();
+                this.citizenModel.Id = data.Id;
+                this.citizenModel.Surname = data.Surname;
+                this.citizenModel.Firstname = data.Firstname;
+                this.citizenModel.Middlename = data.Middlename;
+                this.citizenModel.Extensionname = data.Extensionname;
+                this.citizenModel.DateOfBirth = new Date(data.DateOfBirth);
+                this.citizenModel.PlaceOfBirth = data.PlaceOfBirth;
+                this.citizenModel.SexId = data.SexId;
+                this.citizenModel.CivilStatusId = data.CivilStatusId;
+                this.citizenModel.Height = data.Height;
+                this.citizenModel.Weight = data.Weight;
+                this.citizenModel.BloodTypeId = data.BloodTypeId;
+                this.citizenModel.GSISNumber = data.GSISNumber;
+                this.citizenModel.HDMFNumber = data.HDMFNumber;
+                this.citizenModel.PhilHealthNumber = data.PhilHealthNumber;
+                this.citizenModel.SSSNumber = data.SSSNumber;
+                this.citizenModel.TINNumber = data.TINNumber;
+                this.citizenModel.AgencyEmployeeNumber = data.AgencyEmployeeNumber;
+                this.citizenModel.CitizenshipId = data.CitizenshipId;
+                this.citizenModel.TypeOfCitizenshipId = data.TypeOfCitizenshipId;
+                this.citizenModel.DualCitizenshipCountry = data.DualCitizenshipCountry;
+                this.citizenModel.ResidentialNumber = data.ResidentialNumber;
+                this.citizenModel.ResidentialStreet = data.ResidentialStreet;
+                this.citizenModel.ResidentialVillage = data.ResidentialVillage;
+                this.citizenModel.ResidentialBarangayId = data.ResidentialBarangayId;
+                this.citizenModel.ResidentialCityId = data.ResidentialCityId;
+                this.citizenModel.ResidentialProvinceId = data.ResidentialProvinceId;
+                this.citizenModel.ResidentialZipCode = data.ResidentialZipCode;
+                this.citizenModel.PermanentNumber = data.PermanentNumber;
+                this.citizenModel.PermanentStreet = data.PermanentStreet;
+                this.citizenModel.PermanentVillage = data.PermanentVillage;
+                this.citizenModel.PermanentBarangayId = data.PermanentBarangayId;
+                this.citizenModel.PermanentCityId = data.PermanentCityId;
+                this.citizenModel.PermanentProvinceId = data.PermanentProvinceId;
+                this.citizenModel.PermanentZipCode = data.PermanentZipCode;
+                this.citizenModel.TelephoneNumber = data.TelephoneNumber;
+                this.citizenModel.MobileNumber = data.MobileNumber;
+                this.citizenModel.EmailAddress = data.EmailAddress;
+                this.citizenModel.OccupationId = data.OccupationId;
+                this.citizenModel.EmployerName = data.EmployerName;
+                this.citizenModel.EmployerAddress = data.EmployerAddress;
+                this.citizenModel.EmployerTelephoneNumber = data.EmployerTelephoneNumber;
+                this.citizenModel.SpouseSurname = data.SpouseSurname;
+                this.citizenModel.SpouseFirstname = data.SpouseFirstname;
+                this.citizenModel.SpouseMiddlename = data.SpouseMiddlename;
+                this.citizenModel.SpouseExtensionname = data.SpouseExtensionname;
+                this.citizenModel.SpouseOccupationId = data.SpouseOccupationId;
+                this.citizenModel.SpouseEmployerName = data.SpouseEmployerName;
+                this.citizenModel.SpouseEmployerAddress = data.SpouseEmployerAddress;
+                this.citizenModel.FatherSurname = data.FatherSurname;
+                this.citizenModel.FatherFirstname = data.FatherFirstname;
+                this.citizenModel.FatherMiddlename = data.FatherMiddlename;
+                this.citizenModel.FatherExtensionname = data.FatherExtensionname;
+                this.citizenModel.MotherSurname = data.MotherSurname;
+                this.citizenModel.MotherFirstname = data.MotherFirstname;
+                this.citizenModel.MotherMiddlename = data.MotherMiddlename;
+                this.citizenModel.MotherExtensionname = data.MotherExtensionname;
+                this.citizenModel.PictureURL = data.PictureURL;
+                this.citizenModel.StatusId = data.StatusId;
+                this.citizenModel.IsLocked = data.IsLocked;
+                const citizenAddDialogRef = this.citizenAddDialog.open(_citizen_detail_dialog_citizen_detail_dialog_component__WEBPACK_IMPORTED_MODULE_6__["CitizenDetailDialogComponent"], {
+                    width: '1200px',
+                    data: {
+                        objDialogTitle: "Add Citizen",
+                        objCitizenModel: this.citizenModel
+                    },
+                    disableClose: true
+                });
+                citizenAddDialogRef.afterClosed().subscribe(result => {
+                    if (result == 200) {
+                        this.listCitizenData();
+                    }
+                });
+            }
+            if (this.detailCitizenSubscription != null)
+                this.detailCitizenSubscription.unsubscribe();
+            btnAddCitizen.removeAttribute("disabled");
         });
     }
     btnEditCitizen() {
@@ -12811,8 +13145,9 @@ let CitizenComponent = class CitizenComponent {
         this.citizenModel.MotherMiddlename = currentCitizen.MotherMiddlename;
         this.citizenModel.MotherExtensionname = currentCitizen.MotherExtensionname;
         this.citizenModel.PictureURL = currentCitizen.PictureURL;
-        this.citizenModel.CitizenStatusId = currentCitizen.CitizenStatusId;
-        const citizenEditDialogRef = this.citizenEditDialog.open(_citizen_detail_dialog_citizen_detail_dialog_component__WEBPACK_IMPORTED_MODULE_5__["CitizenDetailDialogComponent"], {
+        this.citizenModel.StatusId = currentCitizen.StatusId;
+        this.citizenModel.IsLocked = currentCitizen.IsLocked;
+        const citizenEditDialogRef = this.citizenEditDialog.open(_citizen_detail_dialog_citizen_detail_dialog_component__WEBPACK_IMPORTED_MODULE_6__["CitizenDetailDialogComponent"], {
             width: '1200px',
             data: {
                 objDialogTitle: "Edit Citizen",
@@ -12828,20 +13163,25 @@ let CitizenComponent = class CitizenComponent {
     }
     btnDeleteCitizen() {
         let currentCitizen = this.listCitizenCollectionView.currentItem;
-        this.citizenModel.Id = currentCitizen.Id;
-        const citizenDeleteDialogRef = this.citizenDeleteDialog.open(_citizen_delete_dialog_citizen_delete_dialog_component__WEBPACK_IMPORTED_MODULE_6__["CitizenDeleteDialogComponent"], {
-            width: '300px',
-            data: { objCitizenModel: this.citizenModel },
-            disableClose: true
-        });
-        citizenDeleteDialogRef.afterClosed().subscribe(result => {
-            if (result == 200) {
-                this.listCitizenData();
-            }
-        });
+        if (currentCitizen.IsLocked == true) {
+            this.toastr.error("Citizen cannot be deleted if locked.", "Error");
+        }
+        else {
+            this.citizenModel.Id = currentCitizen.Id;
+            const citizenDeleteDialogRef = this.citizenDeleteDialog.open(_citizen_delete_dialog_citizen_delete_dialog_component__WEBPACK_IMPORTED_MODULE_7__["CitizenDeleteDialogComponent"], {
+                width: '300px',
+                data: { objCitizenModel: this.citizenModel },
+                disableClose: true
+            });
+            citizenDeleteDialogRef.afterClosed().subscribe(result => {
+                if (result == 200) {
+                    this.listCitizenData();
+                }
+            });
+        }
     }
     btnSearchCitizen() {
-        const citizenSearchDialogRef = this.citizenSearchDialog.open(_citizen_search_dialog_citizen_search_dialog_component__WEBPACK_IMPORTED_MODULE_7__["CitizenSearchDialogComponent"], {
+        const citizenSearchDialogRef = this.citizenSearchDialog.open(_citizen_search_dialog_citizen_search_dialog_component__WEBPACK_IMPORTED_MODULE_8__["CitizenSearchDialogComponent"], {
             width: '800px',
             disableClose: true
         });
@@ -12870,14 +13210,19 @@ let CitizenComponent = class CitizenComponent {
     ngOnDestroy() {
         if (this.listCitizenSubscription != null)
             this.listCitizenSubscription.unsubscribe();
+        if (this.addCitizenSubscription != null)
+            this.addCitizenSubscription.unsubscribe();
+        if (this.detailCitizenSubscription != null)
+            this.detailCitizenSubscription.unsubscribe();
     }
 };
 CitizenComponent.ctorParameters = () => [
     { type: _citizen_service__WEBPACK_IMPORTED_MODULE_3__["CitizenService"] },
-    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_4__["MatDialog"] },
-    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_4__["MatDialog"] },
-    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_4__["MatDialog"] },
-    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_4__["MatDialog"] }
+    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_5__["MatDialog"] },
+    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_5__["MatDialog"] },
+    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_5__["MatDialog"] },
+    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_5__["MatDialog"] },
+    { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_4__["ToastrService"] }
 ];
 CitizenComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -12961,7 +13306,8 @@ class CitizenModel {
         this.MotherMiddlename = "";
         this.MotherExtensionname = "";
         this.PictureURL = "";
-        this.CitizenStatusId = 0;
+        this.StatusId = 0;
+        this.IsLocked = false;
     }
 }
 
@@ -13004,6 +13350,8 @@ let CitizenService = class CitizenService {
         };
         this.listCitizenSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
         this.listCitizenObservable = this.listCitizenSubject.asObservable();
+        this.detailCitizenSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.detailCitizenObservable = this.detailCitizenSubject.asObservable();
         this.listSexSource = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
         this.listSexObservable = this.listSexSource.asObservable();
         this.listCivilStatusSource = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
@@ -13024,10 +13372,16 @@ let CitizenService = class CitizenService {
         this.listRegionObservable = this.listRegionSource.asObservable();
         this.listOccupationSource = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
         this.listOccupationObservable = this.listOccupationSource.asObservable();
-        this.listCitizenStatusSource = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
-        this.listCitizenStatusObservable = this.listCitizenStatusSource.asObservable();
+        this.listStatusSource = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listStatusObservable = this.listStatusSource.asObservable();
+        this.addCitizenSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.addCitizenObservable = this.addCitizenSubject.asObservable();
         this.saveCitizenSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
         this.saveCitizenObservable = this.saveCitizenSubject.asObservable();
+        this.lockCitizenSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.lockCitizenObservable = this.lockCitizenSubject.asObservable();
+        this.unlockCitizenSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.unlockCitizenObservable = this.unlockCitizenSubject.asObservable();
         this.deleteCitizenSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
         this.deleteCitizenObservable = this.deleteCitizenSubject.asObservable();
         this.listCitizensChildrenSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
@@ -13127,8 +13481,9 @@ let CitizenService = class CitizenService {
                         MotherMiddlename: results[i].MotherMiddlename,
                         MotherExtensionname: results[i].MotherExtensionname,
                         PictureURL: results[i].PictureURL,
-                        CitizenStatusId: results[i].CitizenStatusId,
-                        CitizenStatus: results[i].CitizenStatus,
+                        StatusId: results[i].StatusId,
+                        Status: results[i].Status,
+                        IsLocked: results[i].IsLocked,
                         CreatedByUserId: results[i].CreatedByUserId,
                         CreatedByUser: results[i].Fullname,
                         CreatedDateTime: results[i].CreatedDateTime,
@@ -13139,6 +13494,78 @@ let CitizenService = class CitizenService {
                 }
             }
             this.listCitizenSubject.next(listCitizenObservableArray);
+        });
+    }
+    detailCitizen(id) {
+        let citizenModel;
+        this.httpClient.get(this.defaultAPIURLHost + "/api/mst/citizen/detail/" + id, this.options).subscribe(response => {
+            let results = response;
+            console.log(response);
+            if (results != null) {
+                citizenModel = {
+                    Id: results["Id"],
+                    Surname: results["Surname"],
+                    Firstname: results["Firstname"],
+                    Middlename: results["Middlename"],
+                    Extensionname: results["Extensionname"],
+                    DateOfBirth: results["DateOfBirth"],
+                    PlaceOfBirth: results["PlaceOfBirth"],
+                    SexId: results["SexId"],
+                    CivilStatusId: results["CivilStatusId"],
+                    Height: results["Height"],
+                    Weight: results["Weight"],
+                    BloodTypeId: results["BloodTypeId"],
+                    GSISNumber: results["GSISNumber"],
+                    HDMFNumber: results["HDMFNumber"],
+                    PhilHealthNumber: results["PhilHealthNumber"],
+                    SSSNumber: results["SSSNumber"],
+                    TINNumber: results["TINNumber"],
+                    AgencyEmployeeNumber: results["AgencyEmployeeNumber"],
+                    CitizenshipId: results["CitizenshipId"],
+                    TypeOfCitizenshipId: results["TypeOfCitizenshipId"],
+                    DualCitizenshipCountry: results["DualCitizenshipCountry"],
+                    ResidentialNumber: results["ResidentialNumber"],
+                    ResidentialStreet: results["ResidentialStreet"],
+                    ResidentialVillage: results["ResidentialVillage"],
+                    ResidentialBarangayId: results["ResidentialBarangayId"],
+                    ResidentialCityId: results["ResidentialCityId"],
+                    ResidentialProvinceId: results["ResidentialProvinceId"],
+                    ResidentialZipCode: results["ResidentialZipCode"],
+                    PermanentNumber: results["PermanentNumber"],
+                    PermanentStreet: results["PermanentStreet"],
+                    PermanentVillage: results["PermanentVillage"],
+                    PermanentBarangayId: results["PermanentBarangayId"],
+                    PermanentCityId: results["PermanentCityId"],
+                    PermanentProvinceId: results["PermanentProvinceId"],
+                    PermanentZipCode: results["PermanentZipCode"],
+                    TelephoneNumber: results["TelephoneNumber"],
+                    MobileNumber: results["MobileNumber"],
+                    EmailAddress: results["EmailAddress"],
+                    OccupationId: results["OccupationId"],
+                    EmployerName: results["EmployerName"],
+                    EmployerAddress: results["EmployerAddress"],
+                    EmployerTelephoneNumber: results["EmployerTelephoneNumber"],
+                    SpouseSurname: results["SpouseSurname"],
+                    SpouseFirstname: results["SpouseFirstname"],
+                    SpouseMiddlename: results["SpouseMiddlename"],
+                    SpouseExtensionname: results["SpouseExtensionname"],
+                    SpouseOccupationId: results["SpouseOccupationId"],
+                    SpouseEmployerName: results["SpouseEmployerName"],
+                    SpouseEmployerAddress: results["SpouseEmployerAddress"],
+                    FatherSurname: results["FatherSurname"],
+                    FatherFirstname: results["FatherFirstname"],
+                    FatherMiddlename: results["FatherMiddlename"],
+                    FatherExtensionname: results["FatherExtensionname"],
+                    MotherSurname: results["MotherSurname"],
+                    MotherFirstname: results["MotherFirstname"],
+                    MotherMiddlename: results["MotherMiddlename"],
+                    MotherExtensionname: results["MotherExtensionname"],
+                    PictureURL: results["PictureURL"],
+                    StatusId: results["StatusId"],
+                    IsLocked: results["IsLocked"]
+                };
+            }
+            this.detailCitizenSubject.next(citizenModel);
         });
     }
     listSex() {
@@ -13301,41 +13728,57 @@ let CitizenService = class CitizenService {
             this.listOccupationSource.next(listOccupationObservableArray);
         });
     }
-    listCitizenStatus() {
-        let listCitizenStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
-        this.listCitizenStatusSource.next(listCitizenStatusObservableArray);
-        this.httpClient.get(this.defaultAPIURLHost + "/api/mst/citizen/citizenStatus/dropdown/list", this.options).subscribe(response => {
+    listStatus() {
+        let listStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listStatusSource.next(listStatusObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/mst/citizen/status/dropdown/list", this.options).subscribe(response => {
             let results = response;
             if (results["length"] > 0) {
                 for (let i = 0; i <= results["length"] - 1; i++) {
-                    listCitizenStatusObservableArray.push({
+                    listStatusObservableArray.push({
                         Id: results[i].Id,
-                        CitizenStatus: results[i].CitizenStatus
+                        Status: results[i].Status
                     });
                 }
             }
-            this.listCitizenStatusSource.next(listCitizenStatusObservableArray);
+            this.listStatusSource.next(listStatusObservableArray);
+        });
+    }
+    addCitizen() {
+        this.httpClient.post(this.defaultAPIURLHost + "/api/mst/citizen/add", JSON.stringify(""), this.options).subscribe(response => {
+            let responseResults = ["success", response.toString()];
+            this.addCitizenSubject.next(responseResults);
+        }, error => {
+            let errorResults = ["failed", error["error"]];
+            this.addCitizenSubject.next(errorResults);
         });
     }
     saveCitizen(objCitizenModel) {
-        if (objCitizenModel.Id == 0) {
-            this.httpClient.post(this.defaultAPIURLHost + "/api/mst/citizen/add", JSON.stringify(objCitizenModel), this.options).subscribe(response => {
-                let responseResults = ["success", response.toString()];
-                this.saveCitizenSubject.next(responseResults);
-            }, error => {
-                let errorResults = ["failed", error["error"]];
-                this.saveCitizenSubject.next(errorResults);
-            });
-        }
-        else {
-            this.httpClient.put(this.defaultAPIURLHost + "/api/mst/citizen/update/" + objCitizenModel.Id, JSON.stringify(objCitizenModel), this.options).subscribe(response => {
-                let responseResults = ["success", response.toString()];
-                this.saveCitizenSubject.next(responseResults);
-            }, error => {
-                let errorResults = ["failed", error["error"]];
-                this.saveCitizenSubject.next(errorResults);
-            });
-        }
+        this.httpClient.put(this.defaultAPIURLHost + "/api/mst/citizen/save/" + objCitizenModel.Id, JSON.stringify(objCitizenModel), this.options).subscribe(response => {
+            let responseResults = ["success", response.toString()];
+            this.saveCitizenSubject.next(responseResults);
+        }, error => {
+            let errorResults = ["failed", error["error"]];
+            this.saveCitizenSubject.next(errorResults);
+        });
+    }
+    lockCitizen(objCitizenModel) {
+        this.httpClient.put(this.defaultAPIURLHost + "/api/mst/citizen/lock/" + objCitizenModel.Id, JSON.stringify(objCitizenModel), this.options).subscribe(response => {
+            let responseResults = ["success", response.toString()];
+            this.lockCitizenSubject.next(responseResults);
+        }, error => {
+            let errorResults = ["failed", error["error"]];
+            this.lockCitizenSubject.next(errorResults);
+        });
+    }
+    unlockCitizen(objCitizenModel) {
+        this.httpClient.put(this.defaultAPIURLHost + "/api/mst/citizen/unlock/" + objCitizenModel.Id, JSON.stringify(""), this.options).subscribe(response => {
+            let responseResults = ["success", response.toString()];
+            this.unlockCitizenSubject.next(responseResults);
+        }, error => {
+            let errorResults = ["failed", error["error"]];
+            this.unlockCitizenSubject.next(errorResults);
+        });
     }
     deleteCitizen(id) {
         this.httpClient.delete(this.defaultAPIURLHost + "/api/mst/citizen/delete/" + id, this.options).subscribe(response => {
@@ -13542,8 +13985,9 @@ let CitizenService = class CitizenService {
                         MotherMiddlename: results[i].MotherMiddlename,
                         MotherExtensionname: results[i].MotherExtensionname,
                         PictureURL: results[i].PictureURL,
-                        CitizenStatusId: results[i].CitizenStatusId,
-                        CitizenStatus: results[i].CitizenStatus,
+                        StatusId: results[i].StatusId,
+                        Status: results[i].Status,
+                        IsLocked: results[i].IsLocked,
                         CreatedByUserId: results[i].CreatedByUserId,
                         CreatedByUser: results[i].Fullname,
                         CreatedDateTime: results[i].CreatedDateTime,
@@ -13631,6 +14075,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _citizen_citizen_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./citizen/citizen.component */ "./src/app/software/citizen/citizen.component.ts");
 /* harmony import */ var _user_user_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./user/user.component */ "./src/app/software/user/user.component.ts");
 /* harmony import */ var _system_tables_system_tables_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./system-tables/system-tables.component */ "./src/app/software/system-tables/system-tables.component.ts");
+/* harmony import */ var _software_router_activate__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./software.router.activate */ "./src/app/software/software.router.activate.ts");
+
 
 
 
@@ -13642,26 +14088,44 @@ __webpack_require__.r(__webpack_exports__);
 const routes = [
     {
         path: '',
+        canActivate: [
+            _software_router_activate__WEBPACK_IMPORTED_MODULE_8__["SoftwareRouterActivate"]
+        ],
         component: _software_component__WEBPACK_IMPORTED_MODULE_3__["SoftwareComponent"],
         children: [
             {
                 path: '',
+                canActivate: [
+                    _software_router_activate__WEBPACK_IMPORTED_MODULE_8__["SoftwareRouterActivate"]
+                ],
                 component: _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_4__["DashboardComponent"]
             },
             {
                 path: 'dashboard',
+                canActivate: [
+                    _software_router_activate__WEBPACK_IMPORTED_MODULE_8__["SoftwareRouterActivate"]
+                ],
                 component: _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_4__["DashboardComponent"]
             },
             {
                 path: 'citizen',
+                canActivate: [
+                    _software_router_activate__WEBPACK_IMPORTED_MODULE_8__["SoftwareRouterActivate"]
+                ],
                 component: _citizen_citizen_component__WEBPACK_IMPORTED_MODULE_5__["CitizenComponent"]
             },
             {
                 path: 'user',
+                canActivate: [
+                    _software_router_activate__WEBPACK_IMPORTED_MODULE_8__["SoftwareRouterActivate"]
+                ],
                 component: _user_user_component__WEBPACK_IMPORTED_MODULE_6__["UserComponent"]
             },
             {
                 path: 'system-tables',
+                canActivate: [
+                    _software_router_activate__WEBPACK_IMPORTED_MODULE_8__["SoftwareRouterActivate"]
+                ],
                 component: _system_tables_system_tables_component__WEBPACK_IMPORTED_MODULE_7__["SystemTablesComponent"]
             }
         ]
@@ -13712,6 +14176,13 @@ __webpack_require__.r(__webpack_exports__);
 _fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_2__["library"].add(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_3__["fas"]);
 let SoftwareComponent = class SoftwareComponent {
     constructor() { }
+    logOut() {
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('expires_in');
+        localStorage.removeItem('token_type');
+        localStorage.removeItem('username');
+        location.reload();
+    }
     ngOnInit() {
     }
 };
@@ -13743,44 +14214,61 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
 /* harmony import */ var _angular_material_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material/core */ "./node_modules/@angular/material/esm2015/core.js");
 /* harmony import */ var _software_routing_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./software-routing.module */ "./src/app/software/software-routing.module.ts");
-/* harmony import */ var _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/material/toolbar */ "./node_modules/@angular/material/esm2015/toolbar.js");
-/* harmony import */ var _angular_material_button__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/material/button */ "./node_modules/@angular/material/esm2015/button.js");
-/* harmony import */ var _angular_material_menu__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/material/menu */ "./node_modules/@angular/material/esm2015/menu.js");
-/* harmony import */ var _angular_material_sidenav__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/material/sidenav */ "./node_modules/@angular/material/esm2015/sidenav.js");
-/* harmony import */ var _angular_material_tabs__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/material/tabs */ "./node_modules/@angular/material/esm2015/tabs.js");
-/* harmony import */ var _angular_material_list__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/material/list */ "./node_modules/@angular/material/esm2015/list.js");
-/* harmony import */ var _angular_material_grid_list__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/material/grid-list */ "./node_modules/@angular/material/esm2015/grid-list.js");
-/* harmony import */ var _angular_material_button_toggle__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/material/button-toggle */ "./node_modules/@angular/material/esm2015/button-toggle.js");
-/* harmony import */ var _angular_material_card__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/material/card */ "./node_modules/@angular/material/esm2015/card.js");
-/* harmony import */ var _angular_material_expansion__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/material/expansion */ "./node_modules/@angular/material/esm2015/expansion.js");
-/* harmony import */ var _angular_material_input__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/material/input */ "./node_modules/@angular/material/esm2015/input.js");
-/* harmony import */ var _angular_material_form_field__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @angular/material/form-field */ "./node_modules/@angular/material/esm2015/form-field.js");
-/* harmony import */ var _angular_material_chips__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @angular/material/chips */ "./node_modules/@angular/material/esm2015/chips.js");
-/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm2015/dialog.js");
-/* harmony import */ var _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @angular/material/datepicker */ "./node_modules/@angular/material/esm2015/datepicker.js");
-/* harmony import */ var _angular_material_select__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @angular/material/select */ "./node_modules/@angular/material/esm2015/select.js");
-/* harmony import */ var _software_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./software.component */ "./src/app/software/software.component.ts");
-/* harmony import */ var _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./dashboard/dashboard.component */ "./src/app/software/dashboard/dashboard.component.ts");
-/* harmony import */ var _citizen_citizen_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./citizen/citizen.component */ "./src/app/software/citizen/citizen.component.ts");
-/* harmony import */ var _citizen_citizen_detail_dialog_citizen_detail_dialog_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./citizen/citizen-detail-dialog/citizen-detail-dialog.component */ "./src/app/software/citizen/citizen-detail-dialog/citizen-detail-dialog.component.ts");
-/* harmony import */ var _citizen_citizen_delete_dialog_citizen_delete_dialog_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./citizen/citizen-delete-dialog/citizen-delete-dialog.component */ "./src/app/software/citizen/citizen-delete-dialog/citizen-delete-dialog.component.ts");
-/* harmony import */ var _citizen_citizen_detail_dialog_citizen_camera_dialog_citizen_camera_dialog_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./citizen/citizen-detail-dialog/citizen-camera-dialog/citizen-camera-dialog.component */ "./src/app/software/citizen/citizen-detail-dialog/citizen-camera-dialog/citizen-camera-dialog.component.ts");
-/* harmony import */ var _citizen_citizen_detail_dialog_citizen_children_detail_dialog_citizen_children_detail_dialog_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./citizen/citizen-detail-dialog/citizen-children-detail-dialog/citizen-children-detail-dialog.component */ "./src/app/software/citizen/citizen-detail-dialog/citizen-children-detail-dialog/citizen-children-detail-dialog.component.ts");
-/* harmony import */ var _citizen_citizen_detail_dialog_citizen_children_delete_dialog_citizen_children_delete_dialog_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./citizen/citizen-detail-dialog/citizen-children-delete-dialog/citizen-children-delete-dialog.component */ "./src/app/software/citizen/citizen-detail-dialog/citizen-children-delete-dialog/citizen-children-delete-dialog.component.ts");
-/* harmony import */ var _citizen_citizen_detail_dialog_citizen_education_detail_dialog_citizen_education_detail_dialog_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./citizen/citizen-detail-dialog/citizen-education-detail-dialog/citizen-education-detail-dialog.component */ "./src/app/software/citizen/citizen-detail-dialog/citizen-education-detail-dialog/citizen-education-detail-dialog.component.ts");
-/* harmony import */ var _citizen_citizen_detail_dialog_citizen_education_delete_dialog_citizen_education_delete_dialog_component__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./citizen/citizen-detail-dialog/citizen-education-delete-dialog/citizen-education-delete-dialog.component */ "./src/app/software/citizen/citizen-detail-dialog/citizen-education-delete-dialog/citizen-education-delete-dialog.component.ts");
-/* harmony import */ var _citizen_citizen_search_dialog_citizen_search_dialog_component__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./citizen/citizen-search-dialog/citizen-search-dialog.component */ "./src/app/software/citizen/citizen-search-dialog/citizen-search-dialog.component.ts");
-/* harmony import */ var _user_user_component__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./user/user.component */ "./src/app/software/user/user.component.ts");
-/* harmony import */ var _system_tables_system_tables_component__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./system-tables/system-tables.component */ "./src/app/software/system-tables/system-tables.component.ts");
-/* harmony import */ var wijmo_wijmo_angular2_grid_filter__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! wijmo/wijmo.angular2.grid.filter */ "./node_modules/wijmo/wijmo.angular2.grid.filter.js");
-/* harmony import */ var wijmo_wijmo_angular2_grid_filter__WEBPACK_IMPORTED_MODULE_35___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo_angular2_grid_filter__WEBPACK_IMPORTED_MODULE_35__);
-/* harmony import */ var wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! wijmo/wijmo.angular2.grid */ "./node_modules/wijmo/wijmo.angular2.grid.js");
-/* harmony import */ var wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_36___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_36__);
-/* harmony import */ var wijmo_wijmo_angular2_input__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! wijmo/wijmo.angular2.input */ "./node_modules/wijmo/wijmo.angular2.input.js");
-/* harmony import */ var wijmo_wijmo_angular2_input__WEBPACK_IMPORTED_MODULE_37___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo_angular2_input__WEBPACK_IMPORTED_MODULE_37__);
-/* harmony import */ var _angular_flex_layout__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! @angular/flex-layout */ "./node_modules/@angular/flex-layout/esm2015/flex-layout.js");
-/* harmony import */ var _fortawesome_angular_fontawesome__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! @fortawesome/angular-fontawesome */ "./node_modules/@fortawesome/angular-fontawesome/fesm2015/angular-fontawesome.js");
-/* harmony import */ var ngx_webcam__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ngx-webcam */ "./node_modules/ngx-webcam/fesm2015/ngx-webcam.js");
+/* harmony import */ var _software_router_activate__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./software.router.activate */ "./src/app/software/software.router.activate.ts");
+/* harmony import */ var _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/material/toolbar */ "./node_modules/@angular/material/esm2015/toolbar.js");
+/* harmony import */ var _angular_material_button__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/material/button */ "./node_modules/@angular/material/esm2015/button.js");
+/* harmony import */ var _angular_material_menu__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/material/menu */ "./node_modules/@angular/material/esm2015/menu.js");
+/* harmony import */ var _angular_material_sidenav__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/material/sidenav */ "./node_modules/@angular/material/esm2015/sidenav.js");
+/* harmony import */ var _angular_material_tabs__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/material/tabs */ "./node_modules/@angular/material/esm2015/tabs.js");
+/* harmony import */ var _angular_material_list__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/material/list */ "./node_modules/@angular/material/esm2015/list.js");
+/* harmony import */ var _angular_material_grid_list__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/material/grid-list */ "./node_modules/@angular/material/esm2015/grid-list.js");
+/* harmony import */ var _angular_material_button_toggle__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/material/button-toggle */ "./node_modules/@angular/material/esm2015/button-toggle.js");
+/* harmony import */ var _angular_material_card__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/material/card */ "./node_modules/@angular/material/esm2015/card.js");
+/* harmony import */ var _angular_material_expansion__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/material/expansion */ "./node_modules/@angular/material/esm2015/expansion.js");
+/* harmony import */ var _angular_material_input__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @angular/material/input */ "./node_modules/@angular/material/esm2015/input.js");
+/* harmony import */ var _angular_material_form_field__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @angular/material/form-field */ "./node_modules/@angular/material/esm2015/form-field.js");
+/* harmony import */ var _angular_material_chips__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @angular/material/chips */ "./node_modules/@angular/material/esm2015/chips.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm2015/dialog.js");
+/* harmony import */ var _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @angular/material/datepicker */ "./node_modules/@angular/material/esm2015/datepicker.js");
+/* harmony import */ var _angular_material_select__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @angular/material/select */ "./node_modules/@angular/material/esm2015/select.js");
+/* harmony import */ var _software_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./software.component */ "./src/app/software/software.component.ts");
+/* harmony import */ var _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./dashboard/dashboard.component */ "./src/app/software/dashboard/dashboard.component.ts");
+/* harmony import */ var _citizen_citizen_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./citizen/citizen.component */ "./src/app/software/citizen/citizen.component.ts");
+/* harmony import */ var _citizen_citizen_detail_dialog_citizen_detail_dialog_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./citizen/citizen-detail-dialog/citizen-detail-dialog.component */ "./src/app/software/citizen/citizen-detail-dialog/citizen-detail-dialog.component.ts");
+/* harmony import */ var _citizen_citizen_delete_dialog_citizen_delete_dialog_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./citizen/citizen-delete-dialog/citizen-delete-dialog.component */ "./src/app/software/citizen/citizen-delete-dialog/citizen-delete-dialog.component.ts");
+/* harmony import */ var _citizen_citizen_detail_dialog_citizen_camera_dialog_citizen_camera_dialog_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./citizen/citizen-detail-dialog/citizen-camera-dialog/citizen-camera-dialog.component */ "./src/app/software/citizen/citizen-detail-dialog/citizen-camera-dialog/citizen-camera-dialog.component.ts");
+/* harmony import */ var _citizen_citizen_detail_dialog_citizen_children_detail_dialog_citizen_children_detail_dialog_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./citizen/citizen-detail-dialog/citizen-children-detail-dialog/citizen-children-detail-dialog.component */ "./src/app/software/citizen/citizen-detail-dialog/citizen-children-detail-dialog/citizen-children-detail-dialog.component.ts");
+/* harmony import */ var _citizen_citizen_detail_dialog_citizen_children_delete_dialog_citizen_children_delete_dialog_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./citizen/citizen-detail-dialog/citizen-children-delete-dialog/citizen-children-delete-dialog.component */ "./src/app/software/citizen/citizen-detail-dialog/citizen-children-delete-dialog/citizen-children-delete-dialog.component.ts");
+/* harmony import */ var _citizen_citizen_detail_dialog_citizen_education_detail_dialog_citizen_education_detail_dialog_component__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./citizen/citizen-detail-dialog/citizen-education-detail-dialog/citizen-education-detail-dialog.component */ "./src/app/software/citizen/citizen-detail-dialog/citizen-education-detail-dialog/citizen-education-detail-dialog.component.ts");
+/* harmony import */ var _citizen_citizen_detail_dialog_citizen_education_delete_dialog_citizen_education_delete_dialog_component__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./citizen/citizen-detail-dialog/citizen-education-delete-dialog/citizen-education-delete-dialog.component */ "./src/app/software/citizen/citizen-detail-dialog/citizen-education-delete-dialog/citizen-education-delete-dialog.component.ts");
+/* harmony import */ var _citizen_citizen_search_dialog_citizen_search_dialog_component__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./citizen/citizen-search-dialog/citizen-search-dialog.component */ "./src/app/software/citizen/citizen-search-dialog/citizen-search-dialog.component.ts");
+/* harmony import */ var _user_user_component__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./user/user.component */ "./src/app/software/user/user.component.ts");
+/* harmony import */ var _system_tables_system_tables_component__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./system-tables/system-tables.component */ "./src/app/software/system-tables/system-tables.component.ts");
+/* harmony import */ var _system_tables_citizenship_detail_dialog_citizenship_detail_dialog_component__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./system-tables/citizenship-detail-dialog/citizenship-detail-dialog.component */ "./src/app/software/system-tables/citizenship-detail-dialog/citizenship-detail-dialog.component.ts");
+/* harmony import */ var _system_tables_citizenship_delete_dialog_citizenship_delete_dialog_component__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./system-tables/citizenship-delete-dialog/citizenship-delete-dialog.component */ "./src/app/software/system-tables/citizenship-delete-dialog/citizenship-delete-dialog.component.ts");
+/* harmony import */ var _system_tables_type_of_citizenship_detail_dialog_type_of_citizenship_detail_dialog_component__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./system-tables/type-of-citizenship-detail-dialog/type-of-citizenship-detail-dialog.component */ "./src/app/software/system-tables/type-of-citizenship-detail-dialog/type-of-citizenship-detail-dialog.component.ts");
+/* harmony import */ var _system_tables_type_of_citizenship_delete_dialog_type_of_citizenship_delete_dialog_component__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./system-tables/type-of-citizenship-delete-dialog/type-of-citizenship-delete-dialog.component */ "./src/app/software/system-tables/type-of-citizenship-delete-dialog/type-of-citizenship-delete-dialog.component.ts");
+/* harmony import */ var _system_tables_sex_detail_dialog_sex_detail_dialog_component__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./system-tables/sex-detail-dialog/sex-detail-dialog.component */ "./src/app/software/system-tables/sex-detail-dialog/sex-detail-dialog.component.ts");
+/* harmony import */ var _system_tables_sex_delete_dialog_sex_delete_dialog_component__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./system-tables/sex-delete-dialog/sex-delete-dialog.component */ "./src/app/software/system-tables/sex-delete-dialog/sex-delete-dialog.component.ts");
+/* harmony import */ var _system_tables_civil_status_delete_dialog_civil_status_delete_dialog_component__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./system-tables/civil-status-delete-dialog/civil-status-delete-dialog.component */ "./src/app/software/system-tables/civil-status-delete-dialog/civil-status-delete-dialog.component.ts");
+/* harmony import */ var _system_tables_civil_status_detail_dialog_civil_status_detail_dialog_component__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./system-tables/civil-status-detail-dialog/civil-status-detail-dialog.component */ "./src/app/software/system-tables/civil-status-detail-dialog/civil-status-detail-dialog.component.ts");
+/* harmony import */ var _system_tables_education_level_detail_dialog_education_level_detail_dialog_component__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./system-tables/education-level-detail-dialog/education-level-detail-dialog.component */ "./src/app/software/system-tables/education-level-detail-dialog/education-level-detail-dialog.component.ts");
+/* harmony import */ var _system_tables_education_level_delete_dialog_education_level_delete_dialog_component__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./system-tables/education-level-delete-dialog/education-level-delete-dialog.component */ "./src/app/software/system-tables/education-level-delete-dialog/education-level-delete-dialog.component.ts");
+/* harmony import */ var _system_tables_occupation_detail_dialog_occupation_detail_dialog_component__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./system-tables/occupation-detail-dialog/occupation-detail-dialog.component */ "./src/app/software/system-tables/occupation-detail-dialog/occupation-detail-dialog.component.ts");
+/* harmony import */ var _system_tables_occupation_delete_dialog_occupation_delete_dialog_component__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ./system-tables/occupation-delete-dialog/occupation-delete-dialog.component */ "./src/app/software/system-tables/occupation-delete-dialog/occupation-delete-dialog.component.ts");
+/* harmony import */ var _system_tables_blood_type_detail_dialog_blood_type_detail_dialog_component__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ./system-tables/blood-type-detail-dialog/blood-type-detail-dialog.component */ "./src/app/software/system-tables/blood-type-detail-dialog/blood-type-detail-dialog.component.ts");
+/* harmony import */ var _system_tables_blood_type_delete_dialog_blood_type_delete_dialog_component__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ./system-tables/blood-type-delete-dialog/blood-type-delete-dialog.component */ "./src/app/software/system-tables/blood-type-delete-dialog/blood-type-delete-dialog.component.ts");
+/* harmony import */ var _system_tables_status_detail_dialog_status_detail_dialog_component__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! ./system-tables/status-detail-dialog/status-detail-dialog.component */ "./src/app/software/system-tables/status-detail-dialog/status-detail-dialog.component.ts");
+/* harmony import */ var _system_tables_status_delete_dialog_status_delete_dialog_component__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! ./system-tables/status-delete-dialog/status-delete-dialog.component */ "./src/app/software/system-tables/status-delete-dialog/status-delete-dialog.component.ts");
+/* harmony import */ var wijmo_wijmo_angular2_grid_filter__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! wijmo/wijmo.angular2.grid.filter */ "./node_modules/wijmo/wijmo.angular2.grid.filter.js");
+/* harmony import */ var wijmo_wijmo_angular2_grid_filter__WEBPACK_IMPORTED_MODULE_52___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo_angular2_grid_filter__WEBPACK_IMPORTED_MODULE_52__);
+/* harmony import */ var wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! wijmo/wijmo.angular2.grid */ "./node_modules/wijmo/wijmo.angular2.grid.js");
+/* harmony import */ var wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_53___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_53__);
+/* harmony import */ var wijmo_wijmo_angular2_input__WEBPACK_IMPORTED_MODULE_54__ = __webpack_require__(/*! wijmo/wijmo.angular2.input */ "./node_modules/wijmo/wijmo.angular2.input.js");
+/* harmony import */ var wijmo_wijmo_angular2_input__WEBPACK_IMPORTED_MODULE_54___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo_angular2_input__WEBPACK_IMPORTED_MODULE_54__);
+/* harmony import */ var _angular_flex_layout__WEBPACK_IMPORTED_MODULE_55__ = __webpack_require__(/*! @angular/flex-layout */ "./node_modules/@angular/flex-layout/esm2015/flex-layout.js");
+/* harmony import */ var _fortawesome_angular_fontawesome__WEBPACK_IMPORTED_MODULE_56__ = __webpack_require__(/*! @fortawesome/angular-fontawesome */ "./node_modules/@fortawesome/angular-fontawesome/fesm2015/angular-fontawesome.js");
+/* harmony import */ var ngx_webcam__WEBPACK_IMPORTED_MODULE_57__ = __webpack_require__(/*! ngx-webcam */ "./node_modules/ngx-webcam/fesm2015/ngx-webcam.js");
 
 // Modules
 
@@ -13788,6 +14276,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // Routing
+
 
 // Material
 
@@ -13820,6 +14309,22 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Wijmo
 
 
@@ -13833,47 +14338,1412 @@ let SoftwareModule = class SoftwareModule {
 SoftwareModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
         declarations: [
-            _software_component__WEBPACK_IMPORTED_MODULE_22__["SoftwareComponent"],
-            _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_23__["DashboardComponent"],
-            _citizen_citizen_component__WEBPACK_IMPORTED_MODULE_24__["CitizenComponent"],
-            _citizen_citizen_detail_dialog_citizen_detail_dialog_component__WEBPACK_IMPORTED_MODULE_25__["CitizenDetailDialogComponent"],
-            _citizen_citizen_delete_dialog_citizen_delete_dialog_component__WEBPACK_IMPORTED_MODULE_26__["CitizenDeleteDialogComponent"],
-            _citizen_citizen_detail_dialog_citizen_camera_dialog_citizen_camera_dialog_component__WEBPACK_IMPORTED_MODULE_27__["CitizenCameraDialogComponent"],
-            _citizen_citizen_detail_dialog_citizen_children_detail_dialog_citizen_children_detail_dialog_component__WEBPACK_IMPORTED_MODULE_28__["CitizenChildrenDetailDialogComponent"],
-            _citizen_citizen_detail_dialog_citizen_children_delete_dialog_citizen_children_delete_dialog_component__WEBPACK_IMPORTED_MODULE_29__["CitizenChildrenDeleteDialogComponent"],
-            _citizen_citizen_detail_dialog_citizen_education_detail_dialog_citizen_education_detail_dialog_component__WEBPACK_IMPORTED_MODULE_30__["CitizenEducationDetailDialogComponent"],
-            _citizen_citizen_detail_dialog_citizen_education_delete_dialog_citizen_education_delete_dialog_component__WEBPACK_IMPORTED_MODULE_31__["CitizenEducationDeleteDialogComponent"],
-            _citizen_citizen_search_dialog_citizen_search_dialog_component__WEBPACK_IMPORTED_MODULE_32__["CitizenSearchDialogComponent"],
-            _user_user_component__WEBPACK_IMPORTED_MODULE_33__["UserComponent"],
-            _system_tables_system_tables_component__WEBPACK_IMPORTED_MODULE_34__["SystemTablesComponent"]
+            _software_component__WEBPACK_IMPORTED_MODULE_23__["SoftwareComponent"],
+            _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_24__["DashboardComponent"],
+            _citizen_citizen_component__WEBPACK_IMPORTED_MODULE_25__["CitizenComponent"],
+            _citizen_citizen_detail_dialog_citizen_detail_dialog_component__WEBPACK_IMPORTED_MODULE_26__["CitizenDetailDialogComponent"],
+            _citizen_citizen_delete_dialog_citizen_delete_dialog_component__WEBPACK_IMPORTED_MODULE_27__["CitizenDeleteDialogComponent"],
+            _citizen_citizen_detail_dialog_citizen_camera_dialog_citizen_camera_dialog_component__WEBPACK_IMPORTED_MODULE_28__["CitizenCameraDialogComponent"],
+            _citizen_citizen_detail_dialog_citizen_children_detail_dialog_citizen_children_detail_dialog_component__WEBPACK_IMPORTED_MODULE_29__["CitizenChildrenDetailDialogComponent"],
+            _citizen_citizen_detail_dialog_citizen_children_delete_dialog_citizen_children_delete_dialog_component__WEBPACK_IMPORTED_MODULE_30__["CitizenChildrenDeleteDialogComponent"],
+            _citizen_citizen_detail_dialog_citizen_education_detail_dialog_citizen_education_detail_dialog_component__WEBPACK_IMPORTED_MODULE_31__["CitizenEducationDetailDialogComponent"],
+            _citizen_citizen_detail_dialog_citizen_education_delete_dialog_citizen_education_delete_dialog_component__WEBPACK_IMPORTED_MODULE_32__["CitizenEducationDeleteDialogComponent"],
+            _citizen_citizen_search_dialog_citizen_search_dialog_component__WEBPACK_IMPORTED_MODULE_33__["CitizenSearchDialogComponent"],
+            _user_user_component__WEBPACK_IMPORTED_MODULE_34__["UserComponent"],
+            _system_tables_system_tables_component__WEBPACK_IMPORTED_MODULE_35__["SystemTablesComponent"],
+            _system_tables_citizenship_detail_dialog_citizenship_detail_dialog_component__WEBPACK_IMPORTED_MODULE_36__["CitizenshipDetailDialogComponent"],
+            _system_tables_citizenship_delete_dialog_citizenship_delete_dialog_component__WEBPACK_IMPORTED_MODULE_37__["CitizenshipDeleteDialogComponent"],
+            _system_tables_type_of_citizenship_detail_dialog_type_of_citizenship_detail_dialog_component__WEBPACK_IMPORTED_MODULE_38__["TypeOfCitizenshipDetailDialogComponent"],
+            _system_tables_type_of_citizenship_delete_dialog_type_of_citizenship_delete_dialog_component__WEBPACK_IMPORTED_MODULE_39__["TypeOfCitizenshipDeleteDialogComponent"],
+            _system_tables_sex_detail_dialog_sex_detail_dialog_component__WEBPACK_IMPORTED_MODULE_40__["SexDetailDialogComponent"],
+            _system_tables_sex_delete_dialog_sex_delete_dialog_component__WEBPACK_IMPORTED_MODULE_41__["SexDeleteDialogComponent"],
+            _system_tables_civil_status_delete_dialog_civil_status_delete_dialog_component__WEBPACK_IMPORTED_MODULE_42__["CivilStatusDeleteDialogComponent"],
+            _system_tables_civil_status_detail_dialog_civil_status_detail_dialog_component__WEBPACK_IMPORTED_MODULE_43__["CivilStatusDetailDialogComponent"],
+            _system_tables_education_level_detail_dialog_education_level_detail_dialog_component__WEBPACK_IMPORTED_MODULE_44__["EducationLevelDetailDialogComponent"],
+            _system_tables_education_level_delete_dialog_education_level_delete_dialog_component__WEBPACK_IMPORTED_MODULE_45__["EducationLevelDeleteDialogComponent"],
+            _system_tables_occupation_detail_dialog_occupation_detail_dialog_component__WEBPACK_IMPORTED_MODULE_46__["OccupationDetailDialogComponent"],
+            _system_tables_occupation_delete_dialog_occupation_delete_dialog_component__WEBPACK_IMPORTED_MODULE_47__["OccupationDeleteDialogComponent"],
+            _system_tables_blood_type_detail_dialog_blood_type_detail_dialog_component__WEBPACK_IMPORTED_MODULE_48__["BloodTypeDetailDialogComponent"],
+            _system_tables_blood_type_delete_dialog_blood_type_delete_dialog_component__WEBPACK_IMPORTED_MODULE_49__["BloodTypeDeleteDialogComponent"],
+            _system_tables_status_detail_dialog_status_detail_dialog_component__WEBPACK_IMPORTED_MODULE_50__["StatusDetailDialogComponent"],
+            _system_tables_status_delete_dialog_status_delete_dialog_component__WEBPACK_IMPORTED_MODULE_51__["StatusDeleteDialogComponent"]
         ],
         entryComponents: [
-            _citizen_citizen_detail_dialog_citizen_detail_dialog_component__WEBPACK_IMPORTED_MODULE_25__["CitizenDetailDialogComponent"],
-            _citizen_citizen_delete_dialog_citizen_delete_dialog_component__WEBPACK_IMPORTED_MODULE_26__["CitizenDeleteDialogComponent"],
-            _citizen_citizen_detail_dialog_citizen_camera_dialog_citizen_camera_dialog_component__WEBPACK_IMPORTED_MODULE_27__["CitizenCameraDialogComponent"],
-            _citizen_citizen_detail_dialog_citizen_children_detail_dialog_citizen_children_detail_dialog_component__WEBPACK_IMPORTED_MODULE_28__["CitizenChildrenDetailDialogComponent"],
-            _citizen_citizen_detail_dialog_citizen_children_delete_dialog_citizen_children_delete_dialog_component__WEBPACK_IMPORTED_MODULE_29__["CitizenChildrenDeleteDialogComponent"],
-            _citizen_citizen_detail_dialog_citizen_education_detail_dialog_citizen_education_detail_dialog_component__WEBPACK_IMPORTED_MODULE_30__["CitizenEducationDetailDialogComponent"],
-            _citizen_citizen_detail_dialog_citizen_education_delete_dialog_citizen_education_delete_dialog_component__WEBPACK_IMPORTED_MODULE_31__["CitizenEducationDeleteDialogComponent"],
-            _citizen_citizen_search_dialog_citizen_search_dialog_component__WEBPACK_IMPORTED_MODULE_32__["CitizenSearchDialogComponent"]
+            _citizen_citizen_detail_dialog_citizen_detail_dialog_component__WEBPACK_IMPORTED_MODULE_26__["CitizenDetailDialogComponent"],
+            _citizen_citizen_delete_dialog_citizen_delete_dialog_component__WEBPACK_IMPORTED_MODULE_27__["CitizenDeleteDialogComponent"],
+            _citizen_citizen_detail_dialog_citizen_camera_dialog_citizen_camera_dialog_component__WEBPACK_IMPORTED_MODULE_28__["CitizenCameraDialogComponent"],
+            _citizen_citizen_detail_dialog_citizen_children_detail_dialog_citizen_children_detail_dialog_component__WEBPACK_IMPORTED_MODULE_29__["CitizenChildrenDetailDialogComponent"],
+            _citizen_citizen_detail_dialog_citizen_children_delete_dialog_citizen_children_delete_dialog_component__WEBPACK_IMPORTED_MODULE_30__["CitizenChildrenDeleteDialogComponent"],
+            _citizen_citizen_detail_dialog_citizen_education_detail_dialog_citizen_education_detail_dialog_component__WEBPACK_IMPORTED_MODULE_31__["CitizenEducationDetailDialogComponent"],
+            _citizen_citizen_detail_dialog_citizen_education_delete_dialog_citizen_education_delete_dialog_component__WEBPACK_IMPORTED_MODULE_32__["CitizenEducationDeleteDialogComponent"],
+            _citizen_citizen_search_dialog_citizen_search_dialog_component__WEBPACK_IMPORTED_MODULE_33__["CitizenSearchDialogComponent"],
+            _system_tables_citizenship_detail_dialog_citizenship_detail_dialog_component__WEBPACK_IMPORTED_MODULE_36__["CitizenshipDetailDialogComponent"],
+            _system_tables_citizenship_delete_dialog_citizenship_delete_dialog_component__WEBPACK_IMPORTED_MODULE_37__["CitizenshipDeleteDialogComponent"],
+            _system_tables_type_of_citizenship_detail_dialog_type_of_citizenship_detail_dialog_component__WEBPACK_IMPORTED_MODULE_38__["TypeOfCitizenshipDetailDialogComponent"],
+            _system_tables_type_of_citizenship_delete_dialog_type_of_citizenship_delete_dialog_component__WEBPACK_IMPORTED_MODULE_39__["TypeOfCitizenshipDeleteDialogComponent"],
+            _system_tables_sex_detail_dialog_sex_detail_dialog_component__WEBPACK_IMPORTED_MODULE_40__["SexDetailDialogComponent"],
+            _system_tables_sex_delete_dialog_sex_delete_dialog_component__WEBPACK_IMPORTED_MODULE_41__["SexDeleteDialogComponent"],
+            _system_tables_civil_status_delete_dialog_civil_status_delete_dialog_component__WEBPACK_IMPORTED_MODULE_42__["CivilStatusDeleteDialogComponent"],
+            _system_tables_civil_status_detail_dialog_civil_status_detail_dialog_component__WEBPACK_IMPORTED_MODULE_43__["CivilStatusDetailDialogComponent"],
+            _system_tables_education_level_detail_dialog_education_level_detail_dialog_component__WEBPACK_IMPORTED_MODULE_44__["EducationLevelDetailDialogComponent"],
+            _system_tables_education_level_delete_dialog_education_level_delete_dialog_component__WEBPACK_IMPORTED_MODULE_45__["EducationLevelDeleteDialogComponent"],
+            _system_tables_occupation_detail_dialog_occupation_detail_dialog_component__WEBPACK_IMPORTED_MODULE_46__["OccupationDetailDialogComponent"],
+            _system_tables_occupation_delete_dialog_occupation_delete_dialog_component__WEBPACK_IMPORTED_MODULE_47__["OccupationDeleteDialogComponent"],
+            _system_tables_blood_type_detail_dialog_blood_type_detail_dialog_component__WEBPACK_IMPORTED_MODULE_48__["BloodTypeDetailDialogComponent"],
+            _system_tables_blood_type_delete_dialog_blood_type_delete_dialog_component__WEBPACK_IMPORTED_MODULE_49__["BloodTypeDeleteDialogComponent"],
+            _system_tables_status_detail_dialog_status_detail_dialog_component__WEBPACK_IMPORTED_MODULE_50__["StatusDetailDialogComponent"],
+            _system_tables_status_delete_dialog_status_delete_dialog_component__WEBPACK_IMPORTED_MODULE_51__["StatusDeleteDialogComponent"]
         ],
         imports: [
             _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"],
             _software_routing_module__WEBPACK_IMPORTED_MODULE_5__["SoftwareRoutingModule"],
-            _angular_flex_layout__WEBPACK_IMPORTED_MODULE_38__["FlexLayoutModule"],
-            _fortawesome_angular_fontawesome__WEBPACK_IMPORTED_MODULE_39__["FontAwesomeModule"],
-            _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_6__["MatToolbarModule"], _angular_material_button__WEBPACK_IMPORTED_MODULE_7__["MatButtonModule"], _angular_material_menu__WEBPACK_IMPORTED_MODULE_8__["MatMenuModule"], _angular_material_sidenav__WEBPACK_IMPORTED_MODULE_9__["MatSidenavModule"], _angular_material_tabs__WEBPACK_IMPORTED_MODULE_10__["MatTabsModule"], _angular_material_list__WEBPACK_IMPORTED_MODULE_11__["MatListModule"], _angular_material_grid_list__WEBPACK_IMPORTED_MODULE_12__["MatGridListModule"], _angular_material_button_toggle__WEBPACK_IMPORTED_MODULE_13__["MatButtonToggleModule"],
-            _angular_material_card__WEBPACK_IMPORTED_MODULE_14__["MatCardModule"], _angular_material_expansion__WEBPACK_IMPORTED_MODULE_15__["MatExpansionModule"], _angular_material_input__WEBPACK_IMPORTED_MODULE_16__["MatInputModule"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_17__["MatFormFieldModule"], _angular_material_chips__WEBPACK_IMPORTED_MODULE_18__["MatChipsModule"], _angular_material_dialog__WEBPACK_IMPORTED_MODULE_19__["MatDialogModule"],
-            _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_20__["MatDatepickerModule"], _angular_material_core__WEBPACK_IMPORTED_MODULE_4__["MatNativeDateModule"], _angular_material_select__WEBPACK_IMPORTED_MODULE_21__["MatSelectModule"],
-            wijmo_wijmo_angular2_grid_filter__WEBPACK_IMPORTED_MODULE_35__["WjGridFilterModule"],
-            wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_36__["WjGridModule"],
-            wijmo_wijmo_angular2_input__WEBPACK_IMPORTED_MODULE_37__["WjInputModule"],
-            ngx_webcam__WEBPACK_IMPORTED_MODULE_40__["WebcamModule"]
+            _angular_flex_layout__WEBPACK_IMPORTED_MODULE_55__["FlexLayoutModule"],
+            _fortawesome_angular_fontawesome__WEBPACK_IMPORTED_MODULE_56__["FontAwesomeModule"],
+            _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_7__["MatToolbarModule"], _angular_material_button__WEBPACK_IMPORTED_MODULE_8__["MatButtonModule"], _angular_material_menu__WEBPACK_IMPORTED_MODULE_9__["MatMenuModule"], _angular_material_sidenav__WEBPACK_IMPORTED_MODULE_10__["MatSidenavModule"], _angular_material_tabs__WEBPACK_IMPORTED_MODULE_11__["MatTabsModule"], _angular_material_list__WEBPACK_IMPORTED_MODULE_12__["MatListModule"], _angular_material_grid_list__WEBPACK_IMPORTED_MODULE_13__["MatGridListModule"], _angular_material_button_toggle__WEBPACK_IMPORTED_MODULE_14__["MatButtonToggleModule"],
+            _angular_material_card__WEBPACK_IMPORTED_MODULE_15__["MatCardModule"], _angular_material_expansion__WEBPACK_IMPORTED_MODULE_16__["MatExpansionModule"], _angular_material_input__WEBPACK_IMPORTED_MODULE_17__["MatInputModule"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_18__["MatFormFieldModule"], _angular_material_chips__WEBPACK_IMPORTED_MODULE_19__["MatChipsModule"], _angular_material_dialog__WEBPACK_IMPORTED_MODULE_20__["MatDialogModule"],
+            _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_21__["MatDatepickerModule"], _angular_material_core__WEBPACK_IMPORTED_MODULE_4__["MatNativeDateModule"], _angular_material_select__WEBPACK_IMPORTED_MODULE_22__["MatSelectModule"],
+            wijmo_wijmo_angular2_grid_filter__WEBPACK_IMPORTED_MODULE_52__["WjGridFilterModule"],
+            wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_53__["WjGridModule"],
+            wijmo_wijmo_angular2_input__WEBPACK_IMPORTED_MODULE_54__["WjInputModule"],
+            ngx_webcam__WEBPACK_IMPORTED_MODULE_57__["WebcamModule"]
+        ],
+        providers: [
+            _software_router_activate__WEBPACK_IMPORTED_MODULE_6__["SoftwareRouterActivate"]
         ]
     })
 ], SoftwareModule);
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/software.router.activate.ts":
+/*!******************************************************!*\
+  !*** ./src/app/software/software.router.activate.ts ***!
+  \******************************************************/
+/*! exports provided: SoftwareRouterActivate */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SoftwareRouterActivate", function() { return SoftwareRouterActivate; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+
+
+
+let SoftwareRouterActivate = class SoftwareRouterActivate {
+    constructor(router) {
+        this.router = router;
+    }
+    canActivate() {
+        if (localStorage.getItem("access_token") == null) {
+            this.router.navigate(["/account/login"]);
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+};
+SoftwareRouterActivate.ctorParameters = () => [
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"] }
+];
+SoftwareRouterActivate = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"])()
+], SoftwareRouterActivate);
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/system-tables/blood-type-delete-dialog/blood-type-delete-dialog.component.css":
+/*!********************************************************************************************************!*\
+  !*** ./src/app/software/system-tables/blood-type-delete-dialog/blood-type-delete-dialog.component.css ***!
+  \********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL3N5c3RlbS10YWJsZXMvYmxvb2QtdHlwZS1kZWxldGUtZGlhbG9nL2Jsb29kLXR5cGUtZGVsZXRlLWRpYWxvZy5jb21wb25lbnQuY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/software/system-tables/blood-type-delete-dialog/blood-type-delete-dialog.component.ts":
+/*!*******************************************************************************************************!*\
+  !*** ./src/app/software/system-tables/blood-type-delete-dialog/blood-type-delete-dialog.component.ts ***!
+  \*******************************************************************************************************/
+/*! exports provided: BloodTypeDeleteDialogComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BloodTypeDeleteDialogComponent", function() { return BloodTypeDeleteDialogComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm2015/dialog.js");
+/* harmony import */ var _system_tables_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../system-tables.service */ "./src/app/software/system-tables/system-tables.service.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm2015/ngx-toastr.js");
+
+
+
+
+
+let BloodTypeDeleteDialogComponent = class BloodTypeDeleteDialogComponent {
+    constructor(systemTablesService, bloodTypeDeleteDialogRef, bloodTypeData, toastr) {
+        this.systemTablesService = systemTablesService;
+        this.bloodTypeDeleteDialogRef = bloodTypeDeleteDialogRef;
+        this.bloodTypeData = bloodTypeData;
+        this.toastr = toastr;
+    }
+    btnDeleteBloodType() {
+        let btnDeleteBloodType = document.getElementById("btnDeleteBloodType");
+        let btnCloseDeleteDialog = document.getElementById("btnCloseDeleteDialog");
+        btnDeleteBloodType.setAttribute("disabled", "disabled");
+        btnCloseDeleteDialog.setAttribute("disabled", "disabled");
+        this.systemTablesService.deleteBloodType(this.bloodTypeData.objBloodTypeModel.Id);
+        this.deleteBloodTypeSubscription = this.systemTablesService.deleteBloodTypeObservable.subscribe(data => {
+            if (data[0] == "success") {
+                this.toastr.success("Blood type was successfully deleted.", "Success");
+                this.bloodTypeDeleteDialogRef.close(200);
+            }
+            else if (data[0] == "failed") {
+                this.toastr.error(data[1], "Error");
+                btnDeleteBloodType.removeAttribute("disabled");
+                btnCloseDeleteDialog.removeAttribute("disabled");
+            }
+            if (this.deleteBloodTypeSubscription != null)
+                this.deleteBloodTypeSubscription.unsubscribe();
+        });
+    }
+    btnCloseDeleteDialog() {
+        this.bloodTypeDeleteDialogRef.close();
+        if (this.deleteBloodTypeSubscription != null)
+            this.deleteBloodTypeSubscription.unsubscribe();
+    }
+    ngOnInit() {
+    }
+    ngOnDestroy() {
+        if (this.deleteBloodTypeSubscription != null)
+            this.deleteBloodTypeSubscription.unsubscribe();
+    }
+};
+BloodTypeDeleteDialogComponent.ctorParameters = () => [
+    { type: _system_tables_service__WEBPACK_IMPORTED_MODULE_3__["SystemTablesService"] },
+    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"] },
+    { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"],] }] },
+    { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_4__["ToastrService"] }
+];
+BloodTypeDeleteDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-blood-type-delete-dialog',
+        template: __webpack_require__(/*! raw-loader!./blood-type-delete-dialog.component.html */ "./node_modules/raw-loader/index.js!./src/app/software/system-tables/blood-type-delete-dialog/blood-type-delete-dialog.component.html"),
+        styles: [__webpack_require__(/*! ./blood-type-delete-dialog.component.css */ "./src/app/software/system-tables/blood-type-delete-dialog/blood-type-delete-dialog.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"]))
+], BloodTypeDeleteDialogComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/system-tables/blood-type-detail-dialog/blood-type-detail-dialog.component.css":
+/*!********************************************************************************************************!*\
+  !*** ./src/app/software/system-tables/blood-type-detail-dialog/blood-type-detail-dialog.component.css ***!
+  \********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL3N5c3RlbS10YWJsZXMvYmxvb2QtdHlwZS1kZXRhaWwtZGlhbG9nL2Jsb29kLXR5cGUtZGV0YWlsLWRpYWxvZy5jb21wb25lbnQuY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/software/system-tables/blood-type-detail-dialog/blood-type-detail-dialog.component.ts":
+/*!*******************************************************************************************************!*\
+  !*** ./src/app/software/system-tables/blood-type-detail-dialog/blood-type-detail-dialog.component.ts ***!
+  \*******************************************************************************************************/
+/*! exports provided: BloodTypeDetailDialogComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BloodTypeDetailDialogComponent", function() { return BloodTypeDetailDialogComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm2015/dialog.js");
+/* harmony import */ var _system_tables_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../system-tables.service */ "./src/app/software/system-tables/system-tables.service.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm2015/ngx-toastr.js");
+
+
+
+
+
+let BloodTypeDetailDialogComponent = class BloodTypeDetailDialogComponent {
+    constructor(systemTablesService, bloodTypeDetailDialogRef, bloodTypeData, toastr) {
+        this.systemTablesService = systemTablesService;
+        this.bloodTypeDetailDialogRef = bloodTypeDetailDialogRef;
+        this.bloodTypeData = bloodTypeData;
+        this.toastr = toastr;
+        this.dialogTitle = "Blood Type Detail";
+        this.bloodTypeModel = {
+            Id: this.bloodTypeData.objBloodTypeModel.Id,
+            BloodType: this.bloodTypeData.objBloodTypeModel.BloodType
+        };
+    }
+    btnSaveBloodType() {
+        let btnSaveBloodType = document.getElementById("btnSaveBloodType");
+        let btnCloseBloodTypeDialog = document.getElementById("btnCloseBloodTypeDialog");
+        btnSaveBloodType.setAttribute("disabled", "disabled");
+        btnCloseBloodTypeDialog.setAttribute("disabled", "disabled");
+        this.systemTablesService.saveBloodType(this.bloodTypeModel);
+        this.saveBloodTypeSubscription = this.systemTablesService.saveBloodTypeObservable.subscribe(data => {
+            if (data[0] == "success") {
+                this.toastr.success("Blood type was successfully saved.", "Success");
+                this.bloodTypeDetailDialogRef.close(200);
+            }
+            else if (data[0] == "failed") {
+                this.toastr.error(data[1], "Error");
+                btnSaveBloodType.removeAttribute("disabled");
+                btnCloseBloodTypeDialog.removeAttribute("disabled");
+            }
+            if (this.saveBloodTypeSubscription != null)
+                this.saveBloodTypeSubscription.unsubscribe();
+        });
+    }
+    btnCloseBloodTypeDialog() {
+        this.bloodTypeDetailDialogRef.close();
+        if (this.saveBloodTypeSubscription != null)
+            this.saveBloodTypeSubscription.unsubscribe();
+    }
+    ngOnInit() {
+        this.dialogTitle = this.bloodTypeData.objDialogTitle;
+    }
+    ngOnDestroy() {
+        if (this.saveBloodTypeSubscription != null)
+            this.saveBloodTypeSubscription.unsubscribe();
+    }
+};
+BloodTypeDetailDialogComponent.ctorParameters = () => [
+    { type: _system_tables_service__WEBPACK_IMPORTED_MODULE_3__["SystemTablesService"] },
+    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"] },
+    { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"],] }] },
+    { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_4__["ToastrService"] }
+];
+BloodTypeDetailDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-blood-type-detail-dialog',
+        template: __webpack_require__(/*! raw-loader!./blood-type-detail-dialog.component.html */ "./node_modules/raw-loader/index.js!./src/app/software/system-tables/blood-type-detail-dialog/blood-type-detail-dialog.component.html"),
+        styles: [__webpack_require__(/*! ./blood-type-detail-dialog.component.css */ "./src/app/software/system-tables/blood-type-detail-dialog/blood-type-detail-dialog.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"]))
+], BloodTypeDetailDialogComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/system-tables/citizenship-delete-dialog/citizenship-delete-dialog.component.css":
+/*!**********************************************************************************************************!*\
+  !*** ./src/app/software/system-tables/citizenship-delete-dialog/citizenship-delete-dialog.component.css ***!
+  \**********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL3N5c3RlbS10YWJsZXMvY2l0aXplbnNoaXAtZGVsZXRlLWRpYWxvZy9jaXRpemVuc2hpcC1kZWxldGUtZGlhbG9nLmNvbXBvbmVudC5jc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/software/system-tables/citizenship-delete-dialog/citizenship-delete-dialog.component.ts":
+/*!*********************************************************************************************************!*\
+  !*** ./src/app/software/system-tables/citizenship-delete-dialog/citizenship-delete-dialog.component.ts ***!
+  \*********************************************************************************************************/
+/*! exports provided: CitizenshipDeleteDialogComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CitizenshipDeleteDialogComponent", function() { return CitizenshipDeleteDialogComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm2015/dialog.js");
+/* harmony import */ var _system_tables_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../system-tables.service */ "./src/app/software/system-tables/system-tables.service.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm2015/ngx-toastr.js");
+
+
+
+
+
+let CitizenshipDeleteDialogComponent = class CitizenshipDeleteDialogComponent {
+    constructor(systemTablesService, citizenshipDeleteDialogRef, citizenshipData, toastr) {
+        this.systemTablesService = systemTablesService;
+        this.citizenshipDeleteDialogRef = citizenshipDeleteDialogRef;
+        this.citizenshipData = citizenshipData;
+        this.toastr = toastr;
+    }
+    btnDeleteCitizenship() {
+        let btnDeleteCitizenship = document.getElementById("btnDeleteCitizenship");
+        let btnCloseDeleteDialog = document.getElementById("btnCloseDeleteDialog");
+        btnDeleteCitizenship.setAttribute("disabled", "disabled");
+        btnCloseDeleteDialog.setAttribute("disabled", "disabled");
+        this.systemTablesService.deleteCitizenship(this.citizenshipData.objCitizenshipModel.Id);
+        this.deleteCitizenshipSubscription = this.systemTablesService.deleteCitizenshipObservable.subscribe(data => {
+            if (data[0] == "success") {
+                this.toastr.success("Citizenship was successfully deleted.", "Success");
+                this.citizenshipDeleteDialogRef.close(200);
+            }
+            else if (data[0] == "failed") {
+                this.toastr.error(data[1], "Error");
+                btnDeleteCitizenship.removeAttribute("disabled");
+                btnCloseDeleteDialog.removeAttribute("disabled");
+            }
+            if (this.deleteCitizenshipSubscription != null)
+                this.deleteCitizenshipSubscription.unsubscribe();
+        });
+    }
+    btnCloseDeleteDialog() {
+        this.citizenshipDeleteDialogRef.close();
+        if (this.deleteCitizenshipSubscription != null)
+            this.deleteCitizenshipSubscription.unsubscribe();
+    }
+    ngOnInit() {
+    }
+    ngOnDestroy() {
+        if (this.deleteCitizenshipSubscription != null)
+            this.deleteCitizenshipSubscription.unsubscribe();
+    }
+};
+CitizenshipDeleteDialogComponent.ctorParameters = () => [
+    { type: _system_tables_service__WEBPACK_IMPORTED_MODULE_3__["SystemTablesService"] },
+    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"] },
+    { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"],] }] },
+    { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_4__["ToastrService"] }
+];
+CitizenshipDeleteDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-citizenship-delete-dialog',
+        template: __webpack_require__(/*! raw-loader!./citizenship-delete-dialog.component.html */ "./node_modules/raw-loader/index.js!./src/app/software/system-tables/citizenship-delete-dialog/citizenship-delete-dialog.component.html"),
+        styles: [__webpack_require__(/*! ./citizenship-delete-dialog.component.css */ "./src/app/software/system-tables/citizenship-delete-dialog/citizenship-delete-dialog.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"]))
+], CitizenshipDeleteDialogComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/system-tables/citizenship-detail-dialog/citizenship-detail-dialog.component.css":
+/*!**********************************************************************************************************!*\
+  !*** ./src/app/software/system-tables/citizenship-detail-dialog/citizenship-detail-dialog.component.css ***!
+  \**********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL3N5c3RlbS10YWJsZXMvY2l0aXplbnNoaXAtZGV0YWlsLWRpYWxvZy9jaXRpemVuc2hpcC1kZXRhaWwtZGlhbG9nLmNvbXBvbmVudC5jc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/software/system-tables/citizenship-detail-dialog/citizenship-detail-dialog.component.ts":
+/*!*********************************************************************************************************!*\
+  !*** ./src/app/software/system-tables/citizenship-detail-dialog/citizenship-detail-dialog.component.ts ***!
+  \*********************************************************************************************************/
+/*! exports provided: CitizenshipDetailDialogComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CitizenshipDetailDialogComponent", function() { return CitizenshipDetailDialogComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm2015/dialog.js");
+/* harmony import */ var _system_tables_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../system-tables.service */ "./src/app/software/system-tables/system-tables.service.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm2015/ngx-toastr.js");
+
+
+
+
+
+let CitizenshipDetailDialogComponent = class CitizenshipDetailDialogComponent {
+    constructor(systemTablesService, citizenshipDetailDialogRef, citizenshipData, toastr) {
+        this.systemTablesService = systemTablesService;
+        this.citizenshipDetailDialogRef = citizenshipDetailDialogRef;
+        this.citizenshipData = citizenshipData;
+        this.toastr = toastr;
+        this.dialogTitle = "Citizenship Detail";
+        this.citizenshipModel = {
+            Id: this.citizenshipData.objCitizenshipModel.Id,
+            Citizenship: this.citizenshipData.objCitizenshipModel.Citizenship
+        };
+    }
+    btnSaveCitizenship() {
+        let btnSaveCitizenship = document.getElementById("btnSaveCitizenship");
+        let btnCloseCitizenshipDialog = document.getElementById("btnCloseCitizenshipDialog");
+        btnSaveCitizenship.setAttribute("disabled", "disabled");
+        btnCloseCitizenshipDialog.setAttribute("disabled", "disabled");
+        this.systemTablesService.saveCitizenship(this.citizenshipModel);
+        this.saveCitizenshipSubscription = this.systemTablesService.saveCitizenshipObservable.subscribe(data => {
+            if (data[0] == "success") {
+                this.toastr.success("Citizenship was successfully saved.", "Success");
+                this.citizenshipDetailDialogRef.close(200);
+            }
+            else if (data[0] == "failed") {
+                this.toastr.error(data[1], "Error");
+                btnSaveCitizenship.removeAttribute("disabled");
+                btnCloseCitizenshipDialog.removeAttribute("disabled");
+            }
+            if (this.saveCitizenshipSubscription != null)
+                this.saveCitizenshipSubscription.unsubscribe();
+        });
+    }
+    btnCloseCitizenshipDialog() {
+        this.citizenshipDetailDialogRef.close();
+        if (this.saveCitizenshipSubscription != null)
+            this.saveCitizenshipSubscription.unsubscribe();
+    }
+    ngOnInit() {
+        this.dialogTitle = this.citizenshipData.objDialogTitle;
+    }
+    ngOnDestroy() {
+        if (this.saveCitizenshipSubscription != null)
+            this.saveCitizenshipSubscription.unsubscribe();
+    }
+};
+CitizenshipDetailDialogComponent.ctorParameters = () => [
+    { type: _system_tables_service__WEBPACK_IMPORTED_MODULE_3__["SystemTablesService"] },
+    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"] },
+    { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"],] }] },
+    { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_4__["ToastrService"] }
+];
+CitizenshipDetailDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-citizenship-detail-dialog',
+        template: __webpack_require__(/*! raw-loader!./citizenship-detail-dialog.component.html */ "./node_modules/raw-loader/index.js!./src/app/software/system-tables/citizenship-detail-dialog/citizenship-detail-dialog.component.html"),
+        styles: [__webpack_require__(/*! ./citizenship-detail-dialog.component.css */ "./src/app/software/system-tables/citizenship-detail-dialog/citizenship-detail-dialog.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"]))
+], CitizenshipDetailDialogComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/system-tables/civil-status-delete-dialog/civil-status-delete-dialog.component.css":
+/*!************************************************************************************************************!*\
+  !*** ./src/app/software/system-tables/civil-status-delete-dialog/civil-status-delete-dialog.component.css ***!
+  \************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL3N5c3RlbS10YWJsZXMvY2l2aWwtc3RhdHVzLWRlbGV0ZS1kaWFsb2cvY2l2aWwtc3RhdHVzLWRlbGV0ZS1kaWFsb2cuY29tcG9uZW50LmNzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/software/system-tables/civil-status-delete-dialog/civil-status-delete-dialog.component.ts":
+/*!***********************************************************************************************************!*\
+  !*** ./src/app/software/system-tables/civil-status-delete-dialog/civil-status-delete-dialog.component.ts ***!
+  \***********************************************************************************************************/
+/*! exports provided: CivilStatusDeleteDialogComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CivilStatusDeleteDialogComponent", function() { return CivilStatusDeleteDialogComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm2015/dialog.js");
+/* harmony import */ var _system_tables_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../system-tables.service */ "./src/app/software/system-tables/system-tables.service.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm2015/ngx-toastr.js");
+
+
+
+
+
+let CivilStatusDeleteDialogComponent = class CivilStatusDeleteDialogComponent {
+    constructor(systemTablesService, civilStatusDeleteDialogRef, civilStatusData, toastr) {
+        this.systemTablesService = systemTablesService;
+        this.civilStatusDeleteDialogRef = civilStatusDeleteDialogRef;
+        this.civilStatusData = civilStatusData;
+        this.toastr = toastr;
+    }
+    btnDeleteCivilStatus() {
+        let btnDeleteCivilStatus = document.getElementById("btnDeleteCivilStatus");
+        let btnCloseDeleteDialog = document.getElementById("btnCloseDeleteDialog");
+        btnDeleteCivilStatus.setAttribute("disabled", "disabled");
+        btnCloseDeleteDialog.setAttribute("disabled", "disabled");
+        this.systemTablesService.deleteCivilStatus(this.civilStatusData.objCivilStatusModel.Id);
+        this.deleteCivilStatusSubscription = this.systemTablesService.deleteCivilStatusObservable.subscribe(data => {
+            if (data[0] == "success") {
+                this.toastr.success("Civil status was successfully deleted.", "Success");
+                this.civilStatusDeleteDialogRef.close(200);
+            }
+            else if (data[0] == "failed") {
+                this.toastr.error(data[1], "Error");
+                btnDeleteCivilStatus.removeAttribute("disabled");
+                btnCloseDeleteDialog.removeAttribute("disabled");
+            }
+            if (this.deleteCivilStatusSubscription != null)
+                this.deleteCivilStatusSubscription.unsubscribe();
+        });
+    }
+    btnCloseDeleteDialog() {
+        this.civilStatusDeleteDialogRef.close();
+        if (this.deleteCivilStatusSubscription != null)
+            this.deleteCivilStatusSubscription.unsubscribe();
+    }
+    ngOnInit() {
+    }
+    ngOnDestroy() {
+        if (this.deleteCivilStatusSubscription != null)
+            this.deleteCivilStatusSubscription.unsubscribe();
+    }
+};
+CivilStatusDeleteDialogComponent.ctorParameters = () => [
+    { type: _system_tables_service__WEBPACK_IMPORTED_MODULE_3__["SystemTablesService"] },
+    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"] },
+    { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"],] }] },
+    { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_4__["ToastrService"] }
+];
+CivilStatusDeleteDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-civil-status-delete-dialog',
+        template: __webpack_require__(/*! raw-loader!./civil-status-delete-dialog.component.html */ "./node_modules/raw-loader/index.js!./src/app/software/system-tables/civil-status-delete-dialog/civil-status-delete-dialog.component.html"),
+        styles: [__webpack_require__(/*! ./civil-status-delete-dialog.component.css */ "./src/app/software/system-tables/civil-status-delete-dialog/civil-status-delete-dialog.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"]))
+], CivilStatusDeleteDialogComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/system-tables/civil-status-detail-dialog/civil-status-detail-dialog.component.css":
+/*!************************************************************************************************************!*\
+  !*** ./src/app/software/system-tables/civil-status-detail-dialog/civil-status-detail-dialog.component.css ***!
+  \************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL3N5c3RlbS10YWJsZXMvY2l2aWwtc3RhdHVzLWRldGFpbC1kaWFsb2cvY2l2aWwtc3RhdHVzLWRldGFpbC1kaWFsb2cuY29tcG9uZW50LmNzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/software/system-tables/civil-status-detail-dialog/civil-status-detail-dialog.component.ts":
+/*!***********************************************************************************************************!*\
+  !*** ./src/app/software/system-tables/civil-status-detail-dialog/civil-status-detail-dialog.component.ts ***!
+  \***********************************************************************************************************/
+/*! exports provided: CivilStatusDetailDialogComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CivilStatusDetailDialogComponent", function() { return CivilStatusDetailDialogComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm2015/dialog.js");
+/* harmony import */ var _system_tables_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../system-tables.service */ "./src/app/software/system-tables/system-tables.service.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm2015/ngx-toastr.js");
+
+
+
+
+
+let CivilStatusDetailDialogComponent = class CivilStatusDetailDialogComponent {
+    constructor(systemTablesService, civilStatusDetailDialogRef, civilStatusData, toastr) {
+        this.systemTablesService = systemTablesService;
+        this.civilStatusDetailDialogRef = civilStatusDetailDialogRef;
+        this.civilStatusData = civilStatusData;
+        this.toastr = toastr;
+        this.dialogTitle = "Civil Status Detail";
+        this.civilStatusModel = {
+            Id: this.civilStatusData.objCivilStatusModel.Id,
+            CivilStatus: this.civilStatusData.objCivilStatusModel.CivilStatus
+        };
+    }
+    btnSaveCivilStatus() {
+        let btnSaveCivilStatus = document.getElementById("btnSaveCivilStatus");
+        let btnCloseCivilStatusDialog = document.getElementById("btnCloseCivilStatusDialog");
+        btnSaveCivilStatus.setAttribute("disabled", "disabled");
+        btnCloseCivilStatusDialog.setAttribute("disabled", "disabled");
+        this.systemTablesService.saveCivilStatus(this.civilStatusModel);
+        this.saveCivilStatusSubscription = this.systemTablesService.saveCivilStatusObservable.subscribe(data => {
+            if (data[0] == "success") {
+                this.toastr.success("Civil status was successfully saved.", "Success");
+                this.civilStatusDetailDialogRef.close(200);
+            }
+            else if (data[0] == "failed") {
+                this.toastr.error(data[1], "Error");
+                btnSaveCivilStatus.removeAttribute("disabled");
+                btnCloseCivilStatusDialog.removeAttribute("disabled");
+            }
+            if (this.saveCivilStatusSubscription != null)
+                this.saveCivilStatusSubscription.unsubscribe();
+        });
+    }
+    btnCloseCivilStatusDialog() {
+        this.civilStatusDetailDialogRef.close();
+        if (this.saveCivilStatusSubscription != null)
+            this.saveCivilStatusSubscription.unsubscribe();
+    }
+    ngOnInit() {
+        this.dialogTitle = this.civilStatusData.objDialogTitle;
+    }
+    ngOnDestroy() {
+        if (this.saveCivilStatusSubscription != null)
+            this.saveCivilStatusSubscription.unsubscribe();
+    }
+};
+CivilStatusDetailDialogComponent.ctorParameters = () => [
+    { type: _system_tables_service__WEBPACK_IMPORTED_MODULE_3__["SystemTablesService"] },
+    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"] },
+    { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"],] }] },
+    { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_4__["ToastrService"] }
+];
+CivilStatusDetailDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-civil-status-detail-dialog',
+        template: __webpack_require__(/*! raw-loader!./civil-status-detail-dialog.component.html */ "./node_modules/raw-loader/index.js!./src/app/software/system-tables/civil-status-detail-dialog/civil-status-detail-dialog.component.html"),
+        styles: [__webpack_require__(/*! ./civil-status-detail-dialog.component.css */ "./src/app/software/system-tables/civil-status-detail-dialog/civil-status-detail-dialog.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"]))
+], CivilStatusDetailDialogComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/system-tables/education-level-delete-dialog/education-level-delete-dialog.component.css":
+/*!******************************************************************************************************************!*\
+  !*** ./src/app/software/system-tables/education-level-delete-dialog/education-level-delete-dialog.component.css ***!
+  \******************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL3N5c3RlbS10YWJsZXMvZWR1Y2F0aW9uLWxldmVsLWRlbGV0ZS1kaWFsb2cvZWR1Y2F0aW9uLWxldmVsLWRlbGV0ZS1kaWFsb2cuY29tcG9uZW50LmNzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/software/system-tables/education-level-delete-dialog/education-level-delete-dialog.component.ts":
+/*!*****************************************************************************************************************!*\
+  !*** ./src/app/software/system-tables/education-level-delete-dialog/education-level-delete-dialog.component.ts ***!
+  \*****************************************************************************************************************/
+/*! exports provided: EducationLevelDeleteDialogComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EducationLevelDeleteDialogComponent", function() { return EducationLevelDeleteDialogComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm2015/dialog.js");
+/* harmony import */ var _system_tables_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../system-tables.service */ "./src/app/software/system-tables/system-tables.service.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm2015/ngx-toastr.js");
+
+
+
+
+
+let EducationLevelDeleteDialogComponent = class EducationLevelDeleteDialogComponent {
+    constructor(systemTablesService, educationLevelDeleteDialogRef, educationLevelData, toastr) {
+        this.systemTablesService = systemTablesService;
+        this.educationLevelDeleteDialogRef = educationLevelDeleteDialogRef;
+        this.educationLevelData = educationLevelData;
+        this.toastr = toastr;
+    }
+    btnDeleteEducationLevel() {
+        let btnDeleteEducationLevel = document.getElementById("btnDeleteEducationLevel");
+        let btnCloseDeleteDialog = document.getElementById("btnCloseDeleteDialog");
+        btnDeleteEducationLevel.setAttribute("disabled", "disabled");
+        btnCloseDeleteDialog.setAttribute("disabled", "disabled");
+        this.systemTablesService.deleteEducationLevel(this.educationLevelData.objEducationLevelModel.Id);
+        this.deleteEducationLevelSubscription = this.systemTablesService.deleteEducationLevelObservable.subscribe(data => {
+            if (data[0] == "success") {
+                this.toastr.success("Education level was successfully deleted.", "Success");
+                this.educationLevelDeleteDialogRef.close(200);
+            }
+            else if (data[0] == "failed") {
+                this.toastr.error(data[1], "Error");
+                btnDeleteEducationLevel.removeAttribute("disabled");
+                btnCloseDeleteDialog.removeAttribute("disabled");
+            }
+            if (this.deleteEducationLevelSubscription != null)
+                this.deleteEducationLevelSubscription.unsubscribe();
+        });
+    }
+    btnCloseDeleteDialog() {
+        this.educationLevelDeleteDialogRef.close();
+        if (this.deleteEducationLevelSubscription != null)
+            this.deleteEducationLevelSubscription.unsubscribe();
+    }
+    ngOnInit() {
+    }
+    ngOnDestroy() {
+        if (this.deleteEducationLevelSubscription != null)
+            this.deleteEducationLevelSubscription.unsubscribe();
+    }
+};
+EducationLevelDeleteDialogComponent.ctorParameters = () => [
+    { type: _system_tables_service__WEBPACK_IMPORTED_MODULE_3__["SystemTablesService"] },
+    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"] },
+    { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"],] }] },
+    { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_4__["ToastrService"] }
+];
+EducationLevelDeleteDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-education-level-delete-dialog',
+        template: __webpack_require__(/*! raw-loader!./education-level-delete-dialog.component.html */ "./node_modules/raw-loader/index.js!./src/app/software/system-tables/education-level-delete-dialog/education-level-delete-dialog.component.html"),
+        styles: [__webpack_require__(/*! ./education-level-delete-dialog.component.css */ "./src/app/software/system-tables/education-level-delete-dialog/education-level-delete-dialog.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"]))
+], EducationLevelDeleteDialogComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/system-tables/education-level-detail-dialog/education-level-detail-dialog.component.css":
+/*!******************************************************************************************************************!*\
+  !*** ./src/app/software/system-tables/education-level-detail-dialog/education-level-detail-dialog.component.css ***!
+  \******************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL3N5c3RlbS10YWJsZXMvZWR1Y2F0aW9uLWxldmVsLWRldGFpbC1kaWFsb2cvZWR1Y2F0aW9uLWxldmVsLWRldGFpbC1kaWFsb2cuY29tcG9uZW50LmNzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/software/system-tables/education-level-detail-dialog/education-level-detail-dialog.component.ts":
+/*!*****************************************************************************************************************!*\
+  !*** ./src/app/software/system-tables/education-level-detail-dialog/education-level-detail-dialog.component.ts ***!
+  \*****************************************************************************************************************/
+/*! exports provided: EducationLevelDetailDialogComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EducationLevelDetailDialogComponent", function() { return EducationLevelDetailDialogComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm2015/dialog.js");
+/* harmony import */ var _system_tables_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../system-tables.service */ "./src/app/software/system-tables/system-tables.service.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm2015/ngx-toastr.js");
+
+
+
+
+
+let EducationLevelDetailDialogComponent = class EducationLevelDetailDialogComponent {
+    constructor(systemTablesService, educationLevelDetailDialogRef, educationLevelData, toastr) {
+        this.systemTablesService = systemTablesService;
+        this.educationLevelDetailDialogRef = educationLevelDetailDialogRef;
+        this.educationLevelData = educationLevelData;
+        this.toastr = toastr;
+        this.dialogTitle = "Education Level Detail";
+        this.educationLevelModel = {
+            Id: this.educationLevelData.objEducationLevelModel.Id,
+            EducationLevel: this.educationLevelData.objEducationLevelModel.EducationLevel
+        };
+    }
+    btnSaveEducationLevel() {
+        let btnSaveEducationLevel = document.getElementById("btnSaveEducationLevel");
+        let btnCloseEducationLevelDialog = document.getElementById("btnCloseEducationLevelDialog");
+        btnSaveEducationLevel.setAttribute("disabled", "disabled");
+        btnCloseEducationLevelDialog.setAttribute("disabled", "disabled");
+        this.systemTablesService.saveEducationLevel(this.educationLevelModel);
+        this.saveEducationLevelSubscription = this.systemTablesService.saveEducationLevelObservable.subscribe(data => {
+            if (data[0] == "success") {
+                this.toastr.success("Education level was successfully saved.", "Success");
+                this.educationLevelDetailDialogRef.close(200);
+            }
+            else if (data[0] == "failed") {
+                this.toastr.error(data[1], "Error");
+                btnSaveEducationLevel.removeAttribute("disabled");
+                btnCloseEducationLevelDialog.removeAttribute("disabled");
+            }
+            if (this.saveEducationLevelSubscription != null)
+                this.saveEducationLevelSubscription.unsubscribe();
+        });
+    }
+    btnCloseEducationLevelDialog() {
+        this.educationLevelDetailDialogRef.close();
+        if (this.saveEducationLevelSubscription != null)
+            this.saveEducationLevelSubscription.unsubscribe();
+    }
+    ngOnInit() {
+        this.dialogTitle = this.educationLevelData.objDialogTitle;
+    }
+    ngOnDestroy() {
+        if (this.saveEducationLevelSubscription != null)
+            this.saveEducationLevelSubscription.unsubscribe();
+    }
+};
+EducationLevelDetailDialogComponent.ctorParameters = () => [
+    { type: _system_tables_service__WEBPACK_IMPORTED_MODULE_3__["SystemTablesService"] },
+    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"] },
+    { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"],] }] },
+    { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_4__["ToastrService"] }
+];
+EducationLevelDetailDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-education-level-detail-dialog',
+        template: __webpack_require__(/*! raw-loader!./education-level-detail-dialog.component.html */ "./node_modules/raw-loader/index.js!./src/app/software/system-tables/education-level-detail-dialog/education-level-detail-dialog.component.html"),
+        styles: [__webpack_require__(/*! ./education-level-detail-dialog.component.css */ "./src/app/software/system-tables/education-level-detail-dialog/education-level-detail-dialog.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"]))
+], EducationLevelDetailDialogComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/system-tables/occupation-delete-dialog/occupation-delete-dialog.component.css":
+/*!********************************************************************************************************!*\
+  !*** ./src/app/software/system-tables/occupation-delete-dialog/occupation-delete-dialog.component.css ***!
+  \********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL3N5c3RlbS10YWJsZXMvb2NjdXBhdGlvbi1kZWxldGUtZGlhbG9nL29jY3VwYXRpb24tZGVsZXRlLWRpYWxvZy5jb21wb25lbnQuY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/software/system-tables/occupation-delete-dialog/occupation-delete-dialog.component.ts":
+/*!*******************************************************************************************************!*\
+  !*** ./src/app/software/system-tables/occupation-delete-dialog/occupation-delete-dialog.component.ts ***!
+  \*******************************************************************************************************/
+/*! exports provided: OccupationDeleteDialogComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OccupationDeleteDialogComponent", function() { return OccupationDeleteDialogComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm2015/dialog.js");
+/* harmony import */ var _system_tables_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../system-tables.service */ "./src/app/software/system-tables/system-tables.service.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm2015/ngx-toastr.js");
+
+
+
+
+
+let OccupationDeleteDialogComponent = class OccupationDeleteDialogComponent {
+    constructor(systemTablesService, occupationDeleteDialogRef, occupationData, toastr) {
+        this.systemTablesService = systemTablesService;
+        this.occupationDeleteDialogRef = occupationDeleteDialogRef;
+        this.occupationData = occupationData;
+        this.toastr = toastr;
+    }
+    btnDeleteOccupation() {
+        let btnDeleteOccupation = document.getElementById("btnDeleteOccupation");
+        let btnCloseDeleteDialog = document.getElementById("btnCloseDeleteDialog");
+        btnDeleteOccupation.setAttribute("disabled", "disabled");
+        btnCloseDeleteDialog.setAttribute("disabled", "disabled");
+        this.systemTablesService.deleteOccupation(this.occupationData.objOccupationModel.Id);
+        this.deleteOccupationSubscription = this.systemTablesService.deleteOccupationObservable.subscribe(data => {
+            if (data[0] == "success") {
+                this.toastr.success("Occupation was successfully deleted.", "Success");
+                this.occupationDeleteDialogRef.close(200);
+            }
+            else if (data[0] == "failed") {
+                this.toastr.error(data[1], "Error");
+                btnDeleteOccupation.removeAttribute("disabled");
+                btnCloseDeleteDialog.removeAttribute("disabled");
+            }
+            if (this.deleteOccupationSubscription != null)
+                this.deleteOccupationSubscription.unsubscribe();
+        });
+    }
+    btnCloseDeleteDialog() {
+        this.occupationDeleteDialogRef.close();
+        if (this.deleteOccupationSubscription != null)
+            this.deleteOccupationSubscription.unsubscribe();
+    }
+    ngOnInit() {
+    }
+    ngOnDestroy() {
+        if (this.deleteOccupationSubscription != null)
+            this.deleteOccupationSubscription.unsubscribe();
+    }
+};
+OccupationDeleteDialogComponent.ctorParameters = () => [
+    { type: _system_tables_service__WEBPACK_IMPORTED_MODULE_3__["SystemTablesService"] },
+    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"] },
+    { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"],] }] },
+    { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_4__["ToastrService"] }
+];
+OccupationDeleteDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-occupation-delete-dialog',
+        template: __webpack_require__(/*! raw-loader!./occupation-delete-dialog.component.html */ "./node_modules/raw-loader/index.js!./src/app/software/system-tables/occupation-delete-dialog/occupation-delete-dialog.component.html"),
+        styles: [__webpack_require__(/*! ./occupation-delete-dialog.component.css */ "./src/app/software/system-tables/occupation-delete-dialog/occupation-delete-dialog.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"]))
+], OccupationDeleteDialogComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/system-tables/occupation-detail-dialog/occupation-detail-dialog.component.css":
+/*!********************************************************************************************************!*\
+  !*** ./src/app/software/system-tables/occupation-detail-dialog/occupation-detail-dialog.component.css ***!
+  \********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL3N5c3RlbS10YWJsZXMvb2NjdXBhdGlvbi1kZXRhaWwtZGlhbG9nL29jY3VwYXRpb24tZGV0YWlsLWRpYWxvZy5jb21wb25lbnQuY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/software/system-tables/occupation-detail-dialog/occupation-detail-dialog.component.ts":
+/*!*******************************************************************************************************!*\
+  !*** ./src/app/software/system-tables/occupation-detail-dialog/occupation-detail-dialog.component.ts ***!
+  \*******************************************************************************************************/
+/*! exports provided: OccupationDetailDialogComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OccupationDetailDialogComponent", function() { return OccupationDetailDialogComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm2015/dialog.js");
+/* harmony import */ var _system_tables_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../system-tables.service */ "./src/app/software/system-tables/system-tables.service.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm2015/ngx-toastr.js");
+
+
+
+
+
+let OccupationDetailDialogComponent = class OccupationDetailDialogComponent {
+    constructor(systemTablesService, occupationDetailDialogRef, occupationData, toastr) {
+        this.systemTablesService = systemTablesService;
+        this.occupationDetailDialogRef = occupationDetailDialogRef;
+        this.occupationData = occupationData;
+        this.toastr = toastr;
+        this.dialogTitle = "Occupation Detail";
+        this.occupationModel = {
+            Id: this.occupationData.objOccupationModel.Id,
+            Occupation: this.occupationData.objOccupationModel.Occupation
+        };
+    }
+    btnSaveOccupation() {
+        let btnSaveOccupation = document.getElementById("btnSaveOccupation");
+        let btnCloseOccupationDialog = document.getElementById("btnCloseOccupationDialog");
+        btnSaveOccupation.setAttribute("disabled", "disabled");
+        btnCloseOccupationDialog.setAttribute("disabled", "disabled");
+        this.systemTablesService.saveOccupation(this.occupationModel);
+        this.saveOccupationSubscription = this.systemTablesService.saveOccupationObservable.subscribe(data => {
+            if (data[0] == "success") {
+                this.toastr.success("Occupation was successfully saved.", "Success");
+                this.occupationDetailDialogRef.close(200);
+            }
+            else if (data[0] == "failed") {
+                this.toastr.error(data[1], "Error");
+                btnSaveOccupation.removeAttribute("disabled");
+                btnCloseOccupationDialog.removeAttribute("disabled");
+            }
+            if (this.saveOccupationSubscription != null)
+                this.saveOccupationSubscription.unsubscribe();
+        });
+    }
+    btnCloseOccupationDialog() {
+        this.occupationDetailDialogRef.close();
+        if (this.saveOccupationSubscription != null)
+            this.saveOccupationSubscription.unsubscribe();
+    }
+    ngOnInit() {
+        this.dialogTitle = this.occupationData.objDialogTitle;
+    }
+    ngOnDestroy() {
+        if (this.saveOccupationSubscription != null)
+            this.saveOccupationSubscription.unsubscribe();
+    }
+};
+OccupationDetailDialogComponent.ctorParameters = () => [
+    { type: _system_tables_service__WEBPACK_IMPORTED_MODULE_3__["SystemTablesService"] },
+    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"] },
+    { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"],] }] },
+    { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_4__["ToastrService"] }
+];
+OccupationDetailDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-occupation-detail-dialog',
+        template: __webpack_require__(/*! raw-loader!./occupation-detail-dialog.component.html */ "./node_modules/raw-loader/index.js!./src/app/software/system-tables/occupation-detail-dialog/occupation-detail-dialog.component.html"),
+        styles: [__webpack_require__(/*! ./occupation-detail-dialog.component.css */ "./src/app/software/system-tables/occupation-detail-dialog/occupation-detail-dialog.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"]))
+], OccupationDetailDialogComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/system-tables/sex-delete-dialog/sex-delete-dialog.component.css":
+/*!******************************************************************************************!*\
+  !*** ./src/app/software/system-tables/sex-delete-dialog/sex-delete-dialog.component.css ***!
+  \******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL3N5c3RlbS10YWJsZXMvc2V4LWRlbGV0ZS1kaWFsb2cvc2V4LWRlbGV0ZS1kaWFsb2cuY29tcG9uZW50LmNzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/software/system-tables/sex-delete-dialog/sex-delete-dialog.component.ts":
+/*!*****************************************************************************************!*\
+  !*** ./src/app/software/system-tables/sex-delete-dialog/sex-delete-dialog.component.ts ***!
+  \*****************************************************************************************/
+/*! exports provided: SexDeleteDialogComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SexDeleteDialogComponent", function() { return SexDeleteDialogComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm2015/dialog.js");
+/* harmony import */ var _system_tables_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../system-tables.service */ "./src/app/software/system-tables/system-tables.service.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm2015/ngx-toastr.js");
+
+
+
+
+
+let SexDeleteDialogComponent = class SexDeleteDialogComponent {
+    constructor(systemTablesService, sexDeleteDialogRef, sexData, toastr) {
+        this.systemTablesService = systemTablesService;
+        this.sexDeleteDialogRef = sexDeleteDialogRef;
+        this.sexData = sexData;
+        this.toastr = toastr;
+    }
+    btnDeleteSex() {
+        let btnDeleteSex = document.getElementById("btnDeleteSex");
+        let btnCloseDeleteDialog = document.getElementById("btnCloseDeleteDialog");
+        btnDeleteSex.setAttribute("disabled", "disabled");
+        btnCloseDeleteDialog.setAttribute("disabled", "disabled");
+        this.systemTablesService.deleteSex(this.sexData.objSexModel.Id);
+        this.deleteSexSubscription = this.systemTablesService.deleteSexObservable.subscribe(data => {
+            if (data[0] == "success") {
+                this.toastr.success("Gender was successfully deleted.", "Success");
+                this.sexDeleteDialogRef.close(200);
+            }
+            else if (data[0] == "failed") {
+                this.toastr.error(data[1], "Error");
+                btnDeleteSex.removeAttribute("disabled");
+                btnCloseDeleteDialog.removeAttribute("disabled");
+            }
+            if (this.deleteSexSubscription != null)
+                this.deleteSexSubscription.unsubscribe();
+        });
+    }
+    btnCloseDeleteDialog() {
+        this.sexDeleteDialogRef.close();
+        if (this.deleteSexSubscription != null)
+            this.deleteSexSubscription.unsubscribe();
+    }
+    ngOnInit() {
+    }
+    ngOnDestroy() {
+        if (this.deleteSexSubscription != null)
+            this.deleteSexSubscription.unsubscribe();
+    }
+};
+SexDeleteDialogComponent.ctorParameters = () => [
+    { type: _system_tables_service__WEBPACK_IMPORTED_MODULE_3__["SystemTablesService"] },
+    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"] },
+    { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"],] }] },
+    { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_4__["ToastrService"] }
+];
+SexDeleteDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-sex-delete-dialog',
+        template: __webpack_require__(/*! raw-loader!./sex-delete-dialog.component.html */ "./node_modules/raw-loader/index.js!./src/app/software/system-tables/sex-delete-dialog/sex-delete-dialog.component.html"),
+        styles: [__webpack_require__(/*! ./sex-delete-dialog.component.css */ "./src/app/software/system-tables/sex-delete-dialog/sex-delete-dialog.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"]))
+], SexDeleteDialogComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/system-tables/sex-detail-dialog/sex-detail-dialog.component.css":
+/*!******************************************************************************************!*\
+  !*** ./src/app/software/system-tables/sex-detail-dialog/sex-detail-dialog.component.css ***!
+  \******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL3N5c3RlbS10YWJsZXMvc2V4LWRldGFpbC1kaWFsb2cvc2V4LWRldGFpbC1kaWFsb2cuY29tcG9uZW50LmNzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/software/system-tables/sex-detail-dialog/sex-detail-dialog.component.ts":
+/*!*****************************************************************************************!*\
+  !*** ./src/app/software/system-tables/sex-detail-dialog/sex-detail-dialog.component.ts ***!
+  \*****************************************************************************************/
+/*! exports provided: SexDetailDialogComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SexDetailDialogComponent", function() { return SexDetailDialogComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm2015/dialog.js");
+/* harmony import */ var _system_tables_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../system-tables.service */ "./src/app/software/system-tables/system-tables.service.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm2015/ngx-toastr.js");
+
+
+
+
+
+let SexDetailDialogComponent = class SexDetailDialogComponent {
+    constructor(systemTablesService, sexDetailDialogRef, sexData, toastr) {
+        this.systemTablesService = systemTablesService;
+        this.sexDetailDialogRef = sexDetailDialogRef;
+        this.sexData = sexData;
+        this.toastr = toastr;
+        this.dialogTitle = "Gender Detail";
+        this.sexModel = {
+            Id: this.sexData.objSexModel.Id,
+            Sex: this.sexData.objSexModel.Sex
+        };
+    }
+    btnSaveSex() {
+        let btnSaveSex = document.getElementById("btnSaveSex");
+        let btnCloseSexDialog = document.getElementById("btnCloseSexDialog");
+        btnSaveSex.setAttribute("disabled", "disabled");
+        btnCloseSexDialog.setAttribute("disabled", "disabled");
+        this.systemTablesService.saveSex(this.sexModel);
+        this.saveSexSubscription = this.systemTablesService.saveSexObservable.subscribe(data => {
+            if (data[0] == "success") {
+                this.toastr.success("Gender was successfully saved.", "Success");
+                this.sexDetailDialogRef.close(200);
+            }
+            else if (data[0] == "failed") {
+                this.toastr.error(data[1], "Error");
+                btnSaveSex.removeAttribute("disabled");
+                btnCloseSexDialog.removeAttribute("disabled");
+            }
+            if (this.saveSexSubscription != null)
+                this.saveSexSubscription.unsubscribe();
+        });
+    }
+    btnCloseSexDialog() {
+        this.sexDetailDialogRef.close();
+        if (this.saveSexSubscription != null)
+            this.saveSexSubscription.unsubscribe();
+    }
+    ngOnInit() {
+        this.dialogTitle = this.sexData.objDialogTitle;
+    }
+    ngOnDestroy() {
+        if (this.saveSexSubscription != null)
+            this.saveSexSubscription.unsubscribe();
+    }
+};
+SexDetailDialogComponent.ctorParameters = () => [
+    { type: _system_tables_service__WEBPACK_IMPORTED_MODULE_3__["SystemTablesService"] },
+    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"] },
+    { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"],] }] },
+    { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_4__["ToastrService"] }
+];
+SexDetailDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-sex-detail-dialog',
+        template: __webpack_require__(/*! raw-loader!./sex-detail-dialog.component.html */ "./node_modules/raw-loader/index.js!./src/app/software/system-tables/sex-detail-dialog/sex-detail-dialog.component.html"),
+        styles: [__webpack_require__(/*! ./sex-detail-dialog.component.css */ "./src/app/software/system-tables/sex-detail-dialog/sex-detail-dialog.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"]))
+], SexDetailDialogComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/system-tables/status-delete-dialog/status-delete-dialog.component.css":
+/*!************************************************************************************************!*\
+  !*** ./src/app/software/system-tables/status-delete-dialog/status-delete-dialog.component.css ***!
+  \************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL3N5c3RlbS10YWJsZXMvc3RhdHVzLWRlbGV0ZS1kaWFsb2cvc3RhdHVzLWRlbGV0ZS1kaWFsb2cuY29tcG9uZW50LmNzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/software/system-tables/status-delete-dialog/status-delete-dialog.component.ts":
+/*!***********************************************************************************************!*\
+  !*** ./src/app/software/system-tables/status-delete-dialog/status-delete-dialog.component.ts ***!
+  \***********************************************************************************************/
+/*! exports provided: StatusDeleteDialogComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StatusDeleteDialogComponent", function() { return StatusDeleteDialogComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm2015/dialog.js");
+/* harmony import */ var _system_tables_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../system-tables.service */ "./src/app/software/system-tables/system-tables.service.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm2015/ngx-toastr.js");
+
+
+
+
+
+let StatusDeleteDialogComponent = class StatusDeleteDialogComponent {
+    constructor(systemTablesService, statusDeleteDialogRef, statusData, toastr) {
+        this.systemTablesService = systemTablesService;
+        this.statusDeleteDialogRef = statusDeleteDialogRef;
+        this.statusData = statusData;
+        this.toastr = toastr;
+    }
+    btnDeleteStatus() {
+        let btnDeleteStatus = document.getElementById("btnDeleteStatus");
+        let btnCloseDeleteDialog = document.getElementById("btnCloseDeleteDialog");
+        btnDeleteStatus.setAttribute("disabled", "disabled");
+        btnCloseDeleteDialog.setAttribute("disabled", "disabled");
+        this.systemTablesService.deleteStatus(this.statusData.objStatusModel.Id);
+        this.deleteStatusSubscription = this.systemTablesService.deleteStatusObservable.subscribe(data => {
+            if (data[0] == "success") {
+                this.toastr.success("Status was successfully deleted.", "Success");
+                this.statusDeleteDialogRef.close(200);
+            }
+            else if (data[0] == "failed") {
+                this.toastr.error(data[1], "Error");
+                btnDeleteStatus.removeAttribute("disabled");
+                btnCloseDeleteDialog.removeAttribute("disabled");
+            }
+            if (this.deleteStatusSubscription != null)
+                this.deleteStatusSubscription.unsubscribe();
+        });
+    }
+    btnCloseDeleteDialog() {
+        this.statusDeleteDialogRef.close();
+        if (this.deleteStatusSubscription != null)
+            this.deleteStatusSubscription.unsubscribe();
+    }
+    ngOnInit() {
+    }
+    ngOnDestroy() {
+        if (this.deleteStatusSubscription != null)
+            this.deleteStatusSubscription.unsubscribe();
+    }
+};
+StatusDeleteDialogComponent.ctorParameters = () => [
+    { type: _system_tables_service__WEBPACK_IMPORTED_MODULE_3__["SystemTablesService"] },
+    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"] },
+    { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"],] }] },
+    { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_4__["ToastrService"] }
+];
+StatusDeleteDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-status-delete-dialog',
+        template: __webpack_require__(/*! raw-loader!./status-delete-dialog.component.html */ "./node_modules/raw-loader/index.js!./src/app/software/system-tables/status-delete-dialog/status-delete-dialog.component.html"),
+        styles: [__webpack_require__(/*! ./status-delete-dialog.component.css */ "./src/app/software/system-tables/status-delete-dialog/status-delete-dialog.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"]))
+], StatusDeleteDialogComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/system-tables/status-detail-dialog/status-detail-dialog.component.css":
+/*!************************************************************************************************!*\
+  !*** ./src/app/software/system-tables/status-detail-dialog/status-detail-dialog.component.css ***!
+  \************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL3N5c3RlbS10YWJsZXMvc3RhdHVzLWRldGFpbC1kaWFsb2cvc3RhdHVzLWRldGFpbC1kaWFsb2cuY29tcG9uZW50LmNzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/software/system-tables/status-detail-dialog/status-detail-dialog.component.ts":
+/*!***********************************************************************************************!*\
+  !*** ./src/app/software/system-tables/status-detail-dialog/status-detail-dialog.component.ts ***!
+  \***********************************************************************************************/
+/*! exports provided: StatusDetailDialogComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StatusDetailDialogComponent", function() { return StatusDetailDialogComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm2015/dialog.js");
+/* harmony import */ var _system_tables_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../system-tables.service */ "./src/app/software/system-tables/system-tables.service.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm2015/ngx-toastr.js");
+
+
+
+
+
+let StatusDetailDialogComponent = class StatusDetailDialogComponent {
+    constructor(systemTablesService, statusDetailDialogRef, statusData, toastr) {
+        this.systemTablesService = systemTablesService;
+        this.statusDetailDialogRef = statusDetailDialogRef;
+        this.statusData = statusData;
+        this.toastr = toastr;
+        this.dialogTitle = "Status Detail";
+        this.statusModel = {
+            Id: this.statusData.objStatusModel.Id,
+            Status: this.statusData.objStatusModel.Status,
+            Category: this.statusData.objStatusModel.Category
+        };
+    }
+    btnSaveStatus() {
+        let btnSaveStatus = document.getElementById("btnSaveStatus");
+        let btnCloseStatusDialog = document.getElementById("btnCloseStatusDialog");
+        btnSaveStatus.setAttribute("disabled", "disabled");
+        btnCloseStatusDialog.setAttribute("disabled", "disabled");
+        this.systemTablesService.saveStatus(this.statusModel);
+        this.saveStatusSubscription = this.systemTablesService.saveStatusObservable.subscribe(data => {
+            if (data[0] == "success") {
+                this.toastr.success("Status was successfully saved.", "Success");
+                this.statusDetailDialogRef.close(200);
+            }
+            else if (data[0] == "failed") {
+                this.toastr.error(data[1], "Error");
+                btnSaveStatus.removeAttribute("disabled");
+                btnCloseStatusDialog.removeAttribute("disabled");
+            }
+            if (this.saveStatusSubscription != null)
+                this.saveStatusSubscription.unsubscribe();
+        });
+    }
+    btnCloseStatusDialog() {
+        this.statusDetailDialogRef.close();
+        if (this.saveStatusSubscription != null)
+            this.saveStatusSubscription.unsubscribe();
+    }
+    ngOnInit() {
+        this.dialogTitle = this.statusData.objDialogTitle;
+    }
+    ngOnDestroy() {
+        if (this.saveStatusSubscription != null)
+            this.saveStatusSubscription.unsubscribe();
+    }
+};
+StatusDetailDialogComponent.ctorParameters = () => [
+    { type: _system_tables_service__WEBPACK_IMPORTED_MODULE_3__["SystemTablesService"] },
+    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"] },
+    { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"],] }] },
+    { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_4__["ToastrService"] }
+];
+StatusDetailDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-status-detail-dialog',
+        template: __webpack_require__(/*! raw-loader!./status-detail-dialog.component.html */ "./node_modules/raw-loader/index.js!./src/app/software/system-tables/status-detail-dialog/status-detail-dialog.component.html"),
+        styles: [__webpack_require__(/*! ./status-detail-dialog.component.css */ "./src/app/software/system-tables/status-detail-dialog/status-detail-dialog.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"]))
+], StatusDetailDialogComponent);
 
 
 
@@ -13902,13 +15772,686 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SystemTablesComponent", function() { return SystemTablesComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm2015/dialog.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! wijmo/wijmo */ "./node_modules/wijmo/wijmo.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _system_tables_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./system-tables.service */ "./src/app/software/system-tables/system-tables.service.ts");
+/* harmony import */ var _system_tables_model__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./system-tables.model */ "./src/app/software/system-tables/system-tables.model.ts");
+/* harmony import */ var _citizenship_detail_dialog_citizenship_detail_dialog_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./citizenship-detail-dialog/citizenship-detail-dialog.component */ "./src/app/software/system-tables/citizenship-detail-dialog/citizenship-detail-dialog.component.ts");
+/* harmony import */ var _citizenship_delete_dialog_citizenship_delete_dialog_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./citizenship-delete-dialog/citizenship-delete-dialog.component */ "./src/app/software/system-tables/citizenship-delete-dialog/citizenship-delete-dialog.component.ts");
+/* harmony import */ var _type_of_citizenship_detail_dialog_type_of_citizenship_detail_dialog_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./type-of-citizenship-detail-dialog/type-of-citizenship-detail-dialog.component */ "./src/app/software/system-tables/type-of-citizenship-detail-dialog/type-of-citizenship-detail-dialog.component.ts");
+/* harmony import */ var _type_of_citizenship_delete_dialog_type_of_citizenship_delete_dialog_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./type-of-citizenship-delete-dialog/type-of-citizenship-delete-dialog.component */ "./src/app/software/system-tables/type-of-citizenship-delete-dialog/type-of-citizenship-delete-dialog.component.ts");
+/* harmony import */ var _sex_detail_dialog_sex_detail_dialog_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./sex-detail-dialog/sex-detail-dialog.component */ "./src/app/software/system-tables/sex-detail-dialog/sex-detail-dialog.component.ts");
+/* harmony import */ var _sex_delete_dialog_sex_delete_dialog_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./sex-delete-dialog/sex-delete-dialog.component */ "./src/app/software/system-tables/sex-delete-dialog/sex-delete-dialog.component.ts");
+/* harmony import */ var _civil_status_detail_dialog_civil_status_detail_dialog_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./civil-status-detail-dialog/civil-status-detail-dialog.component */ "./src/app/software/system-tables/civil-status-detail-dialog/civil-status-detail-dialog.component.ts");
+/* harmony import */ var _civil_status_delete_dialog_civil_status_delete_dialog_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./civil-status-delete-dialog/civil-status-delete-dialog.component */ "./src/app/software/system-tables/civil-status-delete-dialog/civil-status-delete-dialog.component.ts");
+/* harmony import */ var _education_level_detail_dialog_education_level_detail_dialog_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./education-level-detail-dialog/education-level-detail-dialog.component */ "./src/app/software/system-tables/education-level-detail-dialog/education-level-detail-dialog.component.ts");
+/* harmony import */ var _education_level_delete_dialog_education_level_delete_dialog_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./education-level-delete-dialog/education-level-delete-dialog.component */ "./src/app/software/system-tables/education-level-delete-dialog/education-level-delete-dialog.component.ts");
+/* harmony import */ var _occupation_detail_dialog_occupation_detail_dialog_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./occupation-detail-dialog/occupation-detail-dialog.component */ "./src/app/software/system-tables/occupation-detail-dialog/occupation-detail-dialog.component.ts");
+/* harmony import */ var _occupation_delete_dialog_occupation_delete_dialog_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./occupation-delete-dialog/occupation-delete-dialog.component */ "./src/app/software/system-tables/occupation-delete-dialog/occupation-delete-dialog.component.ts");
+/* harmony import */ var _blood_type_detail_dialog_blood_type_detail_dialog_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./blood-type-detail-dialog/blood-type-detail-dialog.component */ "./src/app/software/system-tables/blood-type-detail-dialog/blood-type-detail-dialog.component.ts");
+/* harmony import */ var _blood_type_delete_dialog_blood_type_delete_dialog_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./blood-type-delete-dialog/blood-type-delete-dialog.component */ "./src/app/software/system-tables/blood-type-delete-dialog/blood-type-delete-dialog.component.ts");
+/* harmony import */ var _status_detail_dialog_status_detail_dialog_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./status-detail-dialog/status-detail-dialog.component */ "./src/app/software/system-tables/status-detail-dialog/status-detail-dialog.component.ts");
+/* harmony import */ var _status_delete_dialog_status_delete_dialog_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./status-delete-dialog/status-delete-dialog.component */ "./src/app/software/system-tables/status-delete-dialog/status-delete-dialog.component.ts");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 let SystemTablesComponent = class SystemTablesComponent {
-    constructor() { }
+    constructor(systemTablesService, citizenshipDetailDialog, citizenshipDeleteDialog, typeOfCitizenshipDetailDialog, typeOfCitizenshipDeleteDialog, sexDetailDialog, sexDeleteDialog, civilStatusDetailDialog, civilStatusDeleteDialog, educationLevelDetailDialog, educationLevelDeleteDialog, occupationDetailDialog, occupationDeleteDialog, bloodTypeDetailDialog, bloodTypeDeleteDialog, statusDetailDialog, statusDeleteDialog) {
+        this.systemTablesService = systemTablesService;
+        this.citizenshipDetailDialog = citizenshipDetailDialog;
+        this.citizenshipDeleteDialog = citizenshipDeleteDialog;
+        this.typeOfCitizenshipDetailDialog = typeOfCitizenshipDetailDialog;
+        this.typeOfCitizenshipDeleteDialog = typeOfCitizenshipDeleteDialog;
+        this.sexDetailDialog = sexDetailDialog;
+        this.sexDeleteDialog = sexDeleteDialog;
+        this.civilStatusDetailDialog = civilStatusDetailDialog;
+        this.civilStatusDeleteDialog = civilStatusDeleteDialog;
+        this.educationLevelDetailDialog = educationLevelDetailDialog;
+        this.educationLevelDeleteDialog = educationLevelDeleteDialog;
+        this.occupationDetailDialog = occupationDetailDialog;
+        this.occupationDeleteDialog = occupationDeleteDialog;
+        this.bloodTypeDetailDialog = bloodTypeDetailDialog;
+        this.bloodTypeDeleteDialog = bloodTypeDeleteDialog;
+        this.statusDetailDialog = statusDetailDialog;
+        this.statusDeleteDialog = statusDeleteDialog;
+        this.listCitizenshipObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listCitizenshipCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listCitizenshipObservableArray);
+        this.listCitizenshipPageIndex = 15;
+        this.citizenshipModel = new _system_tables_model__WEBPACK_IMPORTED_MODULE_5__["CitizenshipModel"]();
+        this.listTypeOfCitizenshipObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listTypeOfCitizenshipCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listTypeOfCitizenshipObservableArray);
+        this.listTypeOfCitizenshipPageIndex = 15;
+        this.typeOfCitizenshipModel = new _system_tables_model__WEBPACK_IMPORTED_MODULE_5__["TypeOfCitizenshipModel"]();
+        this.listSexObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listSexCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listSexObservableArray);
+        this.listSexPageIndex = 15;
+        this.sexModel = new _system_tables_model__WEBPACK_IMPORTED_MODULE_5__["SexModel"]();
+        this.listCivilStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listCivilStatusCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listCivilStatusObservableArray);
+        this.listCivilStatusPageIndex = 15;
+        this.civilStatusModel = new _system_tables_model__WEBPACK_IMPORTED_MODULE_5__["CivilStatusModel"]();
+        this.listEducationLevelObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listEducationLevelCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listEducationLevelObservableArray);
+        this.listEducationLevelPageIndex = 15;
+        this.educationLevelModel = new _system_tables_model__WEBPACK_IMPORTED_MODULE_5__["EducationLevelModel"]();
+        this.listOccupationObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listOccupationCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listOccupationObservableArray);
+        this.listOccupationPageIndex = 15;
+        this.occupationModel = new _system_tables_model__WEBPACK_IMPORTED_MODULE_5__["OccupationModel"]();
+        this.listBloodTypeObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listBloodTypeCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listBloodTypeObservableArray);
+        this.listBloodTypePageIndex = 15;
+        this.bloodTypeModel = new _system_tables_model__WEBPACK_IMPORTED_MODULE_5__["BloodTypeModel"]();
+        this.listStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listStatusCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listStatusObservableArray);
+        this.listStatusPageIndex = 15;
+        this.statusModel = new _system_tables_model__WEBPACK_IMPORTED_MODULE_5__["StatusModel"]();
+    }
+    listCitizenshipData() {
+        this.listCitizenshipObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listCitizenshipCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listCitizenshipObservableArray);
+        this.listCitizenshipCollectionView.pageSize = 15;
+        this.listCitizenshipCollectionView.trackChanges = true;
+        this.listCitizenshipCollectionView.refresh();
+        this.systemTablesService.listCitizenship();
+        this.listCitizenshipSubscription = this.systemTablesService.listCitizenshipObservable.subscribe(data => {
+            if (data.length > 0) {
+                this.listCitizenshipObservableArray = data;
+                this.listCitizenshipCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listCitizenshipObservableArray);
+                this.listCitizenshipCollectionView.pageSize = this.listCitizenshipPageIndex;
+                this.listCitizenshipCollectionView.trackChanges = true;
+                this.listCitizenshipCollectionView.refresh();
+            }
+            if (this.listCitizenshipSubscription != null)
+                this.listCitizenshipSubscription.unsubscribe();
+        });
+    }
+    btnAddCitizenship() {
+        this.citizenshipModel = new _system_tables_model__WEBPACK_IMPORTED_MODULE_5__["CitizenshipModel"]();
+        const citizenshipDetailDialogRef = this.citizenshipDetailDialog.open(_citizenship_detail_dialog_citizenship_detail_dialog_component__WEBPACK_IMPORTED_MODULE_6__["CitizenshipDetailDialogComponent"], {
+            width: '500px',
+            data: {
+                objDialogTitle: "Add Citizenship",
+                objCitizenshipModel: this.citizenshipModel
+            },
+            disableClose: true
+        });
+        citizenshipDetailDialogRef.afterClosed().subscribe(result => {
+            if (result == 200) {
+                this.listCitizenshipData();
+            }
+        });
+    }
+    btnEditCitizenship() {
+        let currentCitizensChild = this.listCitizenshipCollectionView.currentItem;
+        this.citizenshipModel.Id = currentCitizensChild.Id;
+        this.citizenshipModel.Citizenship = currentCitizensChild.Citizenship;
+        const citizenshipDetailDialogRef = this.citizenshipDetailDialog.open(_citizenship_detail_dialog_citizenship_detail_dialog_component__WEBPACK_IMPORTED_MODULE_6__["CitizenshipDetailDialogComponent"], {
+            width: '500px',
+            data: {
+                objDialogTitle: "Edit Citizenship",
+                objCitizenshipModel: this.citizenshipModel
+            },
+            disableClose: true
+        });
+        citizenshipDetailDialogRef.afterClosed().subscribe(result => {
+            if (result == 200) {
+                this.listCitizenshipData();
+            }
+        });
+    }
+    btnDeleteCitizenship() {
+        let currentCitizensChild = this.listCitizenshipCollectionView.currentItem;
+        this.citizenshipModel.Id = currentCitizensChild.Id;
+        const citizenshipDeleteDialogRef = this.citizenshipDeleteDialog.open(_citizenship_delete_dialog_citizenship_delete_dialog_component__WEBPACK_IMPORTED_MODULE_7__["CitizenshipDeleteDialogComponent"], {
+            width: '300px',
+            data: { objCitizenshipModel: this.citizenshipModel },
+            disableClose: true
+        });
+        citizenshipDeleteDialogRef.afterClosed().subscribe(result => {
+            if (result == 200) {
+                this.listCitizenshipData();
+            }
+        });
+    }
+    listTypeOfCitizenshipData() {
+        this.listTypeOfCitizenshipObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listTypeOfCitizenshipCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listTypeOfCitizenshipObservableArray);
+        this.listTypeOfCitizenshipCollectionView.pageSize = 15;
+        this.listTypeOfCitizenshipCollectionView.trackChanges = true;
+        this.listTypeOfCitizenshipCollectionView.refresh();
+        this.systemTablesService.listTypeOfCitizenship();
+        this.listTypeOfCitizenshipSubscription = this.systemTablesService.listTypeOfCitizenshipObservable.subscribe(data => {
+            if (data.length > 0) {
+                this.listTypeOfCitizenshipObservableArray = data;
+                this.listTypeOfCitizenshipCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listTypeOfCitizenshipObservableArray);
+                this.listTypeOfCitizenshipCollectionView.pageSize = this.listTypeOfCitizenshipPageIndex;
+                this.listTypeOfCitizenshipCollectionView.trackChanges = true;
+                this.listTypeOfCitizenshipCollectionView.refresh();
+            }
+            if (this.listTypeOfCitizenshipSubscription != null)
+                this.listTypeOfCitizenshipSubscription.unsubscribe();
+        });
+    }
+    btnAddTypeOfCitizenship() {
+        this.typeOfCitizenshipModel = new _system_tables_model__WEBPACK_IMPORTED_MODULE_5__["TypeOfCitizenshipModel"]();
+        const typeOfCitizenshipDetailDialogRef = this.typeOfCitizenshipDetailDialog.open(_type_of_citizenship_detail_dialog_type_of_citizenship_detail_dialog_component__WEBPACK_IMPORTED_MODULE_8__["TypeOfCitizenshipDetailDialogComponent"], {
+            width: '500px',
+            data: {
+                objDialogTitle: "Add Citizenship Type",
+                objTypeOfCitizenshipModel: this.typeOfCitizenshipModel
+            },
+            disableClose: true
+        });
+        typeOfCitizenshipDetailDialogRef.afterClosed().subscribe(result => {
+            if (result == 200) {
+                this.listTypeOfCitizenshipData();
+            }
+        });
+    }
+    btnEditTypeOfCitizenship() {
+        let currentCitizensChild = this.listTypeOfCitizenshipCollectionView.currentItem;
+        this.typeOfCitizenshipModel.Id = currentCitizensChild.Id;
+        this.typeOfCitizenshipModel.TypeOfCitizenship = currentCitizensChild.TypeOfCitizenship;
+        const typeOfCitizenshipDetailDialogRef = this.typeOfCitizenshipDetailDialog.open(_type_of_citizenship_detail_dialog_type_of_citizenship_detail_dialog_component__WEBPACK_IMPORTED_MODULE_8__["TypeOfCitizenshipDetailDialogComponent"], {
+            width: '500px',
+            data: {
+                objDialogTitle: "Edit Citizenship Type",
+                objTypeOfCitizenshipModel: this.typeOfCitizenshipModel
+            },
+            disableClose: true
+        });
+        typeOfCitizenshipDetailDialogRef.afterClosed().subscribe(result => {
+            if (result == 200) {
+                this.listTypeOfCitizenshipData();
+            }
+        });
+    }
+    btnDeleteTypeOfCitizenship() {
+        let currentCitizensChild = this.listTypeOfCitizenshipCollectionView.currentItem;
+        this.typeOfCitizenshipModel.Id = currentCitizensChild.Id;
+        const typeOfCitizenshipDeleteDialogRef = this.typeOfCitizenshipDeleteDialog.open(_type_of_citizenship_delete_dialog_type_of_citizenship_delete_dialog_component__WEBPACK_IMPORTED_MODULE_9__["TypeOfCitizenshipDeleteDialogComponent"], {
+            width: '300px',
+            data: { objTypeOfCitizenshipModel: this.typeOfCitizenshipModel },
+            disableClose: true
+        });
+        typeOfCitizenshipDeleteDialogRef.afterClosed().subscribe(result => {
+            if (result == 200) {
+                this.listTypeOfCitizenshipData();
+            }
+        });
+    }
+    listSexData() {
+        this.listSexObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listSexCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listSexObservableArray);
+        this.listSexCollectionView.pageSize = 15;
+        this.listSexCollectionView.trackChanges = true;
+        this.listSexCollectionView.refresh();
+        this.systemTablesService.listSex();
+        this.listSexSubscription = this.systemTablesService.listSexObservable.subscribe(data => {
+            if (data.length > 0) {
+                this.listSexObservableArray = data;
+                this.listSexCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listSexObservableArray);
+                this.listSexCollectionView.pageSize = this.listSexPageIndex;
+                this.listSexCollectionView.trackChanges = true;
+                this.listSexCollectionView.refresh();
+            }
+            if (this.listSexSubscription != null)
+                this.listSexSubscription.unsubscribe();
+        });
+    }
+    btnAddSex() {
+        this.sexModel = new _system_tables_model__WEBPACK_IMPORTED_MODULE_5__["SexModel"]();
+        const sexDetailDialogRef = this.sexDetailDialog.open(_sex_detail_dialog_sex_detail_dialog_component__WEBPACK_IMPORTED_MODULE_10__["SexDetailDialogComponent"], {
+            width: '500px',
+            data: {
+                objDialogTitle: "Add Gender",
+                objSexModel: this.sexModel
+            },
+            disableClose: true
+        });
+        sexDetailDialogRef.afterClosed().subscribe(result => {
+            if (result == 200) {
+                this.listSexData();
+            }
+        });
+    }
+    btnEditSex() {
+        let currentCitizensChild = this.listSexCollectionView.currentItem;
+        this.sexModel.Id = currentCitizensChild.Id;
+        this.sexModel.Sex = currentCitizensChild.Sex;
+        const sexDetailDialogRef = this.sexDetailDialog.open(_sex_detail_dialog_sex_detail_dialog_component__WEBPACK_IMPORTED_MODULE_10__["SexDetailDialogComponent"], {
+            width: '500px',
+            data: {
+                objDialogTitle: "Edit Gender",
+                objSexModel: this.sexModel
+            },
+            disableClose: true
+        });
+        sexDetailDialogRef.afterClosed().subscribe(result => {
+            if (result == 200) {
+                this.listSexData();
+            }
+        });
+    }
+    btnDeleteSex() {
+        let currentCitizensChild = this.listSexCollectionView.currentItem;
+        this.sexModel.Id = currentCitizensChild.Id;
+        const sexDeleteDialogRef = this.sexDeleteDialog.open(_sex_delete_dialog_sex_delete_dialog_component__WEBPACK_IMPORTED_MODULE_11__["SexDeleteDialogComponent"], {
+            width: '300px',
+            data: { objSexModel: this.sexModel },
+            disableClose: true
+        });
+        sexDeleteDialogRef.afterClosed().subscribe(result => {
+            if (result == 200) {
+                this.listSexData();
+            }
+        });
+    }
+    listCivilStatusData() {
+        this.listCivilStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listCivilStatusCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listCivilStatusObservableArray);
+        this.listCivilStatusCollectionView.pageSize = 15;
+        this.listCivilStatusCollectionView.trackChanges = true;
+        this.listCivilStatusCollectionView.refresh();
+        this.systemTablesService.listCivilStatus();
+        this.listCivilStatusSubscription = this.systemTablesService.listCivilStatusObservable.subscribe(data => {
+            if (data.length > 0) {
+                this.listCivilStatusObservableArray = data;
+                this.listCivilStatusCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listCivilStatusObservableArray);
+                this.listCivilStatusCollectionView.pageSize = this.listCivilStatusPageIndex;
+                this.listCivilStatusCollectionView.trackChanges = true;
+                this.listCivilStatusCollectionView.refresh();
+            }
+            if (this.listCivilStatusSubscription != null)
+                this.listCivilStatusSubscription.unsubscribe();
+        });
+    }
+    btnAddCivilStatus() {
+        this.civilStatusModel = new _system_tables_model__WEBPACK_IMPORTED_MODULE_5__["CivilStatusModel"]();
+        const civilStatusDetailDialogRef = this.civilStatusDetailDialog.open(_civil_status_detail_dialog_civil_status_detail_dialog_component__WEBPACK_IMPORTED_MODULE_12__["CivilStatusDetailDialogComponent"], {
+            width: '500px',
+            data: {
+                objDialogTitle: "Add Civil Status",
+                objCivilStatusModel: this.civilStatusModel
+            },
+            disableClose: true
+        });
+        civilStatusDetailDialogRef.afterClosed().subscribe(result => {
+            if (result == 200) {
+                this.listCivilStatusData();
+            }
+        });
+    }
+    btnEditCivilStatus() {
+        let currentCitizensChild = this.listCivilStatusCollectionView.currentItem;
+        this.civilStatusModel.Id = currentCitizensChild.Id;
+        this.civilStatusModel.CivilStatus = currentCitizensChild.CivilStatus;
+        const civilStatusDetailDialogRef = this.civilStatusDetailDialog.open(_civil_status_detail_dialog_civil_status_detail_dialog_component__WEBPACK_IMPORTED_MODULE_12__["CivilStatusDetailDialogComponent"], {
+            width: '500px',
+            data: {
+                objDialogTitle: "Edit Civil Status",
+                objCivilStatusModel: this.civilStatusModel
+            },
+            disableClose: true
+        });
+        civilStatusDetailDialogRef.afterClosed().subscribe(result => {
+            if (result == 200) {
+                this.listCivilStatusData();
+            }
+        });
+    }
+    btnDeleteCivilStatus() {
+        let currentCitizensChild = this.listCivilStatusCollectionView.currentItem;
+        this.civilStatusModel.Id = currentCitizensChild.Id;
+        const civilStatusDeleteDialogRef = this.civilStatusDeleteDialog.open(_civil_status_delete_dialog_civil_status_delete_dialog_component__WEBPACK_IMPORTED_MODULE_13__["CivilStatusDeleteDialogComponent"], {
+            width: '300px',
+            data: { objCivilStatusModel: this.civilStatusModel },
+            disableClose: true
+        });
+        civilStatusDeleteDialogRef.afterClosed().subscribe(result => {
+            if (result == 200) {
+                this.listCivilStatusData();
+            }
+        });
+    }
+    listEducationLevelData() {
+        this.listEducationLevelObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listEducationLevelCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listEducationLevelObservableArray);
+        this.listEducationLevelCollectionView.pageSize = 15;
+        this.listEducationLevelCollectionView.trackChanges = true;
+        this.listEducationLevelCollectionView.refresh();
+        this.systemTablesService.listEducationLevel();
+        this.listEducationLevelSubscription = this.systemTablesService.listEducationLevelObservable.subscribe(data => {
+            if (data.length > 0) {
+                this.listEducationLevelObservableArray = data;
+                this.listEducationLevelCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listEducationLevelObservableArray);
+                this.listEducationLevelCollectionView.pageSize = this.listEducationLevelPageIndex;
+                this.listEducationLevelCollectionView.trackChanges = true;
+                this.listEducationLevelCollectionView.refresh();
+            }
+            if (this.listEducationLevelSubscription != null)
+                this.listEducationLevelSubscription.unsubscribe();
+        });
+    }
+    btnAddEducationLevel() {
+        this.educationLevelModel = new _system_tables_model__WEBPACK_IMPORTED_MODULE_5__["EducationLevelModel"]();
+        const educationLevelDetailDialogRef = this.educationLevelDetailDialog.open(_education_level_detail_dialog_education_level_detail_dialog_component__WEBPACK_IMPORTED_MODULE_14__["EducationLevelDetailDialogComponent"], {
+            width: '500px',
+            data: {
+                objDialogTitle: "Add Education Level",
+                objEducationLevelModel: this.educationLevelModel
+            },
+            disableClose: true
+        });
+        educationLevelDetailDialogRef.afterClosed().subscribe(result => {
+            if (result == 200) {
+                this.listEducationLevelData();
+            }
+        });
+    }
+    btnEditEducationLevel() {
+        let currentCitizensChild = this.listEducationLevelCollectionView.currentItem;
+        this.educationLevelModel.Id = currentCitizensChild.Id;
+        this.educationLevelModel.EducationLevel = currentCitizensChild.EducationLevel;
+        const educationLevelDetailDialogRef = this.educationLevelDetailDialog.open(_education_level_detail_dialog_education_level_detail_dialog_component__WEBPACK_IMPORTED_MODULE_14__["EducationLevelDetailDialogComponent"], {
+            width: '500px',
+            data: {
+                objDialogTitle: "Edit Education Level",
+                objEducationLevelModel: this.educationLevelModel
+            },
+            disableClose: true
+        });
+        educationLevelDetailDialogRef.afterClosed().subscribe(result => {
+            if (result == 200) {
+                this.listEducationLevelData();
+            }
+        });
+    }
+    btnDeleteEducationLevel() {
+        let currentCitizensChild = this.listEducationLevelCollectionView.currentItem;
+        this.educationLevelModel.Id = currentCitizensChild.Id;
+        const educationLevelDeleteDialogRef = this.educationLevelDeleteDialog.open(_education_level_delete_dialog_education_level_delete_dialog_component__WEBPACK_IMPORTED_MODULE_15__["EducationLevelDeleteDialogComponent"], {
+            width: '300px',
+            data: { objEducationLevelModel: this.educationLevelModel },
+            disableClose: true
+        });
+        educationLevelDeleteDialogRef.afterClosed().subscribe(result => {
+            if (result == 200) {
+                this.listEducationLevelData();
+            }
+        });
+    }
+    listOccupationData() {
+        this.listOccupationObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listOccupationCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listOccupationObservableArray);
+        this.listOccupationCollectionView.pageSize = 15;
+        this.listOccupationCollectionView.trackChanges = true;
+        this.listOccupationCollectionView.refresh();
+        this.systemTablesService.listOccupation();
+        this.listOccupationSubscription = this.systemTablesService.listOccupationObservable.subscribe(data => {
+            if (data.length > 0) {
+                this.listOccupationObservableArray = data;
+                this.listOccupationCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listOccupationObservableArray);
+                this.listOccupationCollectionView.pageSize = this.listOccupationPageIndex;
+                this.listOccupationCollectionView.trackChanges = true;
+                this.listOccupationCollectionView.refresh();
+            }
+            if (this.listOccupationSubscription != null)
+                this.listOccupationSubscription.unsubscribe();
+        });
+    }
+    btnAddOccupation() {
+        this.occupationModel = new _system_tables_model__WEBPACK_IMPORTED_MODULE_5__["OccupationModel"]();
+        const occupationDetailDialogRef = this.occupationDetailDialog.open(_occupation_detail_dialog_occupation_detail_dialog_component__WEBPACK_IMPORTED_MODULE_16__["OccupationDetailDialogComponent"], {
+            width: '500px',
+            data: {
+                objDialogTitle: "Add Occupation",
+                objOccupationModel: this.occupationModel
+            },
+            disableClose: true
+        });
+        occupationDetailDialogRef.afterClosed().subscribe(result => {
+            if (result == 200) {
+                this.listOccupationData();
+            }
+        });
+    }
+    btnEditOccupation() {
+        let currentCitizensChild = this.listOccupationCollectionView.currentItem;
+        this.occupationModel.Id = currentCitizensChild.Id;
+        this.occupationModel.Occupation = currentCitizensChild.Occupation;
+        const occupationDetailDialogRef = this.occupationDetailDialog.open(_occupation_detail_dialog_occupation_detail_dialog_component__WEBPACK_IMPORTED_MODULE_16__["OccupationDetailDialogComponent"], {
+            width: '500px',
+            data: {
+                objDialogTitle: "Edit Occupation",
+                objOccupationModel: this.occupationModel
+            },
+            disableClose: true
+        });
+        occupationDetailDialogRef.afterClosed().subscribe(result => {
+            if (result == 200) {
+                this.listOccupationData();
+            }
+        });
+    }
+    btnDeleteOccupation() {
+        let currentCitizensChild = this.listOccupationCollectionView.currentItem;
+        this.occupationModel.Id = currentCitizensChild.Id;
+        const occupationDeleteDialogRef = this.occupationDeleteDialog.open(_occupation_delete_dialog_occupation_delete_dialog_component__WEBPACK_IMPORTED_MODULE_17__["OccupationDeleteDialogComponent"], {
+            width: '300px',
+            data: { objOccupationModel: this.occupationModel },
+            disableClose: true
+        });
+        occupationDeleteDialogRef.afterClosed().subscribe(result => {
+            if (result == 200) {
+                this.listOccupationData();
+            }
+        });
+    }
+    listBloodTypeData() {
+        this.listBloodTypeObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listBloodTypeCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listBloodTypeObservableArray);
+        this.listBloodTypeCollectionView.pageSize = 15;
+        this.listBloodTypeCollectionView.trackChanges = true;
+        this.listBloodTypeCollectionView.refresh();
+        this.systemTablesService.listBloodType();
+        this.listBloodTypeSubscription = this.systemTablesService.listBloodTypeObservable.subscribe(data => {
+            if (data.length > 0) {
+                this.listBloodTypeObservableArray = data;
+                this.listBloodTypeCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listBloodTypeObservableArray);
+                this.listBloodTypeCollectionView.pageSize = this.listBloodTypePageIndex;
+                this.listBloodTypeCollectionView.trackChanges = true;
+                this.listBloodTypeCollectionView.refresh();
+            }
+            if (this.listBloodTypeSubscription != null)
+                this.listBloodTypeSubscription.unsubscribe();
+        });
+    }
+    btnAddBloodType() {
+        this.bloodTypeModel = new _system_tables_model__WEBPACK_IMPORTED_MODULE_5__["BloodTypeModel"]();
+        const bloodTypeDetailDialogRef = this.bloodTypeDetailDialog.open(_blood_type_detail_dialog_blood_type_detail_dialog_component__WEBPACK_IMPORTED_MODULE_18__["BloodTypeDetailDialogComponent"], {
+            width: '500px',
+            data: {
+                objDialogTitle: "Add Blood Type",
+                objBloodTypeModel: this.bloodTypeModel
+            },
+            disableClose: true
+        });
+        bloodTypeDetailDialogRef.afterClosed().subscribe(result => {
+            if (result == 200) {
+                this.listBloodTypeData();
+            }
+        });
+    }
+    btnEditBloodType() {
+        let currentCitizensChild = this.listBloodTypeCollectionView.currentItem;
+        this.bloodTypeModel.Id = currentCitizensChild.Id;
+        this.bloodTypeModel.BloodType = currentCitizensChild.BloodType;
+        const bloodTypeDetailDialogRef = this.bloodTypeDetailDialog.open(_blood_type_detail_dialog_blood_type_detail_dialog_component__WEBPACK_IMPORTED_MODULE_18__["BloodTypeDetailDialogComponent"], {
+            width: '500px',
+            data: {
+                objDialogTitle: "Edit Blood Type",
+                objBloodTypeModel: this.bloodTypeModel
+            },
+            disableClose: true
+        });
+        bloodTypeDetailDialogRef.afterClosed().subscribe(result => {
+            if (result == 200) {
+                this.listBloodTypeData();
+            }
+        });
+    }
+    btnDeleteBloodType() {
+        let currentCitizensChild = this.listBloodTypeCollectionView.currentItem;
+        this.bloodTypeModel.Id = currentCitizensChild.Id;
+        const bloodTypeDeleteDialogRef = this.bloodTypeDeleteDialog.open(_blood_type_delete_dialog_blood_type_delete_dialog_component__WEBPACK_IMPORTED_MODULE_19__["BloodTypeDeleteDialogComponent"], {
+            width: '300px',
+            data: { objBloodTypeModel: this.bloodTypeModel },
+            disableClose: true
+        });
+        bloodTypeDeleteDialogRef.afterClosed().subscribe(result => {
+            if (result == 200) {
+                this.listBloodTypeData();
+            }
+        });
+    }
+    listStatusData() {
+        this.listStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listStatusCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listStatusObservableArray);
+        this.listStatusCollectionView.pageSize = 15;
+        this.listStatusCollectionView.trackChanges = true;
+        this.listStatusCollectionView.refresh();
+        this.systemTablesService.listStatus();
+        this.listStatusSubscription = this.systemTablesService.listStatusObservable.subscribe(data => {
+            if (data.length > 0) {
+                this.listStatusObservableArray = data;
+                this.listStatusCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listStatusObservableArray);
+                this.listStatusCollectionView.pageSize = this.listStatusPageIndex;
+                this.listStatusCollectionView.trackChanges = true;
+                this.listStatusCollectionView.refresh();
+            }
+            if (this.listStatusSubscription != null)
+                this.listStatusSubscription.unsubscribe();
+        });
+    }
+    btnAddStatus() {
+        this.statusModel = new _system_tables_model__WEBPACK_IMPORTED_MODULE_5__["StatusModel"]();
+        const statusDetailDialogRef = this.statusDetailDialog.open(_status_detail_dialog_status_detail_dialog_component__WEBPACK_IMPORTED_MODULE_20__["StatusDetailDialogComponent"], {
+            width: '500px',
+            data: {
+                objDialogTitle: "Add Status",
+                objStatusModel: this.statusModel
+            },
+            disableClose: true
+        });
+        statusDetailDialogRef.afterClosed().subscribe(result => {
+            if (result == 200) {
+                this.listStatusData();
+            }
+        });
+    }
+    btnEditStatus() {
+        let currentCitizensChild = this.listStatusCollectionView.currentItem;
+        this.statusModel.Id = currentCitizensChild.Id;
+        this.statusModel.Status = currentCitizensChild.Status;
+        this.statusModel.Category = currentCitizensChild.Category;
+        const statusDetailDialogRef = this.statusDetailDialog.open(_status_detail_dialog_status_detail_dialog_component__WEBPACK_IMPORTED_MODULE_20__["StatusDetailDialogComponent"], {
+            width: '500px',
+            data: {
+                objDialogTitle: "Edit Status",
+                objStatusModel: this.statusModel
+            },
+            disableClose: true
+        });
+        statusDetailDialogRef.afterClosed().subscribe(result => {
+            if (result == 200) {
+                this.listStatusData();
+            }
+        });
+    }
+    btnDeleteStatus() {
+        let currentCitizensChild = this.listStatusCollectionView.currentItem;
+        this.statusModel.Id = currentCitizensChild.Id;
+        const statusDeleteDialogRef = this.statusDeleteDialog.open(_status_delete_dialog_status_delete_dialog_component__WEBPACK_IMPORTED_MODULE_21__["StatusDeleteDialogComponent"], {
+            width: '300px',
+            data: { objStatusModel: this.statusModel },
+            disableClose: true
+        });
+        statusDeleteDialogRef.afterClosed().subscribe(result => {
+            if (result == 200) {
+                this.listStatusData();
+            }
+        });
+    }
     ngOnInit() {
+        this.listCitizenshipData();
+        this.listTypeOfCitizenshipData();
+        this.listSexData();
+        this.listCivilStatusData();
+        this.listEducationLevelData();
+        this.listOccupationData();
+        this.listBloodTypeData();
+        this.listStatusData();
+    }
+    ngOnDestroy() {
+        if (this.listCitizenshipSubscription != null)
+            this.listCitizenshipSubscription.unsubscribe();
+        if (this.listTypeOfCitizenshipSubscription != null)
+            this.listTypeOfCitizenshipSubscription.unsubscribe();
+        if (this.listSexSubscription != null)
+            this.listSexSubscription.unsubscribe();
+        if (this.listCivilStatusSubscription != null)
+            this.listCivilStatusSubscription.unsubscribe();
+        if (this.listEducationLevelSubscription != null)
+            this.listEducationLevelSubscription.unsubscribe();
+        if (this.listOccupationSubscription != null)
+            this.listOccupationSubscription.unsubscribe();
+        if (this.listBloodTypeSubscription != null)
+            this.listBloodTypeSubscription.unsubscribe();
+        if (this.listStatusSubscription != null)
+            this.listStatusSubscription.unsubscribe();
     }
 };
+SystemTablesComponent.ctorParameters = () => [
+    { type: _system_tables_service__WEBPACK_IMPORTED_MODULE_4__["SystemTablesService"] },
+    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialog"] },
+    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialog"] },
+    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialog"] },
+    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialog"] },
+    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialog"] },
+    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialog"] },
+    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialog"] },
+    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialog"] },
+    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialog"] },
+    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialog"] },
+    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialog"] },
+    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialog"] },
+    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialog"] },
+    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialog"] },
+    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialog"] },
+    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialog"] }
+];
 SystemTablesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-system-tables',
@@ -13916,6 +16459,719 @@ SystemTablesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         styles: [__webpack_require__(/*! ./system-tables.component.css */ "./src/app/software/system-tables/system-tables.component.css")]
     })
 ], SystemTablesComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/system-tables/system-tables.model.ts":
+/*!***************************************************************!*\
+  !*** ./src/app/software/system-tables/system-tables.model.ts ***!
+  \***************************************************************/
+/*! exports provided: CitizenshipModel, TypeOfCitizenshipModel, SexModel, CivilStatusModel, EducationLevelModel, OccupationModel, BloodTypeModel, StatusModel */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CitizenshipModel", function() { return CitizenshipModel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TypeOfCitizenshipModel", function() { return TypeOfCitizenshipModel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SexModel", function() { return SexModel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CivilStatusModel", function() { return CivilStatusModel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EducationLevelModel", function() { return EducationLevelModel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OccupationModel", function() { return OccupationModel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BloodTypeModel", function() { return BloodTypeModel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StatusModel", function() { return StatusModel; });
+class CitizenshipModel {
+    constructor() {
+        this.Id = 0;
+        this.Citizenship = "";
+    }
+}
+class TypeOfCitizenshipModel {
+    constructor() {
+        this.Id = 0;
+        this.TypeOfCitizenship = "";
+    }
+}
+class SexModel {
+    constructor() {
+        this.Id = 0;
+        this.Sex = "";
+    }
+}
+class CivilStatusModel {
+    constructor() {
+        this.Id = 0;
+        this.CivilStatus = "";
+    }
+}
+class EducationLevelModel {
+    constructor() {
+        this.Id = 0;
+        this.EducationLevel = "";
+    }
+}
+class OccupationModel {
+    constructor() {
+        this.Id = 0;
+        this.Occupation = "";
+    }
+}
+class BloodTypeModel {
+    constructor() {
+        this.Id = 0;
+        this.BloodType = "";
+    }
+}
+class StatusModel {
+    constructor() {
+        this.Id = 0;
+        this.Status = "";
+        this.Category = "";
+    }
+}
+
+
+/***/ }),
+
+/***/ "./src/app/software/system-tables/system-tables.service.ts":
+/*!*****************************************************************!*\
+  !*** ./src/app/software/system-tables/system-tables.service.ts ***!
+  \*****************************************************************/
+/*! exports provided: SystemTablesService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SystemTablesService", function() { return SystemTablesService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _app_settings__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../app-settings */ "./src/app/app-settings.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! wijmo/wijmo */ "./node_modules/wijmo/wijmo.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
+
+
+
+
+
+
+let SystemTablesService = class SystemTablesService {
+    constructor(appSettings, httpClient) {
+        this.appSettings = appSettings;
+        this.httpClient = httpClient;
+        this.defaultAPIURLHost = this.appSettings.APIURLHost;
+        this.options = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+            })
+        };
+        this.listCitizenshipSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listCitizenshipObservable = this.listCitizenshipSubject.asObservable();
+        this.saveCitizenshipSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.saveCitizenshipObservable = this.saveCitizenshipSubject.asObservable();
+        this.deleteCitizenshipSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.deleteCitizenshipObservable = this.deleteCitizenshipSubject.asObservable();
+        this.listTypeOfCitizenshipSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listTypeOfCitizenshipObservable = this.listTypeOfCitizenshipSubject.asObservable();
+        this.saveTypeOfCitizenshipSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.saveTypeOfCitizenshipObservable = this.saveTypeOfCitizenshipSubject.asObservable();
+        this.deleteTypeOfCitizenshipSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.deleteTypeOfCitizenshipObservable = this.deleteTypeOfCitizenshipSubject.asObservable();
+        this.listSexSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listSexObservable = this.listSexSubject.asObservable();
+        this.saveSexSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.saveSexObservable = this.saveSexSubject.asObservable();
+        this.deleteSexSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.deleteSexObservable = this.deleteSexSubject.asObservable();
+        this.listCivilStatusSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listCivilStatusObservable = this.listCivilStatusSubject.asObservable();
+        this.saveCivilStatusSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.saveCivilStatusObservable = this.saveCivilStatusSubject.asObservable();
+        this.deleteCivilStatusSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.deleteCivilStatusObservable = this.deleteCivilStatusSubject.asObservable();
+        this.listEducationLevelSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listEducationLevelObservable = this.listEducationLevelSubject.asObservable();
+        this.saveEducationLevelSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.saveEducationLevelObservable = this.saveEducationLevelSubject.asObservable();
+        this.deleteEducationLevelSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.deleteEducationLevelObservable = this.deleteEducationLevelSubject.asObservable();
+        this.listOccupationSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listOccupationObservable = this.listOccupationSubject.asObservable();
+        this.saveOccupationSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.saveOccupationObservable = this.saveOccupationSubject.asObservable();
+        this.deleteOccupationSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.deleteOccupationObservable = this.deleteOccupationSubject.asObservable();
+        this.listBloodTypeSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listBloodTypeObservable = this.listBloodTypeSubject.asObservable();
+        this.saveBloodTypeSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.saveBloodTypeObservable = this.saveBloodTypeSubject.asObservable();
+        this.deleteBloodTypeSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.deleteBloodTypeObservable = this.deleteBloodTypeSubject.asObservable();
+        this.listStatusSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listStatusObservable = this.listStatusSubject.asObservable();
+        this.saveStatusSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.saveStatusObservable = this.saveStatusSubject.asObservable();
+        this.deleteStatusSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.deleteStatusObservable = this.deleteStatusSubject.asObservable();
+    }
+    listCitizenship() {
+        let listCitizenshipObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listCitizenshipSubject.next(listCitizenshipObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/mst/citizenship/list", this.options).subscribe(response => {
+            let results = response;
+            if (results["length"] > 0) {
+                for (let i = 0; i <= results["length"] - 1; i++) {
+                    listCitizenshipObservableArray.push({
+                        Id: results[i].Id,
+                        Citizenship: results[i].Citizenship
+                    });
+                }
+            }
+            this.listCitizenshipSubject.next(listCitizenshipObservableArray);
+        });
+    }
+    saveCitizenship(objCitizensChildModel) {
+        if (objCitizensChildModel.Id == 0) {
+            this.httpClient.post(this.defaultAPIURLHost + "/api/mst/citizenship/add", JSON.stringify(objCitizensChildModel), this.options).subscribe(response => {
+                let responseResults = ["success", response.toString()];
+                this.saveCitizenshipSubject.next(responseResults);
+            }, error => {
+                let errorResults = ["failed", error["error"]];
+                this.saveCitizenshipSubject.next(errorResults);
+            });
+        }
+        else {
+            this.httpClient.put(this.defaultAPIURLHost + "/api/mst/citizenship/update/" + objCitizensChildModel.Id, JSON.stringify(objCitizensChildModel), this.options).subscribe(response => {
+                let responseResults = ["success", response.toString()];
+                this.saveCitizenshipSubject.next(responseResults);
+            }, error => {
+                let errorResults = ["failed", error["error"]];
+                this.saveCitizenshipSubject.next(errorResults);
+            });
+        }
+    }
+    deleteCitizenship(id) {
+        this.httpClient.delete(this.defaultAPIURLHost + "/api/mst/citizenship/delete/" + id, this.options).subscribe(response => {
+            let responseResults = ["success", ""];
+            this.deleteCitizenshipSubject.next(responseResults);
+        }, error => {
+            let errorResults = ["failed", error["error"]];
+            this.deleteCitizenshipSubject.next(errorResults);
+        });
+    }
+    listTypeOfCitizenship() {
+        let listTypeOfCitizenshipObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listTypeOfCitizenshipSubject.next(listTypeOfCitizenshipObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/mst/typeOfCitizenship/list", this.options).subscribe(response => {
+            let results = response;
+            if (results["length"] > 0) {
+                for (let i = 0; i <= results["length"] - 1; i++) {
+                    listTypeOfCitizenshipObservableArray.push({
+                        Id: results[i].Id,
+                        TypeOfCitizenship: results[i].TypeOfCitizenship
+                    });
+                }
+            }
+            this.listTypeOfCitizenshipSubject.next(listTypeOfCitizenshipObservableArray);
+        });
+    }
+    saveTypeOfCitizenship(objCitizensChildModel) {
+        if (objCitizensChildModel.Id == 0) {
+            this.httpClient.post(this.defaultAPIURLHost + "/api/mst/typeOfCitizenship/add", JSON.stringify(objCitizensChildModel), this.options).subscribe(response => {
+                let responseResults = ["success", response.toString()];
+                this.saveTypeOfCitizenshipSubject.next(responseResults);
+            }, error => {
+                let errorResults = ["failed", error["error"]];
+                this.saveTypeOfCitizenshipSubject.next(errorResults);
+            });
+        }
+        else {
+            this.httpClient.put(this.defaultAPIURLHost + "/api/mst/typeOfCitizenship/update/" + objCitizensChildModel.Id, JSON.stringify(objCitizensChildModel), this.options).subscribe(response => {
+                let responseResults = ["success", response.toString()];
+                this.saveTypeOfCitizenshipSubject.next(responseResults);
+            }, error => {
+                let errorResults = ["failed", error["error"]];
+                this.saveTypeOfCitizenshipSubject.next(errorResults);
+            });
+        }
+    }
+    deleteTypeOfCitizenship(id) {
+        this.httpClient.delete(this.defaultAPIURLHost + "/api/mst/typeOfCitizenship/delete/" + id, this.options).subscribe(response => {
+            let responseResults = ["success", ""];
+            this.deleteTypeOfCitizenshipSubject.next(responseResults);
+        }, error => {
+            let errorResults = ["failed", error["error"]];
+            this.deleteTypeOfCitizenshipSubject.next(errorResults);
+        });
+    }
+    listSex() {
+        let listSexObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listSexSubject.next(listSexObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/mst/sex/list", this.options).subscribe(response => {
+            let results = response;
+            if (results["length"] > 0) {
+                for (let i = 0; i <= results["length"] - 1; i++) {
+                    listSexObservableArray.push({
+                        Id: results[i].Id,
+                        Sex: results[i].Sex
+                    });
+                }
+            }
+            this.listSexSubject.next(listSexObservableArray);
+        });
+    }
+    saveSex(objCitizensChildModel) {
+        if (objCitizensChildModel.Id == 0) {
+            this.httpClient.post(this.defaultAPIURLHost + "/api/mst/sex/add", JSON.stringify(objCitizensChildModel), this.options).subscribe(response => {
+                let responseResults = ["success", response.toString()];
+                this.saveSexSubject.next(responseResults);
+            }, error => {
+                let errorResults = ["failed", error["error"]];
+                this.saveSexSubject.next(errorResults);
+            });
+        }
+        else {
+            this.httpClient.put(this.defaultAPIURLHost + "/api/mst/sex/update/" + objCitizensChildModel.Id, JSON.stringify(objCitizensChildModel), this.options).subscribe(response => {
+                let responseResults = ["success", response.toString()];
+                this.saveSexSubject.next(responseResults);
+            }, error => {
+                let errorResults = ["failed", error["error"]];
+                this.saveSexSubject.next(errorResults);
+            });
+        }
+    }
+    deleteSex(id) {
+        this.httpClient.delete(this.defaultAPIURLHost + "/api/mst/sex/delete/" + id, this.options).subscribe(response => {
+            let responseResults = ["success", ""];
+            this.deleteSexSubject.next(responseResults);
+        }, error => {
+            let errorResults = ["failed", error["error"]];
+            this.deleteSexSubject.next(errorResults);
+        });
+    }
+    listCivilStatus() {
+        let listCivilStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listCivilStatusSubject.next(listCivilStatusObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/mst/civilStatus/list", this.options).subscribe(response => {
+            let results = response;
+            if (results["length"] > 0) {
+                for (let i = 0; i <= results["length"] - 1; i++) {
+                    listCivilStatusObservableArray.push({
+                        Id: results[i].Id,
+                        CivilStatus: results[i].CivilStatus
+                    });
+                }
+            }
+            this.listCivilStatusSubject.next(listCivilStatusObservableArray);
+        });
+    }
+    saveCivilStatus(objCitizensChildModel) {
+        if (objCitizensChildModel.Id == 0) {
+            this.httpClient.post(this.defaultAPIURLHost + "/api/mst/civilStatus/add", JSON.stringify(objCitizensChildModel), this.options).subscribe(response => {
+                let responseResults = ["success", response.toString()];
+                this.saveCivilStatusSubject.next(responseResults);
+            }, error => {
+                let errorResults = ["failed", error["error"]];
+                this.saveCivilStatusSubject.next(errorResults);
+            });
+        }
+        else {
+            this.httpClient.put(this.defaultAPIURLHost + "/api/mst/civilStatus/update/" + objCitizensChildModel.Id, JSON.stringify(objCitizensChildModel), this.options).subscribe(response => {
+                let responseResults = ["success", response.toString()];
+                this.saveCivilStatusSubject.next(responseResults);
+            }, error => {
+                let errorResults = ["failed", error["error"]];
+                this.saveCivilStatusSubject.next(errorResults);
+            });
+        }
+    }
+    deleteCivilStatus(id) {
+        this.httpClient.delete(this.defaultAPIURLHost + "/api/mst/civilStatus/delete/" + id, this.options).subscribe(response => {
+            let responseResults = ["success", ""];
+            this.deleteCivilStatusSubject.next(responseResults);
+        }, error => {
+            let errorResults = ["failed", error["error"]];
+            this.deleteCivilStatusSubject.next(errorResults);
+        });
+    }
+    listEducationLevel() {
+        let listEducationLevelObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listEducationLevelSubject.next(listEducationLevelObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/mst/educationLevel/list", this.options).subscribe(response => {
+            let results = response;
+            if (results["length"] > 0) {
+                for (let i = 0; i <= results["length"] - 1; i++) {
+                    listEducationLevelObservableArray.push({
+                        Id: results[i].Id,
+                        EducationLevel: results[i].EducationLevel
+                    });
+                }
+            }
+            this.listEducationLevelSubject.next(listEducationLevelObservableArray);
+        });
+    }
+    saveEducationLevel(objCitizensChildModel) {
+        if (objCitizensChildModel.Id == 0) {
+            this.httpClient.post(this.defaultAPIURLHost + "/api/mst/educationLevel/add", JSON.stringify(objCitizensChildModel), this.options).subscribe(response => {
+                let responseResults = ["success", response.toString()];
+                this.saveEducationLevelSubject.next(responseResults);
+            }, error => {
+                let errorResults = ["failed", error["error"]];
+                this.saveEducationLevelSubject.next(errorResults);
+            });
+        }
+        else {
+            this.httpClient.put(this.defaultAPIURLHost + "/api/mst/educationLevel/update/" + objCitizensChildModel.Id, JSON.stringify(objCitizensChildModel), this.options).subscribe(response => {
+                let responseResults = ["success", response.toString()];
+                this.saveEducationLevelSubject.next(responseResults);
+            }, error => {
+                let errorResults = ["failed", error["error"]];
+                this.saveEducationLevelSubject.next(errorResults);
+            });
+        }
+    }
+    deleteEducationLevel(id) {
+        this.httpClient.delete(this.defaultAPIURLHost + "/api/mst/educationLevel/delete/" + id, this.options).subscribe(response => {
+            let responseResults = ["success", ""];
+            this.deleteEducationLevelSubject.next(responseResults);
+        }, error => {
+            let errorResults = ["failed", error["error"]];
+            this.deleteEducationLevelSubject.next(errorResults);
+        });
+    }
+    listOccupation() {
+        let listOccupationObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listOccupationSubject.next(listOccupationObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/mst/occupation/list", this.options).subscribe(response => {
+            let results = response;
+            if (results["length"] > 0) {
+                for (let i = 0; i <= results["length"] - 1; i++) {
+                    listOccupationObservableArray.push({
+                        Id: results[i].Id,
+                        Occupation: results[i].Occupation
+                    });
+                }
+            }
+            this.listOccupationSubject.next(listOccupationObservableArray);
+        });
+    }
+    saveOccupation(objCitizensChildModel) {
+        if (objCitizensChildModel.Id == 0) {
+            this.httpClient.post(this.defaultAPIURLHost + "/api/mst/occupation/add", JSON.stringify(objCitizensChildModel), this.options).subscribe(response => {
+                let responseResults = ["success", response.toString()];
+                this.saveOccupationSubject.next(responseResults);
+            }, error => {
+                let errorResults = ["failed", error["error"]];
+                this.saveOccupationSubject.next(errorResults);
+            });
+        }
+        else {
+            this.httpClient.put(this.defaultAPIURLHost + "/api/mst/occupation/update/" + objCitizensChildModel.Id, JSON.stringify(objCitizensChildModel), this.options).subscribe(response => {
+                let responseResults = ["success", response.toString()];
+                this.saveOccupationSubject.next(responseResults);
+            }, error => {
+                let errorResults = ["failed", error["error"]];
+                this.saveOccupationSubject.next(errorResults);
+            });
+        }
+    }
+    deleteOccupation(id) {
+        this.httpClient.delete(this.defaultAPIURLHost + "/api/mst/occupation/delete/" + id, this.options).subscribe(response => {
+            let responseResults = ["success", ""];
+            this.deleteOccupationSubject.next(responseResults);
+        }, error => {
+            let errorResults = ["failed", error["error"]];
+            this.deleteOccupationSubject.next(errorResults);
+        });
+    }
+    listBloodType() {
+        let listBloodTypeObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listBloodTypeSubject.next(listBloodTypeObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/mst/bloodType/list", this.options).subscribe(response => {
+            let results = response;
+            if (results["length"] > 0) {
+                for (let i = 0; i <= results["length"] - 1; i++) {
+                    listBloodTypeObservableArray.push({
+                        Id: results[i].Id,
+                        BloodType: results[i].BloodType
+                    });
+                }
+            }
+            this.listBloodTypeSubject.next(listBloodTypeObservableArray);
+        });
+    }
+    saveBloodType(objCitizensChildModel) {
+        if (objCitizensChildModel.Id == 0) {
+            this.httpClient.post(this.defaultAPIURLHost + "/api/mst/bloodType/add", JSON.stringify(objCitizensChildModel), this.options).subscribe(response => {
+                let responseResults = ["success", response.toString()];
+                this.saveBloodTypeSubject.next(responseResults);
+            }, error => {
+                let errorResults = ["failed", error["error"]];
+                this.saveBloodTypeSubject.next(errorResults);
+            });
+        }
+        else {
+            this.httpClient.put(this.defaultAPIURLHost + "/api/mst/bloodType/update/" + objCitizensChildModel.Id, JSON.stringify(objCitizensChildModel), this.options).subscribe(response => {
+                let responseResults = ["success", response.toString()];
+                this.saveBloodTypeSubject.next(responseResults);
+            }, error => {
+                let errorResults = ["failed", error["error"]];
+                this.saveBloodTypeSubject.next(errorResults);
+            });
+        }
+    }
+    deleteBloodType(id) {
+        this.httpClient.delete(this.defaultAPIURLHost + "/api/mst/bloodType/delete/" + id, this.options).subscribe(response => {
+            let responseResults = ["success", ""];
+            this.deleteBloodTypeSubject.next(responseResults);
+        }, error => {
+            let errorResults = ["failed", error["error"]];
+            this.deleteBloodTypeSubject.next(errorResults);
+        });
+    }
+    listStatus() {
+        let listStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listStatusSubject.next(listStatusObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/mst/status/list", this.options).subscribe(response => {
+            let results = response;
+            if (results["length"] > 0) {
+                for (let i = 0; i <= results["length"] - 1; i++) {
+                    listStatusObservableArray.push({
+                        Id: results[i].Id,
+                        Status: results[i].Status,
+                        Category: results[i].Category
+                    });
+                }
+            }
+            this.listStatusSubject.next(listStatusObservableArray);
+        });
+    }
+    saveStatus(objCitizensChildModel) {
+        if (objCitizensChildModel.Id == 0) {
+            this.httpClient.post(this.defaultAPIURLHost + "/api/mst/status/add", JSON.stringify(objCitizensChildModel), this.options).subscribe(response => {
+                let responseResults = ["success", response.toString()];
+                this.saveStatusSubject.next(responseResults);
+            }, error => {
+                let errorResults = ["failed", error["error"]];
+                this.saveStatusSubject.next(errorResults);
+            });
+        }
+        else {
+            this.httpClient.put(this.defaultAPIURLHost + "/api/mst/status/update/" + objCitizensChildModel.Id, JSON.stringify(objCitizensChildModel), this.options).subscribe(response => {
+                let responseResults = ["success", response.toString()];
+                this.saveStatusSubject.next(responseResults);
+            }, error => {
+                let errorResults = ["failed", error["error"]];
+                this.saveStatusSubject.next(errorResults);
+            });
+        }
+    }
+    deleteStatus(id) {
+        this.httpClient.delete(this.defaultAPIURLHost + "/api/mst/status/delete/" + id, this.options).subscribe(response => {
+            let responseResults = ["success", ""];
+            this.deleteStatusSubject.next(responseResults);
+        }, error => {
+            let errorResults = ["failed", error["error"]];
+            this.deleteStatusSubject.next(errorResults);
+        });
+    }
+};
+SystemTablesService.ctorParameters = () => [
+    { type: _app_settings__WEBPACK_IMPORTED_MODULE_2__["AppSettings"] },
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] }
+];
+SystemTablesService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+    })
+], SystemTablesService);
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/system-tables/type-of-citizenship-delete-dialog/type-of-citizenship-delete-dialog.component.css":
+/*!**************************************************************************************************************************!*\
+  !*** ./src/app/software/system-tables/type-of-citizenship-delete-dialog/type-of-citizenship-delete-dialog.component.css ***!
+  \**************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL3N5c3RlbS10YWJsZXMvdHlwZS1vZi1jaXRpemVuc2hpcC1kZWxldGUtZGlhbG9nL3R5cGUtb2YtY2l0aXplbnNoaXAtZGVsZXRlLWRpYWxvZy5jb21wb25lbnQuY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/software/system-tables/type-of-citizenship-delete-dialog/type-of-citizenship-delete-dialog.component.ts":
+/*!*************************************************************************************************************************!*\
+  !*** ./src/app/software/system-tables/type-of-citizenship-delete-dialog/type-of-citizenship-delete-dialog.component.ts ***!
+  \*************************************************************************************************************************/
+/*! exports provided: TypeOfCitizenshipDeleteDialogComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TypeOfCitizenshipDeleteDialogComponent", function() { return TypeOfCitizenshipDeleteDialogComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm2015/dialog.js");
+/* harmony import */ var _system_tables_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../system-tables.service */ "./src/app/software/system-tables/system-tables.service.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm2015/ngx-toastr.js");
+
+
+
+
+
+let TypeOfCitizenshipDeleteDialogComponent = class TypeOfCitizenshipDeleteDialogComponent {
+    constructor(systemTablesService, typeOfTypeOfCitizenshipDeleteDialogRef, typeOfCitizenshipData, toastr) {
+        this.systemTablesService = systemTablesService;
+        this.typeOfTypeOfCitizenshipDeleteDialogRef = typeOfTypeOfCitizenshipDeleteDialogRef;
+        this.typeOfCitizenshipData = typeOfCitizenshipData;
+        this.toastr = toastr;
+    }
+    btnDeleteTypeOfCitizenship() {
+        let btnDeleteTypeOfCitizenship = document.getElementById("btnDeleteTypeOfCitizenship");
+        let btnCloseDeleteDialog = document.getElementById("btnCloseDeleteDialog");
+        btnDeleteTypeOfCitizenship.setAttribute("disabled", "disabled");
+        btnCloseDeleteDialog.setAttribute("disabled", "disabled");
+        this.systemTablesService.deleteTypeOfCitizenship(this.typeOfCitizenshipData.objTypeOfCitizenshipModel.Id);
+        this.deleteTypeOfCitizenshipSubscription = this.systemTablesService.deleteTypeOfCitizenshipObservable.subscribe(data => {
+            if (data[0] == "success") {
+                this.toastr.success("Citizenship type was successfully deleted.", "Success");
+                this.typeOfTypeOfCitizenshipDeleteDialogRef.close(200);
+            }
+            else if (data[0] == "failed") {
+                this.toastr.error(data[1], "Error");
+                btnDeleteTypeOfCitizenship.removeAttribute("disabled");
+                btnCloseDeleteDialog.removeAttribute("disabled");
+            }
+            if (this.deleteTypeOfCitizenshipSubscription != null)
+                this.deleteTypeOfCitizenshipSubscription.unsubscribe();
+        });
+    }
+    btnCloseDeleteDialog() {
+        this.typeOfTypeOfCitizenshipDeleteDialogRef.close();
+        if (this.deleteTypeOfCitizenshipSubscription != null)
+            this.deleteTypeOfCitizenshipSubscription.unsubscribe();
+    }
+    ngOnInit() {
+    }
+    ngOnDestroy() {
+        if (this.deleteTypeOfCitizenshipSubscription != null)
+            this.deleteTypeOfCitizenshipSubscription.unsubscribe();
+    }
+};
+TypeOfCitizenshipDeleteDialogComponent.ctorParameters = () => [
+    { type: _system_tables_service__WEBPACK_IMPORTED_MODULE_3__["SystemTablesService"] },
+    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"] },
+    { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"],] }] },
+    { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_4__["ToastrService"] }
+];
+TypeOfCitizenshipDeleteDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-type-of-citizenship-delete-dialog',
+        template: __webpack_require__(/*! raw-loader!./type-of-citizenship-delete-dialog.component.html */ "./node_modules/raw-loader/index.js!./src/app/software/system-tables/type-of-citizenship-delete-dialog/type-of-citizenship-delete-dialog.component.html"),
+        styles: [__webpack_require__(/*! ./type-of-citizenship-delete-dialog.component.css */ "./src/app/software/system-tables/type-of-citizenship-delete-dialog/type-of-citizenship-delete-dialog.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"]))
+], TypeOfCitizenshipDeleteDialogComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/system-tables/type-of-citizenship-detail-dialog/type-of-citizenship-detail-dialog.component.css":
+/*!**************************************************************************************************************************!*\
+  !*** ./src/app/software/system-tables/type-of-citizenship-detail-dialog/type-of-citizenship-detail-dialog.component.css ***!
+  \**************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL3N5c3RlbS10YWJsZXMvdHlwZS1vZi1jaXRpemVuc2hpcC1kZXRhaWwtZGlhbG9nL3R5cGUtb2YtY2l0aXplbnNoaXAtZGV0YWlsLWRpYWxvZy5jb21wb25lbnQuY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/software/system-tables/type-of-citizenship-detail-dialog/type-of-citizenship-detail-dialog.component.ts":
+/*!*************************************************************************************************************************!*\
+  !*** ./src/app/software/system-tables/type-of-citizenship-detail-dialog/type-of-citizenship-detail-dialog.component.ts ***!
+  \*************************************************************************************************************************/
+/*! exports provided: TypeOfCitizenshipDetailDialogComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TypeOfCitizenshipDetailDialogComponent", function() { return TypeOfCitizenshipDetailDialogComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm2015/dialog.js");
+/* harmony import */ var _system_tables_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../system-tables.service */ "./src/app/software/system-tables/system-tables.service.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm2015/ngx-toastr.js");
+
+
+
+
+
+let TypeOfCitizenshipDetailDialogComponent = class TypeOfCitizenshipDetailDialogComponent {
+    constructor(systemTablesService, typeOfCitizenshipDetailDialogRef, typeOfCitizenshipData, toastr) {
+        this.systemTablesService = systemTablesService;
+        this.typeOfCitizenshipDetailDialogRef = typeOfCitizenshipDetailDialogRef;
+        this.typeOfCitizenshipData = typeOfCitizenshipData;
+        this.toastr = toastr;
+        this.dialogTitle = "Citizenship Type Detail";
+        this.typeOfCitizenshipModel = {
+            Id: this.typeOfCitizenshipData.objTypeOfCitizenshipModel.Id,
+            TypeOfCitizenship: this.typeOfCitizenshipData.objTypeOfCitizenshipModel.TypeOfCitizenship
+        };
+    }
+    btnSaveTypeOfCitizenship() {
+        let btnSaveTypeOfCitizenship = document.getElementById("btnSaveTypeOfCitizenship");
+        let btnCloseTypeOfCitizenshipDialog = document.getElementById("btnCloseTypeOfCitizenshipDialog");
+        btnSaveTypeOfCitizenship.setAttribute("disabled", "disabled");
+        btnCloseTypeOfCitizenshipDialog.setAttribute("disabled", "disabled");
+        this.systemTablesService.saveTypeOfCitizenship(this.typeOfCitizenshipModel);
+        this.saveTypeOfCitizenshipSubscription = this.systemTablesService.saveTypeOfCitizenshipObservable.subscribe(data => {
+            if (data[0] == "success") {
+                this.toastr.success("Citizenship type was successfully saved.", "Success");
+                this.typeOfCitizenshipDetailDialogRef.close(200);
+            }
+            else if (data[0] == "failed") {
+                this.toastr.error(data[1], "Error");
+                btnSaveTypeOfCitizenship.removeAttribute("disabled");
+                btnCloseTypeOfCitizenshipDialog.removeAttribute("disabled");
+            }
+            if (this.saveTypeOfCitizenshipSubscription != null)
+                this.saveTypeOfCitizenshipSubscription.unsubscribe();
+        });
+    }
+    btnCloseTypeOfCitizenshipDialog() {
+        this.typeOfCitizenshipDetailDialogRef.close();
+        if (this.saveTypeOfCitizenshipSubscription != null)
+            this.saveTypeOfCitizenshipSubscription.unsubscribe();
+    }
+    ngOnInit() {
+        this.dialogTitle = this.typeOfCitizenshipData.objDialogTitle;
+    }
+    ngOnDestroy() {
+        if (this.saveTypeOfCitizenshipSubscription != null)
+            this.saveTypeOfCitizenshipSubscription.unsubscribe();
+    }
+};
+TypeOfCitizenshipDetailDialogComponent.ctorParameters = () => [
+    { type: _system_tables_service__WEBPACK_IMPORTED_MODULE_3__["SystemTablesService"] },
+    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"] },
+    { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"],] }] },
+    { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_4__["ToastrService"] }
+];
+TypeOfCitizenshipDetailDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-type-of-citizenship-detail-dialog',
+        template: __webpack_require__(/*! raw-loader!./type-of-citizenship-detail-dialog.component.html */ "./node_modules/raw-loader/index.js!./src/app/software/system-tables/type-of-citizenship-detail-dialog/type-of-citizenship-detail-dialog.component.html"),
+        styles: [__webpack_require__(/*! ./type-of-citizenship-detail-dialog.component.css */ "./src/app/software/system-tables/type-of-citizenship-detail-dialog/type-of-citizenship-detail-dialog.component.css")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"]))
+], TypeOfCitizenshipDetailDialogComponent);
 
 
 
