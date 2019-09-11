@@ -1290,6 +1290,769 @@ var MatButtonToggleModule = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./node_modules/@angular/material/esm5/checkbox.es5.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/@angular/material/esm5/checkbox.es5.js ***!
+  \*************************************************************/
+/*! exports provided: MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MatCheckboxChange, MatCheckbox, MAT_CHECKBOX_CLICK_ACTION, _MatCheckboxRequiredValidatorModule, MatCheckboxModule, MAT_CHECKBOX_REQUIRED_VALIDATOR, MatCheckboxRequiredValidator */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR", function() { return MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TransitionCheckState", function() { return TransitionCheckState; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MatCheckboxChange", function() { return MatCheckboxChange; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MatCheckbox", function() { return MatCheckbox; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MAT_CHECKBOX_CLICK_ACTION", function() { return MAT_CHECKBOX_CLICK_ACTION; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_MatCheckboxRequiredValidatorModule", function() { return _MatCheckboxRequiredValidatorModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MatCheckboxModule", function() { return MatCheckboxModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MAT_CHECKBOX_REQUIRED_VALIDATOR", function() { return MAT_CHECKBOX_REQUIRED_VALIDATOR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MatCheckboxRequiredValidator", function() { return MatCheckboxRequiredValidator; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/cdk/a11y */ "./node_modules/@angular/cdk/esm5/a11y.es5.js");
+/* harmony import */ var _angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/cdk/coercion */ "./node_modules/@angular/cdk/esm5/coercion.es5.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _angular_material_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material/core */ "./node_modules/@angular/material/esm5/core.es5.js");
+/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm5/animations.js");
+/* harmony import */ var _angular_cdk_observers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/cdk/observers */ "./node_modules/@angular/cdk/esm5/observers.es5.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+
+
+
+
+
+
+
+
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * Injection token that can be used to specify the checkbox click behavior.
+ * @type {?}
+ */
+var MAT_CHECKBOX_CLICK_ACTION = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["InjectionToken"]('mat-checkbox-click-action');
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+// Increasing integer for generating unique ids for checkbox components.
+/** @type {?} */
+var nextUniqueId = 0;
+/**
+ * Provider Expression that allows mat-checkbox to register as a ControlValueAccessor.
+ * This allows it to support [(ngModel)].
+ * \@docs-private
+ * @type {?}
+ */
+var MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR = {
+    provide: _angular_forms__WEBPACK_IMPORTED_MODULE_4__["NG_VALUE_ACCESSOR"],
+    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["forwardRef"])((/**
+     * @return {?}
+     */
+    function () { return MatCheckbox; })),
+    multi: true
+};
+/** @enum {number} */
+var TransitionCheckState = {
+    /** The initial state of the component before any user interaction. */
+    Init: 0,
+    /** The state representing the component when it's becoming checked. */
+    Checked: 1,
+    /** The state representing the component when it's becoming unchecked. */
+    Unchecked: 2,
+    /** The state representing the component when it's becoming indeterminate. */
+    Indeterminate: 3,
+};
+TransitionCheckState[TransitionCheckState.Init] = 'Init';
+TransitionCheckState[TransitionCheckState.Checked] = 'Checked';
+TransitionCheckState[TransitionCheckState.Unchecked] = 'Unchecked';
+TransitionCheckState[TransitionCheckState.Indeterminate] = 'Indeterminate';
+/**
+ * Change event object emitted by MatCheckbox.
+ */
+var  /**
+ * Change event object emitted by MatCheckbox.
+ */
+MatCheckboxChange = /** @class */ (function () {
+    function MatCheckboxChange() {
+    }
+    return MatCheckboxChange;
+}());
+// Boilerplate for applying mixins to MatCheckbox.
+/**
+ * \@docs-private
+ */
+var 
+// Boilerplate for applying mixins to MatCheckbox.
+/**
+ * \@docs-private
+ */
+MatCheckboxBase = /** @class */ (function () {
+    function MatCheckboxBase(_elementRef) {
+        this._elementRef = _elementRef;
+    }
+    return MatCheckboxBase;
+}());
+/** @type {?} */
+var _MatCheckboxMixinBase = Object(_angular_material_core__WEBPACK_IMPORTED_MODULE_5__["mixinTabIndex"])(Object(_angular_material_core__WEBPACK_IMPORTED_MODULE_5__["mixinColor"])(Object(_angular_material_core__WEBPACK_IMPORTED_MODULE_5__["mixinDisableRipple"])(Object(_angular_material_core__WEBPACK_IMPORTED_MODULE_5__["mixinDisabled"])(MatCheckboxBase)), 'accent'));
+/**
+ * A material design checkbox component. Supports all of the functionality of an HTML5 checkbox,
+ * and exposes a similar API. A MatCheckbox can be either checked, unchecked, indeterminate, or
+ * disabled. Note that all additional accessibility attributes are taken care of by the component,
+ * so there is no need to provide them yourself. However, if you want to omit a label and still
+ * have the checkbox be accessible, you may supply an [aria-label] input.
+ * See: https://material.io/design/components/selection-controls.html
+ */
+var MatCheckbox = /** @class */ (function (_super) {
+    Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__extends"])(MatCheckbox, _super);
+    function MatCheckbox(elementRef, _changeDetectorRef, _focusMonitor, _ngZone, tabIndex, _clickAction, _animationMode) {
+        var _this = _super.call(this, elementRef) || this;
+        _this._changeDetectorRef = _changeDetectorRef;
+        _this._focusMonitor = _focusMonitor;
+        _this._ngZone = _ngZone;
+        _this._clickAction = _clickAction;
+        _this._animationMode = _animationMode;
+        /**
+         * Attached to the aria-label attribute of the host element. In most cases, aria-labelledby will
+         * take precedence so this may be omitted.
+         */
+        _this.ariaLabel = '';
+        /**
+         * Users can specify the `aria-labelledby` attribute which will be forwarded to the input element
+         */
+        _this.ariaLabelledby = null;
+        _this._uniqueId = "mat-checkbox-" + ++nextUniqueId;
+        /**
+         * A unique id for the checkbox input. If none is supplied, it will be auto-generated.
+         */
+        _this.id = _this._uniqueId;
+        /**
+         * Whether the label should appear after or before the checkbox. Defaults to 'after'
+         */
+        _this.labelPosition = 'after';
+        /**
+         * Name value will be applied to the input element if present
+         */
+        _this.name = null;
+        /**
+         * Event emitted when the checkbox's `checked` value changes.
+         */
+        _this.change = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        /**
+         * Event emitted when the checkbox's `indeterminate` value changes.
+         */
+        _this.indeterminateChange = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        /**
+         * Called when the checkbox is blurred. Needed to properly implement ControlValueAccessor.
+         * \@docs-private
+         */
+        _this._onTouched = (/**
+         * @return {?}
+         */
+        function () { });
+        _this._currentAnimationClass = '';
+        _this._currentCheckState = TransitionCheckState.Init;
+        _this._controlValueAccessorChangeFn = (/**
+         * @return {?}
+         */
+        function () { });
+        _this._checked = false;
+        _this._disabled = false;
+        _this._indeterminate = false;
+        _this.tabIndex = parseInt(tabIndex) || 0;
+        _this._focusMonitor.monitor(elementRef, true).subscribe((/**
+         * @param {?} focusOrigin
+         * @return {?}
+         */
+        function (focusOrigin) {
+            if (!focusOrigin) {
+                // When a focused element becomes disabled, the browser *immediately* fires a blur event.
+                // Angular does not expect events to be raised during change detection, so any state change
+                // (such as a form control's 'ng-touched') will cause a changed-after-checked error.
+                // See https://github.com/angular/angular/issues/17793. To work around this, we defer
+                // telling the form control it has been touched until the next tick.
+                Promise.resolve().then((/**
+                 * @return {?}
+                 */
+                function () {
+                    _this._onTouched();
+                    _changeDetectorRef.markForCheck();
+                }));
+            }
+        }));
+        return _this;
+    }
+    Object.defineProperty(MatCheckbox.prototype, "inputId", {
+        /** Returns the unique id for the visual hidden input. */
+        get: /**
+         * Returns the unique id for the visual hidden input.
+         * @return {?}
+         */
+        function () { return (this.id || this._uniqueId) + "-input"; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatCheckbox.prototype, "required", {
+        /** Whether the checkbox is required. */
+        get: /**
+         * Whether the checkbox is required.
+         * @return {?}
+         */
+        function () { return this._required; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) { this._required = Object(_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_3__["coerceBooleanProperty"])(value); },
+        enumerable: true,
+        configurable: true
+    });
+    // TODO: Delete next major revision.
+    // TODO: Delete next major revision.
+    /**
+     * @return {?}
+     */
+    MatCheckbox.prototype.ngAfterViewChecked = 
+    // TODO: Delete next major revision.
+    /**
+     * @return {?}
+     */
+    function () { };
+    /**
+     * @return {?}
+     */
+    MatCheckbox.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        this._focusMonitor.stopMonitoring(this._elementRef);
+    };
+    Object.defineProperty(MatCheckbox.prototype, "checked", {
+        /**
+         * Whether the checkbox is checked.
+         */
+        get: /**
+         * Whether the checkbox is checked.
+         * @return {?}
+         */
+        function () { return this._checked; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            if (value != this.checked) {
+                this._checked = value;
+                this._changeDetectorRef.markForCheck();
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatCheckbox.prototype, "disabled", {
+        /**
+         * Whether the checkbox is disabled. This fully overrides the implementation provided by
+         * mixinDisabled, but the mixin is still required because mixinTabIndex requires it.
+         */
+        get: /**
+         * Whether the checkbox is disabled. This fully overrides the implementation provided by
+         * mixinDisabled, but the mixin is still required because mixinTabIndex requires it.
+         * @return {?}
+         */
+        function () { return this._disabled; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            /** @type {?} */
+            var newValue = Object(_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_3__["coerceBooleanProperty"])(value);
+            if (newValue !== this.disabled) {
+                this._disabled = newValue;
+                this._changeDetectorRef.markForCheck();
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatCheckbox.prototype, "indeterminate", {
+        /**
+         * Whether the checkbox is indeterminate. This is also known as "mixed" mode and can be used to
+         * represent a checkbox with three states, e.g. a checkbox that represents a nested list of
+         * checkable items. Note that whenever checkbox is manually clicked, indeterminate is immediately
+         * set to false.
+         */
+        get: /**
+         * Whether the checkbox is indeterminate. This is also known as "mixed" mode and can be used to
+         * represent a checkbox with three states, e.g. a checkbox that represents a nested list of
+         * checkable items. Note that whenever checkbox is manually clicked, indeterminate is immediately
+         * set to false.
+         * @return {?}
+         */
+        function () { return this._indeterminate; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            /** @type {?} */
+            var changed = value != this._indeterminate;
+            this._indeterminate = value;
+            if (changed) {
+                if (this._indeterminate) {
+                    this._transitionCheckState(TransitionCheckState.Indeterminate);
+                }
+                else {
+                    this._transitionCheckState(this.checked ? TransitionCheckState.Checked : TransitionCheckState.Unchecked);
+                }
+                this.indeterminateChange.emit(this._indeterminate);
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    MatCheckbox.prototype._isRippleDisabled = /**
+     * @return {?}
+     */
+    function () {
+        return this.disableRipple || this.disabled;
+    };
+    /** Method being called whenever the label text changes. */
+    /**
+     * Method being called whenever the label text changes.
+     * @return {?}
+     */
+    MatCheckbox.prototype._onLabelTextChange = /**
+     * Method being called whenever the label text changes.
+     * @return {?}
+     */
+    function () {
+        // Since the event of the `cdkObserveContent` directive runs outside of the zone, the checkbox
+        // component will be only marked for check, but no actual change detection runs automatically.
+        // Instead of going back into the zone in order to trigger a change detection which causes
+        // *all* components to be checked (if explicitly marked or not using OnPush), we only trigger
+        // an explicit change detection for the checkbox view and it's children.
+        this._changeDetectorRef.detectChanges();
+    };
+    // Implemented as part of ControlValueAccessor.
+    // Implemented as part of ControlValueAccessor.
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    MatCheckbox.prototype.writeValue = 
+    // Implemented as part of ControlValueAccessor.
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    function (value) {
+        this.checked = !!value;
+    };
+    // Implemented as part of ControlValueAccessor.
+    // Implemented as part of ControlValueAccessor.
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
+    MatCheckbox.prototype.registerOnChange = 
+    // Implemented as part of ControlValueAccessor.
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
+    function (fn) {
+        this._controlValueAccessorChangeFn = fn;
+    };
+    // Implemented as part of ControlValueAccessor.
+    // Implemented as part of ControlValueAccessor.
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
+    MatCheckbox.prototype.registerOnTouched = 
+    // Implemented as part of ControlValueAccessor.
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
+    function (fn) {
+        this._onTouched = fn;
+    };
+    // Implemented as part of ControlValueAccessor.
+    // Implemented as part of ControlValueAccessor.
+    /**
+     * @param {?} isDisabled
+     * @return {?}
+     */
+    MatCheckbox.prototype.setDisabledState = 
+    // Implemented as part of ControlValueAccessor.
+    /**
+     * @param {?} isDisabled
+     * @return {?}
+     */
+    function (isDisabled) {
+        this.disabled = isDisabled;
+    };
+    /**
+     * @return {?}
+     */
+    MatCheckbox.prototype._getAriaChecked = /**
+     * @return {?}
+     */
+    function () {
+        return this.checked ? 'true' : (this.indeterminate ? 'mixed' : 'false');
+    };
+    /**
+     * @private
+     * @param {?} newState
+     * @return {?}
+     */
+    MatCheckbox.prototype._transitionCheckState = /**
+     * @private
+     * @param {?} newState
+     * @return {?}
+     */
+    function (newState) {
+        /** @type {?} */
+        var oldState = this._currentCheckState;
+        /** @type {?} */
+        var element = this._elementRef.nativeElement;
+        if (oldState === newState) {
+            return;
+        }
+        if (this._currentAnimationClass.length > 0) {
+            element.classList.remove(this._currentAnimationClass);
+        }
+        this._currentAnimationClass = this._getAnimationClassForCheckStateTransition(oldState, newState);
+        this._currentCheckState = newState;
+        if (this._currentAnimationClass.length > 0) {
+            element.classList.add(this._currentAnimationClass);
+            // Remove the animation class to avoid animation when the checkbox is moved between containers
+            /** @type {?} */
+            var animationClass_1 = this._currentAnimationClass;
+            this._ngZone.runOutsideAngular((/**
+             * @return {?}
+             */
+            function () {
+                setTimeout((/**
+                 * @return {?}
+                 */
+                function () {
+                    element.classList.remove(animationClass_1);
+                }), 1000);
+            }));
+        }
+    };
+    /**
+     * @private
+     * @return {?}
+     */
+    MatCheckbox.prototype._emitChangeEvent = /**
+     * @private
+     * @return {?}
+     */
+    function () {
+        /** @type {?} */
+        var event = new MatCheckboxChange();
+        event.source = this;
+        event.checked = this.checked;
+        this._controlValueAccessorChangeFn(this.checked);
+        this.change.emit(event);
+    };
+    /** Toggles the `checked` state of the checkbox. */
+    /**
+     * Toggles the `checked` state of the checkbox.
+     * @return {?}
+     */
+    MatCheckbox.prototype.toggle = /**
+     * Toggles the `checked` state of the checkbox.
+     * @return {?}
+     */
+    function () {
+        this.checked = !this.checked;
+    };
+    /**
+     * Event handler for checkbox input element.
+     * Toggles checked state if element is not disabled.
+     * Do not toggle on (change) event since IE doesn't fire change event when
+     *   indeterminate checkbox is clicked.
+     * @param event
+     */
+    /**
+     * Event handler for checkbox input element.
+     * Toggles checked state if element is not disabled.
+     * Do not toggle on (change) event since IE doesn't fire change event when
+     *   indeterminate checkbox is clicked.
+     * @param {?} event
+     * @return {?}
+     */
+    MatCheckbox.prototype._onInputClick = /**
+     * Event handler for checkbox input element.
+     * Toggles checked state if element is not disabled.
+     * Do not toggle on (change) event since IE doesn't fire change event when
+     *   indeterminate checkbox is clicked.
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        var _this = this;
+        // We have to stop propagation for click events on the visual hidden input element.
+        // By default, when a user clicks on a label element, a generated click event will be
+        // dispatched on the associated input element. Since we are using a label element as our
+        // root container, the click event on the `checkbox` will be executed twice.
+        // The real click event will bubble up, and the generated click event also tries to bubble up.
+        // This will lead to multiple click events.
+        // Preventing bubbling for the second event will solve that issue.
+        event.stopPropagation();
+        // If resetIndeterminate is false, and the current state is indeterminate, do nothing on click
+        if (!this.disabled && this._clickAction !== 'noop') {
+            // When user manually click on the checkbox, `indeterminate` is set to false.
+            if (this.indeterminate && this._clickAction !== 'check') {
+                Promise.resolve().then((/**
+                 * @return {?}
+                 */
+                function () {
+                    _this._indeterminate = false;
+                    _this.indeterminateChange.emit(_this._indeterminate);
+                }));
+            }
+            this.toggle();
+            this._transitionCheckState(this._checked ? TransitionCheckState.Checked : TransitionCheckState.Unchecked);
+            // Emit our custom change event if the native input emitted one.
+            // It is important to only emit it, if the native input triggered one, because
+            // we don't want to trigger a change event, when the `checked` variable changes for example.
+            this._emitChangeEvent();
+        }
+        else if (!this.disabled && this._clickAction === 'noop') {
+            // Reset native input when clicked with noop. The native checkbox becomes checked after
+            // click, reset it to be align with `checked` value of `mat-checkbox`.
+            this._inputElement.nativeElement.checked = this.checked;
+            this._inputElement.nativeElement.indeterminate = this.indeterminate;
+        }
+    };
+    /** Focuses the checkbox. */
+    /**
+     * Focuses the checkbox.
+     * @return {?}
+     */
+    MatCheckbox.prototype.focus = /**
+     * Focuses the checkbox.
+     * @return {?}
+     */
+    function () {
+        this._focusMonitor.focusVia(this._inputElement, 'keyboard');
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    MatCheckbox.prototype._onInteractionEvent = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        // We always have to stop propagation on the change event.
+        // Otherwise the change event, from the input element, will bubble up and
+        // emit its event object to the `change` output.
+        event.stopPropagation();
+    };
+    /**
+     * @private
+     * @param {?} oldState
+     * @param {?} newState
+     * @return {?}
+     */
+    MatCheckbox.prototype._getAnimationClassForCheckStateTransition = /**
+     * @private
+     * @param {?} oldState
+     * @param {?} newState
+     * @return {?}
+     */
+    function (oldState, newState) {
+        // Don't transition if animations are disabled.
+        if (this._animationMode === 'NoopAnimations') {
+            return '';
+        }
+        /** @type {?} */
+        var animSuffix = '';
+        switch (oldState) {
+            case TransitionCheckState.Init:
+                // Handle edge case where user interacts with checkbox that does not have [(ngModel)] or
+                // [checked] bound to it.
+                if (newState === TransitionCheckState.Checked) {
+                    animSuffix = 'unchecked-checked';
+                }
+                else if (newState == TransitionCheckState.Indeterminate) {
+                    animSuffix = 'unchecked-indeterminate';
+                }
+                else {
+                    return '';
+                }
+                break;
+            case TransitionCheckState.Unchecked:
+                animSuffix = newState === TransitionCheckState.Checked ?
+                    'unchecked-checked' : 'unchecked-indeterminate';
+                break;
+            case TransitionCheckState.Checked:
+                animSuffix = newState === TransitionCheckState.Unchecked ?
+                    'checked-unchecked' : 'checked-indeterminate';
+                break;
+            case TransitionCheckState.Indeterminate:
+                animSuffix = newState === TransitionCheckState.Checked ?
+                    'indeterminate-checked' : 'indeterminate-unchecked';
+                break;
+        }
+        return "mat-checkbox-anim-" + animSuffix;
+    };
+    MatCheckbox.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{selector: 'mat-checkbox',
+                    template: "<label [attr.for]=\"inputId\" class=\"mat-checkbox-layout\" #label><div class=\"mat-checkbox-inner-container\" [class.mat-checkbox-inner-container-no-side-margin]=\"!checkboxLabel.textContent || !checkboxLabel.textContent.trim()\"><input #input class=\"mat-checkbox-input cdk-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [checked]=\"checked\" [attr.value]=\"value\" [disabled]=\"disabled\" [attr.name]=\"name\" [tabIndex]=\"tabIndex\" [indeterminate]=\"indeterminate\" [attr.aria-label]=\"ariaLabel || null\" [attr.aria-labelledby]=\"ariaLabelledby\" [attr.aria-checked]=\"_getAriaChecked()\" (change)=\"_onInteractionEvent($event)\" (click)=\"_onInputClick($event)\"><div matRipple class=\"mat-checkbox-ripple\" [matRippleTrigger]=\"label\" [matRippleDisabled]=\"_isRippleDisabled()\" [matRippleRadius]=\"20\" [matRippleCentered]=\"true\" [matRippleAnimation]=\"{enterDuration: 150}\"><div class=\"mat-ripple-element mat-checkbox-persistent-ripple\"></div></div><div class=\"mat-checkbox-frame\"></div><div class=\"mat-checkbox-background\"><svg version=\"1.1\" focusable=\"false\" class=\"mat-checkbox-checkmark\" viewBox=\"0 0 24 24\" xml:space=\"preserve\"><path class=\"mat-checkbox-checkmark-path\" fill=\"none\" stroke=\"white\" d=\"M4.1,12.7 9,17.6 20.3,6.3\"/></svg><div class=\"mat-checkbox-mixedmark\"></div></div></div><span class=\"mat-checkbox-label\" #checkboxLabel (cdkObserveContent)=\"_onLabelTextChange()\"><span style=\"display:none\">&nbsp;</span><ng-content></ng-content></span></label>",
+                    styles: ["@keyframes mat-checkbox-fade-in-background{0%{opacity:0}50%{opacity:1}}@keyframes mat-checkbox-fade-out-background{0%,50%{opacity:1}100%{opacity:0}}@keyframes mat-checkbox-unchecked-checked-checkmark-path{0%,50%{stroke-dashoffset:22.91026}50%{animation-timing-function:cubic-bezier(0,0,.2,.1)}100%{stroke-dashoffset:0}}@keyframes mat-checkbox-unchecked-indeterminate-mixedmark{0%,68.2%{transform:scaleX(0)}68.2%{animation-timing-function:cubic-bezier(0,0,0,1)}100%{transform:scaleX(1)}}@keyframes mat-checkbox-checked-unchecked-checkmark-path{from{animation-timing-function:cubic-bezier(.4,0,1,1);stroke-dashoffset:0}to{stroke-dashoffset:-22.91026}}@keyframes mat-checkbox-checked-indeterminate-checkmark{from{animation-timing-function:cubic-bezier(0,0,.2,.1);opacity:1;transform:rotate(0)}to{opacity:0;transform:rotate(45deg)}}@keyframes mat-checkbox-indeterminate-checked-checkmark{from{animation-timing-function:cubic-bezier(.14,0,0,1);opacity:0;transform:rotate(45deg)}to{opacity:1;transform:rotate(360deg)}}@keyframes mat-checkbox-checked-indeterminate-mixedmark{from{animation-timing-function:cubic-bezier(0,0,.2,.1);opacity:0;transform:rotate(-45deg)}to{opacity:1;transform:rotate(0)}}@keyframes mat-checkbox-indeterminate-checked-mixedmark{from{animation-timing-function:cubic-bezier(.14,0,0,1);opacity:1;transform:rotate(0)}to{opacity:0;transform:rotate(315deg)}}@keyframes mat-checkbox-indeterminate-unchecked-mixedmark{0%{animation-timing-function:linear;opacity:1;transform:scaleX(1)}100%,32.8%{opacity:0;transform:scaleX(0)}}.mat-checkbox-background,.mat-checkbox-frame{top:0;left:0;right:0;bottom:0;position:absolute;border-radius:2px;box-sizing:border-box;pointer-events:none}.mat-checkbox{transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1);cursor:pointer;-webkit-tap-highlight-color:transparent}._mat-animation-noopable.mat-checkbox{transition:none;animation:none}.mat-checkbox .mat-ripple-element:not(.mat-checkbox-persistent-ripple){opacity:.16}.mat-checkbox-layout{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:inherit;align-items:baseline;vertical-align:middle;display:inline-flex;white-space:nowrap}.mat-checkbox-label{-webkit-user-select:auto;-moz-user-select:auto;-ms-user-select:auto;user-select:auto}.mat-checkbox-inner-container{display:inline-block;height:16px;line-height:0;margin:auto;margin-right:8px;order:0;position:relative;vertical-align:middle;white-space:nowrap;width:16px;flex-shrink:0}[dir=rtl] .mat-checkbox-inner-container{margin-left:8px;margin-right:auto}.mat-checkbox-inner-container-no-side-margin{margin-left:0;margin-right:0}.mat-checkbox-frame{background-color:transparent;transition:border-color 90ms cubic-bezier(0,0,.2,.1);border-width:2px;border-style:solid}._mat-animation-noopable .mat-checkbox-frame{transition:none}@media (-ms-high-contrast:active){.mat-checkbox.cdk-keyboard-focused .mat-checkbox-frame{border-style:dotted}}.mat-checkbox-background{align-items:center;display:inline-flex;justify-content:center;transition:background-color 90ms cubic-bezier(0,0,.2,.1),opacity 90ms cubic-bezier(0,0,.2,.1)}._mat-animation-noopable .mat-checkbox-background{transition:none}.mat-checkbox-persistent-ripple{width:100%;height:100%;transform:none}.mat-checkbox-inner-container:hover .mat-checkbox-persistent-ripple{opacity:.04}.mat-checkbox.cdk-keyboard-focused .mat-checkbox-persistent-ripple{opacity:.12}.mat-checkbox-persistent-ripple,.mat-checkbox.mat-checkbox-disabled .mat-checkbox-inner-container:hover .mat-checkbox-persistent-ripple{opacity:0}@media (hover:none){.mat-checkbox-inner-container:hover .mat-checkbox-persistent-ripple{display:none}}.mat-checkbox-checkmark{top:0;left:0;right:0;bottom:0;position:absolute;width:100%}.mat-checkbox-checkmark-path{stroke-dashoffset:22.91026;stroke-dasharray:22.91026;stroke-width:2.13333px}.mat-checkbox-mixedmark{width:calc(100% - 6px);height:2px;opacity:0;transform:scaleX(0) rotate(0);border-radius:2px}@media (-ms-high-contrast:active){.mat-checkbox-mixedmark{height:0;border-top:solid 2px;margin-top:2px}}.mat-checkbox-label-before .mat-checkbox-inner-container{order:1;margin-left:8px;margin-right:auto}[dir=rtl] .mat-checkbox-label-before .mat-checkbox-inner-container{margin-left:auto;margin-right:8px}.mat-checkbox-checked .mat-checkbox-checkmark{opacity:1}.mat-checkbox-checked .mat-checkbox-checkmark-path{stroke-dashoffset:0}.mat-checkbox-checked .mat-checkbox-mixedmark{transform:scaleX(1) rotate(-45deg)}.mat-checkbox-indeterminate .mat-checkbox-checkmark{opacity:0;transform:rotate(45deg)}.mat-checkbox-indeterminate .mat-checkbox-checkmark-path{stroke-dashoffset:0}.mat-checkbox-indeterminate .mat-checkbox-mixedmark{opacity:1;transform:scaleX(1) rotate(0)}.mat-checkbox-unchecked .mat-checkbox-background{background-color:transparent}.mat-checkbox-disabled{cursor:default}.mat-checkbox-anim-unchecked-checked .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-in-background}.mat-checkbox-anim-unchecked-checked .mat-checkbox-checkmark-path{animation:180ms linear 0s mat-checkbox-unchecked-checked-checkmark-path}.mat-checkbox-anim-unchecked-indeterminate .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-in-background}.mat-checkbox-anim-unchecked-indeterminate .mat-checkbox-mixedmark{animation:90ms linear 0s mat-checkbox-unchecked-indeterminate-mixedmark}.mat-checkbox-anim-checked-unchecked .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-out-background}.mat-checkbox-anim-checked-unchecked .mat-checkbox-checkmark-path{animation:90ms linear 0s mat-checkbox-checked-unchecked-checkmark-path}.mat-checkbox-anim-checked-indeterminate .mat-checkbox-checkmark{animation:90ms linear 0s mat-checkbox-checked-indeterminate-checkmark}.mat-checkbox-anim-checked-indeterminate .mat-checkbox-mixedmark{animation:90ms linear 0s mat-checkbox-checked-indeterminate-mixedmark}.mat-checkbox-anim-indeterminate-checked .mat-checkbox-checkmark{animation:.5s linear 0s mat-checkbox-indeterminate-checked-checkmark}.mat-checkbox-anim-indeterminate-checked .mat-checkbox-mixedmark{animation:.5s linear 0s mat-checkbox-indeterminate-checked-mixedmark}.mat-checkbox-anim-indeterminate-unchecked .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-out-background}.mat-checkbox-anim-indeterminate-unchecked .mat-checkbox-mixedmark{animation:.3s linear 0s mat-checkbox-indeterminate-unchecked-mixedmark}.mat-checkbox-input{bottom:0;left:50%}.mat-checkbox .mat-checkbox-ripple{position:absolute;left:calc(50% - 20px);top:calc(50% - 20px);height:40px;width:40px;z-index:1;pointer-events:none}"],
+                    exportAs: 'matCheckbox',
+                    host: {
+                        'class': 'mat-checkbox',
+                        '[id]': 'id',
+                        '[attr.tabindex]': 'null',
+                        '[class.mat-checkbox-indeterminate]': 'indeterminate',
+                        '[class.mat-checkbox-checked]': 'checked',
+                        '[class.mat-checkbox-disabled]': 'disabled',
+                        '[class.mat-checkbox-label-before]': 'labelPosition == "before"',
+                        '[class._mat-animation-noopable]': "_animationMode === 'NoopAnimations'",
+                    },
+                    providers: [MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR],
+                    inputs: ['disableRipple', 'color', 'tabIndex'],
+                    encapsulation: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewEncapsulation"].None,
+                    changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectionStrategy"].OnPush
+                },] },
+    ];
+    /** @nocollapse */
+    MatCheckbox.ctorParameters = function () { return [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] },
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectorRef"] },
+        { type: _angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_2__["FocusMonitor"] },
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"] },
+        { type: String, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Attribute"], args: ['tabindex',] }] },
+        { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Optional"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"], args: [MAT_CHECKBOX_CLICK_ACTION,] }] },
+        { type: String, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Optional"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"], args: [_angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_6__["ANIMATION_MODULE_TYPE"],] }] }
+    ]; };
+    MatCheckbox.propDecorators = {
+        ariaLabel: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['aria-label',] }],
+        ariaLabelledby: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['aria-labelledby',] }],
+        id: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        required: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        labelPosition: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        name: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        change: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }],
+        indeterminateChange: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }],
+        value: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        _inputElement: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"], args: ['input', { static: false },] }],
+        ripple: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"], args: [_angular_material_core__WEBPACK_IMPORTED_MODULE_5__["MatRipple"], { static: false },] }],
+        checked: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        disabled: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+        indeterminate: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }]
+    };
+    return MatCheckbox;
+}(_MatCheckboxMixinBase));
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+var MAT_CHECKBOX_REQUIRED_VALIDATOR = {
+    provide: _angular_forms__WEBPACK_IMPORTED_MODULE_4__["NG_VALIDATORS"],
+    useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["forwardRef"])((/**
+     * @return {?}
+     */
+    function () { return MatCheckboxRequiredValidator; })),
+    multi: true
+};
+/**
+ * Validator for Material checkbox's required attribute in template-driven checkbox.
+ * Current CheckboxRequiredValidator only work with `input type=checkbox` and does not
+ * work with `mat-checkbox`.
+ */
+var MatCheckboxRequiredValidator = /** @class */ (function (_super) {
+    Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__extends"])(MatCheckboxRequiredValidator, _super);
+    function MatCheckboxRequiredValidator() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    MatCheckboxRequiredValidator.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{
+                    selector: "mat-checkbox[required][formControlName],\n             mat-checkbox[required][formControl], mat-checkbox[required][ngModel]",
+                    providers: [MAT_CHECKBOX_REQUIRED_VALIDATOR],
+                },] },
+    ];
+    return MatCheckboxRequiredValidator;
+}(_angular_forms__WEBPACK_IMPORTED_MODULE_4__["CheckboxRequiredValidator"]));
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * This module is used by both original and MDC-based checkbox implementations.
+ */
+var _MatCheckboxRequiredValidatorModule = /** @class */ (function () {
+    function _MatCheckboxRequiredValidatorModule() {
+    }
+    _MatCheckboxRequiredValidatorModule.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"], args: [{
+                    exports: [MatCheckboxRequiredValidator],
+                    declarations: [MatCheckboxRequiredValidator],
+                },] },
+    ];
+    return _MatCheckboxRequiredValidatorModule;
+}());
+var MatCheckboxModule = /** @class */ (function () {
+    function MatCheckboxModule() {
+    }
+    MatCheckboxModule.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"], args: [{
+                    imports: [
+                        _angular_common__WEBPACK_IMPORTED_MODULE_8__["CommonModule"], _angular_material_core__WEBPACK_IMPORTED_MODULE_5__["MatRippleModule"], _angular_material_core__WEBPACK_IMPORTED_MODULE_5__["MatCommonModule"], _angular_cdk_observers__WEBPACK_IMPORTED_MODULE_7__["ObserversModule"],
+                        _MatCheckboxRequiredValidatorModule
+                    ],
+                    exports: [MatCheckbox, _angular_material_core__WEBPACK_IMPORTED_MODULE_5__["MatCommonModule"], _MatCheckboxRequiredValidatorModule],
+                    declarations: [MatCheckbox],
+                },] },
+    ];
+    return MatCheckboxModule;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+
+//# sourceMappingURL=checkbox.es5.js.map
+
+
+/***/ }),
+
 /***/ "./node_modules/@angular/material/esm5/chips.es5.js":
 /*!**********************************************************!*\
   !*** ./node_modules/@angular/material/esm5/chips.es5.js ***!
@@ -13939,6 +14702,61 @@ var WebcamMirrorProperties = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./node_modules/raw-loader/index.js!./src/app/software/card/card-citizen-dialog/card-citizen-dialog.component.html":
+/*!****************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/software/card/card-citizen-dialog/card-citizen-dialog.component.html ***!
+  \****************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h1 mat-dialog-title>\n    Citizen\n</h1>\n<mat-divider></mat-divider>\n<div mat-dialog-content>\n    <div fxLayout fxLayout.xs=\"column\" style=\"padding-top: 15px;\">\n        <div fxFlex=\"100%\">\n            <div *ngIf=\"isFilterShow\">\n                <mat-chip-list aria-label=\"\">\n                    <mat-chip>\n                        \"{{ filterString }}\"\n                    </mat-chip>\n                    <button mat-button color=\"warn\" (click)=\"btnClearFilter()\">\n                        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Clear\n                    </button>\n                </mat-chip-list>\n            </div>\n        </div>\n        <div fxFlex=\"100%\" align=\"right\">\n            <button mat-stroked-button color=\"\" (click)=\"btnSearchCitizen()\">\n                <fa-icon icon=\"search\" fixedWidth=\"true\"></fa-icon> Search\n            </button>\n        </div>\n    </div>\n    <div fxLayout fxLayout.xs=\"column\" style=\"padding-top: 15px; padding-bottom: 15px;\">\n        <div fxFlex=\"100%\">\n            <wj-flex-grid #listCitizenFlexGrid [itemsSource]=\"listCitizenCollectionView\" [selectionMode]=\"3\"\n                [frozenColumns]=\"1\">\n                <wj-flex-grid-filter></wj-flex-grid-filter>\n                <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"75\">\n                    <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                        <button mat-flat-button color=\"primary\"\n                            style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                            (click)=\"btnPickCitizen()\">\n                            <fa-icon icon=\"hand-point-right\" fixedWidth=\"true\"></fa-icon> Pick\n                        </button>\n                    </ng-template>\n                </wj-flex-grid-column>\n                <wj-flex-grid-column [header]=\"'Full Name'\" [binding]=\"'Fullname'\" [isReadOnly]=\"true\" [width]=\"500\">\n                </wj-flex-grid-column>\n                <wj-flex-grid-column [header]=\"'Birth Date'\" [binding]=\"'DateOfBirth'\" [isReadOnly]=\"true\"\n                    [width]=\"200\">\n                </wj-flex-grid-column>\n                <wj-flex-grid-column [header]=\"'Place of Birth'\" [binding]=\"'PlaceOfBirth'\" [isReadOnly]=\"true\"\n                    [width]=\"200\">\n                </wj-flex-grid-column>\n                <wj-flex-grid-column [header]=\"'Sex'\" [binding]=\"'Sex'\" [isReadOnly]=\"true\" [width]=\"140\">\n                </wj-flex-grid-column>\n            </wj-flex-grid>\n        </div>\n    </div>\n    <mat-divider></mat-divider>\n    <div style=\"padding-top: 15px; padding-bottom: 15px;\">\n        <button mat-stroked-button (click)=\"listCitizenCollectionView.moveToFirstPage()\">\n            <fa-icon icon=\"fast-backward\" fixedWidth=\"true\"></fa-icon>\n        </button>\n        <button mat-stroked-button (click)=\"listCitizenCollectionView.moveToPreviousPage()\">\n            <fa-icon icon=\"step-backward\" fixedWidth=\"true\"></fa-icon>\n        </button>\n        <button mat-button disabled>\n            {{ listCitizenCollectionView.pageIndex + 1 }} / {{ listCitizenCollectionView.pageCount }}\n        </button>\n        <button mat-stroked-button (click)=\"listCitizenCollectionView.moveToNextPage()\">\n            <fa-icon icon=\"step-forward\" fixedWidth=\"true\"></fa-icon>\n        </button>\n        <button mat-stroked-button (click)=\"listCitizenCollectionView.moveToLastPage()\">\n            <fa-icon icon=\"fast-forward\" fixedWidth=\"true\"></fa-icon>\n        </button>\n    </div>\n</div>\n<mat-divider></mat-divider>\n<div mat-dialog-actions align=\"right\">\n    <button mat-flat-button color=\"warn\" (click)=\"btnCloseCitizenDialog()\" id=\"btnCloseCitizenDialog\">\n        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Close\n    </button>\n</div>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/software/card/card-citizen-dialog/card-search-citizen-dialog/card-search-citizen-dialog.component.html":
+/*!**************************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/software/card/card-citizen-dialog/card-search-citizen-dialog/card-search-citizen-dialog.component.html ***!
+  \**************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h1 mat-dialog-title>\n    Search Citizen\n</h1>\n<mat-divider></mat-divider>\n<div mat-dialog-content>\n    <br />\n    <div fxLayout fxLayout.xs=\"column\">\n        <div fxFlex=\"100%\" style=\"margin: 5px;\">\n            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                <input maxlength=\"50\" #inputSearch matInput [(ngModel)]=\"searchKeyword\" placeholder=\"Keyword\" required>\n                <mat-hint align=\"end\">{{ inputSearch.value?.length || 0 }}/50</mat-hint>\n            </mat-form-field>\n        </div>\n    </div>\n</div>\n<mat-divider></mat-divider>\n<div mat-dialog-actions align=\"right\">\n    <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnSarchCitizen()\" id=\"btnSarchCitizen\">\n        <fa-icon icon=\"search\" fixedWidth=\"true\"></fa-icon> Search\n    </button>\n    <button mat-flat-button color=\"warn\" (click)=\"btnCloseSearchDialog()\" id=\"btnCloseSarchCitizen\">\n        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Close\n    </button>\n</div>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/software/card/card-delete-dialog/card-delete-dialog.component.html":
+/*!**************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/software/card/card-delete-dialog/card-delete-dialog.component.html ***!
+  \**************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h1 mat-dialog-title>\n    Delete Card\n</h1>\n<mat-divider></mat-divider>\n<div mat-dialog-content>\n    <p>Are you sure you want to delete this card?</p>\n</div>\n<mat-divider></mat-divider>\n<div mat-dialog-actions align=\"right\">\n    <button mat-flat-button color=\"warn\" style=\"margin-right: 5px;\" (click)=\"btnDeleteCard()\" id=\"btnDeleteCard\">\n        <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Yes\n    </button>\n    <button mat-flat-button (click)=\"btnCloseDeleteDialog()\" id=\"btnCloseDeleteDialog\">\n        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> No\n    </button>\n</div>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/software/card/card-detail-dialog/card-detail-dialog.component.html":
+/*!**************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/software/card/card-detail-dialog/card-detail-dialog.component.html ***!
+  \**************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h1 mat-dialog-title>\n    {{ dialogTitle }}\n</h1>\n<mat-divider></mat-divider>\n<div mat-dialog-content>\n    <br />\n    <div fxLayout fxLayout.xs=\"column\">\n        <div fxFlex=\"100%\">\n            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                <input matInput placeholder=\"Citizen\" [(ngModel)]=\"cardModel.Citizen\" [disabled]=\"true\" required>\n            </mat-form-field>\n        </div>\n    </div>\n    <div fxLayout fxLayout.xs=\"column\">\n        <div fxFlex=\"100%\">\n            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                <input matInput placeholder=\"Card Number\" [(ngModel)]=\"cardModel.CardNumber\" required>\n            </mat-form-field>\n        </div>\n    </div>\n    <div fxLayout fxLayout.xs=\"column\">\n        <div fxFlex=\"100%\">\n            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                <input type=\"number\" matInput placeholder=\"Total Balance\" [disabled]=\"true\"\n                    [(ngModel)]=\"cardModel.TotalBalance\" required>\n            </mat-form-field>\n        </div>\n    </div>\n    <div fxLayout fxLayout.xs=\"column\">\n        <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n            <mat-label>Status</mat-label>\n            <mat-select [(ngModel)]=\"cardModel.StatusId\" required>\n                <mat-option *ngFor=\"let cardStatus of listCardDropdownStatusObservableArray\" [value]=\"cardStatus.Id\">\n                    {{ cardStatus.Status }}\n                </mat-option>\n            </mat-select>\n        </mat-form-field>\n    </div>\n</div>\n<mat-divider></mat-divider>\n<div mat-dialog-actions align=\"right\">\n    <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnSaveCard()\" id=\"btnSaveCard\">\n        <fa-icon icon=\"save\" fixedWidth=\"true\"></fa-icon> Save\n    </button>\n    <button mat-flat-button color=\"warn\" (click)=\"btnCloseCardDialog()\" id=\"btnCloseCardDialog\">\n        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Close\n    </button>\n</div>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/software/card/card.component.html":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/software/card/card.component.html ***!
+  \*****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"software-header\">\n    <h2>\n        <fa-icon icon=\"id-card\" fixedWidth=\"true\"></fa-icon> CARDS\n    </h2>\n</div>\n<div class=\"software-body\">\n    <div fxLayout fxLayout.xs=\"column\">\n        <div fxFlex=\"100%\" align=\"right\">\n            <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnAddCard()\" id=\"btnAddCard\">\n                <fa-icon icon=\"plus\" fixedWidth=\"true\"></fa-icon> Add\n            </button>\n            <button mat-flat-button color=\"warn\" routerLink=\"/software\">\n                <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Close\n            </button>\n        </div>\n    </div>\n</div>\n<mat-divider></mat-divider>\n<div class=\"software-body\">\n    <wj-flex-grid #listCardFlexGrid [itemsSource]=\"listCardCollectionView\" [selectionMode]=\"3\" [frozenColumns]=\"1\">\n        <wj-flex-grid-filter></wj-flex-grid-filter>\n        <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"75\">\n            <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                <button mat-flat-button color=\"primary\"\n                    style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\" (click)=\"btnEditCard()\">\n                    <fa-icon icon=\"edit\" fixedWidth=\"true\"></fa-icon> Edit\n                </button>\n            </ng-template>\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"85\">\n            <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                <button mat-flat-button color=\"warn\"\n                    style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\" (click)=\"btnDeleteCard()\">\n                    <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Delete\n                </button>\n            </ng-template>\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Citizen'\" [binding]=\"'Citizen'\" [isReadOnly]=\"true\" [width]=\"'*'\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Card Number'\" [binding]=\"'CardNumber'\" [isReadOnly]=\"true\" [width]=\"'*'\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Total Balance'\" [binding]=\"'TotalBalance'\" [isReadOnly]=\"true\" [width]=\"'*'\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Status'\" [binding]=\"'Status'\" [isReadOnly]=\"true\" [width]=\"'*'\">\n        </wj-flex-grid-column>\n    </wj-flex-grid>\n</div>\n<mat-divider></mat-divider>\n<div class=\"software-body\">\n    <button mat-stroked-button (click)=\"listCardCollectionView.moveToFirstPage()\">\n        <fa-icon icon=\"fast-backward\" fixedWidth=\"true\"></fa-icon>\n    </button>\n    <button mat-stroked-button (click)=\"listCardCollectionView.moveToPreviousPage()\">\n        <fa-icon icon=\"step-backward\" fixedWidth=\"true\"></fa-icon>\n    </button>\n    <button mat-button disabled>\n        {{ listCardCollectionView.pageIndex + 1 }} / {{ listCardCollectionView.pageCount }}\n    </button>\n    <button mat-stroked-button (click)=\"listCardCollectionView.moveToNextPage()\">\n        <fa-icon icon=\"step-forward\" fixedWidth=\"true\"></fa-icon>\n    </button>\n    <button mat-stroked-button (click)=\"listCardCollectionView.moveToLastPage()\">\n        <fa-icon icon=\"fast-forward\" fixedWidth=\"true\"></fa-icon>\n    </button>\n</div>\n<mat-divider></mat-divider>\n<div class=\"software-body\">\n\n</div>"
+
+/***/ }),
+
 /***/ "./node_modules/raw-loader/index.js!./src/app/software/citizen/citizen-delete-dialog/citizen-delete-dialog.component.html":
 /*!***********************************************************************************************************************!*\
   !*** ./node_modules/raw-loader!./src/app/software/citizen/citizen-delete-dialog/citizen-delete-dialog.component.html ***!
@@ -14034,7 +14852,7 @@ module.exports = "<h1 mat-dialog-title>\n    Search Citizen\n</h1>\n<mat-divider
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"software-header\">\n    <h2>\n        <fa-icon icon=\"user\" fixedWidth=\"true\"></fa-icon> CITIZENS\n    </h2>\n</div>\n<div class=\"software-body\">\n    <div fxLayout fxLayout.xs=\"column\">\n        <div fxFlex=\"100%\" style=\"padding-top: 2px;\">\n            <div *ngIf=\"isFilterShow\">\n                <mat-chip-list aria-label=\"\">\n                    <mat-chip>\n                        \"{{ filterString }}\"\n                    </mat-chip>\n                    <button mat-button color=\"warn\" (click)=\"btnClearFilter()\">\n                        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Clear\n                    </button>\n                </mat-chip-list>\n            </div>\n        </div>\n        <div fxFlex=\"100%\" align=\"right\">\n            <button mat-stroked-button color=\"\" style=\"margin-right: 5px;\" (click)=\"btnSearchCitizen()\">\n                <fa-icon icon=\"search\" fixedWidth=\"true\"></fa-icon> Search\n            </button>\n            <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnAddCitizen()\"\n                id=\"btnAddCitizen\">\n                <fa-icon icon=\"plus\" fixedWidth=\"true\"></fa-icon> Add\n            </button>\n            <button mat-flat-button color=\"warn\" routerLink=\"/software\">\n                <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Close\n            </button>\n        </div>\n    </div>\n</div>\n<mat-divider></mat-divider>\n<div class=\"software-body\">\n    <wj-flex-grid #listCitizenFlexGrid [itemsSource]=\"listCitizenCollectionView\" [selectionMode]=\"3\"\n        [frozenColumns]=\"3\">\n        <wj-flex-grid-filter></wj-flex-grid-filter>\n        <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"75\">\n            <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                <button mat-flat-button color=\"primary\"\n                    style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\" (click)=\"btnEditCitizen()\">\n                    <fa-icon icon=\"edit\" fixedWidth=\"true\"></fa-icon> Edit\n                </button>\n            </ng-template>\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"85\">\n            <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                <button mat-flat-button color=\"warn\"\n                    style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\" (click)=\"btnDeleteCitizen()\">\n                    <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Delete\n                </button>\n            </ng-template>\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'L'\" [binding]=\"'IsLocked'\" [isReadOnly]=\"true\" [width]=\"50\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Name'\" [binding]=\"'FullName'\" [isReadOnly]=\"true\" [width]=\"300\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Birth Date'\" [binding]=\"'DateOfBirth'\" [isReadOnly]=\"true\" [width]=\"150\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Birth Palce'\" [binding]=\"'PlaceOfBirth'\" [isReadOnly]=\"true\" [width]=\"200\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Gender'\" [binding]=\"'Sex'\" [isReadOnly]=\"true\" [width]=\"150\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Civil Status'\" [binding]=\"'CivilStatus'\" [isReadOnly]=\"true\" [width]=\"150\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Citizenship'\" [binding]=\"'Citizenship'\" [isReadOnly]=\"true\" [width]=\"200\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Mobile No.'\" [binding]=\"'MobileNumber'\" [isReadOnly]=\"true\" [width]=\"150\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Status'\" [binding]=\"'Status'\" [isReadOnly]=\"true\" [width]=\"150\">\n        </wj-flex-grid-column>\n    </wj-flex-grid>\n</div>\n<mat-divider></mat-divider>\n<div class=\"software-body\">\n    <button mat-stroked-button (click)=\"listCitizenCollectionView.moveToFirstPage()\">\n        <fa-icon icon=\"fast-backward\" fixedWidth=\"true\"></fa-icon>\n    </button>\n    <button mat-stroked-button (click)=\"listCitizenCollectionView.moveToPreviousPage()\">\n        <fa-icon icon=\"step-backward\" fixedWidth=\"true\"></fa-icon>\n    </button>\n    <button mat-button disabled>\n        {{ listCitizenCollectionView.pageIndex + 1 }} / {{ listCitizenCollectionView.pageCount }}\n    </button>\n    <button mat-stroked-button (click)=\"listCitizenCollectionView.moveToNextPage()\">\n        <fa-icon icon=\"step-forward\" fixedWidth=\"true\"></fa-icon>\n    </button>\n    <button mat-stroked-button (click)=\"listCitizenCollectionView.moveToLastPage()\">\n        <fa-icon icon=\"fast-forward\" fixedWidth=\"true\"></fa-icon>\n    </button>\n</div>\n<mat-divider></mat-divider>\n<div class=\"software-body\">\n\n</div>"
+module.exports = "<div class=\"software-header\">\n    <h2>\n        <fa-icon icon=\"user\" fixedWidth=\"true\"></fa-icon> CITIZENS\n    </h2>\n</div>\n<div class=\"software-body\">\n    <div fxLayout fxLayout.xs=\"column\">\n        <div fxFlex=\"100%\" style=\"padding-top: 2px;\">\n            <div *ngIf=\"isFilterShow\">\n                <mat-chip-list aria-label=\"\">\n                    <mat-chip>\n                        \"{{ filterString }}\"\n                    </mat-chip>\n                    <button mat-button color=\"warn\" (click)=\"btnClearFilter()\">\n                        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Clear\n                    </button>\n                </mat-chip-list>\n            </div>\n        </div>\n        <div fxFlex=\"100%\" align=\"right\">\n            <button mat-stroked-button color=\"\" style=\"margin-right: 5px;\" (click)=\"btnSearchCitizen()\">\n                <fa-icon icon=\"search\" fixedWidth=\"true\"></fa-icon> Search\n            </button>\n            <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnAddCitizen()\"\n                id=\"btnAddCitizen\">\n                <fa-icon icon=\"plus\" fixedWidth=\"true\"></fa-icon> Add\n            </button>\n            <button mat-flat-button color=\"warn\" routerLink=\"/software\">\n                <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Close\n            </button>\n        </div>\n    </div>\n</div>\n<mat-divider></mat-divider>\n<div class=\"software-body\">\n    <wj-flex-grid #listCitizenFlexGrid [itemsSource]=\"listCitizenCollectionView\" [selectionMode]=\"3\"\n        [frozenColumns]=\"3\">\n        <wj-flex-grid-filter></wj-flex-grid-filter>\n        <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"75\">\n            <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                <button mat-flat-button color=\"primary\"\n                    style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\" (click)=\"btnEditCitizen()\">\n                    <fa-icon icon=\"edit\" fixedWidth=\"true\"></fa-icon> Edit\n                </button>\n            </ng-template>\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"85\">\n            <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                <button mat-flat-button color=\"warn\"\n                    style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\" (click)=\"btnDeleteCitizen()\">\n                    <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Delete\n                </button>\n            </ng-template>\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'L'\" [binding]=\"'IsLocked'\" [isReadOnly]=\"true\" [width]=\"50\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Name'\" [binding]=\"'FullName'\" [isReadOnly]=\"true\" [width]=\"300\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Birth Date'\" [binding]=\"'DateOfBirth'\" [isReadOnly]=\"true\" [width]=\"150\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Birth Place'\" [binding]=\"'PlaceOfBirth'\" [isReadOnly]=\"true\" [width]=\"200\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Gender'\" [binding]=\"'Sex'\" [isReadOnly]=\"true\" [width]=\"150\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Civil Status'\" [binding]=\"'CivilStatus'\" [isReadOnly]=\"true\" [width]=\"150\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Citizenship'\" [binding]=\"'Citizenship'\" [isReadOnly]=\"true\" [width]=\"200\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Mobile No.'\" [binding]=\"'MobileNumber'\" [isReadOnly]=\"true\" [width]=\"150\">\n        </wj-flex-grid-column>\n        <wj-flex-grid-column [header]=\"'Status'\" [binding]=\"'Status'\" [isReadOnly]=\"true\" [width]=\"150\">\n        </wj-flex-grid-column>\n    </wj-flex-grid>\n</div>\n<mat-divider></mat-divider>\n<div class=\"software-body\">\n    <button mat-stroked-button (click)=\"listCitizenCollectionView.moveToFirstPage()\">\n        <fa-icon icon=\"fast-backward\" fixedWidth=\"true\"></fa-icon>\n    </button>\n    <button mat-stroked-button (click)=\"listCitizenCollectionView.moveToPreviousPage()\">\n        <fa-icon icon=\"step-backward\" fixedWidth=\"true\"></fa-icon>\n    </button>\n    <button mat-button disabled>\n        {{ listCitizenCollectionView.pageIndex + 1 }} / {{ listCitizenCollectionView.pageCount }}\n    </button>\n    <button mat-stroked-button (click)=\"listCitizenCollectionView.moveToNextPage()\">\n        <fa-icon icon=\"step-forward\" fixedWidth=\"true\"></fa-icon>\n    </button>\n    <button mat-stroked-button (click)=\"listCitizenCollectionView.moveToLastPage()\">\n        <fa-icon icon=\"fast-forward\" fixedWidth=\"true\"></fa-icon>\n    </button>\n</div>\n<mat-divider></mat-divider>\n<div class=\"software-body\">\n\n</div>"
 
 /***/ }),
 
@@ -14045,7 +14863,95 @@ module.exports = "<div class=\"software-header\">\n    <h2>\n        <fa-icon ic
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"software-header\">\n    <h2>\n        <fa-icon icon=\"tachometer-alt\" fixedWidth=\"true\"></fa-icon> DASHBOARD\n    </h2>\n</div>\n\n<div class=\"software-body\">\n    <div fxLayout fxLayout.xs=\"column\">\n        <div fxFlex=\"100%\" style=\"margin: 5px;\">\n            <button mat-stroked-button style=\"width: 100%; height: 250px;\" routerLink=\"/software/citizen\">\n                <h2>\n                    <fa-icon icon=\"user\" fixedWidth=\"true\" size=\"5x\"></fa-icon>\n                    <br /><br />\n                    CITIZENS\n                </h2>\n            </button>\n        </div>\n        <div fxFlex=\"100%\" style=\"margin: 5px;\">\n            <button mat-stroked-button style=\"width: 100%; height: 250px;\" routerLink=\"/software/user\">\n                <h2>\n                    <fa-icon icon=\"key\" fixedWidth=\"true\" size=\"5x\"></fa-icon>\n                    <br /><br />\n                    USERS\n                </h2>\n            </button>\n        </div>\n        <div fxFlex=\"100%\" style=\"margin: 5px;\">\n            <button mat-stroked-button style=\"width: 100%; height: 250px;\" routerLink=\"/software/system-tables\">\n                <h2>\n                    <fa-icon icon=\"table\" fixedWidth=\"true\" size=\"5x\"></fa-icon>\n                    <br /><br />\n                    SYSTEM TABLES\n                </h2>\n            </button>\n        </div>\n    </div>\n</div>"
+module.exports = "<div class=\"software-header\">\n    <h2>\n        <fa-icon icon=\"tachometer-alt\" fixedWidth=\"true\"></fa-icon> DASHBOARD\n    </h2>\n</div>\n\n<div class=\"software-body\">\n    <div fxLayout fxLayout.xs=\"column\">\n        <div fxFlex=\"100%\" style=\"margin: 5px;\">\n            <button mat-stroked-button style=\"width: 100%; height: 250px;\" routerLink=\"/software/citizen\">\n                <h2>\n                    <fa-icon icon=\"user\" fixedWidth=\"true\" size=\"5x\"></fa-icon>\n                    <br /><br />\n                    CITIZENS\n                </h2>\n            </button>\n        </div>\n        <div fxFlex=\"100%\" style=\"margin: 5px;\">\n            <button mat-stroked-button style=\"width: 100%; height: 250px;\" routerLink=\"/software/card\">\n                <h2>\n                    <fa-icon icon=\"id-card\" fixedWidth=\"true\" size=\"5x\"></fa-icon>\n                    <br /><br />\n                    CARDS\n                </h2>\n            </button>\n        </div>\n        <div fxFlex=\"100%\" style=\"margin: 5px;\">\n            <button mat-stroked-button style=\"width: 100%; height: 250px;\" routerLink=\"/software/services\">\n                <h2>\n                    <fa-icon icon=\"hands\" fixedWidth=\"true\" size=\"5x\"></fa-icon>\n                    <br /><br />\n                    SERVICES\n                </h2>\n            </button>\n        </div>\n    </div>\n    <div fxLayout fxLayout.xs=\"column\">\n        <div fxFlex=\"100%\" style=\"margin: 5px;\">\n            <button mat-stroked-button style=\"width: 100%; height: 250px;\" routerLink=\"/software/reports\">\n                <h2>\n                    <fa-icon icon=\"print\" fixedWidth=\"true\" size=\"5x\"></fa-icon>\n                    <br /><br />\n                    REPORTS\n                </h2>\n            </button>\n        </div>\n        <div fxFlex=\"100%\" style=\"margin: 5px;\">\n            <button mat-stroked-button style=\"width: 100%; height: 250px;\" routerLink=\"/software/user\">\n                <h2>\n                    <fa-icon icon=\"key\" fixedWidth=\"true\" size=\"5x\"></fa-icon>\n                    <br /><br />\n                    USERS\n                </h2>\n            </button>\n        </div>\n        <div fxFlex=\"100%\" style=\"margin: 5px;\">\n            <button mat-stroked-button style=\"width: 100%; height: 250px;\" routerLink=\"/software/system-tables\">\n                <h2>\n                    <fa-icon icon=\"table\" fixedWidth=\"true\" size=\"5x\"></fa-icon>\n                    <br /><br />\n                    SYSTEM TABLES\n                </h2>\n            </button>\n        </div>\n    </div>\n</div>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/software/reports/reports.component.html":
+/*!***********************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/software/reports/reports.component.html ***!
+  \***********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"software-header\">\n    <h2>\n        <fa-icon icon=\"print\" fixedWidth=\"true\"></fa-icon> REPORTS\n    </h2>\n</div>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/software/services/service-delete-dialog/service-delete-dialog.component.html":
+/*!************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/software/services/service-delete-dialog/service-delete-dialog.component.html ***!
+  \************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h1 mat-dialog-title>\n    Delete Service\n</h1>\n<mat-divider></mat-divider>\n<div mat-dialog-content>\n    <p>Are you sure you want to delete this service?</p>\n</div>\n<mat-divider></mat-divider>\n<div mat-dialog-actions align=\"right\">\n    <button mat-flat-button color=\"warn\" style=\"margin-right: 5px;\" (click)=\"btnDeleteService()\" id=\"btnDeleteService\">\n        <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Yes\n    </button>\n    <button mat-flat-button (click)=\"btnCloseDeleteDialog()\" id=\"btnCloseDeleteDialog\">\n        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> No\n    </button>\n</div>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/software/services/service-department-delete-dialog/service-department-delete-dialog.component.html":
+/*!**********************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/software/services/service-department-delete-dialog/service-department-delete-dialog.component.html ***!
+  \**********************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h1 mat-dialog-title>\n    Delete Service Department\n</h1>\n<mat-divider></mat-divider>\n<div mat-dialog-content>\n    <p>Are you sure you want to delete this service department?</p>\n</div>\n<mat-divider></mat-divider>\n<div mat-dialog-actions align=\"right\">\n    <button mat-flat-button color=\"warn\" style=\"margin-right: 5px;\" (click)=\"btnDeleteServiceDepartment()\"\n        id=\"btnDeleteServiceDepartment\">\n        <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Yes\n    </button>\n    <button mat-flat-button (click)=\"btnCloseDeleteDialog()\" id=\"btnCloseDeleteDialog\">\n        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> No\n    </button>\n</div>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/software/services/service-department-detail-dialog/service-department-detail-dialog.component.html":
+/*!**********************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/software/services/service-department-detail-dialog/service-department-detail-dialog.component.html ***!
+  \**********************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h1 mat-dialog-title>\n    {{ dialogTitle }}\n</h1>\n<mat-divider></mat-divider>\n<div mat-dialog-content>\n    <br />\n    <div fxLayout fxLayout.xs=\"column\">\n        <div fxFlex=\"100%\">\n            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                <input matInput placeholder=\"Service Department\" [(ngModel)]=\"serviceDepartmentModel.ServiceDepartment\"\n                    required>\n            </mat-form-field>\n        </div>\n    </div>\n    <div fxLayout fxLayout.xs=\"column\">\n        <div fxFlex=\"100%\">\n            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                <input matInput placeholder=\"Officer In Charge\" [(ngModel)]=\"serviceDepartmentModel.OfficerInCharge\"\n                    required>\n            </mat-form-field>\n        </div>\n    </div>\n    <div fxLayout fxLayout.xs=\"column\">\n        <div fxFlex=\"100%\">\n            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                <input matInput placeholder=\"Contact Number\" [(ngModel)]=\"serviceDepartmentModel.ContactNumber\"\n                    required>\n            </mat-form-field>\n        </div>\n    </div>\n    <div fxLayout fxLayout.xs=\"column\">\n        <div fxFlex=\"100%\">\n            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                <input matInput placeholder=\"Email Address\" [(ngModel)]=\"serviceDepartmentModel.EmailAddress\" required>\n            </mat-form-field>\n        </div>\n    </div>\n</div>\n<mat-divider></mat-divider>\n<div mat-dialog-actions align=\"right\">\n    <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnSaveServiceDepartment()\"\n        id=\"btnSaveServiceDepartment\">\n        <fa-icon icon=\"save\" fixedWidth=\"true\"></fa-icon> Save\n    </button>\n    <button mat-flat-button color=\"warn\" (click)=\"btnCloseServiceDepartmentDialog()\"\n        id=\"btnCloseServiceDepartmentDialog\">\n        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Close\n    </button>\n</div>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/software/services/service-detail-dialog/service-detail-dialog.component.html":
+/*!************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/software/services/service-detail-dialog/service-detail-dialog.component.html ***!
+  \************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h1 mat-dialog-title>\n    {{ dialogTitle }}\n</h1>\n<mat-divider></mat-divider>\n<div mat-dialog-content>\n    <br />\n    <div fxLayout fxLayout.xs=\"column\">\n        <div fxFlex=\"100%\">\n            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                <input matInput placeholder=\"Service \" [(ngModel)]=\"serviceModel.Service\"\n                    [disabled]=\"serviceModel.IsLocked\" required>\n            </mat-form-field>\n        </div>\n    </div>\n    <div fxLayout fxLayout.xs=\"column\">\n        <div fxFlex=\"100%\">\n            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                <input matInput placeholder=\"Description\" [(ngModel)]=\"serviceModel.Description\"\n                    [disabled]=\"serviceModel.IsLocked\" required>\n            </mat-form-field>\n        </div>\n    </div>\n    <div fxLayout fxLayout.xs=\"column\">\n        <div fxFlex=\"100%\">\n            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                <mat-label>Service Group</mat-label>\n                <mat-select [(ngModel)]=\"serviceModel.ServiceGroupId\" [disabled]=\"serviceModel.IsLocked\" required>\n                    <mat-option *ngFor=\"let serviceGroup of listDropdownServiceGroupObservableArray\"\n                        [value]=\"serviceGroup.Id\">\n                        {{ serviceGroup.ServiceGroup }}\n                    </mat-option>\n                </mat-select>\n            </mat-form-field>\n        </div>\n    </div>\n    <div fxLayout fxLayout.xs=\"column\">\n        <div fxFlex=\"100%\">\n            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                <input matInput [matDatepicker]=\"dateEncoded\" placeholder=\"Date Encoded\"\n                    [(ngModel)]=\"serviceModel.DateEncoded\" [disabled]=\"serviceModel.IsLocked\">\n                <mat-datepicker-toggle matSuffix [for]=\"dateEncoded\"></mat-datepicker-toggle>\n                <mat-datepicker #dateEncoded></mat-datepicker>\n            </mat-form-field>\n        </div>\n    </div>\n    <div fxLayout fxLayout.xs=\"column\">\n        <div fxFlex=\"100%\">\n            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                <input matInput [matDatepicker]=\"dateExpiry\" placeholder=\"Date Expiry\"\n                    [(ngModel)]=\"serviceModel.DateExpiry\" [disabled]=\"serviceModel.IsLocked\">\n                <mat-datepicker-toggle matSuffix [for]=\"dateExpiry\"></mat-datepicker-toggle>\n                <mat-datepicker #dateExpiry></mat-datepicker>\n            </mat-form-field>\n        </div>\n    </div>\n    <div fxLayout fxLayout.xs=\"column\">\n        <div fxFlex=\"100%\">\n            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                <input type=\"number\" matInput placeholder=\"Limit Amount\" [(ngModel)]=\"serviceModel.LimitAmount\"\n                    [disabled]=\"serviceModel.IsLocked\" required>\n            </mat-form-field>\n        </div>\n    </div>\n    <div fxLayout fxLayout.xs=\"column\">\n        <div fxFlex=\"100%\">\n            <mat-checkbox color=\"primary\" [(ngModel)]=\"serviceModel.IsMultipleUse\" [disabled]=\"serviceModel.IsLocked\">\n                Multiple Use</mat-checkbox>\n            <br />\n            <br />\n        </div>\n    </div>\n    <div fxLayout fxLayout.xs=\"column\">\n        <div fxFlex=\"100%\">\n            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                <mat-label>Status</mat-label>\n                <mat-select [(ngModel)]=\"serviceModel.StatusId\" [disabled]=\"serviceModel.IsLocked\" required>\n                    <mat-option *ngFor=\"let status of listDropdownStatusObservableArray\" [value]=\"status.Id\">\n                        {{ status.Status }}\n                    </mat-option>\n                </mat-select>\n            </mat-form-field>\n        </div>\n    </div>\n</div>\n<mat-divider></mat-divider>\n<div mat-dialog-actions align=\"right\">\n    <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnSaveService()\" id=\"btnSaveService\"\n        [disabled]=\"serviceModel.IsLocked\">\n        <fa-icon icon=\"save\" fixedWidth=\"true\"></fa-icon> Save\n    </button>\n    <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnLockService()\" id=\"btnLockService\"\n        [disabled]=\"serviceModel.IsLocked\">\n        <fa-icon icon=\"lock\" fixedWidth=\"true\"></fa-icon> Lock\n    </button>\n    <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnUnlockService()\"\n        id=\"btnUnlockService\" [disabled]=\"!serviceModel.IsLocked\">\n        <fa-icon icon=\"unlock\" fixedWidth=\"true\"></fa-icon> Unlock\n    </button>\n    <button mat-flat-button color=\"warn\" (click)=\"btnCloseService()\" id=\"btnCloseService\">\n        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Close\n    </button>\n</div>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/software/services/service-group-delete-dialog/service-group-delete-dialog.component.html":
+/*!************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/software/services/service-group-delete-dialog/service-group-delete-dialog.component.html ***!
+  \************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h1 mat-dialog-title>\n    Delete Service Group\n</h1>\n<mat-divider></mat-divider>\n<div mat-dialog-content>\n    <p>Are you sure you want to delete this service group?</p>\n</div>\n<mat-divider></mat-divider>\n<div mat-dialog-actions align=\"right\">\n    <button mat-flat-button color=\"warn\" style=\"margin-right: 5px;\" (click)=\"btnDeleteServiceGroup()\"\n        id=\"btnDeleteServiceGroup\">\n        <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Yes\n    </button>\n    <button mat-flat-button (click)=\"btnCloseDeleteDialog()\" id=\"btnCloseDeleteDialog\">\n        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> No\n    </button>\n</div>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/software/services/service-group-detail-dialog/service-group-detail-dialog.component.html":
+/*!************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/software/services/service-group-detail-dialog/service-group-detail-dialog.component.html ***!
+  \************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h1 mat-dialog-title>\n    {{ dialogTitle }}\n</h1>\n<mat-divider></mat-divider>\n<div mat-dialog-content>\n    <br />\n    <div fxLayout fxLayout.xs=\"column\">\n        <div fxFlex=\"100%\">\n            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                <input matInput placeholder=\"Service Group\" [(ngModel)]=\"serviceGroupModel.ServiceGroup\" required>\n            </mat-form-field>\n        </div>\n    </div>\n    <div fxLayout fxLayout.xs=\"column\">\n        <div fxFlex=\"100%\">\n            <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n                <input matInput placeholder=\"Description\" [(ngModel)]=\"serviceGroupModel.Description\" required>\n            </mat-form-field>\n        </div>\n    </div>\n    <div fxLayout fxLayout.xs=\"column\">\n        <mat-form-field [hideRequiredMarker]=\"false\" [floatLabel]=\"'always'\" style=\"width: 100%;\">\n            <mat-label>Service Department</mat-label>\n            <mat-select [(ngModel)]=\"serviceGroupModel.ServiceDepartmentId\" required>\n                <mat-option *ngFor=\"let serviceDepartment of listDropdownServiceDepartmentObservableArray\"\n                    [value]=\"serviceDepartment.Id\">\n                    {{ serviceDepartment.ServiceDepartment }}\n                </mat-option>\n            </mat-select>\n        </mat-form-field>\n    </div>\n</div>\n<mat-divider></mat-divider>\n<div mat-dialog-actions align=\"right\">\n    <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnSaveServiceGroup()\"\n        id=\"btnSaveServiceGroup\">\n        <fa-icon icon=\"save\" fixedWidth=\"true\"></fa-icon> Save\n    </button>\n    <button mat-flat-button color=\"warn\" (click)=\"btnCloseServiceGroupDialog()\" id=\"btnCloseServiceGroupDialog\">\n        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Close\n    </button>\n</div>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/software/services/services.component.html":
+/*!*************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/software/services/services.component.html ***!
+  \*************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"software-header\">\n    <h2>\n        <fa-icon icon=\"hands\" fixedWidth=\"true\"></fa-icon> SERVICES\n    </h2>\n</div>\n<mat-tab-group>\n    <mat-tab label=\"SERVICES\">\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\"></div>\n            <div fxFlex=\"100%\" align=\"right\">\n                <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" id=\"btnAddService\"\n                    (click)=\"btnAddService()\">\n                    <fa-icon icon=\"plus\" fixedWidth=\"true\"></fa-icon> Add\n                </button>\n                <button mat-flat-button color=\"warn\" routerLink=\"/software\">\n                    <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Close\n                </button>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\">\n                <wj-flex-grid #listCitizenFlexGrid [itemsSource]=\"listServiceCollectionView\" [selectionMode]=\"3\"\n                    [frozenColumns]=\"3\">\n                    <wj-flex-grid-filter></wj-flex-grid-filter>\n                    <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"75\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"primary\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnEditService()\">\n                                <fa-icon icon=\"edit\" fixedWidth=\"true\"></fa-icon> Edit\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"85\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"warn\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnDeleteService()\">\n                                <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Delete\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"'L'\" [binding]=\"'IsLocked'\" [isReadOnly]=\"true\" [width]=\"50\">\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"'Service'\" [binding]=\"'Service'\" [isReadOnly]=\"true\" [width]=\"'*'\">\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"'Description'\" [binding]=\"'Description'\" [isReadOnly]=\"true\"\n                        [width]=\"'*'\">\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"'Service Group'\" [binding]=\"'ServiceGroup'\" [isReadOnly]=\"true\"\n                        [width]=\"'*'\">\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"'Date Encoded'\" [binding]=\"'DateEncoded'\" [isReadOnly]=\"true\"\n                        [width]=\"150\">\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"'Date Expiry'\" [binding]=\"'DateExpiry'\" [isReadOnly]=\"true\"\n                        [width]=\"150\">\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"'Limit Amount'\" [binding]=\"'LimitAmount'\" [isReadOnly]=\"true\"\n                        [width]=\"'*'\">\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"'M'\" [binding]=\"'IsMultipleUse'\" [isReadOnly]=\"true\" [width]=\"50\">\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"'Status'\" [binding]=\"'Status'\" [isReadOnly]=\"true\" [width]=\"130\">\n                    </wj-flex-grid-column>\n                </wj-flex-grid>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div style=\"padding: 15px;\">\n            <button mat-stroked-button (click)=\"listServiceCollectionView.moveToFirstPage()\">\n                <fa-icon icon=\"fast-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listServiceCollectionView.moveToPreviousPage()\">\n                <fa-icon icon=\"step-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-button disabled>\n                {{ listServiceCollectionView.pageIndex + 1 }} /\n                {{ listServiceCollectionView.pageCount }}\n            </button>\n            <button mat-stroked-button (click)=\"listServiceCollectionView.moveToNextPage()\">\n                <fa-icon icon=\"step-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listServiceCollectionView.moveToLastPage()\">\n                <fa-icon icon=\"fast-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n        </div>\n        <mat-divider></mat-divider>\n    </mat-tab>\n    <mat-tab label=\"GROUP\">\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\"></div>\n            <div fxFlex=\"100%\" align=\"right\">\n                <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnAddServiceGroup()\">\n                    <fa-icon icon=\"plus\" fixedWidth=\"true\"></fa-icon> Add\n                </button>\n                <button mat-flat-button color=\"warn\" routerLink=\"/software\">\n                    <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Close\n                </button>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\">\n                <wj-flex-grid #listCitizenFlexGrid [itemsSource]=\"listServiceGroupCollectionView\" [selectionMode]=\"3\"\n                    [frozenColumns]=\"2\">\n                    <wj-flex-grid-filter></wj-flex-grid-filter>\n                    <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"75\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"primary\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnEditServiceGroup()\">\n                                <fa-icon icon=\"edit\" fixedWidth=\"true\"></fa-icon> Edit\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"85\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"warn\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnDeleteServiceGroup()\">\n                                <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Delete\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"'Service Group'\" [binding]=\"'ServiceGroup'\" [isReadOnly]=\"true\"\n                        [width]=\"'*'\">\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"'Description'\" [binding]=\"'Description'\" [isReadOnly]=\"true\"\n                        [width]=\"'*'\">\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"'Service Department'\" [binding]=\"'ServiceDepartment'\"\n                        [isReadOnly]=\"true\" [width]=\"'*'\">\n                    </wj-flex-grid-column>\n                </wj-flex-grid>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div style=\"padding: 15px;\">\n            <button mat-stroked-button (click)=\"listServiceGroupCollectionView.moveToFirstPage()\">\n                <fa-icon icon=\"fast-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listServiceGroupCollectionView.moveToPreviousPage()\">\n                <fa-icon icon=\"step-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-button disabled>\n                {{ listServiceGroupCollectionView.pageIndex + 1 }} /\n                {{ listServiceGroupCollectionView.pageCount }}\n            </button>\n            <button mat-stroked-button (click)=\"listServiceGroupCollectionView.moveToNextPage()\">\n                <fa-icon icon=\"step-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listServiceGroupCollectionView.moveToLastPage()\">\n                <fa-icon icon=\"fast-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n        </div>\n        <mat-divider></mat-divider>\n    </mat-tab>\n    <mat-tab label=\"DEPARTMENT\">\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\"></div>\n            <div fxFlex=\"100%\" align=\"right\">\n                <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnAddServiceDepartment()\">\n                    <fa-icon icon=\"plus\" fixedWidth=\"true\"></fa-icon> Add\n                </button>\n                <button mat-flat-button color=\"warn\" routerLink=\"/software\">\n                    <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Close\n                </button>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\">\n                <wj-flex-grid #listCitizenFlexGrid [itemsSource]=\"listServiceDepartmentCollectionView\"\n                    [selectionMode]=\"3\" [frozenColumns]=\"2\">\n                    <wj-flex-grid-filter></wj-flex-grid-filter>\n                    <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"75\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"primary\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnEditServiceDepartment()\">\n                                <fa-icon icon=\"edit\" fixedWidth=\"true\"></fa-icon> Edit\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"85\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"warn\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnDeleteServiceDepartment()\">\n                                <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Delete\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"'Service Department'\" [binding]=\"'ServiceDepartment'\"\n                        [isReadOnly]=\"true\" [width]=\"'*'\">\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"'Officer In Charge'\" [binding]=\"'OfficerInCharge'\"\n                        [isReadOnly]=\"true\" [width]=\"'*'\">\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"'Contact Number'\" [binding]=\"'ContactNumber'\" [isReadOnly]=\"true\"\n                        [width]=\"'*'\">\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"'Email Address'\" [binding]=\"'EmailAddress'\" [isReadOnly]=\"true\"\n                        [width]=\"'*'\">\n                    </wj-flex-grid-column>\n                </wj-flex-grid>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div style=\"padding: 15px;\">\n            <button mat-stroked-button (click)=\"listServiceDepartmentCollectionView.moveToFirstPage()\">\n                <fa-icon icon=\"fast-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listServiceDepartmentCollectionView.moveToPreviousPage()\">\n                <fa-icon icon=\"step-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-button disabled>\n                {{ listServiceDepartmentCollectionView.pageIndex + 1 }} /\n                {{ listServiceDepartmentCollectionView.pageCount }}\n            </button>\n            <button mat-stroked-button (click)=\"listServiceDepartmentCollectionView.moveToNextPage()\">\n                <fa-icon icon=\"step-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listServiceDepartmentCollectionView.moveToLastPage()\">\n                <fa-icon icon=\"fast-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n        </div>\n        <mat-divider></mat-divider>\n    </mat-tab>\n</mat-tab-group>"
 
 /***/ }),
 
@@ -14056,7 +14962,7 @@ module.exports = "<div class=\"software-header\">\n    <h2>\n        <fa-icon ic
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"landing-navigation-bar\">\n    <mat-toolbar class=\"landing-navigation-toolbar\">\n        <span routerLink=\"/landing\" style=\"cursor: pointer;\">\n            <b>\n                <img src=\"../../assets/img/logo.png\" height=\"30\" style=\"float: left;\" /> &nbsp; Ayuda Card\n            </b>\n        </span>\n        &nbsp;&nbsp;&nbsp;\n\n        <button mat-stroked-button (click)=\"sidenav.toggle()\">\n            <fa-icon icon=\"bars\" fixedWidth=\"true\"></fa-icon>\n        </button>\n\n        <span class=\"landing-header-spacer\"></span>\n\n        <!-- <mat-action-list class=\"landing-navigation-action-list\">\n            <a mat-list-item fxFlex style=\"text-decoration: none;\" routerLink=\"#\" (click)=\"logOut()\"> Logout </a>\n        </mat-action-list> -->\n    </mat-toolbar>\n\n    <mat-sidenav-container>\n        <mat-sidenav #sidenav class=\"landing-navigation-sidenav\">\n            <br /><br /><br /><br />\n            <mat-card style=\"margin: 15px;\">\n                <div style=\"text-align: center; width: 100%;\">\n                    <fa-icon icon=\"user-circle\" size=\"5x\" fixedWidth=\"true\"></fa-icon>\n                </div>\n                <div style=\"text-align: center; width: 100%; margin-top: 10px;\">\n                    {{ currentUser }}\n                </div>\n            </mat-card>\n            <mat-action-list>\n                <mat-divider></mat-divider>\n                <a mat-list-item style=\"text-decoration: none;\" routerLink=\".\">\n                    <fa-icon icon=\"tachometer-alt\" fixedWidth=\"true\"></fa-icon> &nbsp;&nbsp; Dashboard\n                </a>\n                <mat-divider></mat-divider>\n                <a mat-list-item style=\"text-decoration: none;\" routerLink=\"/software/citizen\">\n                    <fa-icon icon=\"user\" fixedWidth=\"true\"></fa-icon> &nbsp;&nbsp; Citizens\n                </a>\n                <mat-divider></mat-divider>\n                <a mat-list-item style=\"text-decoration: none;\" routerLink=\"/software/user\">\n                    <fa-icon icon=\"key\" fixedWidth=\"true\"></fa-icon> &nbsp;&nbsp; Users\n                </a>\n                <mat-divider></mat-divider>\n                <a mat-list-item style=\"text-decoration: none;\" routerLink=\"/software/system-tables\">\n                    <fa-icon icon=\"table\" fixedWidth=\"true\"></fa-icon> &nbsp;&nbsp; System Tables\n                </a>\n                <mat-divider></mat-divider>\n                <a mat-list-item style=\"text-decoration: none;\" routerLink=\"#\" (click)=\"logOut()\">\n                    <fa-icon icon=\"sign-out-alt\" fixedWidth=\"true\"></fa-icon> &nbsp;&nbsp; Logout\n                </a>\n                <mat-divider></mat-divider>\n            </mat-action-list>\n            <br />\n            <div style=\"font-size: 13px; width: 100%; text-align: center;\">\n                AYUDA Card\n                <br />\n                V.1.083020191640.NOR\n            </div>\n            <br />\n            <mat-divider></mat-divider>\n        </mat-sidenav>\n\n        <div class=\"landing-sidenav-container\">\n            <router-outlet></router-outlet>\n        </div>\n    </mat-sidenav-container>\n</div>"
+module.exports = "<div class=\"landing-navigation-bar\">\n    <mat-toolbar class=\"landing-navigation-toolbar\">\n        <span routerLink=\"/landing\" style=\"cursor: pointer;\">\n            <b>\n                <img src=\"../../assets/img/logo.png\" height=\"30\" style=\"float: left;\" /> &nbsp; Ayuda Card\n            </b>\n        </span>\n        &nbsp;&nbsp;&nbsp;\n\n        <button mat-stroked-button (click)=\"sidenav.toggle()\">\n            <fa-icon icon=\"bars\" fixedWidth=\"true\"></fa-icon>\n        </button>\n\n        <span class=\"landing-header-spacer\"></span>\n\n        <!-- <mat-action-list class=\"landing-navigation-action-list\">\n            <a mat-list-item fxFlex style=\"text-decoration: none;\" routerLink=\"#\" (click)=\"logOut()\"> Logout </a>\n        </mat-action-list> -->\n    </mat-toolbar>\n\n    <mat-sidenav-container>\n        <mat-sidenav #sidenav class=\"landing-navigation-sidenav\">\n            <br /><br /><br /><br />\n            <mat-card style=\"margin: 15px;\">\n                <div style=\"text-align: center; width: 100%;\">\n                    <fa-icon icon=\"user-circle\" size=\"5x\" fixedWidth=\"true\"></fa-icon>\n                </div>\n                <div style=\"text-align: center; width: 100%; margin-top: 10px;\">\n                    {{ currentUser }}\n                </div>\n            </mat-card>\n            <mat-action-list>\n                <mat-divider></mat-divider>\n                <a mat-list-item style=\"text-decoration: none;\" routerLink=\".\">\n                    <fa-icon icon=\"tachometer-alt\" fixedWidth=\"true\"></fa-icon> &nbsp;&nbsp; Dashboard\n                </a>\n                <mat-divider></mat-divider>\n                <a mat-list-item style=\"text-decoration: none;\" routerLink=\"/software/citizen\">\n                    <fa-icon icon=\"user\" fixedWidth=\"true\"></fa-icon> &nbsp;&nbsp; Citizens\n                </a>\n                <mat-divider></mat-divider>\n                <a mat-list-item style=\"text-decoration: none;\" routerLink=\"/software/card\">\n                    <fa-icon icon=\"id-card\" fixedWidth=\"true\"></fa-icon> &nbsp;&nbsp; Cards\n                </a>\n                <mat-divider></mat-divider>\n                <a mat-list-item style=\"text-decoration: none;\" routerLink=\"/software/services\">\n                    <fa-icon icon=\"cogs\" fixedWidth=\"true\"></fa-icon> &nbsp;&nbsp; Services\n                </a>\n                <mat-divider></mat-divider>\n                <a mat-list-item style=\"text-decoration: none;\" routerLink=\"/software/reports\">\n                    <fa-icon icon=\"print\" fixedWidth=\"true\"></fa-icon> &nbsp;&nbsp; Reports\n                </a>\n                <mat-divider></mat-divider>\n                <a mat-list-item style=\"text-decoration: none;\" routerLink=\"/software/user\">\n                    <fa-icon icon=\"key\" fixedWidth=\"true\"></fa-icon> &nbsp;&nbsp; Users\n                </a>\n                <mat-divider></mat-divider>\n                <a mat-list-item style=\"text-decoration: none;\" routerLink=\"/software/system-tables\">\n                    <fa-icon icon=\"table\" fixedWidth=\"true\"></fa-icon> &nbsp;&nbsp; System Tables\n                </a>\n                <mat-divider></mat-divider>\n                <a mat-list-item style=\"text-decoration: none;\" routerLink=\"#\" (click)=\"logOut()\">\n                    <fa-icon icon=\"sign-out-alt\" fixedWidth=\"true\"></fa-icon> &nbsp;&nbsp; Logout\n                </a>\n                <mat-divider></mat-divider>\n            </mat-action-list>\n            <br />\n            <div style=\"font-size: 13px; width: 100%; text-align: center;\">\n                AYUDA Card\n                <br />\n                V.1.083020191640.NOR\n            </div>\n            <br />\n            <mat-divider></mat-divider>\n        </mat-sidenav>\n\n        <div class=\"landing-sidenav-container\">\n            <router-outlet></router-outlet>\n        </div>\n    </mat-sidenav-container>\n</div>"
 
 /***/ }),
 
@@ -14067,7 +14973,7 @@ module.exports = "<div class=\"landing-navigation-bar\">\n    <mat-toolbar class
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h1 mat-dialog-title>\n    Delete BloodType\n</h1>\n<mat-divider></mat-divider>\n<div mat-dialog-content>\n    <p>Are you sure you want to delete this blood type?</p>\n</div>\n<mat-divider></mat-divider>\n<div mat-dialog-actions align=\"right\">\n    <button mat-flat-button color=\"warn\" style=\"margin-right: 5px;\" (click)=\"btnDeleteBloodType()\"\n        id=\"btnDeleteBloodType\">\n        <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Yes\n    </button>\n    <button mat-flat-button (click)=\"btnCloseDeleteDialog()\" id=\"btnCloseDeleteDialog\">\n        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> No\n    </button>\n</div>"
+module.exports = "<h1 mat-dialog-title>\n    Delete Blood Type\n</h1>\n<mat-divider></mat-divider>\n<div mat-dialog-content>\n    <p>Are you sure you want to delete this blood type?</p>\n</div>\n<mat-divider></mat-divider>\n<div mat-dialog-actions align=\"right\">\n    <button mat-flat-button color=\"warn\" style=\"margin-right: 5px;\" (click)=\"btnDeleteBloodType()\"\n        id=\"btnDeleteBloodType\">\n        <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Yes\n    </button>\n    <button mat-flat-button (click)=\"btnCloseDeleteDialog()\" id=\"btnCloseDeleteDialog\">\n        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> No\n    </button>\n</div>"
 
 /***/ }),
 
@@ -14221,7 +15127,7 @@ module.exports = "<h1 mat-dialog-title>\n    {{ dialogTitle }}\n</h1>\n<mat-divi
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"software-header\">\n    <h2>\n        <fa-icon icon=\"table\" fixedWidth=\"true\"></fa-icon> SYSTEM TABLES\n    </h2>\n</div>\n<mat-tab-group>\n    <mat-tab label=\"CITIZENSHIP\">\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\"></div>\n            <div fxFlex=\"100%\" align=\"right\">\n                <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnAddCitizenship()\">\n                    <fa-icon icon=\"plus\" fixedWidth=\"true\"></fa-icon> Add\n                </button>\n                <button mat-flat-button color=\"warn\" routerLink=\"/software\">\n                    <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Close\n                </button>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\">\n                <wj-flex-grid #listCitizenFlexGrid [itemsSource]=\"listCitizenshipCollectionView\" [selectionMode]=\"3\"\n                    [frozenColumns]=\"2\">\n                    <wj-flex-grid-filter></wj-flex-grid-filter>\n                    <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"75\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"primary\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnEditCitizenship()\">\n                                <fa-icon icon=\"edit\" fixedWidth=\"true\"></fa-icon> Edit\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"85\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"warn\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnDeleteCitizenship()\">\n                                <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Delete\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"'Citizenship'\" [binding]=\"'Citizenship'\" [isReadOnly]=\"true\"\n                        [width]=\"'*'\">\n                    </wj-flex-grid-column>\n                </wj-flex-grid>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div style=\"padding: 15px;\">\n            <button mat-stroked-button (click)=\"listCitizenshipCollectionView.moveToFirstPage()\">\n                <fa-icon icon=\"fast-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listCitizenshipCollectionView.moveToPreviousPage()\">\n                <fa-icon icon=\"step-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-button disabled>\n                {{ listCitizenshipCollectionView.pageIndex + 1 }} /\n                {{ listCitizenshipCollectionView.pageCount }}\n            </button>\n            <button mat-stroked-button (click)=\"listCitizenshipCollectionView.moveToNextPage()\">\n                <fa-icon icon=\"step-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listCitizenshipCollectionView.moveToLastPage()\">\n                <fa-icon icon=\"fast-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n        </div>\n        <mat-divider></mat-divider>\n    </mat-tab>\n    <mat-tab label=\"CITIZENSHIP TYPE\">\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\"></div>\n            <div fxFlex=\"100%\" align=\"right\">\n                <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnAddTypeOfCitizenship()\">\n                    <fa-icon icon=\"plus\" fixedWidth=\"true\"></fa-icon> Add\n                </button>\n                <button mat-flat-button color=\"warn\" routerLink=\"/software\">\n                    <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Close\n                </button>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\">\n                <wj-flex-grid #listCitizenFlexGrid [itemsSource]=\"listTypeOfCitizenshipCollectionView\"\n                    [selectionMode]=\"3\" [frozenColumns]=\"2\">\n                    <wj-flex-grid-filter></wj-flex-grid-filter>\n                    <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"75\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"primary\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnEditTypeOfCitizenship()\">\n                                <fa-icon icon=\"edit\" fixedWidth=\"true\"></fa-icon> Edit\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"85\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"warn\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnDeleteTypeOfCitizenship()\">\n                                <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Delete\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"'Citizenship Type'\" [binding]=\"'TypeOfCitizenship'\"\n                        [isReadOnly]=\"true\" [width]=\"'*'\">\n                    </wj-flex-grid-column>\n                </wj-flex-grid>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div style=\"padding: 15px;\">\n            <button mat-stroked-button (click)=\"listTypeOfCitizenshipCollectionView.moveToFirstPage()\">\n                <fa-icon icon=\"fast-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listTypeOfCitizenshipCollectionView.moveToPreviousPage()\">\n                <fa-icon icon=\"step-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-button disabled>\n                {{ listTypeOfCitizenshipCollectionView.pageIndex + 1 }} /\n                {{ listTypeOfCitizenshipCollectionView.pageCount }}\n            </button>\n            <button mat-stroked-button (click)=\"listTypeOfCitizenshipCollectionView.moveToNextPage()\">\n                <fa-icon icon=\"step-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listTypeOfCitizenshipCollectionView.moveToLastPage()\">\n                <fa-icon icon=\"fast-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n        </div>\n        <mat-divider></mat-divider>\n    </mat-tab>\n    <mat-tab label=\"GENDER\">\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\"></div>\n            <div fxFlex=\"100%\" align=\"right\">\n                <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnAddSex()\">\n                    <fa-icon icon=\"plus\" fixedWidth=\"true\"></fa-icon> Add\n                </button>\n                <button mat-flat-button color=\"warn\" routerLink=\"/software\">\n                    <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Close\n                </button>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\">\n                <wj-flex-grid #listCitizenFlexGrid [itemsSource]=\"listSexCollectionView\" [selectionMode]=\"3\"\n                    [frozenColumns]=\"2\">\n                    <wj-flex-grid-filter></wj-flex-grid-filter>\n                    <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"75\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"primary\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnEditSex()\">\n                                <fa-icon icon=\"edit\" fixedWidth=\"true\"></fa-icon> Edit\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"85\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"warn\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnDeleteSex()\">\n                                <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Delete\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"'Gender'\" [binding]=\"'Sex'\" [isReadOnly]=\"true\" [width]=\"'*'\">\n                    </wj-flex-grid-column>\n                </wj-flex-grid>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div style=\"padding: 15px;\">\n            <button mat-stroked-button (click)=\"listSexCollectionView.moveToFirstPage()\">\n                <fa-icon icon=\"fast-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listSexCollectionView.moveToPreviousPage()\">\n                <fa-icon icon=\"step-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-button disabled>\n                {{ listSexCollectionView.pageIndex + 1 }} /\n                {{ listSexCollectionView.pageCount }}\n            </button>\n            <button mat-stroked-button (click)=\"listSexCollectionView.moveToNextPage()\">\n                <fa-icon icon=\"step-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listSexCollectionView.moveToLastPage()\">\n                <fa-icon icon=\"fast-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n        </div>\n        <mat-divider></mat-divider>\n    </mat-tab>\n    <mat-tab label=\"CIVIL STATUS\">\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\"></div>\n            <div fxFlex=\"100%\" align=\"right\">\n                <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnAddCivilStatus()\">\n                    <fa-icon icon=\"plus\" fixedWidth=\"true\"></fa-icon> Add\n                </button>\n                <button mat-flat-button color=\"warn\" routerLink=\"/software\">\n                    <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Close\n                </button>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\">\n                <wj-flex-grid #listCitizenFlexGrid [itemsSource]=\"listCivilStatusCollectionView\" [selectionMode]=\"3\"\n                    [frozenColumns]=\"2\">\n                    <wj-flex-grid-filter></wj-flex-grid-filter>\n                    <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"75\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"primary\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnEditCivilStatus()\">\n                                <fa-icon icon=\"edit\" fixedWidth=\"true\"></fa-icon> Edit\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"85\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"warn\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnDeleteCivilStatus()\">\n                                <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Delete\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"'Civil Status'\" [binding]=\"'CivilStatus'\" [isReadOnly]=\"true\"\n                        [width]=\"'*'\">\n                    </wj-flex-grid-column>\n                </wj-flex-grid>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div style=\"padding: 15px;\">\n            <button mat-stroked-button (click)=\"listCivilStatusCollectionView.moveToFirstPage()\">\n                <fa-icon icon=\"fast-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listCivilStatusCollectionView.moveToPreviousPage()\">\n                <fa-icon icon=\"step-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-button disabled>\n                {{ listCivilStatusCollectionView.pageIndex + 1 }} /\n                {{ listCivilStatusCollectionView.pageCount }}\n            </button>\n            <button mat-stroked-button (click)=\"listCivilStatusCollectionView.moveToNextPage()\">\n                <fa-icon icon=\"step-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listCivilStatusCollectionView.moveToLastPage()\">\n                <fa-icon icon=\"fast-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n        </div>\n        <mat-divider></mat-divider>\n    </mat-tab>\n    <mat-tab label=\"EDUCATION LEVEL\">\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\"></div>\n            <div fxFlex=\"100%\" align=\"right\">\n                <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnAddEducationLevel()\">\n                    <fa-icon icon=\"plus\" fixedWidth=\"true\"></fa-icon> Add\n                </button>\n                <button mat-flat-button color=\"warn\" routerLink=\"/software\">\n                    <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Close\n                </button>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\">\n                <wj-flex-grid #listCitizenFlexGrid [itemsSource]=\"listEducationLevelCollectionView\" [selectionMode]=\"3\"\n                    [frozenColumns]=\"2\">\n                    <wj-flex-grid-filter></wj-flex-grid-filter>\n                    <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"75\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"primary\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnEditEducationLevel()\">\n                                <fa-icon icon=\"edit\" fixedWidth=\"true\"></fa-icon> Edit\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"85\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"warn\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnDeleteEducationLevel()\">\n                                <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Delete\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"'Education Level'\" [binding]=\"'EducationLevel'\" [isReadOnly]=\"true\"\n                        [width]=\"'*'\">\n                    </wj-flex-grid-column>\n                </wj-flex-grid>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div style=\"padding: 15px;\">\n            <button mat-stroked-button (click)=\"listEducationLevelCollectionView.moveToFirstPage()\">\n                <fa-icon icon=\"fast-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listEducationLevelCollectionView.moveToPreviousPage()\">\n                <fa-icon icon=\"step-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-button disabled>\n                {{ listEducationLevelCollectionView.pageIndex + 1 }} /\n                {{ listEducationLevelCollectionView.pageCount }}\n            </button>\n            <button mat-stroked-button (click)=\"listEducationLevelCollectionView.moveToNextPage()\">\n                <fa-icon icon=\"step-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listEducationLevelCollectionView.moveToLastPage()\">\n                <fa-icon icon=\"fast-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n        </div>\n        <mat-divider></mat-divider>\n    </mat-tab>\n    <mat-tab label=\"OCCUPATION\">\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\"></div>\n            <div fxFlex=\"100%\" align=\"right\">\n                <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnAddOccupation()\">\n                    <fa-icon icon=\"plus\" fixedWidth=\"true\"></fa-icon> Add\n                </button>\n                <button mat-flat-button color=\"warn\" routerLink=\"/software\">\n                    <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Close\n                </button>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\">\n                <wj-flex-grid #listCitizenFlexGrid [itemsSource]=\"listOccupationCollectionView\" [selectionMode]=\"3\"\n                    [frozenColumns]=\"2\">\n                    <wj-flex-grid-filter></wj-flex-grid-filter>\n                    <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"75\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"primary\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnEditOccupation()\">\n                                <fa-icon icon=\"edit\" fixedWidth=\"true\"></fa-icon> Edit\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"85\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"warn\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnDeleteOccupation()\">\n                                <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Delete\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"'Occupation'\" [binding]=\"'Occupation'\" [isReadOnly]=\"true\"\n                        [width]=\"'*'\">\n                    </wj-flex-grid-column>\n                </wj-flex-grid>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div style=\"padding: 15px;\">\n            <button mat-stroked-button (click)=\"listOccupationCollectionView.moveToFirstPage()\">\n                <fa-icon icon=\"fast-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listOccupationCollectionView.moveToPreviousPage()\">\n                <fa-icon icon=\"step-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-button disabled>\n                {{ listOccupationCollectionView.pageIndex + 1 }} /\n                {{ listOccupationCollectionView.pageCount }}\n            </button>\n            <button mat-stroked-button (click)=\"listOccupationCollectionView.moveToNextPage()\">\n                <fa-icon icon=\"step-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listOccupationCollectionView.moveToLastPage()\">\n                <fa-icon icon=\"fast-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n        </div>\n        <mat-divider></mat-divider>\n    </mat-tab>\n    <mat-tab label=\"BLOOD TYPE\">\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\"></div>\n            <div fxFlex=\"100%\" align=\"right\">\n                <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnAddBloodType()\">\n                    <fa-icon icon=\"plus\" fixedWidth=\"true\"></fa-icon> Add\n                </button>\n                <button mat-flat-button color=\"warn\" routerLink=\"/software\">\n                    <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Close\n                </button>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\">\n                <wj-flex-grid #listCitizenFlexGrid [itemsSource]=\"listBloodTypeCollectionView\" [selectionMode]=\"3\"\n                    [frozenColumns]=\"2\">\n                    <wj-flex-grid-filter></wj-flex-grid-filter>\n                    <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"75\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"primary\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnEditBloodType()\">\n                                <fa-icon icon=\"edit\" fixedWidth=\"true\"></fa-icon> Edit\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"85\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"warn\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnDeleteBloodType()\">\n                                <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Delete\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"'Blood Type'\" [binding]=\"'BloodType'\" [isReadOnly]=\"true\"\n                        [width]=\"'*'\">\n                    </wj-flex-grid-column>\n                </wj-flex-grid>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div style=\"padding: 15px;\">\n            <button mat-stroked-button (click)=\"listBloodTypeCollectionView.moveToFirstPage()\">\n                <fa-icon icon=\"fast-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listBloodTypeCollectionView.moveToPreviousPage()\">\n                <fa-icon icon=\"step-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-button disabled>\n                {{ listBloodTypeCollectionView.pageIndex + 1 }} /\n                {{ listBloodTypeCollectionView.pageCount }}\n            </button>\n            <button mat-stroked-button (click)=\"listBloodTypeCollectionView.moveToNextPage()\">\n                <fa-icon icon=\"step-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listBloodTypeCollectionView.moveToLastPage()\">\n                <fa-icon icon=\"fast-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n        </div>\n        <mat-divider></mat-divider>\n    </mat-tab>\n    <mat-tab label=\"STATUS\">\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\"></div>\n            <div fxFlex=\"100%\" align=\"right\">\n                <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnAddStatus()\">\n                    <fa-icon icon=\"plus\" fixedWidth=\"true\"></fa-icon> Add\n                </button>\n                <button mat-flat-button color=\"warn\" routerLink=\"/software\">\n                    <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Close\n                </button>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\">\n                <wj-flex-grid #listCitizenFlexGrid [itemsSource]=\"listStatusCollectionView\" [selectionMode]=\"3\"\n                    [frozenColumns]=\"2\">\n                    <wj-flex-grid-filter></wj-flex-grid-filter>\n                    <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"75\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"primary\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnEditStatus()\">\n                                <fa-icon icon=\"edit\" fixedWidth=\"true\"></fa-icon> Edit\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"85\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"warn\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnDeleteStatus()\">\n                                <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Delete\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"'Status'\" [binding]=\"'Status'\" [isReadOnly]=\"true\" [width]=\"'*'\">\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"'Category'\" [binding]=\"'Category'\" [isReadOnly]=\"true\" [width]=\"'*'\">\n                    </wj-flex-grid-column>\n                </wj-flex-grid>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div style=\"padding: 15px;\">\n            <button mat-stroked-button (click)=\"listStatusCollectionView.moveToFirstPage()\">\n                <fa-icon icon=\"fast-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listStatusCollectionView.moveToPreviousPage()\">\n                <fa-icon icon=\"step-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-button disabled>\n                {{ listStatusCollectionView.pageIndex + 1 }} /\n                {{ listStatusCollectionView.pageCount }}\n            </button>\n            <button mat-stroked-button (click)=\"listStatusCollectionView.moveToNextPage()\">\n                <fa-icon icon=\"step-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listStatusCollectionView.moveToLastPage()\">\n                <fa-icon icon=\"fast-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n        </div>\n        <mat-divider></mat-divider>\n    </mat-tab>\n    <mat-tab label=\"COUNTRY\">\n    </mat-tab>\n    <mat-tab label=\"REGION\">\n    </mat-tab>\n    <mat-tab label=\"PROVINCE\">\n    </mat-tab>\n    <mat-tab label=\"CITY\">\n    </mat-tab>\n    <mat-tab label=\"BARANGAY\">\n    </mat-tab>\n</mat-tab-group>"
+module.exports = "<div class=\"software-header\">\n    <h2>\n        <fa-icon icon=\"table\" fixedWidth=\"true\"></fa-icon> SYSTEM TABLES\n    </h2>\n</div>\n<mat-tab-group color=\"\" backgroundColor=\"\">\n    <mat-tab label=\"CITIZENSHIP\">\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\"></div>\n            <div fxFlex=\"100%\" align=\"right\">\n                <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnAddCitizenship()\">\n                    <fa-icon icon=\"plus\" fixedWidth=\"true\"></fa-icon> Add\n                </button>\n                <button mat-flat-button color=\"warn\" routerLink=\"/software\">\n                    <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Close\n                </button>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\">\n                <wj-flex-grid #listCitizenFlexGrid [itemsSource]=\"listCitizenshipCollectionView\" [selectionMode]=\"3\"\n                    [frozenColumns]=\"2\">\n                    <wj-flex-grid-filter></wj-flex-grid-filter>\n                    <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"75\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"primary\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnEditCitizenship()\">\n                                <fa-icon icon=\"edit\" fixedWidth=\"true\"></fa-icon> Edit\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"85\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"warn\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnDeleteCitizenship()\">\n                                <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Delete\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"'Citizenship'\" [binding]=\"'Citizenship'\" [isReadOnly]=\"true\"\n                        [width]=\"'*'\">\n                    </wj-flex-grid-column>\n                </wj-flex-grid>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div style=\"padding: 15px;\">\n            <button mat-stroked-button (click)=\"listCitizenshipCollectionView.moveToFirstPage()\">\n                <fa-icon icon=\"fast-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listCitizenshipCollectionView.moveToPreviousPage()\">\n                <fa-icon icon=\"step-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-button disabled>\n                {{ listCitizenshipCollectionView.pageIndex + 1 }} /\n                {{ listCitizenshipCollectionView.pageCount }}\n            </button>\n            <button mat-stroked-button (click)=\"listCitizenshipCollectionView.moveToNextPage()\">\n                <fa-icon icon=\"step-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listCitizenshipCollectionView.moveToLastPage()\">\n                <fa-icon icon=\"fast-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n        </div>\n        <mat-divider></mat-divider>\n    </mat-tab>\n    <mat-tab label=\"CITIZENSHIP TYPE\">\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\"></div>\n            <div fxFlex=\"100%\" align=\"right\">\n                <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnAddTypeOfCitizenship()\">\n                    <fa-icon icon=\"plus\" fixedWidth=\"true\"></fa-icon> Add\n                </button>\n                <button mat-flat-button color=\"warn\" routerLink=\"/software\">\n                    <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Close\n                </button>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\">\n                <wj-flex-grid #listCitizenFlexGrid [itemsSource]=\"listTypeOfCitizenshipCollectionView\"\n                    [selectionMode]=\"3\" [frozenColumns]=\"2\">\n                    <wj-flex-grid-filter></wj-flex-grid-filter>\n                    <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"75\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"primary\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnEditTypeOfCitizenship()\">\n                                <fa-icon icon=\"edit\" fixedWidth=\"true\"></fa-icon> Edit\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"85\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"warn\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnDeleteTypeOfCitizenship()\">\n                                <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Delete\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"'Citizenship Type'\" [binding]=\"'TypeOfCitizenship'\"\n                        [isReadOnly]=\"true\" [width]=\"'*'\">\n                    </wj-flex-grid-column>\n                </wj-flex-grid>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div style=\"padding: 15px;\">\n            <button mat-stroked-button (click)=\"listTypeOfCitizenshipCollectionView.moveToFirstPage()\">\n                <fa-icon icon=\"fast-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listTypeOfCitizenshipCollectionView.moveToPreviousPage()\">\n                <fa-icon icon=\"step-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-button disabled>\n                {{ listTypeOfCitizenshipCollectionView.pageIndex + 1 }} /\n                {{ listTypeOfCitizenshipCollectionView.pageCount }}\n            </button>\n            <button mat-stroked-button (click)=\"listTypeOfCitizenshipCollectionView.moveToNextPage()\">\n                <fa-icon icon=\"step-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listTypeOfCitizenshipCollectionView.moveToLastPage()\">\n                <fa-icon icon=\"fast-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n        </div>\n        <mat-divider></mat-divider>\n    </mat-tab>\n    <mat-tab label=\"GENDER\">\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\"></div>\n            <div fxFlex=\"100%\" align=\"right\">\n                <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnAddSex()\">\n                    <fa-icon icon=\"plus\" fixedWidth=\"true\"></fa-icon> Add\n                </button>\n                <button mat-flat-button color=\"warn\" routerLink=\"/software\">\n                    <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Close\n                </button>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\">\n                <wj-flex-grid #listCitizenFlexGrid [itemsSource]=\"listSexCollectionView\" [selectionMode]=\"3\"\n                    [frozenColumns]=\"2\">\n                    <wj-flex-grid-filter></wj-flex-grid-filter>\n                    <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"75\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"primary\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnEditSex()\">\n                                <fa-icon icon=\"edit\" fixedWidth=\"true\"></fa-icon> Edit\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"85\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"warn\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnDeleteSex()\">\n                                <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Delete\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"'Gender'\" [binding]=\"'Sex'\" [isReadOnly]=\"true\" [width]=\"'*'\">\n                    </wj-flex-grid-column>\n                </wj-flex-grid>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div style=\"padding: 15px;\">\n            <button mat-stroked-button (click)=\"listSexCollectionView.moveToFirstPage()\">\n                <fa-icon icon=\"fast-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listSexCollectionView.moveToPreviousPage()\">\n                <fa-icon icon=\"step-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-button disabled>\n                {{ listSexCollectionView.pageIndex + 1 }} /\n                {{ listSexCollectionView.pageCount }}\n            </button>\n            <button mat-stroked-button (click)=\"listSexCollectionView.moveToNextPage()\">\n                <fa-icon icon=\"step-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listSexCollectionView.moveToLastPage()\">\n                <fa-icon icon=\"fast-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n        </div>\n        <mat-divider></mat-divider>\n    </mat-tab>\n    <mat-tab label=\"CIVIL STATUS\">\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\"></div>\n            <div fxFlex=\"100%\" align=\"right\">\n                <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnAddCivilStatus()\">\n                    <fa-icon icon=\"plus\" fixedWidth=\"true\"></fa-icon> Add\n                </button>\n                <button mat-flat-button color=\"warn\" routerLink=\"/software\">\n                    <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Close\n                </button>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\">\n                <wj-flex-grid #listCitizenFlexGrid [itemsSource]=\"listCivilStatusCollectionView\" [selectionMode]=\"3\"\n                    [frozenColumns]=\"2\">\n                    <wj-flex-grid-filter></wj-flex-grid-filter>\n                    <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"75\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"primary\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnEditCivilStatus()\">\n                                <fa-icon icon=\"edit\" fixedWidth=\"true\"></fa-icon> Edit\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"85\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"warn\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnDeleteCivilStatus()\">\n                                <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Delete\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"'Civil Status'\" [binding]=\"'CivilStatus'\" [isReadOnly]=\"true\"\n                        [width]=\"'*'\">\n                    </wj-flex-grid-column>\n                </wj-flex-grid>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div style=\"padding: 15px;\">\n            <button mat-stroked-button (click)=\"listCivilStatusCollectionView.moveToFirstPage()\">\n                <fa-icon icon=\"fast-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listCivilStatusCollectionView.moveToPreviousPage()\">\n                <fa-icon icon=\"step-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-button disabled>\n                {{ listCivilStatusCollectionView.pageIndex + 1 }} /\n                {{ listCivilStatusCollectionView.pageCount }}\n            </button>\n            <button mat-stroked-button (click)=\"listCivilStatusCollectionView.moveToNextPage()\">\n                <fa-icon icon=\"step-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listCivilStatusCollectionView.moveToLastPage()\">\n                <fa-icon icon=\"fast-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n        </div>\n        <mat-divider></mat-divider>\n    </mat-tab>\n    <mat-tab label=\"EDUCATION LEVEL\">\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\"></div>\n            <div fxFlex=\"100%\" align=\"right\">\n                <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnAddEducationLevel()\">\n                    <fa-icon icon=\"plus\" fixedWidth=\"true\"></fa-icon> Add\n                </button>\n                <button mat-flat-button color=\"warn\" routerLink=\"/software\">\n                    <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Close\n                </button>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\">\n                <wj-flex-grid #listCitizenFlexGrid [itemsSource]=\"listEducationLevelCollectionView\" [selectionMode]=\"3\"\n                    [frozenColumns]=\"2\">\n                    <wj-flex-grid-filter></wj-flex-grid-filter>\n                    <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"75\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"primary\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnEditEducationLevel()\">\n                                <fa-icon icon=\"edit\" fixedWidth=\"true\"></fa-icon> Edit\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"85\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"warn\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnDeleteEducationLevel()\">\n                                <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Delete\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"'Education Level'\" [binding]=\"'EducationLevel'\" [isReadOnly]=\"true\"\n                        [width]=\"'*'\">\n                    </wj-flex-grid-column>\n                </wj-flex-grid>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div style=\"padding: 15px;\">\n            <button mat-stroked-button (click)=\"listEducationLevelCollectionView.moveToFirstPage()\">\n                <fa-icon icon=\"fast-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listEducationLevelCollectionView.moveToPreviousPage()\">\n                <fa-icon icon=\"step-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-button disabled>\n                {{ listEducationLevelCollectionView.pageIndex + 1 }} /\n                {{ listEducationLevelCollectionView.pageCount }}\n            </button>\n            <button mat-stroked-button (click)=\"listEducationLevelCollectionView.moveToNextPage()\">\n                <fa-icon icon=\"step-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listEducationLevelCollectionView.moveToLastPage()\">\n                <fa-icon icon=\"fast-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n        </div>\n        <mat-divider></mat-divider>\n    </mat-tab>\n    <mat-tab label=\"OCCUPATION\">\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\"></div>\n            <div fxFlex=\"100%\" align=\"right\">\n                <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnAddOccupation()\">\n                    <fa-icon icon=\"plus\" fixedWidth=\"true\"></fa-icon> Add\n                </button>\n                <button mat-flat-button color=\"warn\" routerLink=\"/software\">\n                    <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Close\n                </button>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\">\n                <wj-flex-grid #listCitizenFlexGrid [itemsSource]=\"listOccupationCollectionView\" [selectionMode]=\"3\"\n                    [frozenColumns]=\"2\">\n                    <wj-flex-grid-filter></wj-flex-grid-filter>\n                    <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"75\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"primary\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnEditOccupation()\">\n                                <fa-icon icon=\"edit\" fixedWidth=\"true\"></fa-icon> Edit\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"85\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"warn\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnDeleteOccupation()\">\n                                <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Delete\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"'Occupation'\" [binding]=\"'Occupation'\" [isReadOnly]=\"true\"\n                        [width]=\"'*'\">\n                    </wj-flex-grid-column>\n                </wj-flex-grid>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div style=\"padding: 15px;\">\n            <button mat-stroked-button (click)=\"listOccupationCollectionView.moveToFirstPage()\">\n                <fa-icon icon=\"fast-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listOccupationCollectionView.moveToPreviousPage()\">\n                <fa-icon icon=\"step-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-button disabled>\n                {{ listOccupationCollectionView.pageIndex + 1 }} /\n                {{ listOccupationCollectionView.pageCount }}\n            </button>\n            <button mat-stroked-button (click)=\"listOccupationCollectionView.moveToNextPage()\">\n                <fa-icon icon=\"step-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listOccupationCollectionView.moveToLastPage()\">\n                <fa-icon icon=\"fast-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n        </div>\n        <mat-divider></mat-divider>\n    </mat-tab>\n    <mat-tab label=\"BLOOD TYPE\">\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\"></div>\n            <div fxFlex=\"100%\" align=\"right\">\n                <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnAddBloodType()\">\n                    <fa-icon icon=\"plus\" fixedWidth=\"true\"></fa-icon> Add\n                </button>\n                <button mat-flat-button color=\"warn\" routerLink=\"/software\">\n                    <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Close\n                </button>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\">\n                <wj-flex-grid #listCitizenFlexGrid [itemsSource]=\"listBloodTypeCollectionView\" [selectionMode]=\"3\"\n                    [frozenColumns]=\"2\">\n                    <wj-flex-grid-filter></wj-flex-grid-filter>\n                    <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"75\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"primary\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnEditBloodType()\">\n                                <fa-icon icon=\"edit\" fixedWidth=\"true\"></fa-icon> Edit\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"85\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"warn\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnDeleteBloodType()\">\n                                <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Delete\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"'Blood Type'\" [binding]=\"'BloodType'\" [isReadOnly]=\"true\"\n                        [width]=\"'*'\">\n                    </wj-flex-grid-column>\n                </wj-flex-grid>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div style=\"padding: 15px;\">\n            <button mat-stroked-button (click)=\"listBloodTypeCollectionView.moveToFirstPage()\">\n                <fa-icon icon=\"fast-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listBloodTypeCollectionView.moveToPreviousPage()\">\n                <fa-icon icon=\"step-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-button disabled>\n                {{ listBloodTypeCollectionView.pageIndex + 1 }} /\n                {{ listBloodTypeCollectionView.pageCount }}\n            </button>\n            <button mat-stroked-button (click)=\"listBloodTypeCollectionView.moveToNextPage()\">\n                <fa-icon icon=\"step-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listBloodTypeCollectionView.moveToLastPage()\">\n                <fa-icon icon=\"fast-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n        </div>\n        <mat-divider></mat-divider>\n    </mat-tab>\n    <mat-tab label=\"STATUS\">\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\"></div>\n            <div fxFlex=\"100%\" align=\"right\">\n                <button mat-flat-button color=\"primary\" style=\"margin-right: 5px;\" (click)=\"btnAddStatus()\">\n                    <fa-icon icon=\"plus\" fixedWidth=\"true\"></fa-icon> Add\n                </button>\n                <button mat-flat-button color=\"warn\" routerLink=\"/software\">\n                    <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Close\n                </button>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div fxLayout fxLayout.xs=\"column\" style=\"padding: 15px;\">\n            <div fxFlex=\"100%\">\n                <wj-flex-grid #listCitizenFlexGrid [itemsSource]=\"listStatusCollectionView\" [selectionMode]=\"3\"\n                    [frozenColumns]=\"2\">\n                    <wj-flex-grid-filter></wj-flex-grid-filter>\n                    <wj-flex-grid-column [header]=\"Edit\" [isReadOnly]=\"true\" [width]=\"75\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"primary\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnEditStatus()\">\n                                <fa-icon icon=\"edit\" fixedWidth=\"true\"></fa-icon> Edit\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"Delete\" [isReadOnly]=\"true\" [width]=\"85\">\n                        <ng-template wjFlexGridCellTemplate [cellType]=\"'Cell'\">\n                            <button mat-flat-button color=\"warn\"\n                                style=\"line-height: 22px; font-size: 12px; width: 100%; padding: 0;\"\n                                (click)=\"btnDeleteStatus()\">\n                                <fa-icon icon=\"trash\" fixedWidth=\"true\"></fa-icon> Delete\n                            </button>\n                        </ng-template>\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"'Status'\" [binding]=\"'Status'\" [isReadOnly]=\"true\" [width]=\"'*'\">\n                    </wj-flex-grid-column>\n                    <wj-flex-grid-column [header]=\"'Category'\" [binding]=\"'Category'\" [isReadOnly]=\"true\" [width]=\"'*'\">\n                    </wj-flex-grid-column>\n                </wj-flex-grid>\n            </div>\n        </div>\n        <mat-divider></mat-divider>\n        <div style=\"padding: 15px;\">\n            <button mat-stroked-button (click)=\"listStatusCollectionView.moveToFirstPage()\">\n                <fa-icon icon=\"fast-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listStatusCollectionView.moveToPreviousPage()\">\n                <fa-icon icon=\"step-backward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-button disabled>\n                {{ listStatusCollectionView.pageIndex + 1 }} /\n                {{ listStatusCollectionView.pageCount }}\n            </button>\n            <button mat-stroked-button (click)=\"listStatusCollectionView.moveToNextPage()\">\n                <fa-icon icon=\"step-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n            <button mat-stroked-button (click)=\"listStatusCollectionView.moveToLastPage()\">\n                <fa-icon icon=\"fast-forward\" fixedWidth=\"true\"></fa-icon>\n            </button>\n        </div>\n        <mat-divider></mat-divider>\n    </mat-tab>\n    <mat-tab label=\"COUNTRY\">\n    </mat-tab>\n    <mat-tab label=\"REGION\">\n    </mat-tab>\n    <mat-tab label=\"PROVINCE\">\n    </mat-tab>\n    <mat-tab label=\"CITY\">\n    </mat-tab>\n    <mat-tab label=\"BARANGAY\">\n    </mat-tab>\n</mat-tab-group>"
 
 /***/ }),
 
@@ -14466,6 +15372,812 @@ var __extends=this&&this.__extends||function(){var t=function(e,i){return(t=Obje
     */
 
 var __extends=this&&this.__extends||function(){var t=function(e,n){return(t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var n in e)e.hasOwnProperty(n)&&(t[n]=e[n])})(e,n)};return function(e,n){function r(){this.constructor=e}t(e,n),e.prototype=null===n?Object.create(n):(r.prototype=n.prototype,new r)}}();Object.defineProperty(exports,"__esModule",{value:!0});var selfModule=__webpack_require__(/*! wijmo/wijmo */ "./node_modules/wijmo/wijmo.js"),Binding=function(){function t(t){this.path=t}return Object.defineProperty(t.prototype,"path",{get:function(){return this._path},set:function(t){this._path=t,this._parts=t?t.split("."):[];for(var e=0;e<this._parts.length;e++){var n=this._parts[e],r=n.indexOf("[");r>-1&&(this._parts[e]=n.substr(0,r),this._parts.splice(++e,0,parseInt(n.substr(r+1))))}this._key=1==this._parts.length?this._parts[0]:null},enumerable:!0,configurable:!0}),t.prototype.getValue=function(t){if(t){if(this._key)return t[this._key];if(this._path&&this._path in t)return t[this._path];for(var e=0;e<this._parts.length&&t;e++)t=t[this._parts[e]]}return t},t.prototype.setValue=function(t,e){if(t){if(this._path in t)return void(t[this._path]=e);for(var n=0;n<this._parts.length-1;n++)if(null==(t=t[this._parts[n]]))return;t[this._parts[this._parts.length-1]]=e}},t}();exports.Binding=Binding;var EventHandler=function(){return function(t,e){this.handler=t,this.self=e}}(),Event=function(){function t(t){this._handlers=[],this._handlersChanged=t}return t.prototype.addHandler=function(t,e){t=asFunction(t),this._handlers.push(new EventHandler(t,e)),isFunction(this._handlersChanged)&&this._handlersChanged()},t.prototype.removeHandler=function(t,e){var n=!1;t=asFunction(t);for(var r=0;r<this._handlers.length;r++){var i=this._handlers[r];if((i.handler==t||null==t)&&(i.self==e||null==e)&&(this._handlers.splice(r,1),n=!0,t&&e))break}n&&isFunction(this._handlersChanged)&&this._handlersChanged()},t.prototype.removeAllHandlers=function(){var t=this._handlers.length>0;this._handlers.length=0,t&&isFunction(this._handlersChanged)&&this._handlersChanged()},t.prototype.raise=function(t,e){void 0===e&&(e=EventArgs.empty);for(var n=0;n<this._handlers.length;n++){var r=this._handlers[n];r.handler.call(r.self,t,e)}},Object.defineProperty(t.prototype,"hasHandlers",{get:function(){return this._handlers.length>0},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"handlerCount",{get:function(){return this._handlers.length},enumerable:!0,configurable:!0}),t}();exports.Event=Event;var EventArgs=function(){function t(){}return t.empty=new t,t}();exports.EventArgs=EventArgs;var CancelEventArgs=function(t){function e(){var e=null!==t&&t.apply(this,arguments)||this;return e.cancel=!1,e}return __extends(e,t),e}(EventArgs);exports.CancelEventArgs=CancelEventArgs;var PropertyChangedEventArgs=function(t){function e(e,n,r){var i=t.call(this)||this;return i._name=e,i._oldVal=n,i._newVal=r,i}return __extends(e,t),Object.defineProperty(e.prototype,"propertyName",{get:function(){return this._name},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"oldValue",{get:function(){return this._oldVal},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"newValue",{get:function(){return this._newVal},enumerable:!0,configurable:!0}),e}(EventArgs);exports.PropertyChangedEventArgs=PropertyChangedEventArgs;var NotifyCollectionChangedAction,RequestErrorEventArgs=function(t){function e(e,n){var r=t.call(this)||this;return r._xhr=e,r._msg=n,r}return __extends(e,t),Object.defineProperty(e.prototype,"request",{get:function(){return this._xhr},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"message",{get:function(){return this._msg},set:function(t){this._msg=t},enumerable:!0,configurable:!0}),e}(CancelEventArgs);exports.RequestErrorEventArgs=RequestErrorEventArgs,function(t){t[t.Add=0]="Add",t[t.Remove=1]="Remove",t[t.Change=2]="Change",t[t.Reset=3]="Reset"}(NotifyCollectionChangedAction=exports.NotifyCollectionChangedAction||(exports.NotifyCollectionChangedAction={}));var NotifyCollectionChangedEventArgs=function(t){function e(e,n,r){void 0===e&&(e=NotifyCollectionChangedAction.Reset),void 0===n&&(n=null),void 0===r&&(r=-1);var i=t.call(this)||this;return i.action=e,i.item=n,i.index=r,i}return __extends(e,t),e.reset=new e(NotifyCollectionChangedAction.Reset),e}(EventArgs);exports.NotifyCollectionChangedEventArgs=NotifyCollectionChangedEventArgs;var SortDescription=function(){function t(t,e){this._bnd=new Binding(t),this._asc=e}return Object.defineProperty(t.prototype,"property",{get:function(){return this._bnd.path},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"ascending",{get:function(){return this._asc},enumerable:!0,configurable:!0}),t}();exports.SortDescription=SortDescription;var PageChangingEventArgs=function(t){function e(e){var n=t.call(this)||this;return n.newPageIndex=e,n}return __extends(e,t),e}(CancelEventArgs);exports.PageChangingEventArgs=PageChangingEventArgs;var GroupDescription=function(){function t(){}return t.prototype.groupNameFromItem=function(t,e){return""},t.prototype.namesMatch=function(t,e){return t===e},t}();exports.GroupDescription=GroupDescription;var PropertyGroupDescription=function(t){function e(e,n){var r=t.call(this)||this;return r._bnd=new Binding(e),r._converter=n,r}return __extends(e,t),Object.defineProperty(e.prototype,"propertyName",{get:function(){return this._bnd.path},enumerable:!0,configurable:!0}),e.prototype.groupNameFromItem=function(t,e){return this._converter?this._converter(t,this.propertyName):this._bnd.getValue(t)},e.prototype.namesMatch=function(t,e){return t===e},e}(GroupDescription);exports.PropertyGroupDescription=PropertyGroupDescription;var Key,DataType,_VERSION="5.20192.624";function getVersion(){return _VERSION}function setLicenseKey(t){Control._licKey=t}function tryCast(t,e){return null==t?null:isString(e)?isFunction(t.implementsInterface)&&t.implementsInterface(e)?t:null:t instanceof e?t:null}function isPrimitive(t){return isString(t)||isNumber(t)||isBoolean(t)||isDate(t)}function isString(t){return"string"==typeof t}function isNullOrWhiteSpace(t){return!t||!/\S/.test(t)}function isNumber(t){return"number"==typeof t}function isInt(t){return isNumber(t)&&t==Math.round(t)}function isBoolean(t){return"boolean"==typeof t}function isFunction(t){return"function"==typeof t}function isUndefined(t){return void 0===t}function isDate(t){return(t instanceof Date||"[object Date]"===Object.prototype.toString.call(t))&&!isNaN(t.getTime())}function isArray(t){return t instanceof Array||Array.isArray(t)||"[object Array]"===Object.prototype.toString.call(t)}function isObject(t){return null!=t&&"object"==typeof t&&!isDate(t)&&!isArray(t)}function isEmpty(t){for(var e in t)return!1;return!0}function getUniqueId(t){for(var e=t,n=0;null!=document.getElementById(e);n++)e=t+n;return e}function mouseToPage(t){if(t instanceof Point)return t;if(t.touches&&t.touches.length>0&&(t=t.touches[0]),isNumber(t.clientX)&&isNumber(t.clientY))return new Point(t.clientX+pageXOffset,t.clientY+pageYOffset);throw"Mouse or touch event expected."}function getType(t){return isNumber(t)?DataType.Number:isBoolean(t)?DataType.Boolean:isDate(t)?DataType.Date:isString(t)?DataType.String:isArray(t)?DataType.Array:DataType.Object}function getTypes(t){var e=[];if(t&&t.length>0){var n=t[0];for(var r in n)for(var i=null,o=0;o<t.length&&o<1e3&&null==i;o++)isPrimitive(i=t[o][r])&&e.push({binding:r,dataType:getType(i)})}return e}function changeType(t,e,n){if(null!=t){if(isString(t))switch(e){case DataType.Number:var r=Globalize.parseFloat(t,n);return isNaN(r)?t:r;case DataType.Date:var i=Globalize.parseDate(t,n);return i||n||!t||(i=new Date(t)),i&&isFinite(i.getTime())?i:t;case DataType.Boolean:switch(t.toLowerCase()){case"true":return!0;case"false":return!1}return t}if(e==DataType.String)return Globalize.format(t,n)}return t}function toFixed(t,e,n){if(n){var r=(i=t.toString()).indexOf(".");i.indexOf("e")<0&&r>-1&&(i=i.substr(0,r+1+e),t=parseFloat(i))}else{var i=t.toFixed(e);t=parseFloat(i)}return t}function format(t,e,n){if((t=asString(t)).match(/\{.*"count".*:.*"when".*:.*\}/))try{var r=JSON.parse(t);if(isString(r.count)){var i=e[r.count],o=r.when;if(isNumber(i)&&isObject(o)){var s=o[i]||o.other;isString(s)&&(t=s)}}}catch(t){}return t.replace(/\{(.*?)(:(.*?))?\}/g,function(t,r,i,o){var s=t;return r&&"{"!=r[0]&&e&&(s=new Binding(r).getValue(e),o&&(s=Globalize.format(s,o)),n&&(s=n(e,r,o,s))),null==s?"":s})}function glbz(){for(var t=[],e=0;e<arguments.length;e++)t[e]=arguments[e];var n=[];return t[0].forEach(function(e,r){if(r>0){var i=t[r],o=e.match(/^:([a-z][0-9]*)/i)||e.match(/^:'(.+?)'/)||e.match(/^:"(.+?)"/);if(o){var s=o[1];i=Globalize.format(i,s),e=e.substr(o[0].length)}n.push(i)}n.push(e)}),n.join("")}function clamp(t,e,n){return null!=t&&(null!=n&&t>n&&(t=n),null!=e&&t<e&&(t=e)),t}function copy(t,e){if(e)for(var n in e)if("_"!=n[0]){assert(n in t,'Unknown property "'+n+'".');var r=e[n];t._copy&&t._copy(n,r)||(t[n]instanceof Event?isFunction(r)&&t[n].addHandler(r):!isObject(r)||"undefined"!=typeof Element&&r instanceof Element||!t[n]||"itemsSource"==n?t[n]=r:copy(t[n],r))}}function assert(t,e){if(!t)throw e="** Assertion failed in Wijmo: "+e,console.error(e),e}function _deprecated(t,e){console.error('** WARNING: "'+t+'" has been deprecated; please use "'+e+'" instead.')}function asString(t,e){return void 0===e&&(e=!0),assert(e&&null==t||isString(t),"String expected."),t}function asNumber(t,e,n){if(void 0===e&&(e=!1),void 0===n&&(n=!1),assert(e&&null==t||isNumber(t),"Number expected."),n&&t&&t<0)throw"Positive number expected.";return t}function asInt(t,e,n){if(void 0===e&&(e=!1),void 0===n&&(n=!1),assert(e&&null==t||isInt(t),"Integer expected."),n&&t&&t<0)throw"Positive integer expected.";return t}function asBoolean(t,e){return void 0===e&&(e=!1),assert(e&&null==t||isBoolean(t),"Boolean expected."),t}function asDate(t,e){if(void 0===e&&(e=!1),isString(t)){var n=changeType(t,DataType.Date,"r");isDate(n)&&(t=n)}return assert(e&&null==t||isDate(t),"Date expected."),t}function asFunction(t,e){return void 0===e&&(e=!0),assert(e&&null==t||isFunction(t),"Function expected."),t}function asArray(t,e){return void 0===e&&(e=!0),assert(e&&null==t||isArray(t),"Array expected."),t}function asType(t,e,n){return void 0===n&&(n=!1),t=tryCast(t,e),assert(n||null!=t,e+" expected."),t}function asEnum(t,e,n){if(void 0===n&&(n=!1),null==t&&n)return null;var r=e[t];return assert(null!=r,'Invalid enum value: "'+t+'"'),isNumber(r)?r:t}function asCollectionView(t,e){if(void 0===e&&(e=!0),null==t&&e)return null;var n=tryCast(t,"ICollectionView");return null!=n?n:(isArray(t)||assert(!1,"Array or ICollectionView expected."),new CollectionView(t))}function hasItems(t){return null!=t&&null!=t.items&&t.items.length>0}function toHeaderCase(t){return t&&t.length?t[0].toUpperCase()+t.substr(1).replace(/([a-z])([A-Z])/g,"$1 $2"):""}function escapeHtml(t){return t&&isString(t)&&(t=t.replace(/[&<>"'\/]/g,function(t){return _ENTITYMAP[t]})),t}exports.getVersion=getVersion,exports.setLicenseKey=setLicenseKey,function(t){t[t.Back=8]="Back",t[t.Tab=9]="Tab",t[t.Enter=13]="Enter",t[t.Escape=27]="Escape",t[t.Space=32]="Space",t[t.PageUp=33]="PageUp",t[t.PageDown=34]="PageDown",t[t.End=35]="End",t[t.Home=36]="Home",t[t.Left=37]="Left",t[t.Up=38]="Up",t[t.Right=39]="Right",t[t.Down=40]="Down",t[t.Delete=46]="Delete",t[t.F1=112]="F1",t[t.F2=113]="F2",t[t.F3=114]="F3",t[t.F4=115]="F4",t[t.F5=116]="F5",t[t.F6=117]="F6",t[t.F7=118]="F7",t[t.F8=119]="F8",t[t.F9=120]="F9",t[t.F10=121]="F10",t[t.F11=122]="F11",t[t.F12=123]="F12"}(Key=exports.Key||(exports.Key={})),function(t){t[t.Object=0]="Object",t[t.String=1]="String",t[t.Number=2]="Number",t[t.Boolean=3]="Boolean",t[t.Date=4]="Date",t[t.Array=5]="Array"}(DataType=exports.DataType||(exports.DataType={})),exports.tryCast=tryCast,exports.isPrimitive=isPrimitive,exports.isString=isString,exports.isNullOrWhiteSpace=isNullOrWhiteSpace,exports.isNumber=isNumber,exports.isInt=isInt,exports.isBoolean=isBoolean,exports.isFunction=isFunction,exports.isUndefined=isUndefined,exports.isDate=isDate,exports.isArray=isArray,exports.isObject=isObject,exports.isEmpty=isEmpty,exports.getUniqueId=getUniqueId,exports.mouseToPage=mouseToPage,exports.getType=getType,exports.getTypes=getTypes,exports.changeType=changeType,exports.toFixed=toFixed,exports.format=format,exports.glbz=glbz,exports.clamp=clamp,exports.copy=copy,exports.assert=assert,exports._deprecated=_deprecated,exports.asString=asString,exports.asNumber=asNumber,exports.asInt=asInt,exports.asBoolean=asBoolean,exports.asDate=asDate,exports.asFunction=asFunction,exports.asArray=asArray,exports.asType=asType,exports.asEnum=asEnum,exports.asCollectionView=asCollectionView,exports.hasItems=hasItems,exports.toHeaderCase=toHeaderCase,exports.escapeHtml=escapeHtml;var _cvt,_ENTITYMAP={"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;","/":"&#x2F;"};function toPlainText(t){var e=t;return e.indexOf("<")>-1&&(this._cvt||(this._cvt=document.createElement("div")),this._cvt.innerHTML=e,e=this._cvt.textContent),e}function hasClass(t,e){if(t&&e){if(t instanceof HTMLElement&&t.classList&&!isIE9())return t.classList.contains(e);if(t.getAttribute){var n=new RegExp("(\\s|^)"+e+"(\\s|$)");return t&&n.test(t.getAttribute("class"))}}return!1}function addClass(t,e){if(t&&e){if(t instanceof HTMLElement&&t.classList&&!isIE9())return void(e.indexOf(" ")<0?t.classList.add(e):e.split(" ").forEach(function(e){t.classList.add(e)}));if(t.setAttribute)for(var n=e.split(" "),r=0;r<n.length;r++){var i=n[r];if(!hasClass(t,i)){var o=t.getAttribute("class");t.setAttribute("class",o?o+" "+i:i)}}}}function removeClass(t,e){if(t&&e){if(t instanceof HTMLElement&&t.classList&&!isIE9())return void(e.indexOf(" ")<0?t.classList.remove(e):e.split(" ").forEach(function(e){t.classList.remove(e)}));if(t.setAttribute)for(var n=e.split(" "),r=0;r<n.length;r++){var i=n[r];if(hasClass(t,i)){var o=new RegExp("((\\s|^)"+i+"(\\s|$))","g"),s=t.getAttribute("class");(s=s.replace(o," ").replace(/ +/g," ").trim())?t.setAttribute("class",s):t.removeAttribute("class")}}}}function toggleClass(t,e,n){null==n&&(n=!hasClass(t,e)),n?addClass(t,e):removeClass(t,e)}function setAttribute(t,e,n,r){t&&(null!=n?r&&t.getAttribute(e)||t.setAttribute(e,n.toString()):t.removeAttribute(e))}function setAriaLabel(t,e){setAttribute(t,"aria-label",e)}function setSelectionRange(t,e,n){if(void 0===n&&(n=e),assert(t instanceof HTMLInputElement||t instanceof HTMLTextAreaElement,"INPUT or TEXTAREA element expected"),contains(document.body,t)&&!t.disabled&&t.offsetHeight)try{return t.setSelectionRange(e,n,"backward"),t.focus(),!0}catch(t){}return!1}function disableAutoComplete(t){"autocomplete,autocorrect,autocapitalize,spellcheck".split(",").forEach(function(e){t.setAttribute(e,"spellcheck"==e?"false":"off")})}function removeChild(t){return t&&t.parentNode?t.parentNode.removeChild(t):null}function getActiveElement(){var t=document.activeElement;if(t){var e=t.shadowRoot;e&&e.activeElement&&(t=e.activeElement)}return t}function moveFocus(t,e){var n=_getFocusableElements(t),r=0;if(e){var i=n.indexOf(getActiveElement());i>-1&&(r=(i+e+n.length)%n.length)}if(r<n.length){var o=n[r];return o.focus(),o instanceof HTMLInputElement&&o.select(),!0}return!1}function _getFocusableElements(t){for(var e=[],n=t.querySelectorAll("input,select,textarea,button,a,div"),r=0;r<n.length;r++){var i=n[r];if(i.offsetHeight>0&&i.tabIndex>-1&&!i.disabled&&!closest(i,"[disabled],.wj-state-disabled")){if(i instanceof HTMLAnchorElement&&!i.hasAttribute("href"))continue;if(isIE()&&!i.hasAttribute("tabindex")){if(i instanceof HTMLDivElement)continue;var o=Control.getControl(closest(i,".wj-flexgrid"));if(o&&0==o.keyActionTab)continue}!Control.getControl(i)&&_getFocusableElements(i).length||e.push(i)}}return e}function getElement(t){return t instanceof Element?t:isString(t)?document.querySelector(t):t&&t.jquery?t[0]:null}function createElement(t,e){var n=document.createElement("div");return n.innerHTML=t,1==n.children.length&&(n=n.children[0]),e&&(e=getElement(e)).appendChild(n),n}function setText(t,e){t.textContent=e||""}function contains(t,e,n){for(var r=e;r&&t;){if(r===t)return!0;r=(n?r[Control._OWNR_KEY]:null)||r.parentNode||r.host}return!1}function closest(t,e){if(t&&isFunction(t.closest))return t.closest(e);var n=t?t.matches||t.webkitMatchesSelector||t.msMatchesSelector||t.mozMatchesSelector:null;if(n)for(;t&&1===t.nodeType;t=t.parentElement||t.parentNode)if(n.call(t,e))return t;return null}function closestClass(t,e){return closest(t,"."+e)}function enable(t,e){var n=!e;toggleClass(t,"wj-state-disabled",n),setAttribute(t,"disabled",n?"true":null);for(var r=t.querySelectorAll("input,button"),i=0;i<r.length;i++)setAttribute(r[i],"disabled",n?"true":null)}function getElementRect(t){var e=t.getBoundingClientRect();return new Rect(e.left+pageXOffset,e.top+pageYOffset,e.width,e.height)}function setCss(t,e){if(assert(isObject(e),"css parameter should be an object"),t instanceof Array)for(var n=0;n<t.length;n++)setCss(t[n],e);else if(t&&t.style){var r=t.style;for(var i in e){var o=e[i];"number"==typeof o&&i.match(/width|height|left|top|right|bottom|size|padding|margin'/i)&&(o+="px"),r[i]!==o&&(r[i]=o)}}}function animate(t,e,n){null==e&&(e=Control._ANIM_DEF_DURATION),null==n&&(n=Control._ANIM_DEF_STEP),t=asFunction(t),e=asNumber(e,!1,!0),n=asNumber(n,!1,!0);var r,i=Date.now(),o=setInterval(function(){var n=Math.min(1,(Date.now()-i)/e);n=Math.sin(n*Math.PI/2),n*=n,r&&cancelAnimationFrame(r),r=requestAnimationFrame(function(){r=null,t(n)}),n>=1&&clearInterval(o)},n);return o}exports.toPlainText=toPlainText,exports.hasClass=hasClass,exports.addClass=addClass,exports.removeClass=removeClass,exports.toggleClass=toggleClass,exports.setAttribute=setAttribute,exports.setAriaLabel=setAriaLabel,exports.setSelectionRange=setSelectionRange,exports.disableAutoComplete=disableAutoComplete,exports.removeChild=removeChild,exports.getActiveElement=getActiveElement,exports.moveFocus=moveFocus,exports.getElement=getElement,exports.createElement=createElement,exports.setText=setText,exports.contains=contains,exports.closest=closest,exports.closestClass=closestClass,exports.enable=enable,exports.getElementRect=getElementRect,exports.setCss=setCss,exports.animate=animate;var Point=function(){function t(t,e){void 0===t&&(t=0),void 0===e&&(e=0),this.x=asNumber(t),this.y=asNumber(e)}return t.prototype.equals=function(e){return e instanceof t&&this.x==e.x&&this.y==e.y},t.prototype.clone=function(){return new t(this.x,this.y)},t}();exports.Point=Point;var Size=function(){function t(t,e){void 0===t&&(t=0),void 0===e&&(e=0),this.width=asNumber(t),this.height=asNumber(e)}return t.prototype.equals=function(e){return e instanceof t&&this.width==e.width&&this.height==e.height},t.prototype.clone=function(){return new t(this.width,this.height)},t}();exports.Size=Size;var Rect=function(){function t(t,e,n,r){this.left=asNumber(t),this.top=asNumber(e),this.width=asNumber(n),this.height=asNumber(r)}return Object.defineProperty(t.prototype,"right",{get:function(){return this.left+this.width},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"bottom",{get:function(){return this.top+this.height},enumerable:!0,configurable:!0}),t.prototype.equals=function(e){return e instanceof t&&this.left==e.left&&this.top==e.top&&this.width==e.width&&this.height==e.height},t.prototype.clone=function(){return new t(this.left,this.top,this.width,this.height)},t.fromBoundingRect=function(e){return null!=e.left?new t(e.left,e.top,e.width,e.height):null!=e.x?new t(e.x,e.y,e.width,e.height):void assert(!1,"Invalid source rectangle.")},t.union=function(e,n){var r=Math.min(e.left,n.left),i=Math.min(e.top,n.top);return new t(r,i,Math.max(e.right,n.right)-r,Math.max(e.bottom,n.bottom)-i)},t.intersection=function(e,n){var r=Math.max(e.left,n.left),i=Math.max(e.top,n.top);return new t(r,i,Math.min(e.right,n.right)-r,Math.min(e.bottom,n.bottom)-i)},t.prototype.contains=function(e){if(e instanceof Point)return e.x>=this.left&&e.x<=this.right&&e.y>=this.top&&e.y<=this.bottom;if(e instanceof t){var n=e;return n.left>=this.left&&n.right<=this.right&&n.top>=this.top&&n.bottom<=this.bottom}assert(!1,"Point or Rect expected.")},t.prototype.inflate=function(e,n){return new t(this.left-e,this.top-n,this.width+2*e,this.height+2*n)},t}();exports.Rect=Rect;var DateTime=function(){function t(){}return t.addDays=function(e,n){return t.newDate(e.getFullYear(),e.getMonth(),e.getDate()+n)},t.addMonths=function(e,n){return t.newDate(e.getFullYear(),e.getMonth()+n,e.getDate())},t.addYears=function(e,n){return t.newDate(e.getFullYear()+n,e.getMonth(),e.getDate())},t.addHours=function(e,n){return t.newDate(e.getFullYear(),e.getMonth(),e.getDate(),e.getHours()+n)},t.addMinutes=function(e,n){return t.newDate(e.getFullYear(),e.getMonth(),e.getDate(),e.getHours(),e.getMinutes()+n)},t.addSeconds=function(e,n){return t.newDate(e.getFullYear(),e.getMonth(),e.getDate(),e.getHours(),e.getMinutes(),e.getSeconds()+n)},t.sameDate=function(t,e){return isDate(t)&&isDate(e)&&t.getFullYear()==e.getFullYear()&&t.getMonth()==e.getMonth()&&t.getDate()==e.getDate()},t.sameTime=function(t,e){return isDate(t)&&isDate(e)&&t.getHours()==e.getHours()&&t.getMinutes()==e.getMinutes()&&t.getSeconds()==e.getSeconds()},t.equals=function(t,e){return isDate(t)&&isDate(e)&&t.getTime()==e.getTime()},t.fromDateTime=function(e,n){return e||n?(e||(e=n),n||(n=e),t.newDate(e.getFullYear(),e.getMonth(),e.getDate(),n.getHours(),n.getMinutes(),n.getSeconds(),n.getMilliseconds())):null},t.toFiscal=function(e,n){var r=exports.culture.Globalize.calendar;return isArray(r.fiscalYearOffsets)?t.addMonths(e,-r.fiscalYearOffsets[n?0:1]):e},t.fromFiscal=function(e,n){var r=exports.culture.Globalize.calendar;return isArray(r.fiscalYearOffsets)?t.addMonths(e,+r.fiscalYearOffsets[n?0:1]):e},t.newDate=function(t,e,n,r,i,o,s){if(null==t||null==e||null==n){var a=new Date;null==t&&(t=a.getFullYear()),null==e&&(e=a.getMonth()),null==n&&(n=a.getDate())}null==r&&(r=0),null==i&&(i=0),null==o&&(o=0),null==s&&(s=0);var u=new Date(t,e,n,r,i,o,s),l=u.getFullYear();return t<100&&l>=1900&&u.setFullYear(u.getFullYear()-1900),u},t.clone=function(e){return t.fromDateTime(e,e)},t}();function httpRequest(t,e){e||(e={});var n=e.method?asString(e.method).toUpperCase():"GET",r=null==e.async||asBoolean(e.async),i=e.data;if(null!=i&&"GET"==n){var o=[];for(var s in i){var a=i[s];isDate(a)&&(a=a.toJSON()),o.push(s+"="+a)}if(o.length)t+=(t.indexOf("?")<0?"?":"&")+o.join("&");i=null}var u=new XMLHttpRequest;u.URL_DEBUG=t;var l=!1;if(null==i||isString(i)||(l=isObject(i),i=JSON.stringify(i)),u.onload=function(){4==u.readyState&&(u.status<300?e.success&&asFunction(e.success)(u):e.error&&asFunction(e.error)(u),e.complete&&asFunction(e.complete)(u))},u.onerror=function(){if(!isFunction(e.error))throw"HttpRequest Error: "+u.status+" "+u.statusText;e.error(u)},u.open(n,t,r,e.user,e.password),e.user&&e.password&&u.setRequestHeader("Authorization","Basic "+btoa(e.user+":"+e.password)),l&&u.setRequestHeader("Content-Type","application/json"),e.requestHeaders)for(var c in e.requestHeaders)u.setRequestHeader(c,e.requestHeaders[c]);return isNumber(e.timeout)&&(u.timeout=e.timeout),isFunction(e.beforeSend)&&e.beforeSend(u),u.send(i),u}exports.DateTime=DateTime,exports.httpRequest=httpRequest;var _modules={};function _registerModule(t,e){if(_modules[t]=e,"wijmo"===t){var n="undefined"!=typeof window?window:"undefined"!=typeof self?self:null;n&&(n.wijmo=e)}}function _getModule(t){return _modules[t]}exports._registerModule=_registerModule,exports._getModule=_getModule;var Color=function(){function t(t){this._r=0,this._g=0,this._b=0,this._a=1,t&&this._parse(t)}return Object.defineProperty(t.prototype,"r",{get:function(){return this._r},set:function(t){this._r=clamp(asNumber(t),0,255)},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"g",{get:function(){return this._g},set:function(t){this._g=clamp(asNumber(t),0,255)},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"b",{get:function(){return this._b},set:function(t){this._b=clamp(asNumber(t),0,255)},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"a",{get:function(){return this._a},set:function(t){this._a=clamp(asNumber(t),0,1)},enumerable:!0,configurable:!0}),t.prototype.equals=function(e){return e instanceof t&&this.r==e.r&&this.g==e.g&&this.b==e.b&&this.a==e.a},t.prototype.toString=function(){var t=Math.round(100*this.a);return t>99?"#"+((1<<24)+(this.r<<16)+(this.g<<8)+this.b).toString(16).slice(1):"rgba("+this.r+","+this.g+","+this.b+","+t/100+")"},t.fromRgba=function(e,n,r,i){void 0===i&&(i=1);var o=new t(null);return o.r=Math.round(clamp(asNumber(e),0,255)),o.g=Math.round(clamp(asNumber(n),0,255)),o.b=Math.round(clamp(asNumber(r),0,255)),o.a=clamp(asNumber(i),0,1),o},t.fromHsb=function(e,n,r,i){void 0===i&&(i=1);var o=t._hsbToRgb(clamp(asNumber(e),0,1),clamp(asNumber(n),0,1),clamp(asNumber(r),0,1));return t.fromRgba(o[0],o[1],o[2],i)},t.fromHsl=function(e,n,r,i){void 0===i&&(i=1);var o=t._hslToRgb(clamp(asNumber(e),0,1),clamp(asNumber(n),0,1),clamp(asNumber(r),0,1));return t.fromRgba(o[0],o[1],o[2],i)},t.fromString=function(e){var n=new t(null);return n._parse(asString(e))?n:null},t.prototype.getHsb=function(){return t._rgbToHsb(this.r,this.g,this.b)},t.prototype.getHsl=function(){return t._rgbToHsl(this.r,this.g,this.b)},t.interpolate=function(e,n,r){r=clamp(asNumber(r),0,1);var i=t._rgbToHsl(e.r,e.g,e.b),o=t._rgbToHsl(n.r,n.g,n.b),s=1-r,a=e.a*s+n.a*r,u=[i[0]*s+o[0]*r,i[1]*s+o[1]*r,i[2]*s+o[2]*r],l=t._hslToRgb(u[0],u[1],u[2]);return t.fromRgba(l[0],l[1],l[2],a)},t.toOpaque=function(e,n){if(1==(e=isString(e)?t.fromString(e):asType(e,t)).a)return e;n=null==n?t.fromRgba(255,255,255,1):isString(n)?t.fromString(n):asType(n,t);var r=e.a,i=1-r;return t.fromRgba(e.r*r+n.r*i,e.g*r+n.g*i,e.b*r+n.b*i)},t.prototype._parse=function(e){if("transparent"==(e=e.toLowerCase()))return this._r=this._g=this._b=this._a=0,!0;if(e&&0!=e.indexOf("#")&&0!=e.indexOf("rgb")&&0!=e.indexOf("hsl")){var n=document.createElement("div");n.style.color=e;var r=n.style.color;r==e&&((r=window.getComputedStyle(n).color)||(document.body.appendChild(n),r=window.getComputedStyle(n).color,removeChild(n))),e=r.toLowerCase()}if(0==e.indexOf("#"))return 4==e.length?(this.r=parseInt(e[1]+e[1],16),this.g=parseInt(e[2]+e[2],16),this.b=parseInt(e[3]+e[3],16),this.a=1,!0):7==e.length&&(this.r=parseInt(e.substr(1,2),16),this.g=parseInt(e.substr(3,2),16),this.b=parseInt(e.substr(5,2),16),this.a=1,!0);if(0==e.indexOf("rgb")){var i=e.indexOf("("),o=e.indexOf(")");if(i>-1&&o>-1)if((s=e.substr(i+1,o-(i+1)).split(",")).length>2)return this.r=parseInt(s[0]),this.g=parseInt(s[1]),this.b=parseInt(s[2]),this.a=s.length>3?parseFloat(s[3]):1,!0}if(0==e.indexOf("hsl")){var s;i=e.indexOf("("),o=e.indexOf(")");if(i>-1&&o>-1)if((s=e.substr(i+1,o-(i+1)).split(",")).length>2){var a=parseInt(s[0])/360,u=parseInt(s[1]),l=parseInt(s[2]);s[1].indexOf("%")>-1&&(u/=100),s[2].indexOf("%")>-1&&(l/=100);var c=t._hslToRgb(a,u,l);return this.r=c[0],this.g=c[1],this.b=c[2],this.a=s.length>3?parseFloat(s[3]):1,!0}}return!1},t._hslToRgb=function(e,n,r){var i,o,s;if(assert(e>=0&&e<=1&&n>=0&&n<=1&&r>=0&&r<=1,"bad HSL values"),0==n)i=o=s=r;else{var a=r<.5?r*(1+n):r+n-r*n,u=2*r-a;i=t._hue2rgb(u,a,e+1/3),o=t._hue2rgb(u,a,e),s=t._hue2rgb(u,a,e-1/3)}return[Math.round(255*i),Math.round(255*o),Math.round(255*s)]},t._hue2rgb=function(t,e,n){return n<0&&(n+=1),n>1&&(n-=1),n<1/6?t+6*(e-t)*n:n<.5?e:n<2/3?t+(e-t)*(2/3-n)*6:t},t._rgbToHsl=function(t,e,n){assert(t>=0&&t<=255&&e>=0&&e<=255&&n>=0&&n<=255,"bad RGB values"),t/=255,e/=255,n/=255;var r,i,o=Math.max(t,e,n),s=Math.min(t,e,n),a=(o+s)/2;if(o==s)r=i=0;else{var u=o-s;switch(i=a>.5?u/(2-o-s):u/(o+s),o){case t:r=(e-n)/u+(e<n?6:0);break;case e:r=(n-t)/u+2;break;case n:r=(t-e)/u+4}r/=6}return[r,i,a]},t._rgbToHsb=function(e,n,r){assert(e>=0&&e<=255&&n>=0&&n<=255&&r>=0&&r<=255,"bad RGB values");var i=t._rgbToHsl(e,n,r);return t._hslToHsb(i[0],i[1],i[2])},t._hsbToRgb=function(e,n,r){var i=t._hsbToHsl(e,n,r);return t._hslToRgb(i[0],i[1],i[2])},t._hsbToHsl=function(t,e,n){assert(t>=0&&t<=1&&e>=0&&e<=1&&n>=0&&n<=1,"bad HSB values");var r=clamp(n*(2-e)/2,0,1),i=1-Math.abs(2*r-1),o=clamp(i>0?n*e/i:e,0,1);return assert(!isNaN(r)&&!isNaN(o),"bad conversion to HSL"),[t,o,r]},t._hslToHsb=function(t,e,n){assert(t>=0&&t<=1&&e>=0&&e<=1&&n>=0&&n<=1,"bad HSL values");var r=clamp(1==n?1:(2*n+e*(1-Math.abs(2*n-1)))/2,0,1),i=clamp(r>0?2*(r-n)/r:e,0,1);return assert(!isNaN(r)&&!isNaN(i),"bad conversion to HSB"),[t,i,r]},t}();exports.Color=Color,exports.culture="undefined"!=typeof window&&window.wijmo&&window.wijmo.culture||{Globalize:{numberFormat:{".":".",",":",","-":"-","+":"+","%":"%",percent:{pattern:["-n %","n %"]},currency:{decimals:2,symbol:"$",pattern:["($n)","$n"]}},calendar:{"/":"/",":":":",firstDay:0,days:["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],daysAbbr:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],months:["January","February","March","April","May","June","July","August","September","October","November","December"],monthsAbbr:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],am:["AM","A"],pm:["PM","P"],eras:["A.D.","B.C."],patterns:{d:"M/d/yyyy",D:"dddd, MMMM dd, yyyy",f:"dddd, MMMM dd, yyyy h:mm tt",F:"dddd, MMMM dd, yyyy h:mm:ss tt",t:"h:mm tt",T:"h:mm:ss tt",M:"MMMM d",m:"MMMM d",Y:"MMMM, yyyy",y:"MMMM, yyyy",g:"M/d/yyyy h:mm tt",G:"M/d/yyyy h:mm:ss tt",s:'yyyy"-"MM"-"dd"T"HH":"mm":"ss',o:'yyyy"-"MM"-"dd"T"HH":"mm":"ss"."fffffffK',O:'yyyy"-"MM"-"dd"T"HH":"mm":"ss"."fffffffK',U:"dddd, MMMM dd, yyyy h:mm:ss tt"},fiscalYearOffsets:[-3,-3]}}};var Globalize=function(){function t(){}return t.format=function(e,n,r,i){return isString(e)?e:isNumber(e)?(n=n||(e==Math.round(e)?"n0":"n2"),t.formatNumber(e,n,r,i)):isDate(e)?(n=n||"d",t.formatDate(e,n)):null!=e?e.toString():""},t.formatNumber=function(e,n,r,i){e=asNumber(e),n=asString(n);var o,s=exports.culture.Globalize.numberFormat,a=n?n.match(/([a-z])(\d*)(,*)(.*)/i):null,u=a?a[1].toLowerCase():"n",l=a&&a[2]?parseInt(a[2]):"c"==u?s.currency.decimals:e==Math.round(e)?0:2,c=a&&a[3]?3*a[3].length:0,h=s["."]||".",p=s[","]||",",f=s["-"]||"-";if(c&&(e/=Math.pow(10,c)),"d"==u||"x"==u){for(o=Math.round(Math.abs(e)).toString("d"==u?10:16);o.length<l;)o="0"+o;return e<0&&(o=f+o),n&&"X"==n[0]&&(o=o.toUpperCase()),o}if("p"==u&&(e=toFixed(e=t._shiftDecimal(e,2),l,i)),i&&"p"!=u&&(e=toFixed(e,l,!0)),o="c"==u||"p"==u?t._toFixedStr(Math.abs(e),l):t._toFixedStr(e,l),(r||"g"==u)&&o.indexOf(".")>-1&&(o=(o=o.replace(/(\.[0-9]*?)0+$/g,"$1")).replace(/\.$/,"")),"."!=h&&(o=o.replace(".",h)),"-"!=f&&(o=o.replace("-",f)),p&&("n"==u||"c"==u||"p"==u)){var d=o.indexOf(h),g=/\B(?=(\d\d\d)+(?!\d))/g;o=d>-1?o.substr(0,d).replace(g,p)+o.substr(d):o.replace(g,p)}if("c"==u){var _=s.currency.pattern[e<0?0:1],m=a&&a[4]?a[4]:s.currency.symbol;"​"==m&&(m=""),o=_.replace("n",o).replace("$",m)}if("p"==u){_=s.percent.pattern[e<0?0:1];var v=s["%"]||"%";o=_.replace("n",o),"%"!=v&&(o=o.replace("%",v)),"-"!=f&&e<0&&(o=o.replace("-",f))}return o},t.formatDate=function(e,n){switch(e=asDate(e),n){case"r":case"R":return e.toUTCString();case"u":return e.toISOString().replace(/\.\d{3}/,"")}n=t._expandFormat(n);for(var r=t._parseDateFormat(n),i="",o=0;o<r.length;o++)i+=t._formatDatePart(e,n,r[o]);return i},t.parseInt=function(e,n){return Math.round(t.parseFloat(e,n))},t.parseFloat=function(e,n){var r=exports.culture.Globalize.numberFormat,i=r["-"]||"-",o=r["%"]||"%",s=e.indexOf(i)>-1||e.indexOf("(")>-1&&e.indexOf(")")>-1?-1:1,a=e.indexOf(o)>-1,u=n?n.match(/,+/):null,l=u?3*u[0].length:0,c=0;if(!n||"x"!=n[0]&&"X"!=n[0]){var h=r["."]||".",p=new RegExp("[^\\d\\"+h+"]","g");e=e.replace(p,"").replace(h,"."),c=parseFloat(e)}else e=e.replace(/[^0-9a-f]+.*$/gi,""),c=parseInt(e,16);return a&&(c=t._shiftDecimal(c,-2)),c*s*Math.pow(10,l)},t.parseDate=function(e,n,r){if(!(e=asString(e)))return null;if("u"==n)return new Date(e);var i;if("R"==n||"r"==n){var o=e.match(/(([0-9]+)\-([0-9]+)\-([0-9]+))?\s?(([0-9]+):([0-9]+)(:([0-9]+))?)?/);return o[1]||o[5]?(i=o[1]?new Date(parseInt(o[2]),parseInt(o[3])-1,parseInt(o[4])):new Date,o[5]&&(i.setHours(parseInt(o[6])),i.setMinutes(parseInt(o[7])),i.setSeconds(o[8]?parseInt(o[9]):0))):i=new Date(e),isNaN(i.getTime())?null:i}n=t._expandFormat(n||"d");var s,a,u,l,c,h,p=exports.culture.Globalize.calendar,f=t._CJK,d=new RegExp("(\\"+p["/"]+")|(\\"+p[":"]+")|(\\d+)|(["+f+"\\.]{2,})|(["+f+"]+)","gi"),g=e.match(d),_=t._parseDateFormat(n),m=0,v=-1,y=0,b=1,C=0,w=0,x=0,E=0,A=-1;if(!(g&&g.length&&_&&_.length))return null;for(var T=0;T<_.length&&g;T++){var S=T-m,D=S>-1&&S<g.length?g[S]:"",P=_[T].length;switch(_[T]){case"EEEE":case"EEE":case"EE":case"E":case"eeee":case"eee":case"ee":case"e":h=_[T];case"yyyy":case"yyy":case"yy":case"y":P>1&&D.length>P&&(g[S]=D.substr(P),D=D.substr(0,P),m++),v=parseInt(D),c=4==D.length;break;case"MMMM":case"MMM":l=!0;var F=D.toLowerCase();y=-1;for(var I=0;I<12;I++)if(0==p.months[I].toLowerCase().indexOf(F)){y=I;break}if(y>-1)break;case"MM":case"M":l=!0,P>1&&D.length>P&&(g[S]=D.substr(P),D=D.substr(0,P),m++),y=parseInt(D)-1;break;case"dddd":case"ddd":s=!0;break;case"dd":case"d":P>1&&D.length>P&&(g[S]=D.substr(P),D=D.substr(0,P),m++),b=parseInt(D),a=!0;break;case"hh":case"h":P>1&&D.length>P&&(g[S]=D.substr(P),D=D.substr(0,P),m++),C=12==(C=parseInt(D))?0:C;break;case"HH":P>1&&D.length>P&&(g[S]=D.substr(P),D=D.substr(0,P),m++),C=parseInt(D);break;case"H":C=parseInt(D);break;case"mm":case"m":P>1&&D.length>P&&(g[S]=D.substr(P),D=D.substr(0,P),m++),w=parseInt(D);break;case"ss":case"s":P>1&&D.length>P&&(g[S]=D.substr(P),D=D.substr(0,P),m++),x=parseInt(D);break;case"fffffff":case"FFFFFFF":case"ffffff":case"FFFFFF":case"fffff":case"FFFFF":case"ffff":case"FFFF":case"fff":case"FFF":case"ff":case"FF":case"f":case"F":E=parseInt(D)/Math.pow(10,P-3);break;case"tt":case"t":D=D.toUpperCase(),C<12&&p.pm.indexOf(D)>-1&&(C+=12);break;case"q":case"Q":case"u":case"U":u=!0;break;case"ggg":case"gg":case"g":A=p.eras.length>1?t._getEra(D,p):-1;break;case"/":case":":if(D&&D!=p[_[T]])return null;break;case"K":break;default:t._unquote(_[T]).trim()!=D.trim()&&m++}}if(l&&a&&(isNaN(C)&&(C=0),isNaN(w)&&(w=0),isNaN(x)&&(x=0)),y<0||y>11||isNaN(y)||b<1||b>31||isNaN(b)||C<0||C>24||isNaN(C)||w<0||w>60||isNaN(w)||x<0||x>60||isNaN(x))return null;if(h){if(!l)return null;var O=exports.culture.Globalize.calendar;if(isArray(O.fiscalYearOffsets)){var M="E"==h[0],N=y-O.fiscalYearOffsets[M?0:1];v+=N>11?-1:N<0?1:0}}if(s&&!a)return null;if(u&&!l)return null;if(v<0)v=isDate(r)?r.getFullYear():(new Date).getFullYear();else if(A>-1)v=v+p.eras[A].start.getFullYear()-1;else if(v<100&&!c){var k=isNumber(p.twoDigitYearMax)?p.twoDigitYearMax:2029;k>99&&(v+=v+2e3<=k?2e3:1900)}return b>new Date(v,y+1,0).getDate()?null:(i=DateTime.newDate(v,y,b,C,w+0,x,E),isNaN(i.getTime())?null:i)},t.getFirstDayOfWeek=function(){var t=exports.culture.Globalize.calendar.firstDay;return t||0},t.getNumberDecimalSeparator=function(){var t=exports.culture.Globalize.numberFormat["."];return t||"."},t._toFixedStr=function(t,e){var n=t.toString(),r=n.indexOf("."),i=e-(n.length-r)+1,o=n.indexOf("e")>-1;if(!o&&r>-1&&i>=0)return n+Array(i+1).join("0");r&&!o&&"5"==n[n.length-1]&&(t=+(Math.round(+(Math.abs(t)+"e"+e))+"e"+-e)*(t<0?-1:1));return t.toFixed(e)},t._unquote=function(t){return t.length>1&&t[0]==t[t.length-1]&&("'"==t[0]||'"'==t[0])?t.substr(1,t.length-2):t},t._parseDateFormat=function(e){if(e in t._dateFormatParts)return t._dateFormatParts[e];var n,r,i=[];if(e)for(n=0;n>-1&&n<e.length;n++){var o=e[n];if(("'"==o||'"'==o)&&(r=e.indexOf(o,n+1))>-1)i.push(e.substring(n,r+1)),n=r;else if("\\"==o&&n<e.length-1)n++,i.push('"'+e[n]+'"');else{for(r=n+1;r<e.length&&e[r]==o;r++);i.push(e.substring(n,r)),n=r-1}}return t._dateFormatParts[e]=i,i},t._formatDatePart=function(e,n,r){var i,o=exports.culture.Globalize.calendar,s=0,a=0,u=0,l=r.length;switch(r){case"yyyy":case"yyy":case"yy":case"y":case"EEEE":case"EEE":case"EE":case"E":case"eeee":case"eee":case"ee":case"e":if(a=(i="E"==r[0]?DateTime.toFiscal(e,!0):"e"==r[0]?DateTime.toFiscal(e,!1):e).getFullYear(),o.eras.length>1&&n.indexOf("g")>-1)if((s=t._getEra(e,o))>-1)a=isDate((h=o.eras[s]).start)?a-h.start.getFullYear()+1:Math.abs(a);var c=r.length<3?a%100:3==r.length?a%1e3:a;return t._zeroPad(c,r.length);case"MMMMM":return o.monthsAbbr[e.getMonth()][0];case"MMMM":return o.months[e.getMonth()];case"MMM":return o.monthsAbbr[e.getMonth()];case"MM":case"M":return t._zeroPad(e.getMonth()+1,l);case"dddd":return o.days[e.getDay()];case"ddd":return o.daysAbbr[e.getDay()];case"dd":return t._zeroPad(e.getDate(),2);case"d":return e.getDate().toString();case"hh":case"h":return t._zeroPad(t._h12(e),l);case"HH":case"H":return t._zeroPad(e.getHours(),l);case"mm":case"m":return t._zeroPad(e.getMinutes(),l);case"ss":case"s":return t._zeroPad(e.getSeconds(),l);case"fffffff":case"FFFFFFF":case"ffffff":case"FFFFFF":case"fffff":case"FFFFF":case"ffff":case"FFFF":case"fff":case"FFF":case"ff":case"FF":case"f":case"F":return u=e.getMilliseconds()*Math.pow(10,l-3),"f"==r[0]?t._zeroPad(u,l):u.toFixed(0);case"tt":return e.getHours()<12?o.am[0]:o.pm[0];case"t":return e.getHours()<12?o.am[1]:o.pm[1];case"q":case"Q":return(Math.floor(e.getMonth()/3)+1).toString();case"u":case"U":return i=DateTime.toFiscal(e,"U"==r),(Math.floor(i.getMonth()/3)+1).toString();case"ggg":case"gg":case"g":if(o.eras.length>1&&(s=t._getEra(e,o))>-1){var h;if(isString(h=o.eras[s]))return h;switch(r){case"gg":return h.name[0];case"g":return h.symbol;default:return h.name}}return o.eras[0];case":":case"/":return o[r];case"K":var p=e.toString().match(/(\+|\-)(\d{2})(\d{2})/);return p?p[1]+p[2]+p[3]:"";case"zzz":case"zz":case"z":var f=-e.getTimezoneOffset(),d=void 0;switch(r){case"zzz":d=t.format(f/60,"d2",!1,!0)+o[":"]+t.format(f%60,"d2",!1,!0);break;case"zz":d=t.format(f/60,"d2",!1,!0);break;case"z":d=t.format(f/60,"d",!1,!0)}return f>=0?"+"+d:d}return l>1&&r[0]==r[l-1]&&('"'==r[0]||"'"==r[0])?r.substr(1,l-2):r},t._getEra=function(t,e){if(e.eras){var n=e.eras.length;if(isDate(t)){if(isString(e.eras[0]))return t.getFullYear()>=0?0:1;if(isDate(e.eras[0].start)){for(var r=0;r<n;r++)if(t>=e.eras[r].start)return r;return n-1}}else if(isString(t)&&t.length>0){t=t.toLowerCase();for(r=0;r<n;r++){var i=e.eras[r],o=i.name,s=i.symbol;if(o&&0==o.toLowerCase().indexOf(t)||s&&0==s.toLowerCase().indexOf(t))return r}}}return-1},t._expandFormat=function(t){var e=exports.culture.Globalize.calendar.patterns[t];return e||t},t._zeroPad=function(t,e){var n=t.toFixed(0),r=e-n.length+1;return r>0?Array(r).join("0")+n:n},t._h12=function(t){var e=exports.culture.Globalize.calendar,n=t.getHours();return e.am&&e.am[0]&&0==(n%=12)&&(n=12),n},t._shiftDecimal=function(t,e){if(0==e||isNaN(t))return t;var n=t.toString();if(n.indexOf("e")>-1)return t*Math.pow(10,e);var r=Array(Math.abs(e)+1).join("0");e<0&&(n=r+n);var i=n.indexOf(".");return i<0&&(i=(n+=".").indexOf(".")),e>0&&(n+=r),i+=e,n=(n=n.replace(".","")).substr(0,i)+"."+n.substr(i),parseFloat(n)},t._CJK="a-z"+"u00c0-u017fu3000-u30ffu4e00-u9faf".replace(/u/g,"\\u")+"u1100-u11ffu3130-u318fua960-ua97fuac00-ud7afud7b0-ud7ff".replace(/u/g,"\\u"),t._dateFormatParts={},t}();function _updateCulture(t){exports.culture=t}function _addCultureInfo(t,e){exports.culture[t]="undefined"!=typeof window&&window.wijmo.culture[t]||e}exports.Globalize=Globalize,exports._updateCulture=_updateCulture,exports._addCultureInfo=_addCultureInfo;var _MaskProvider=function(){function t(t,e,n){void 0===e&&(e=null),void 0===n&&(n="_"),this._promptChar="_",this._mskArr=[],this._full=!0,this._hbInput=this._input.bind(this),this._hbKeyDown=this._keydown.bind(this),this._hbKeyPress=this._keypress.bind(this),this._hbCompositionStart=this._compositionstart.bind(this),this._hbCompositionEnd=this._compositionend.bind(this),this.mask=asString(e),this.input=t,this.promptChar=asString(n,!1),this._connect(!0),this._evtInput=document.createEvent("HTMLEvents"),this._evtInput.initEvent("input",!0,!1)}return Object.defineProperty(t.prototype,"input",{get:function(){return this._tbx},set:function(t){this._connect(!1),this._tbx=t,this._connect(!0)},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"mask",{get:function(){return this._msk},set:function(t){t!=this._msk&&(this._msk=asString(t,!0),this._parseMask(),this._valueChanged())},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"promptChar",{get:function(){return this._promptChar},set:function(t){t!=this._promptChar&&(this._promptChar=asString(t,!1),assert(1==this._promptChar.length,"promptChar must be a string with length 1."),this._valueChanged())},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"maskFull",{get:function(){return this._full},enumerable:!0,configurable:!0}),t.prototype.getMaskRange=function(){return this._mskArr.length?[this._firstPos,this._lastPos]:[0,this._tbx.value.length-1]},t.prototype.getRawValue=function(){var t=this._tbx?this._tbx.value:"";if(!this.mask)return t;for(var e="",n=0;n<this._mskArr.length&&n<t.length;n++)this._mskArr[n].literal||t[n]==this._promptChar||(e+=t[n]);return e},t.prototype.refresh=function(){this._parseMask(),this._valueChanged()},t.prototype._input=function(t){var e=this;this._composing?t.stopImmediatePropagation():setTimeout(function(){e._valueChanged()})},t.prototype._keydown=function(t){if(t.keyCode==Key.Back){var e=this._tbx.selectionStart,n=this._tbx.selectionEnd;if(e<=this._firstPos&&n==e)return t.preventDefault(),void(this._backSpace=!1)}this._backSpace=t.keyCode==Key.Back},t.prototype._keypress=function(t){t.ctrlKey||t.metaKey||t.altKey||this._composing||!this._preventKey(t.charCode)||t.preventDefault()},t.prototype._compositionstart=function(t){this._composing=!0},t.prototype._compositionend=function(t){var e=this;this._composing&&(this._composing=!1,setTimeout(function(){var t=e._tbx;t&&t.dispatchEvent(e._evtInput)}))},t.prototype._preventKey=function(t){if(t&&this._mskArr.length){var e=this._tbx,n=e.selectionStart,r=String.fromCharCode(t);if(n<this._firstPos&&setSelectionRange(e,n=this._firstPos),n>=this._mskArr.length)return!0;var i=this._mskArr[n];if(i.literal)this._validatePosition(n);else if(i.wildCard!=r&&!this._isCharValid(i.wildCard,r))return!0}return!1},t.prototype._connect=function(t){var e=this._tbx;e&&(assert(e instanceof HTMLInputElement||e instanceof HTMLTextAreaElement,"INPUT or TEXTAREA element expected."),t?(this._autoComplete=e.autocomplete,this._spellCheck=e.spellcheck,e.autocomplete="off",e.spellcheck=!1,e.addEventListener("input",this._hbInput,!0),e.addEventListener("keydown",this._hbKeyDown,!0),e.addEventListener("keypress",this._hbKeyPress,!0),e.addEventListener("compositionstart",this._hbCompositionStart,!0),e.addEventListener("compositionend",this._hbCompositionEnd,!0),e.addEventListener("blur",this._hbCompositionEnd,!0),this._valueChanged()):(e.autocomplete=this._autoComplete,e.spellcheck=this._spellCheck,e.removeEventListener("input",this._hbInput,!0),e.removeEventListener("keydown",this._hbKeyDown,!0),e.removeEventListener("keypress",this._hbKeyPress,!0),e.removeEventListener("compositionstart",this._hbCompositionStart,!0),e.removeEventListener("compositionend",this._hbCompositionEnd,!0),e.removeEventListener("blur",this._hbCompositionEnd,!0)))},t.prototype._valueChanged=function(){if(!this._tbx||!this._msk)return!1;var t=this._tbx,e=t.value.length<2,n=t.selectionStart,r=n>0?t.value[n-1]:"",i=t.value;t.value=this._applyMask(),e&&(n=this._firstPos+1);var o=n>0?t.value[n-1]:"";return n>0&&o==this._promptChar&&r!=this.promptChar&&n--,n==i.length&&(n=this._matchEnd),this._validatePosition(n),i!=t.value},t.prototype._applyMask=function(){this._full=!0,this._matchEnd=0;var t=this._tbx.value;if(!this._msk)return t;if(!t&&!this._tbx.required)return t;var e="",n=0,r=this._promptChar;t=this._handleVagueLiterals(t);for(var i=0;i<this._mskArr.length;i++){var o=this._mskArr[i],s=o.literal;if(s&&s==t[n]&&n++,o.wildCard){if(s=r,t){for(var a=n;a<t.length;a++)if(this._isCharValid(o.wildCard,t[a])){switch(s=t[a],o.charCase){case">":s=s.toUpperCase();break;case"<":s=s.toLowerCase()}s!=r&&(this._matchEnd=e.length+1);break}n=a+1}s==r&&(this._full=!1)}e+=s}return e},t.prototype._handleVagueLiterals=function(t){if(t.length>this._mskArr.length+1)return t;var e=t.length-this._mskArr.length;if(0!=e&&t.length>1){for(var n=-1,r=this._tbx,i=r==getActiveElement()?r.selectionStart:r.value.length,o=Math.max(0,i-e);o<this._mskArr.length;o++)if(this._mskArr[o].vague){n=o;break}if(n>-1)if(e<0){var s=Array(1-e).join(this._promptChar),a=n+e;a>-1&&(t=t.substr(0,a)+s+t.substr(a))}else{for(;n>0&&this._mskArr[n-1].literal;)n--;t=t.substr(0,n)+t.substr(n+e)}}return t},t.prototype._isCharValid=function(e,n){var r=this._promptChar;switch(e){case"0":return n>="0"&&n<="9"||n==r;case"9":return n>="0"&&n<="9"||" "==n||n==r;case"#":return n>="0"&&n<="9"||" "==n||"+"==n||"-"==n||n==r;case"L":return n>="a"&&n<="z"||n>="A"&&n<="Z"||n==r;case"l":return n>="a"&&n<="z"||n>="A"&&n<="Z"||" "==n||n==r;case"A":return n>="0"&&n<="9"||n>="a"&&n<="z"||n>="A"&&n<="Z"||n==r;case"a":return n>="0"&&n<="9"||n>="a"&&n<="z"||n>="A"&&n<="Z"||" "==n||n==r;case"９":return n>="０"&&n<="９"||n==r;case"Ｊ":case"Ｇ":return!("Ｇ"==e&&t._X_DBCS_BIG_HIRA.indexOf(n)>-1)&&(n>="ぁ"&&n<="ゖ"||n==r);case"Ｋ":case"Ｎ":return!("Ｎ"==e&&t._X_DBCS_BIG_KATA.indexOf(n)>-1)&&(n>="ァ"&&n<="ヺ"||n==r);case"Ｚ":return n<="!"||n>="ÿ"||n==r;case"H":return n>="!"&&n<="ÿ"||n==r;case"K":case"N":return!("N"==e&&t._X_SBCS_BIG_KATA.indexOf(n)>-1)&&(n>="ｦ"&&n<="ﾟ"||n==r)}return!1},t.prototype._validatePosition=function(t){var e=this._mskArr;if(this._backSpace)for(;t>0&&t<e.length&&e[t-1].literal;)t--;if(0==t||!this._backSpace)for(;t<e.length&&e[t].literal;)t++;getActiveElement()==this._tbx&&setSelectionRange(this._tbx,t),this._backSpace=!1},t.prototype._parseMask=function(){this._mskArr=[],this._firstPos=-1,this._lastPos=-1;for(var t,e=this._msk,n="|",r=0;e&&r<e.length;r++)switch(e[r]){case"0":case"9":case"#":case"A":case"a":case"L":case"l":case"９":case"Ｊ":case"Ｇ":case"Ｋ":case"Ｎ":case"Ｚ":case"K":case"N":case"H":this._firstPos<0&&(this._firstPos=this._mskArr.length),this._lastPos=this._mskArr.length,this._mskArr.push(new _MaskElement(e[r],n));break;case".":case",":case":":case"/":case"$":switch(e[r]){case".":case",":t=exports.culture.Globalize.numberFormat[e[r]];break;case":":case"/":t=exports.culture.Globalize.calendar[e[r]];break;case"$":t=exports.culture.Globalize.numberFormat.currency.symbol}for(var i=0;i<t.length;i++)this._mskArr.push(new _MaskElement(t[i]));break;case"<":case">":case"|":n=e[r];break;case"\\":r<e.length-1&&r++,this._mskArr.push(new _MaskElement(e[r]));break;default:this._mskArr.push(new _MaskElement(e[r]))}for(r=0;r<this._mskArr.length;r++){var o=this._mskArr[r];if(o.literal)for(i=0;i<r;i++){var s=this._mskArr[i];if(s.wildCard&&this._isCharValid(s.wildCard,o.literal)){o.vague=!0;break}}}},t._X_DBCS_BIG_HIRA="ぁぃぅぇぉっゃゅょゎゕゖ",t._X_DBCS_BIG_KATA="ァィゥェォッャュョヮヵヶ",t._X_SBCS_BIG_KATA="ｧｨｩｪｫｬｭｮｯ",t}();exports._MaskProvider=_MaskProvider;var _MaskElement=function(){return function(t,e){e?(this.wildCard=t,this.charCase=e):this.literal=t}}();exports._MaskElement=_MaskElement;var _isMobile="undefined"!=typeof navigator&&null!=navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone/i);function isMobile(){return _isMobile}exports.isMobile=isMobile;var _isFF="undefined"!=typeof navigator&&null!=navigator.userAgent.match(/Firefox\//);function isFirefox(){return _isFF}exports.isFirefox=isFirefox;var _isSafari="undefined"!=typeof navigator&&null!=navigator.userAgent.match(/^((?!chrome|android).)*safari/i);function isSafari(){return _isSafari}exports.isSafari=isSafari;var _isEdge="undefined"!=typeof navigator&&null!=navigator.userAgent.match(/Edge\//);function isEdge(){return _isEdge}exports.isEdge=isEdge;var _isIE="undefined"!=typeof navigator&&null!=navigator.userAgent.match(/MSIE |Trident\/|Edge\//);function isIE(){return _isIE}exports.isIE=isIE;var _isIE9=!1;function isIE9(){return _isIE9}exports.isIE9=isIE9;var _isIE10=!1;function isIE10(){return _isIE10}exports.isIE10=isIE10;var _supportsPassive=!1;function getEventOptions(t,e){return _supportsPassive?{capture:t,passive:e}:t}"undefined"!=typeof document&&document.addEventListener("test",function(t){},{get passive(){return _supportsPassive=!0,!0}}),exports.getEventOptions=getEventOptions;var _supportsFocusOptions=!1;function supportsFocusOptions(){return _supportsFocusOptions}function _startDrag(t,e){t.effectAllowed=e,isFirefox()&&t.setData("text","")}if("undefined"!=typeof document&&document.createElement("div").focus({get preventScroll(){return _supportsFocusOptions=!0,!0}}),exports.supportsFocusOptions=supportsFocusOptions,exports._startDrag=_startDrag,"undefined"!=typeof document&&document.doctype&&(navigator.appVersion.indexOf("MSIE 10")>-1&&(_isIE10=!0),navigator.appVersion.indexOf("MSIE 9")>-1&&(_isIE9=!0,document.addEventListener("mousemove",function(t){if(1==t.which){var e=closest(t.target,".wj-control");if(e&&!e.style.cursor)for(var n=t.target;n;n=n.parentElement)if(n.attributes&&n.attributes.draggable)return n.dragDrop(),!1}}))),"undefined"!=typeof window){var raf="requestAnimationFrame",caf="cancelAnimationFrame";if(!window[raf]){var expectedTime_1=0;window[raf]=function(t){var e=Date.now(),n=16-(e-expectedTime_1),r=n>0?n:0;return expectedTime_1=e+r,setTimeout(function(){t(expectedTime_1)},r)},window[caf]=clearTimeout}if(!window.atob){var keys_1="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",keysRe_1=new RegExp("[^"+keys_1+"]");window.atob=function(t){var e,n,r,i,o=[],s=0,a=t.length;if(keysRe_1.test(t)||/=/.test(t)&&(/=[^=]/.test(t)||/={3}/.test(t)))throw new Error("Invalid base64 data");for(a%4>0&&(a=(t+=Array(4-a%4+1).join("=")).length);s<a;){for(n=[],i=s;s<i+4;)n.push(keys_1.indexOf(t.charAt(s++)));for(r=[((e=(n[0]<<18)+(n[1]<<12)+((63&n[2])<<6)+(63&n[3]))&255<<16)>>16,64===n[2]?-1:(65280&e)>>8,64===n[3]?-1:255&e],i=0;i<3;++i)(r[i]>=0||0===i)&&o.push(String.fromCharCode(r[i]))}return o.join("")},window.btoa=function(t){for(var e,n,r=[],i=0,o=t.length;i<o;)e=((n=[t.charCodeAt(i++),t.charCodeAt(i++),t.charCodeAt(i++)])[0]<<16)+((n[1]||0)<<8)+(n[2]||0),r.push(keys_1.charAt((e&63<<18)>>18),keys_1.charAt((258048&e)>>12),keys_1.charAt(isNaN(n[1])?64:(4032&e)>>6),keys_1.charAt(isNaN(n[2])?64:63&e));return r.join("")}}}var Aggregate,PrintDocument=function(){function t(t){this._copyCss=!0,null!=t&&copy(this,t)}return Object.defineProperty(t.prototype,"title",{get:function(){return this._title},set:function(t){this._title=asString(t)},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"copyCss",{get:function(){return this._copyCss},set:function(t){this._copyCss=asBoolean(t)},enumerable:!0,configurable:!0}),t.prototype.addCSS=function(t){this._css||(this._css=[]),this._css.push(t)},t.prototype.append=function(t){var e=this._getDocument();isString(t)?e.write(t):t instanceof HTMLElement?e.write(t.outerHTML):assert(!1,"child should be an HTML element or a string.")},t.prototype.print=function(t){var e=this;this._iframe&&(this._close(),setTimeout(function(){var n=e._iframe.contentWindow,r="onafterprint"in n&&!isFirefox();r&&(n.onafterprint=function(){e._afterPrint(t)}),!(isIE()&&null==n.document.body)&&document.queryCommandSupported("print")?n.document.execCommand("print",!0,null):(n.focus(),n.print()),r||e._afterPrint(t)},100))},t.prototype._afterPrint=function(t){document.body.removeChild(this._iframe),this._iframe=null,isFunction(t)&&t()},t.prototype._getDocument=function(){if(!this._iframe){var t=this._iframe=document.createElement("iframe");addClass(t,"wj-printdocument"),setCss(t,{position:"fixed",left:32e3,top:32e3}),document.body.appendChild(t)}return this._iframe.contentDocument},t.prototype._close=function(){var t=this._getDocument();if(t.close(),t.title=null!=this.title?this.title:document.title,t.title&&t.title.trim()||(t.title=" "),this._copyCss){for(var e=document.head.querySelectorAll("link"),n=0;n<e.length;n++){var r=e[n];if(r.href.match(/\.css$/i)&&r.rel.match(/stylesheet/i)){var i=httpRequest(r.href,{async:!1});this._addStyle(i.responseText)}}var o=document.head.querySelectorAll("STYLE");for(n=0;n<o.length;n++)this._addStyle(o[n].textContent)}if(this._css)for(n=0;n<this._css.length;n++){var s=t.createElement("style");i=httpRequest(this._css[n],{async:!1});s.textContent=i.responseText,t.head.appendChild(s)}},t.prototype._addStyle=function(t){var e=this._getDocument(),n=e.createElement("style");n.textContent=t,e.head.appendChild(n)},t}();function getAggregate(t,e,n){var r=0,i=0,o=0,s=0,a=null,u=null,l=null,c=n?new Binding(n):null;if((t=asEnum(t,Aggregate))==Aggregate.CntAll)return e.length;for(var h=0;h<e.length;h++){var p=e[h];if(c&&(p=c.getValue(p)),t==Aggregate.First)return p;null!=p&&(r++,(null==a||p<a)&&(a=p),(null==u||p>u)&&(u=p),l=p,isNumber(p)&&!isNaN(p)?(i++,o+=p,s+=p*p):isBoolean(p)&&(i++,1==p&&(o++,s++)))}var f=0==i?0:o/i;switch(t){case Aggregate.Avg:return f;case Aggregate.Cnt:return r;case Aggregate.Max:return u;case Aggregate.Min:return a;case Aggregate.Rng:return u-a;case Aggregate.Sum:return o;case Aggregate.VarPop:return i<=1?0:s/i-f*f;case Aggregate.StdPop:return i<=1?0:Math.sqrt(s/i-f*f);case Aggregate.Var:return i<=1?0:(s/i-f*f)*i/(i-1);case Aggregate.Std:return i<=1?0:Math.sqrt((s/i-f*f)*i/(i-1));case Aggregate.Last:return l}throw"Invalid aggregate type."}exports.PrintDocument=PrintDocument,function(t){t[t.None=0]="None",t[t.Sum=1]="Sum",t[t.Cnt=2]="Cnt",t[t.Avg=3]="Avg",t[t.Max=4]="Max",t[t.Min=5]="Min",t[t.Rng=6]="Rng",t[t.Std=7]="Std",t[t.Var=8]="Var",t[t.StdPop=9]="StdPop",t[t.VarPop=10]="VarPop",t[t.CntAll=11]="CntAll",t[t.First=12]="First",t[t.Last=13]="Last"}(Aggregate=exports.Aggregate||(exports.Aggregate={})),exports.getAggregate=getAggregate;var ArrayBase=function(t){function e(){var e=this;return canChangePrototype?e.length=0:e=t.call(this)||this,e}return __extends(e,t),e}(Array);exports.ArrayBase=ArrayBase;var canChangePrototype=!0;try{ArrayBase.prototype=Array.prototype,canChangePrototype=ArrayBase.prototype===Array.prototype}catch(t){canChangePrototype=!1}var symb="undefined"!=typeof window?window.Symbol:null;!canChangePrototype&&symb&&symb.species&&Object.defineProperty(ArrayBase,symb.species,{get:function(){return Array},enumerable:!1,configurable:!1});var ObservableArray=function(t){function e(e){var n=t.call(this)||this;if(n._updating=0,n.collectionChanged=new Event,e){e=asArray(e),n._updating++;for(var r=0;r<e.length;r++)n.push(e[r]);n._updating--}return n}return __extends(e,t),e.prototype.push=function(){for(var e=[],n=0;n<arguments.length;n++)e[n]=arguments[n];for(var r=this.length,i=0;e&&i<e.length;i++)r=t.prototype.push.call(this,e[i]),this._updating||this._raiseCollectionChanged(NotifyCollectionChangedAction.Add,e[i],r-1);return r},e.prototype.pop=function(){var e=t.prototype.pop.call(this);return this._raiseCollectionChanged(NotifyCollectionChangedAction.Remove,e,this.length),e},e.prototype.splice=function(e,n,r){var i,o=NotifyCollectionChangedAction;return n&&r?(i=t.prototype.splice.call(this,e,n,r),1==n?this._raiseCollectionChanged(o.Change,r,e):this._raiseCollectionChanged(),i):r?(i=t.prototype.splice.call(this,e,0,r),this._raiseCollectionChanged(o.Add,r,e),i):(i=t.prototype.splice.call(this,e,n),1==n?this._raiseCollectionChanged(o.Remove,i[0],e):this._raiseCollectionChanged(),i)},e.prototype.slice=function(e,n){return t.prototype.slice.call(this,e,n)},e.prototype.indexOf=function(e,n){return t.prototype.indexOf.call(this,e,n)},e.prototype.sort=function(e){var n=t.prototype.sort.call(this,e);return this._raiseCollectionChanged(),n},e.prototype.insert=function(t,e){this.splice(t,0,e)},e.prototype.remove=function(t){var e=this.indexOf(t);return e>-1&&(this.removeAt(e),!0)},e.prototype.removeAt=function(t){this.splice(t,1)},e.prototype.setAt=function(t,e){t>=this.length&&(this.length=t+1),this.splice(t,1,e)},e.prototype.clear=function(){this.length&&this.splice(0,this.length)},e.prototype.beginUpdate=function(){this._updating++},e.prototype.endUpdate=function(){this._updating>0&&(this._updating--,0==this._updating&&this._raiseCollectionChanged())},Object.defineProperty(e.prototype,"isUpdating",{get:function(){return this._updating>0},enumerable:!0,configurable:!0}),e.prototype.deferUpdate=function(t){try{this.beginUpdate(),t()}finally{this.endUpdate()}},e.prototype.implementsInterface=function(t){return"INotifyCollectionChanged"==t},e.prototype.onCollectionChanged=function(t){void 0===t&&(t=NotifyCollectionChangedEventArgs.reset),this.isUpdating||this.collectionChanged.raise(this,t)},e.prototype._raiseCollectionChanged=function(t,e,n){if(void 0===t&&(t=NotifyCollectionChangedAction.Reset),!this.isUpdating){var r=new NotifyCollectionChangedEventArgs(t,e,n);this.onCollectionChanged(r)}},e}(ArrayBase);exports.ObservableArray=ObservableArray;var CollectionView=function(){function t(t,e){var n=this;this._idx=-1,this._srtDsc=new ObservableArray,this._grpDesc=new ObservableArray,this._newItem=null,this._edtItem=null,this._pgSz=0,this._pgIdx=0,this._updating=0,this._stableSort=!1,this._nullsFirst=!1,this._canFilter=!0,this._canGroup=!0,this._canSort=!0,this._canAddNew=!0,this._canCancelEdit=!0,this._canRemove=!0,this._canChangePage=!0,this._trackChanges=!1,this._chgAdded=new ObservableArray,this._chgRemoved=new ObservableArray,this._chgEdited=new ObservableArray,this.collectionChanged=new Event,this.sourceCollectionChanging=new Event,this.sourceCollectionChanged=new Event,this.currentChanged=new Event,this.currentChanging=new Event,this.pageChanged=new Event,this.pageChanging=new Event,this._srtDsc.collectionChanged.addHandler(function(){n._srtDsc.forEach(function(t){assert(t instanceof SortDescription,"sortDescriptions array must contain SortDescription objects.")}),n.canSort&&n.refresh()}),this._grpDesc.collectionChanged.addHandler(function(){n._grpDesc.forEach(function(t){assert(t instanceof GroupDescription,"groupDescriptions array must contain GroupDescription objects.")}),n.canGroup&&(n.currentEditItem||n.currentAddItem?n.commitEdit():n.refresh())}),this.sourceCollection=t||new ObservableArray,e&&(this._initializing=!0,this.beginUpdate(),copy(this,e),this.endUpdate(),this._initializing=!1),null==this._keepCurrentItem&&(this._keepCurrentItem=!0)}return t.prototype._copy=function(t,e){switch(t){case"sortDescriptions":this.sortDescriptions.clear();for(var n=asArray(e),r=0;r<n.length;r++){isString(o=n[r])&&(o=new SortDescription(o,!0)),this.sortDescriptions.push(o)}return!0;case"groupDescriptions":this.groupDescriptions.clear();var i=asArray(e);for(r=0;r<i.length;r++){var o;isString(o=i[r])&&(o=new PropertyGroupDescription(o)),this.groupDescriptions.push(o)}return!0;case"currentItem":return this.currentItem=e,!0}return!1},Object.defineProperty(t.prototype,"newItemCreator",{get:function(){return this._itemCreator},set:function(t){this._itemCreator=asFunction(t)},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"sortConverter",{get:function(){return this._srtCvt},set:function(t){t!=this._srtCvt&&(this._srtCvt=asFunction(t,!0))},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"sortComparer",{get:function(){return this._srtCmp},set:function(t){t!=this._srtCmp&&(this._srtCmp=asFunction(t,!0))},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"useStableSort",{get:function(){return this._stableSort},set:function(t){t!=this._stableSort&&(this._stableSort=asBoolean(t),this.refresh())},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"sortNullsFirst",{get:function(){return this._nullsFirst},set:function(t){t!=this._stableSort&&(this._nullsFirst=asBoolean(t),this.refresh())},enumerable:!0,configurable:!0}),t.prototype.getAggregate=function(t,e,n){return getAggregate(t,n?this._pgView:this._view,e)},Object.defineProperty(t.prototype,"trackChanges",{get:function(){return this._trackChanges},set:function(t){this._trackChanges=asBoolean(t)},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"itemsAdded",{get:function(){return this._chgAdded},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"itemsRemoved",{get:function(){return this._chgRemoved},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"itemsEdited",{get:function(){return this._chgEdited},enumerable:!0,configurable:!0}),t.prototype.clearChanges=function(){this._chgAdded.clear(),this._chgRemoved.clear(),this._chgEdited.clear()},t.prototype.implementsInterface=function(t){switch(t){case"ICollectionView":case"IEditableCollectionView":case"IPagedCollectionView":case"INotifyCollectionChanged":return!0}return!1},Object.defineProperty(t.prototype,"getError",{get:function(){return this._getError},set:function(t){this._getError!=t&&(this._getError=asFunction(t),this._raiseCollectionChanged())},enumerable:!0,configurable:!0}),t.prototype.onCollectionChanged=function(t){void 0===t&&(t=NotifyCollectionChangedEventArgs.reset),t.action!=NotifyCollectionChangedAction.Change||this._committing||this._canceling||t.item==this.currentEditItem||t.item==this.currentAddItem||this._trackItemChanged(t.item),this.collectionChanged.raise(this,t)},t.prototype._raiseCollectionChanged=function(t,e,n){void 0===t&&(t=NotifyCollectionChangedAction.Reset);var r=new NotifyCollectionChangedEventArgs(t,e,n);this.onCollectionChanged(r)},t.prototype._notifyItemChanged=function(t){var e=new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Change,t,this.items.indexOf(t));this.onCollectionChanged(e)},t.prototype.onSourceCollectionChanging=function(t){return this.sourceCollectionChanging.raise(this,t),!t.cancel},t.prototype.onSourceCollectionChanged=function(t){this.sourceCollectionChanged.raise(this,t)},Object.defineProperty(t.prototype,"canFilter",{get:function(){return this._canFilter},set:function(t){this._canFilter=asBoolean(t)},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"canGroup",{get:function(){return this._canGroup},set:function(t){this._canGroup=asBoolean(t)},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"canSort",{get:function(){return this._canSort},set:function(t){this._canSort=asBoolean(t)},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"currentItem",{get:function(){return this._pgView&&this._idx>-1&&this._idx<this._pgView.length?this._pgView[this._idx]:null},set:function(t){this.moveCurrentTo(t)},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"currentPosition",{get:function(){return this._idx},set:function(t){this.moveCurrentToPosition(asNumber(t))},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"filter",{get:function(){return this._filter},set:function(t){this._filter!=t&&(this._filter=asFunction(t),this.canFilter&&this.refresh())},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"groupDescriptions",{get:function(){return this._grpDesc},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"groups",{get:function(){return this._groups},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"isEmpty",{get:function(){return!this._pgView||!this._pgView.length},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"sortDescriptions",{get:function(){return this._srtDsc},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"sourceCollection",{get:function(){return this._src},set:function(t){if(t!=this._src){if(!this.onSourceCollectionChanging(new CancelEventArgs))return;var e=this.currentPosition;this.commitEdit(),null!=this._ncc&&this._ncc.collectionChanged.removeHandler(this._sourceChanged),this._src=asArray(t,!1),this._ncc=tryCast(this._src,"INotifyCollectionChanged"),this._ncc&&this._ncc.collectionChanged.addHandler(this._sourceChanged,this),this.clearChanges(),this.refresh(),this.moveCurrentToFirst(),this.onSourceCollectionChanged(),this.currentPosition<0&&e>-1&&this.onCurrentChanged()}},enumerable:!0,configurable:!0}),t.prototype._sourceChanged=function(t,e){this._updating<=0&&this.refresh()},t.prototype.contains=function(t){return this._pgView.indexOf(t)>-1},t.prototype.moveCurrentTo=function(t){return this.moveCurrentToPosition(this._pgView.indexOf(t))},t.prototype.moveCurrentToFirst=function(){return this.moveCurrentToPosition(0)},t.prototype.moveCurrentToLast=function(){return this.moveCurrentToPosition(this._pgView.length-1)},t.prototype.moveCurrentToPrevious=function(){return this._idx>0&&this.moveCurrentToPosition(this._idx-1)},t.prototype.moveCurrentToNext=function(){return this.moveCurrentToPosition(this._idx+1)},t.prototype.moveCurrentToPosition=function(t){if(t>=-1&&t<this._pgView.length&&t!=this._idx){var e=new CancelEventArgs;if(this.onCurrentChanging(e)){var n=this._pgView[t];this._edtItem&&n!=this._edtItem?this.commitEdit():this._newItem&&n!=this._newItem&&this.commitNew(),this._idx=t,this.onCurrentChanged()}}return this._idx==t},t.prototype.refresh=function(){this._newItem||this._edtItem?this._pendingRefresh=!0:this._updating<=0&&(this._performRefresh(),this.onCollectionChanged())},t.prototype._performRefresh=function(){if(!(this._updating>0)){this._pendingRefresh=!1;var t=this.currentItem;this._view=this._src?this._performFilter(this._src):[],this.canSort&&this._srtDsc.length>0&&(this._view==this._src&&(this._view=this._src.slice()),this._performSort(this._view)),this._groups=this.canGroup?this._createGroups(this._view):null,this._fullGroups=this._groups,this._groups&&(this._view=this._mergeGroupItems(this._groups)),this._pgIdx=clamp(this._pgIdx,0,this.pageCount-1),this._pgView=this._getPageView(),this._groups&&this.pageCount>1&&(this._groups=this._createGroups(this._pgView),this._mergeGroupItems(this._groups));var e=this._keepCurrentItem?this._pgView.indexOf(t):-1;e<0&&(e=Math.min(this._idx,this._pgView.length-1)),this._idx=e,this._digest=this._getGroupsDigest(this.groups),this.currentItem===t||this._initializing||this.onCurrentChanged()}},t.prototype._performSort=function(t){if(this._stableSort){var e=t.map(function(t,e){return{item:t,index:e}}),n=this._compareItems();e.sort(function(t,e){var r=n(t.item,e.item);return 0==r?t.index-e.index:r});for(var r=0;r<t.length;r++)t[r]=e[r].item}else t.sort(this._compareItems())},t.prototype._compareItems=function(){var e=this._srtDsc,n=this._srtCvt,r=this._srtCmp,i=this._nullsFirst?-1:1,o=t._collator,s=!0,a=0;return function(t,u){for(var l=0;l<e.length;l++){var c=e[l],h=c._bnd.getValue(t),p=c._bnd.getValue(u);if(n&&(h=n(c,t,h,s),p=n(c,u,p,!1),s=!1),r&&null!=(a=r(h,p)))return c.ascending?+a:-a;if(h!=h&&(h=null),p!=p&&(p=null),null!=h&&null==p)return-1*i;if(null==h&&null!=p)return 1*i;if("string"==typeof h&&"string"==typeof p){if(o){if(0!=(a=o.compare(h,p)))return c.ascending?+a:-a;continue}var f=h.toLowerCase(),d=p.toLowerCase();f!=d&&(h=f,p=d)}if(0!=(a=h<p?-1:h>p?1:0))return c.ascending?+a:-a}return 0}},t.prototype._performFilter=function(t){return this.canFilter&&this._filter?t.filter(this._filter,this):t},t.prototype.onCurrentChanged=function(t){void 0===t&&(t=EventArgs.empty),this.currentChanged.raise(this,t)},t.prototype.onCurrentChanging=function(t){return this.currentChanging.raise(this,t),!t.cancel},Object.defineProperty(t.prototype,"items",{get:function(){return this._pgView},enumerable:!0,configurable:!0}),t.prototype.beginUpdate=function(){this._updating++},t.prototype.endUpdate=function(){this._updating--,this._updating<=0&&this.refresh()},Object.defineProperty(t.prototype,"isUpdating",{get:function(){return this._updating>0},enumerable:!0,configurable:!0}),t.prototype.deferUpdate=function(t){try{this.beginUpdate(),t()}finally{this.endUpdate()}},Object.defineProperty(t.prototype,"canAddNew",{get:function(){return this._canAddNew},set:function(t){this._canAddNew=asBoolean(t)},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"canCancelEdit",{get:function(){return this._canCancelEdit},set:function(t){this._canCancelEdit=asBoolean(t)},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"canRemove",{get:function(){return this._canRemove},set:function(t){this._canRemove=asBoolean(t)},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"currentAddItem",{get:function(){return this._newItem},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"currentEditItem",{get:function(){return this._edtItem},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"isAddingNew",{get:function(){return null!=this._newItem},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"isEditingItem",{get:function(){return null!=this._edtItem},enumerable:!0,configurable:!0}),t.prototype.editItem=function(t){t!=this._edtItem&&this.moveCurrentTo(t)&&(this.commitEdit(),this._edtItem=t,this._edtClone={},this._extend(this._edtClone,this._edtItem))},t.prototype.commitEdit=function(){var t=this._edtItem,e=this._edtClone;if(null!=t){this._committing=!0;var n=this._getChangedFields(t,e),r=this._pendingRefresh;this._edtItem=null,this._edtClone=null;var i=this._pgView.indexOf(t),o=this._digest;if(this._needRefresh(n)&&this._performRefresh(),n&&this._trackItemChanged(t),this._pgView.indexOf(t)!=i||o!=this._digest||r?this._raiseCollectionChanged():this._raiseCollectionChanged(NotifyCollectionChangedAction.Change,t,i),this.commitNew(),this._committing=!1,this.sourceCollection instanceof ObservableArray){this._updating++;var s=new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Change,t);this.sourceCollection.onCollectionChanged(s),this._updating--}}},t.prototype.cancelEdit=function(){var t=this._edtItem;if(null!=t){if(this._edtItem=null,!this.canCancelEdit)return void assert(!1,"cannot cancel edits (canCancelEdit == false).");var e=this._src.indexOf(t);e>=0&&this._edtClone&&(this._extend(this._src[e],this._edtClone),this._edtClone=null,this._canceling=!0,this._raiseCollectionChanged(NotifyCollectionChangedAction.Change,t,e),this._canceling=!1,this._pendingRefresh&&(this._performRefresh(),this._raiseCollectionChanged()))}},t.prototype.addNew=function(){if(arguments.length>0&&assert(!1,"addNew does not take any parameters, it creates the new items."),this.commitEdit(),!this.canAddNew)return assert(!1,"cannot add items (canAddNew == false)."),null;var t=null,e=this.sourceCollection;if(null!=(t=this.newItemCreator?this.newItemCreator():e&&e.length?new e[0].constructor:{})){if(this._newItem=t,this._updating++,this._src.push(t),this._updating--,this._pgView!=this._src&&this._pgView.push(t),this.groups&&this.groups.length){var n=this.groups[this.groups.length-1];for(n.items.push(t);n.groups&&n.groups.length;)(n=n.groups[n.groups.length-1]).items.push(t)}this._raiseCollectionChanged(NotifyCollectionChangedAction.Add,t,this._pgView.length-1),this.moveCurrentTo(t)}return this._newItem},t.prototype.commitNew=function(){var t=this._newItem;if(null!=t){this._newItem=null;var e=this._pgView.indexOf(t),n=this._digest;if(this._performRefresh(),this._trackChanges){var r=this._chgEdited.indexOf(t);r>-1&&this._chgEdited.removeAt(r),this._chgAdded.indexOf(t)<0&&this._chgAdded.push(t)}this._pgView.indexOf(t)==e&&n==this._digest?this._raiseCollectionChanged(NotifyCollectionChangedAction.Change,t,e):this._raiseCollectionChanged()}},t.prototype.cancelNew=function(){var t=this._newItem;null!=t&&this.remove(t)},t.prototype.remove=function(t){var e=t==this._newItem;if(e&&(this._newItem=null),t==this._edtItem&&this.cancelEdit(),this.canRemove){var n=this._src.indexOf(t);if(n>-1){var r=this.currentItem;this._updating++,this._src.splice(n,1),this._updating--;var i=this._digest;if(this._performRefresh(),this._trackChanges){var o=this._chgAdded.indexOf(t);o>-1&&this._chgAdded.removeAt(o);var s=this._chgEdited.indexOf(t);s>-1&&this._chgEdited.removeAt(s),this._chgRemoved.indexOf(t)<0&&!e&&o<0&&this._chgRemoved.push(t)}var a=this.sortDescriptions.length>0,u=this.pageSize>0&&this._pgIdx>-1;a||u||i!=this._getGroupsDigest(this.groups)?this._raiseCollectionChanged():this._raiseCollectionChanged(NotifyCollectionChangedAction.Remove,t,n),this.currentItem!==r&&this.onCurrentChanged()}}else assert(!1,"cannot remove items (canRemove == false).")},t.prototype.removeAt=function(t){t=asInt(t),this.remove(this._pgView[t])},t.prototype._trackItemChanged=function(t){if(this._trackChanges){var e=this.sourceCollection;if(e&&e.indexOf(t)>-1){var n=this._chgEdited.indexOf(t),r=NotifyCollectionChangedAction.Change;if(n<0&&this._chgAdded.indexOf(t)<0)this._chgEdited.push(t);else if(n>-1){var i=new NotifyCollectionChangedEventArgs(r,t,n);this._chgEdited.onCollectionChanged(i)}else if((n=this._chgAdded.indexOf(t))>-1){i=new NotifyCollectionChangedEventArgs(r,t,n);this._chgAdded.onCollectionChanged(i)}}}},t.prototype._extend=function(t,e){for(var n in e)t[n]=e[n]},t.prototype._needRefresh=function(t){if(!t)return!1;if(this._filter)return!0;for(var e=0;e<this._srtDsc.length;e++)for(var n=0;n<t.length;n++)if(0==this._srtDsc[e].property.indexOf(t[n]))return!0;for(e=0;e<this._grpDesc.length;e++){var r=this._grpDesc[e];if(!(r instanceof PropertyGroupDescription))return!0;for(n=0;n<t.length;n++)if(0==r.propertyName.indexOf(t[n]))return!0}return!1},t.prototype._sameContent=function(t,e){return null==this._getChangedFields(t,e)},t.prototype._getChangedFields=function(t,e){assert(null!=e&&null!=t,"Two objects expected");var n={};for(var r in e)this._sameValue(t[r],e[r])&&isPrimitive(e[r])||(n[r]=!0);for(var r in t)this._sameValue(t[r],e[r])&&isPrimitive(t[r])||(n[r]=!0);var i=Object.keys(n);return i.length?i:null},t.prototype._sameValue=function(t,e){return t===e||DateTime.equals(t,e)},Object.defineProperty(t.prototype,"canChangePage",{get:function(){return this._canChangePage},set:function(t){this._canChangePage=asBoolean(t)},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"isPageChanging",{get:function(){return!1},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"itemCount",{get:function(){return this._pgView.length},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"pageIndex",{get:function(){return this._pgIdx},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"pageSize",{get:function(){return this._pgSz},set:function(t){t!=this._pgSz&&(this._pgSz=asInt(t),this.refresh())},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"totalItemCount",{get:function(){return this._view.length},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"pageCount",{get:function(){return this.pageSize?Math.ceil(this.totalItemCount/this.pageSize):1},enumerable:!0,configurable:!0}),t.prototype.moveToFirstPage=function(){return this.moveToPage(0)},t.prototype.moveToLastPage=function(){return this.moveToPage(this.pageCount-1)},t.prototype.moveToPreviousPage=function(){return this.moveToPage(this.pageIndex-1)},t.prototype.moveToNextPage=function(){return this.moveToPage(this.pageIndex+1)},t.prototype.moveToPage=function(t){var e=clamp(t,0,this.pageCount-1);if(e!=this._pgIdx){this.canChangePage||assert(!1,"cannot change pages (canChangePage == false).");var n=new PageChangingEventArgs(e);this.onPageChanging(n)&&(this._pgIdx=e,this._pgView=this._getPageView(),this._idx=0,this.groupDescriptions&&0!=this.groupDescriptions.length?this.refresh():this.onCollectionChanged(),this.onPageChanged())}return this._pgIdx==t},t.prototype.onPageChanged=function(t){void 0===t&&(t=EventArgs.empty),this.pageChanged.raise(this,t)},t.prototype.onPageChanging=function(t){return this.pageChanging.raise(this,t),!t.cancel},t.prototype._getFullGroup=function(t){var e=this._getGroupByPath(this._fullGroups,t.level,t._path);return null!=e&&(t=e),t},t.prototype._getGroupByPath=function(t,e,n){if(t)for(var r=0;r<t.length;r++){var i=t[r];if(i.level==e&&i._path==n)return i;if(i.level<e&&0==n.indexOf(i._path)&&null!=(i=this._getGroupByPath(i.groups,e,n)))return i}return null},t.prototype._getPageView=function(){if(this.pageSize<=0||this._pgIdx<0)return this._view;var t=this._pgSz*this._pgIdx,e=Math.min(t+this._pgSz,this._view.length);return this._view.slice(t,e)},t.prototype._createGroups=function(t){var e=this;if(!this._grpDesc||!this._grpDesc.length)return null;var n=[],r={},i=null;return t.forEach(function(t){for(var o=n,s=e._grpDesc.length,a="",u=0;u<s;u++){var l=e._grpDesc[u],c=l.groupNameFromItem(t,u),h=u==s-1;!(i=r[a])&&isPrimitive(c)&&(i={},r[a]=i);var p=e._getGroup(l,o,i,c,u,h);a+="/"+c,p._path=a,h&&p.items.push(t),o=p.groups}}),n},t.prototype._getGroupsDigest=function(t){for(var e="",n=0;null!=t&&n<t.length;n++){var r=t[n];e+="{"+r.name+":"+(r.items?r.items.length:"*"),r.groups.length>0&&(e+=",",e+=this._getGroupsDigest(r.groups)),e+="}"}return e},t.prototype._mergeGroupItems=function(t){for(var e=[],n=0;n<t.length;n++){var r=t[n];if(!r._isBottomLevel)for(var i=this._mergeGroupItems(r.groups),o=0,s=i.length;o<s;o++)r._items.push(i[o]);for(o=0,s=r._items.length;o<s;o++)e.push(r._items[o])}return e},t.prototype._getGroup=function(t,e,n,r,i,o){var s;if(n&&isPrimitive(r)){if(s=n[r])return s}else for(var a=0;a<e.length;a++)if(t.namesMatch(e[a].name,r))return e[a];var u=new CollectionViewGroup(t,r,i,o);return e.push(u),n&&(n[r]=u),u},t._collator="undefined"!=typeof window&&window.Intl&&Intl.Collator?new Intl.Collator:null,t}();exports.CollectionView=CollectionView;var CollectionViewGroup=function(){function t(t,e,n,r){this._gd=t,this._name=e,this._level=n,this._isBottomLevel=r,this._groups=[],this._items=[]}return Object.defineProperty(t.prototype,"name",{get:function(){return this._name},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"level",{get:function(){return this._level},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"isBottomLevel",{get:function(){return this._isBottomLevel},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"items",{get:function(){return this._items},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"groups",{get:function(){return this._groups},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"groupDescription",{get:function(){return this._gd},enumerable:!0,configurable:!0}),t.prototype.getAggregate=function(t,e,n){var r=tryCast(n,CollectionView);return getAggregate(t,(r?r._getFullGroup(this):this).items,e)},t}();exports.CollectionViewGroup=CollectionViewGroup,exports.controlBaseClass="undefined"!=typeof window&&window["wj-control-is-element"]?HTMLElement:Object;var __isES6Mode=!1;try{var f=function(){return function(){}}();f.prototype=Array.prototype,__isES6Mode=f.prototype!==Array.prototype}catch(t){__isES6Mode=!0}var __callSuper=__isES6Mode||exports.controlBaseClass!==Object,ControlBase=function(t){function e(){var e=this;return __callSuper&&(e=t.call(this)||this),e}return __extends(e,t),e}(exports.controlBaseClass);exports.ControlBase=ControlBase;var Control=function(t){function e(n,r,i){void 0===r&&(r=null),void 0===i&&(i=!1);var o=t.call(this)||this;o._listeners=[],o._pristine=!0,o._focus=!1,o._updating=0,o._fullUpdate=!1,o.gotFocus=new Event,o.lostFocus=new Event,o.refreshing=new Event,o.refreshed=new Event,o._updateWme(),assert(null==e.getControl(n),"Element is already hosting a control.");var s=getElement(n);assert(null!=s,"Cannot find the host element."),o._orgTabIndex=s.hasAttribute("tabindex")?s.tabIndex:0,o._orgOuter=s.outerHTML,o._orgTag=s.tagName,o._orgAtts=s.attributes,"INPUT"!=s.tagName&&"SELECT"!=s.tagName||(s=o._replaceWithDiv(s)),o._e=s,s[e._CTRL_KEY]=o;var a=o.addEventListener.bind(o);if(1==i){o._szCtl=new Size(s.offsetWidth,s.offsetHeight);var u=e._szObserver,l=window.ResizeObserver;!u&&l&&(e._szObserver=u=new l(function(t){t.forEach(function(t){var n=e.getControl(t.target);n&&n._handleResize()})})),u?u.observe(s):a(window,"resize",o._handleResize.bind(o))}var c=o._handleFocusBlur.bind(o);a(s,"focus",c,!0),a(s,"blur",c,!0);var h=o._handleDisabled.bind(o);if(a(s,"mousedown",h,!0),a(s,"mouseup",h,!0),a(s,"click",h,!0),a(s,"dblclick",h,!0),a(s,"wheel",h,getEventOptions(!0,!0)),a(s,"keydown",function(t){o.isDisabled&&t.keyCode!=Key.Tab&&t.preventDefault()}),null==e._touching&&(e._touching=!1,"ontouchstart"in window||"onpointerdown"in window)){var p=document,f=o._handleTouchStart,d=o._handleTouchEnd,g=getEventOptions(!0,!0);"ontouchstart"in window?(p.addEventListener("touchstart",f,g),"touchend,touchcancel".split(",").forEach(function(t){p.addEventListener(t,d,g)})):"onpointerdown"in window&&(p.addEventListener("pointerdown",f,g),"pointerup,pointercancel".split(",").forEach(function(t){p.addEventListener(t,d,g)}))}return o}return __extends(e,t),e.prototype.getTemplate=function(){for(var t=Object.getPrototypeOf(this);t;t=Object.getPrototypeOf(t)){var e=t.constructor.controlTemplate;if(e)return e}return null},e.prototype.applyTemplate=function(t,n,r,i){var o=this,s=this._e;t&&addClass(s,t);var a=null;n&&(a=createElement(n,s));for(var u=s.querySelectorAll("a.wj-btn"),l=0;l<u.length;l++){var c=u[l];setAttribute(c,"role","button",!0),setAttribute(c,"href","",!0),setAttribute(c,"draggable",!1,!0)}var h=s.querySelectorAll("button");for(l=0;l<h.length;l++)setAttribute(h[l],"type","button",!0);var p=s.querySelectorAll("input"),f=1==p.length?p[0]:null;if(f){var d=e._rxInputAtts;this._copyAttributes(f,s.attributes,d),this._copyAttributes(f,this._orgAtts,d)}if(f&&s.id){for(var g=s;g.parentElement;)g=g.parentElement;var _=g.querySelector('label[for="'+s.id+'"]');if(_ instanceof HTMLLabelElement){var m=getUniqueId(s.id+"_input");f.id=m,_.htmlFor=m}}if(f){var v=f.value,y=document.createEvent("HTMLEvents");y.initEvent("change",!0,!1),this.addEventListener(f,"input",function(){setTimeout(function(){o._pristine=!1,v=f.value})}),this.gotFocus.addHandler(function(){v=f.value}),this.addEventListener(s,"blur",function(){o.containsFocus()||(o._pristine&&(o._pristine=!1,o._updateState()),v!=f.value&&(f.dispatchEvent(y),v=f.value))},!0)}if(f?s.tabIndex=-1:s.getAttribute("tabindex")||(s.tabIndex=0),this._updateState(),r)for(var b in r){var C=r[b];if(this[b]=a.querySelector('[wj-part="'+C+'"]'),null==this[b]&&a.getAttribute("wj-part")==C&&(this[b]=a),null==this[b])throw'Missing template part: "'+C+'"';if(C==i){var w="name",x=s.attributes[w];x&&x.value&&this[b].setAttribute(w,x.value),w="accesskey",(x=s.attributes[w])&&x.value&&(this[b].setAttribute(w,x.value),s.removeAttribute(w))}}return a},e.prototype.dispose=function(){if(this._e){for(var t=this._e.querySelectorAll(".wj-control"),n=0;n<t.length;n++){var r=e.getControl(t[n]);r&&r.dispose()}var i=e._szObserver;for(var o in i&&i.unobserve(this._e),this._toInv&&(clearTimeout(this._toInv),this._toInv=null),this.removeEventListener(),this){if(o.length>2&&0==o.indexOf("on"))(a=this[o[2].toLowerCase()+o.substr(3)])instanceof Event&&a.removeAllHandlers()}var s=this.collectionView;if(s instanceof CollectionView)for(var o in s){var a;(a=s[o])instanceof Event&&a.removeHandler(null,this)}this._e.parentNode&&(this._e.outerHTML=this._orgOuter),this._e[e._CTRL_KEY]=null,this._e=this._orgOuter=this._orgTag=null}},e.getControl=function(t){var n=getElement(t);return n?asType(n[e._CTRL_KEY],e,!0):null},Object.defineProperty(e.prototype,"hostElement",{get:function(){return this._e},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"rightToLeft",{get:function(){return null==this._rtlDir&&(this._rtlDir=!!this._e&&"rtl"==getComputedStyle(this._e).direction),this._rtlDir},enumerable:!0,configurable:!0}),e.prototype.focus=function(){var t=this._e;t&&(t.tabIndex>=0||!moveFocus(t,0))&&t.focus()},e.prototype.containsFocus=function(){return contains(this._e,getActiveElement(),!0)},e.prototype.invalidate=function(t){var n=this;void 0===t&&(t=!0),this._rtlDir=null,this._fullUpdate=this._fullUpdate||t,this._toInv&&(clearTimeout(this._toInv),this._toInv=null),this.isUpdating||(this._toInv=setTimeout(function(){n.refresh(n._fullUpdate),n._toInv=null},e._REFRESH_INTERVAL))},e.prototype.refresh=function(t){var e=this;void 0===t&&(t=!0),this.isUpdating||(this.onRefreshing(),setTimeout(function(){e.onRefreshed()})),!this.isUpdating&&this._toInv&&(clearTimeout(this._toInv),this._toInv=null,this._fullUpdate=!1),this._updateState(),this._updateWme()},e.invalidateAll=function(t){if(t||(t=document.body),t.children)for(var n=0;n<t.children.length;n++)e.invalidateAll(t.children[n]);var r=e.getControl(t);r&&r.invalidate()},e.refreshAll=function(t){if(t||(t=document.body),t.children)for(var n=0;n<t.children.length;n++)e.refreshAll(t.children[n]);var r=e.getControl(t);r&&r.refresh()},e.disposeAll=function(t){var n=e.getControl(t);if(n)n.dispose();else if(t.children)for(var r=0;r<t.children.length;r++)e.disposeAll(t.children[r])},e.prototype.beginUpdate=function(){this._updating++},e.prototype.endUpdate=function(){this._updating--,this._updating<=0&&this.invalidate()},Object.defineProperty(e.prototype,"isUpdating",{get:function(){return this._updating>0},enumerable:!0,configurable:!0}),e.prototype.deferUpdate=function(t){try{this.beginUpdate(),t()}finally{this.endUpdate()}},Object.defineProperty(e.prototype,"isTouching",{get:function(){return e._touching},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"isDisabled",{get:function(){return this._e&&null!=this._e.getAttribute("disabled")},set:function(t){if((t=asBoolean(t,!0))!=this.isDisabled){var e=this._e;e&&(enable(e,!t),e.tabIndex=this.isDisabled||e.querySelector("input")?-1:this._orgTabIndex)}},enumerable:!0,configurable:!0}),e.prototype.initialize=function(t){t&&copy(this,t)},e.prototype.addEventListener=function(t,e,n,r,i){if(t){null==r&&(r=!1),isBoolean(r)&&null==i&&e.match(/touch|wheel/)&&(i=!1);var o=isBoolean(r)&&isBoolean(i)?getEventOptions(r,i):r;t.addEventListener(e,n,o),this._listeners.push({target:t,type:e,fn:n,capture:r})}},e.prototype.removeEventListener=function(t,e,n,r){for(var i=0,o=0;o<this._listeners.length;o++){var s=this._listeners[o];null!=t&&t!=s.target||null!=e&&e!=s.type||null!=n&&n!=s.fn||null!=r&&r!=s.capture||(s.target.removeEventListener(s.type,s.fn,s.capture),this._listeners.splice(o,1),o--,i++)}return i},e.prototype.onGotFocus=function(t){this.gotFocus.raise(this,t)},e.prototype.onLostFocus=function(t){this.lostFocus.raise(this,t)},e.prototype.onRefreshing=function(t){this.refreshing.raise(this,t)},e.prototype.onRefreshed=function(t){this.refreshed.raise(this,t)},e.prototype._getProductInfo=function(){return"B0C3,Control"},e.prototype._updateWme=function(){var t=_updateWme;isFunction(t)&&t(this,e._licKey)},e.prototype._hasPendingUpdates=function(){return null!=this._toInv},e.prototype._handleResize=function(){if(this._e.parentElement){var t=new Size(this._e.offsetWidth,this._e.offsetHeight);t.equals(this._szCtl)||(this._szCtl=t,(t.width||t.height)&&this.invalidate())}},e.prototype._handleFocusBlur=function(){var t=this;this._toFocus||(this._toFocus=setTimeout(function(){t._toFocus=null,t._updateFocusState()},e._FOCUS_INTERVAL))},e.prototype._updateFocusState=function(){setTimeout(function(){for(var t=EventArgs.empty,n=document.body.querySelectorAll(".wj-state-focused"),r=0;r<n.length;r++){(a=e.getControl(n[r]))&&a._focus&&!a.containsFocus()&&(removeClass(a._e,"wj-state-focus"),a._focus=!1,a._updateState(),a.onLostFocus(t))}var i=getActiveElement();if(i)for(var o=!0,s=i;s;){var a;(a=e.getControl(s))&&!a._focus&&a.containsFocus()&&(o&&(addClass(s,"wj-state-focus"),o=!1),a._focus=!0,a._updateState(),a.onGotFocus(t)),s=s[e._OWNR_KEY]||s.parentNode}})},e.prototype._updateState=function(){var t=this.hostElement;if(t){toggleClass(t,"wj-state-focused",this._focus),this._rtlDir="rtl"==getComputedStyle(t).direction,toggleClass(t,"wj-rtl",this._rtlDir);var e=t.querySelector("input");if(e instanceof HTMLInputElement){toggleClass(t,"wj-state-empty",0==e.value.length),toggleClass(t,"wj-state-readonly",e.readOnly);var n=e.validationMessage;toggleClass(t,"wj-state-invalid",!this._pristine&&null!=n&&n.length>0)}}},e.prototype._handleTouchStart=function(t){null!=t.pointerType&&"touch"!=t.pointerType||(e._toTouch&&(clearTimeout(e._toTouch),e._toTouch=null),e._touching=!0)},e.prototype._handleTouchEnd=function(t){null!=t.pointerType&&"touch"!=t.pointerType||(e._toTouch=setTimeout(function(){e._toTouch=null,e._touching=!1},900))},e.prototype._handleDisabled=function(t){(this.isDisabled||closest(t.target,".wj-state-disabled"))&&(t.preventDefault(),t.stopPropagation(),t.stopImmediatePropagation())},e.prototype._replaceWithDiv=function(t){var e=document.createElement("div");return t.parentElement.replaceChild(e,t),e.innerHTML=t.innerHTML,this._copyAttributes(e,t.attributes,/id|style|class/i),e},e.prototype._copyAttributes=function(t,e,n){if(t)for(var r=0;r<e.length;r++){var i=e[r].name;i.match(n)&&t.setAttribute(i,e[r].value)}},e.prototype._getKeyCode=function(t){var e=t.keyCode;if(this.rightToLeft)switch(e){case Key.Right:e=Key.Left;break;case Key.Left:e=Key.Right}return e},e._REFRESH_INTERVAL=10,e._FOCUS_INTERVAL=5,e._ANIM_DEF_DURATION=400,e._ANIM_DEF_STEP=35,e._CLICK_DELAY=800,e._CLICK_REPEAT=75,e._CLIPBOARD_DELAY=100,e._POPUP_ZINDEX=1500,e._SEARCH_DELAY=600,e._HOVER_DELAY=300,e._DRAG_SCROLL_EDGE=15,e._DRAG_SCROLL_STEP=10,e._CTRL_KEY="$WJ-CTRL",e._OWNR_KEY="$WJ-OWNR",e._SCRL_KEY="$WJ-SCRL",e._rxInputAtts=/name|tabindex|placeholder|autofocus|autocomplete|autocorrect|autocapitalize|spellcheck|readonly|minlength|maxlength|pattern|type|aria-.+/i,e}(ControlBase);exports.Control=Control;var Clipboard=function(){function t(){}return t.copy=function(e){t._copyPaste(asString(e),null)},t.paste=function(e){t._copyPaste(null,asFunction(e))},t._copyPaste=function(t,e){for(var n=getActiveElement(),r=closest(n,".wj-control");r&&Control.getControl(r);)r=r.parentElement;if(r=r||document.body){var i=createElement('<textarea class="wj-clipboard" style="position:fixed;opacity:0"/>',r),o=!1;i.onkeydown=function(t){t.preventDefault()},i.onchange=function(t){t.stopImmediatePropagation()},isString(t)?(i.value=t,i.select(),document.execCommand("copy")&&(o=!0)):(i.select(),isFunction(e)&&document.execCommand("paste")&&(e(i.value),o=!0)),setTimeout(function(){n.focus(),removeChild(i),!o&&isFunction(e)&&e(i.value)},Control._CLIPBOARD_DELAY)}},t}();exports.Clipboard=Clipboard;var _ClickRepeater=function(){function t(t){this._isDown=!1,this._mousedownBnd=this._mousedown.bind(this),this._mouseupBnd=this._mouseup.bind(this),this._clickBnd=this._click.bind(this),this.element=t,this._connect(!0)}return Object.defineProperty(t.prototype,"element",{get:function(){return this._e},set:function(t){this._connect(!1),this._e=asType(t,HTMLElement,!0),this._connect(!0)},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"disabled",{get:function(){return this._disabled},set:function(t){this._disabled=asBoolean(t)},enumerable:!0,configurable:!0}),t.prototype._connect=function(t){if(this._e){t?this._e.addEventListener("mousedown",this._mousedownBnd):this._e.removeEventListener("mousedown",this._mousedownBnd)}},t.prototype._clearTimeouts=function(){this._toRepeat&&(clearInterval(this._toRepeat),this._toRepeat=null),this._toDelay&&(clearInterval(this._toDelay),this._toDelay=null)},t.prototype._mousedown=function(e){var n=this;this._isDown&&this._mouseup(null),this._disabled||(this._isDown=!0,t._stopEvents.forEach(function(t){document.addEventListener(t,n._mouseupBnd)}),this._clearTimeouts(),this._toDelay=setTimeout(function(){n._isDown&&(n._click(),n._toRepeat=setTimeout(n._clickBnd,Control._CLICK_REPEAT))},Control._CLICK_DELAY))},t.prototype._mouseup=function(e){var n=this;this._isDown&&e&&"mouseup"==e.type&&e.preventDefault(),t._stopEvents.forEach(function(t){document.removeEventListener(t,n._mouseupBnd)}),this._clearTimeouts(),this._isDown=!1},t.prototype._click=function(){this._clearTimeouts(),this._e&&(this._e.click(),this._isDown&&(this._toRepeat=setTimeout(this._clickBnd,Control._CLICK_REPEAT)))},t._stopEvents=["mouseup","mouseout","keydown"],t}();function showPopup(t,e,n,r,i){void 0===i&&(i=!0);var o=document.body;if(e instanceof HTMLElement){if(!contains(document.body,e))return;for(var s=e;s;s=s.parentElement){if("DIALOG"==s.tagName||"fixed"==getComputedStyle(s).position){o=s;break}if(_isjQueryDialog(s)){o=s.querySelector(".ui-dialog-content")||s;break}}}setCss(t,{display:"",opacity:"0",position:"fixed",left:0,top:0,transform:""}),t.offsetHeight&&t.offsetWidth&&t.parentElement==o||o.lastChild!=t&&o.appendChild(t);var a=document.body,u=new Point(a.scrollLeft||pageXOffset,a.scrollTop||pageYOffset),l=document.documentElement,c=l.clientWidth/window.innerWidth;if(o!=a||c>1.005){var h=o==a?l:t.offsetParent||o;if(h==a&&(h=o),h){var p=h.getBoundingClientRect();u=new Point(h.scrollLeft-p.left,h.scrollTop-p.top)}}var f=getComputedStyle(o);if(u.x-=parseFloat(f.borderLeftWidth),u.y-=parseFloat(f.borderTopWidth),e instanceof HTMLElement&&i){var d=i instanceof HTMLElement?i:e,g=getComputedStyle(d);1==new Color(g.backgroundColor).a&&setCss(t,{color:g.color,backgroundColor:g.backgroundColor,fontFamily:g.fontFamily,fontSize:g.fontSize,fontWeight:g.fontWeight,fontStyle:g.fontStyle})}Control.refreshAll(t);var _=getComputedStyle(t),m=parseFloat(_.marginTop)+parseFloat(_.marginBottom),v=parseFloat(_.marginLeft)+parseFloat(_.marginRight),y=new Size(t.offsetWidth+v,t.offsetHeight+m),b=hasClass(t,"wj-rtl")||"rtl"==t.getAttribute("dir"),C=new Point,w=null,x=l.clientWidth,E=l.clientHeight;if(e&&null!=e.clientX&&null!=e.clientY&&null!=e.pageX&&null!=e.pageY)e.clientX<=0&&e.clientY<=0&&e.target?w=e.target.getBoundingClientRect():(C.x=e.pageX-pageXOffset,C.y=e.pageY-pageYOffset,b&&(C.x-=y.width));else if(e instanceof Point)C=e,b&&(C.x-=y.width);else if(e instanceof HTMLElement)w=e.getBoundingClientRect();else if(e&&null!=e.top&&null!=e.left)w=e;else{if(null!=e)throw"Invalid ref parameter.";C.x=(x-y.width)/2,C.y=Math.round((E-y.height)/2*.7)}var A=parseFloat(_.minWidth);if(w){if(A=Math.max(A,w.width),isIE()&&(!e||"TR"!=e.tagName))A-=t.offsetWidth-(t.clientWidth+parseInt(_.borderLeftWidth)+parseInt(_.borderRightWidth));C.x=w.left;var T=w.top,S=E-w.bottom;C.y=n?T>y.height||T>S?w.top-y.height:w.bottom:S>y.height||S>T?w.bottom:w.top-y.height}C.y+y.height>E-20&&(C.y=Math.max(0,E-20-y.height)),C.x+y.width>x-20&&(C.x=Math.max(0,x-20-y.width)),C.x=Math.max(0,C.x)+u.x,C.y=Math.max(0,C.y)+u.y;var D={position:"absolute",opacity:r?"0":"",minWidth:A,zIndex:Control._POPUP_ZINDEX};0==u.x?(D.left=C.x,D.top=C.y):D.transform=format("translate({x}px, {y}px)",C),e instanceof HTMLElement&&(t[Control._OWNR_KEY]=e);var P=null;r&&(P=animate(function(e){t.style.opacity=e<1?e.toString():""})),setCss(t,D);var F=e instanceof MouseEvent?e.target:e;if(F instanceof HTMLElement&&F.parentElement!=document.body){var I=Date.now(),O=F.getBoundingClientRect(),M=new Control(document.createElement("div"));t[Control._SCRL_KEY]=M,M.addEventListener(document,"scroll",function(n){if(n.target!=t.parentElement&&Date.now()-I>100&&contains(document,F)&&!contains(t,n.target)&&(n.target!=document||null!=e&&"fixed"==t.style.position)){var r=F.getBoundingClientRect(),i=Math.abs(r.left-O.left),o=Math.abs(r.top-O.top);(i>1||o>1)&&(_hidePopup(t,!0),M.dispose())}},!0)}return P}function hidePopup(t,e,n){void 0===e&&(e=!0),void 0===n&&(n=!1);var r=null;return n?r=animate(function(n){t.style.opacity=(1-n).toString(),1==n&&(_hidePopup(t,e),t.style.opacity="")}):_hidePopup(t,e),r}function _hidePopup(t,e){t.style.display="none",e&&t.parentElement&&setTimeout(function(){"none"==t.style.display&&(removeChild(t),isFunction(e)&&e())},Control._FOCUS_INTERVAL+50);var n=t[Control._SCRL_KEY];n instanceof Control&&n.dispose(),delete t[Control._SCRL_KEY],delete t[Control._OWNR_KEY]}function _isjQueryDialog(t){var e=window.jQuery,n=isFunction(e)?e(t):null;return n&&isFunction(n.dialog)&&hasClass(t,"ui-dialog")}exports._ClickRepeater=_ClickRepeater,exports.showPopup=showPopup,exports.hidePopup=hidePopup;var Tooltip=function(){function t(t){this._showAutoTipBnd=this._showAutoTip.bind(this),this._hideAutoTipBnd=this._hideAutoTip.bind(this),this._html=!0,this._gap=6,this._showAtMouse=!1,this._showDelay=500,this._hideDelay=0,this._tips=[],this.popup=new Event,copy(this,t)}return t.prototype.setTooltip=function(t,e){t=getElement(t),e=this._getContent(e);var n=this._indexOf(t);n>-1&&(this._detach(t),this._tips.splice(n,1)),e&&(this._attach(t),this._tips.push({element:t,content:e}))},t.prototype.getTooltip=function(t){t=getElement(t);for(var e=this._tips,n=0;n<e.length;n++)if(e[n].element==t)return e[n].content;return null},t.prototype.show=function(e,n,r){e=getElement(e),n=this._getContent(n),r||(r=Rect.fromBoundingRect(e.getBoundingClientRect()));var i=t._eTip;i||(addClass(i=t._eTip=document.createElement("div"),"wj-tooltip"),i.style.visibility="none"),addClass(i,this.cssClass),this._setContent(n);var o=new TooltipEventArgs(n,e);this.onPopup(o),o.content&&!o.cancel&&(document.body.appendChild(i),this._setContent(o.content),i.style.minWidth="",showPopup(i,r=new Rect(r.left-(i.offsetWidth-r.width)/2,r.top-this.gap,i.offsetWidth,r.height+2*this.gap),!0),document.addEventListener("mousedown",this._hideAutoTipBnd))},t.prototype.hide=function(){var e=t._eTip;e&&(removeChild(e),removeClass(e,this.cssClass),e.innerHTML=""),document.removeEventListener("mousedown",this._hideAutoTipBnd)},t.prototype.dispose=function(){var t=this;this.isVisible&&this.hide();var e=this._tips;e.length&&(e.forEach(function(e){t._detach(e.element)}),e.splice(0,e.length)),this._clearTimeouts()},Object.defineProperty(t.prototype,"isVisible",{get:function(){var e=t._eTip;return null!=e&&null!=e.parentElement&&e.offsetWidth>0},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"isContentHtml",{get:function(){return this._html},set:function(t){this._html=asBoolean(t)},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"cssClass",{get:function(){return this._cssClass},set:function(t){this._cssClass=asString(t)},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"gap",{get:function(){return this._gap},set:function(t){this._gap=asNumber(t)},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"showAtMouse",{get:function(){return this._showAtMouse},set:function(t){this._showAtMouse=asBoolean(t)},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"showDelay",{get:function(){return this._showDelay},set:function(t){this._showDelay=asInt(t)},enumerable:!0,configurable:!0}),Object.defineProperty(t.prototype,"hideDelay",{get:function(){return this._hideDelay},set:function(t){this._hideDelay=asInt(t)},enumerable:!0,configurable:!0}),t.prototype.onPopup=function(t){return this.popup&&this.popup.raise(this,t),!t.cancel},t.prototype._indexOf=function(t){for(var e=0;e<this._tips.length;e++)if(this._tips[e].element==t)return e;return-1},t.prototype._attach=function(t){t.addEventListener("mouseenter",this._showAutoTipBnd),t.addEventListener("mouseleave",this._hideAutoTipBnd),t.addEventListener("click",this._showAutoTipBnd)},t.prototype._detach=function(t){t.removeEventListener("mouseenter",this._showAutoTipBnd),t.removeEventListener("mouseleave",this._hideAutoTipBnd),t.removeEventListener("click",this._showAutoTipBnd)},t.prototype._showAutoTip=function(t){var e=this;if(!t.defaultPrevented)if("click"!=t.type||Control._touching){var n="mouseenter"==t.type?this._showDelay:0,r=this._hideDelay;this._clearTimeouts(),this._toShow=setTimeout(function(){var n=e._indexOf(t.target);if(n>-1){var i=e._tips[n],o=e._showAtMouse?new Rect(t.clientX,t.clientY,0,0):null;e.show(i.element,i.content,o),r>0&&(e._toHide=setTimeout(function(){e.hide()},r))}},n)}else this._hideAutoTip(t)},t.prototype._hideAutoTip=function(t){this._clearTimeouts(),this.hide()},t.prototype._clearTimeouts=function(){this._toShow&&(clearTimeout(this._toShow),this._toShow=null),this._toHide&&(clearTimeout(this._toHide),this._toHide=null)},t.prototype._getContent=function(t){if((t=asString(t))&&"#"==t[0]){var e=getElement(t);e&&(t=e.innerHTML)}return t},t.prototype._setContent=function(e){var n=t._eTip;n&&(this._html?n.innerHTML=e:n.textContent=e)},t}();exports.Tooltip=Tooltip;var TooltipEventArgs=function(t){function e(e,n){var r=t.call(this)||this;return r._content=asString(e),r._e=n,r}return __extends(e,t),Object.defineProperty(e.prototype,"tip",{get:function(){return Tooltip._eTip},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"element",{get:function(){return this._e},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"content",{get:function(){return this._content},set:function(t){this._content=asString(t)},enumerable:!0,configurable:!0}),e}(CancelEventArgs);exports.TooltipEventArgs=TooltipEventArgs,_registerModule("wijmo",selfModule);var theLic="The Wijmo license in this application ",_licStr={evl:"Wijmo Evaluation Version ({version})",prd:theLic+"is not valid for the <b>{control}</b> control.",ver:theLic+"is not valid for the version in use. The license version is <b>{licVer}</b>; the product version is <b>{version}</b>.",dmn:theLic+"is not valid for the current domain. The license domain is <b>{licDomain}</b>; the current domain is <b>{domain}</b>.",exp:theLic+"has expired. The license expiration date is <b>{expDate:d}</b>.",lic:theLic+"is invalid.",mss:theLic+"is not set.",ctc:'Please <a target="_blank" rel="noopener" href="https://www.grapecity.com/licensing/wijmo">create a license</a> or contact GrapeCity: <a href="mailto:us.sales@grapecity.com">us.sales@grapecity.com</a>.',hdr:"Wijmo License",cls:"CLOSE"},_codes={};function _updateWme(t,e){var n=Control._wme;if(!(n&&contains(document.body,n)&&n.offsetWidth&&n.offsetHeight))if(e){var r=_getControlCode(t);if(!_codes[r]){_codes[r]=!0;_attorn(e,{algorithmCode:"B0",publicKey:"l6/zrbWoSbcLFwEetFh38rH3ErBZE9H+Cqix3R+wTlfA1wD5B+lUcCQn+EJ60I4RGrm0x1sFjkiLWwB0jAn6BWZv0W4WbqAKriOdeoivxDp1Wmjs3qkEDhvbsjPtfvwx2BHil6o+/tDrdMJQSGs18WZm2PoQLQuL+9VhZ4FNRHUQU3Jtioke/OZEGHJOdYVwvCGalzBad6QFOiVbDBQPePpS3++GJzOxN8SN/7lyS5/IdKiy3WJRaVGkB370+HbN6hKraDfUgReLX26yxRaKC/5aWnGAJ2NnWLoGyAGRcwT9dVjo4bcAZNrrA0U9JVKQxaSskhdv2p49XzJkltXx5w=="},function(n){_checkLicense(t,e,n)},function(){_checkLicense(t,e,null)}),setTimeout(function(){delete _codes[r]},50)}}else _checkLicense(t,null,null)}function _getControlCode(t){return t._getProductInfo().split(",")[0]}function _getControlName(t){return t._getProductInfo().split(",")[1]}function _checkLicense(t,e,n){var r=exports.culture.Licensing||_licStr,i=null;n?_checkExpiration(t,n)?_checkVersion(t,n)?_checkDomain(t,n)?_checkProductCode(t,n)?_checkEval(t,n)&&(i=r.evl):i=r.prd:i=r.dmn:i=r.ver:i=r.exp:i=e?r.lic:r.mss,i&&_addWme(t,i+="<br/><br/>"+r.ctc,n)}function _checkProductCode(t,e){var n=_getControlCode(t);if(n&&n.length>=4)for(var r=0;r<e.Prd.length;r++)if(e.Prd[r].C.indexOf(n)>-1)return!0;return!1}function _checkExpiration(t,e){if(e.Exp){var n=e.Exp,r=new Date(parseInt(n.substr(0,4))||0,parseInt(n.substr(4,2))-1||0,parseInt(n.substr(6,2))||0);if(Math.ceil((r.valueOf()-Date.now())/864e5)<=0)return!1}return!0}function _checkVersion(t,e){var n=e.Anl?e.Anl.ver:null,r=getVersion();return!n||!r||parseInt(n.replace("v",""))+10>=parseInt(r.split(".")[1])}function _checkDomain(t,e){if(_isLocalHost()||!e.Dms)return!0;for(var n=location.hostname,r=e.Dms.split(","),i=0;i<r.length;i++)if(_checkHost(n,r[i]))return!0;return!1}function _checkHost(t,e){var n="^"+e.replace(/\./g,"\\.").replace(/\*/g,"(.*)")+"$",r=new RegExp(n,"i").test(t);return r||"*."!=e.substr(0,2)?r:_checkHost(t,e.substr(2))}function _checkEval(t,e){return!!e&&e.Evl}function _isLocalHost(){var t=location,e=atob("Xih8bG9jYWxob3N0fGZpZGRsZS5qc2hlbGwubmV0fHJ1bi5wbG5rci5jb3xzLmNvZGVwZW4uaW98bnVsbC5qc2Jpbi5jb218Lio/LnN0YWNrYmxpdHouaW98MTI3LjAuMC4xfFt3LV0rLmxvY2FsfFt3LV0rfDo6MSkk");return"file:"==t.protocol||new RegExp(e,"i").test(t.hostname)}function _addWme(t,e,n){if(e=_getMessage(t,e,n),!_codes[" "]&&!_isLocalHost()&&!_checkEval(t,n)){_codes[" "]=!0;var r=exports.culture.Licensing||_licStr,i=createElement('<div style="position:fixed;background:rgba(0,0,0,0.3);left:0;top:0;width:100%;height:100%;font-family: sans-serif;z-index:10000;"><div style="position:relative;overflow:auto;background:white;width:450px;padding:36pt;left:50%;top:50%;transform:translate(-50%,-50%)"><div><p style="font-size:150%;font-weight:bold">'+r.hdr+"</p><p>"+e+'</p></div><div style="text-align:right;margin-top:24pt"><button style="border:none;background:rgba(158,158,158,.2);padding:8px 16px">'+r.cls+"</button></div></div></div>",document.body);i.addEventListener("click",function(t){t.target instanceof HTMLButtonElement&&removeChild(i)})}if(!Control._wme){var o=createElement('<div><a href="'+_getWmeHref()+'" target="_blank" rel="noopener">'+_getMessage(t)+"</a></div>"),s={position:"fixed",display:"block",visibility:"visible",background:"rgba(240,240,240,.9)",padding:"8px 12px",margin:"6px",fontFamily:"sans-serif",fontSize:"14pt",fontWeight:"bold",zIndex:1e4,opacity:.8,height:"auto",width:"auto",transform:"none"};switch(Math.round(100*Math.random())%3){case 0:s.right=s.bottom=0;break;case 1:s.left=s.bottom=0;break;case 2:s.right=s.top=0}setCss(o,s),document.body.appendChild(o),Control._wme=o,(new Tooltip).setTooltip(o,e)}}function _getWmeHref(){return"ja"==exports.culture.Globalize.name?"https://www.grapecity.co.jp/developer/support/wijmo-license":"https://www.grapecity.com/licensing/wijmo"}function _getMessage(t,e,n){(!e||e.trim().length<15)&&(e=(exports.culture.Licensing||_licStr).evl);(!e||e.trim().length<15)&&(e=atob("V2lqbW8gRXZhbHVhdGlvbiBWZXJzaW9uICh7dmVyc2lvbn0p"));var r=null;if(n&&n.Exp){var i=n.Exp;r=new Date(parseInt(i.substr(0,4))||0,parseInt(i.substr(4,2))-1||0,parseInt(i.substr(6,2))||0)}return e=format(e,{version:getVersion(),domain:location.hostname,control:_getControlName(t),licVer:n&&n.Anl?"5."+n.Anl.ver.replace("v","")+".*":null,licDomain:n?n.Dms:null,expDate:r})}function _attorn(t,e,n,r){var i=parseKeyData(t,e.algorithmCode);if(!i)return r();var o=i.lic,s=i.prefix+"#"+e.algorithmCode;if(tripleHash(s+JSON.stringify(o.D))!=o.H)return r();var a=window.msCrypto||window.crypto,u=a?a.subtle:null;if(!u||!location.protocol.match(/^https/i))return n(o.D);var l={name:"RSASSA-PKCS1-v1_5",hash:{name:"SHA-256"}},c={alg:"RS256",e:"AQAB",kty:"RSA",n:str64ToJwkBase64(e.publicKey)};c=window.msCrypto?str2ArrayBuffer(JSON.stringify(c)):c;try{asPromise(u.importKey("jwk",c,l,!1,["verify"])).then(function(t){var e=s+arrayBuffer2Str(str64ToArrayBuffer(str64EncodeUnicode(JSON.stringify(o.D))));asPromise(u.verify(l,t,str64ToArrayBuffer(o.S),str2ArrayBuffer(e))).then(function(t){return t?n(o.D):r()})},function(){return n(o.D)})}catch(t){return n(o.D)}}exports._updateWme=_updateWme;var uint8Array="undefined"==typeof window?null:window.Uint8Array||window.TypedArray;function parseKeyData(t,e){try{e="#"+e;var n=t.indexOf(e);if(n>-1)return{prefix:t.substring(0,n),lic:JSON.parse(decode(t.substr(n+e.length)))}}catch(t){}return null}function decode(t){if(!t)return"";var e=unshiftString(t);e=reverseString(e);var n=Math.ceil(e.length/2);return str64DecodeUnicode(e=(e=(e=e.substr(n)+e.substr(0,n)).replace("#","=")).replace("&","=="))}function unshiftString(t){for(var e=t.split(""),n=e.length-5;n>=0;n--)swapArrayElements(e,n+1,n+3,unshiftChar),swapArrayElements(e,n,n+2,unshiftChar);return e.join("")}function swapArrayElements(t,e,n,r){t.length>1&&t.splice(n,1,r(t.splice(e,1,r(t[n]))[0]))}function shiftChar(t,e){var n=t.charCodeAt(0);return n>=65&&n<=90?t.toLowerCase():n>=97&&n<=122?t.toUpperCase():n>=48&&n<=57?String.fromCharCode(48+(n-48+10+e)%10):t}function unshiftChar(t){return shiftChar(t,-1)}function reverseString(t){return t.split("").reverse().join("")}function str64DecodeUnicode(t){return decodeURIComponent(Array.prototype.map.call(atob(t),function(t){return"%"+("00"+t.charCodeAt(0).toString(16)).slice(-2)}).join(""))}function arrayBuffer2Str(t){return String.fromCharCode.apply(null,new uint8Array(t))}function str64ToArrayBuffer(t){for(var e=atob(t),n=e.length,r=new uint8Array(n),i=0;i<n;i++)r[i]=e.charCodeAt(i);return r.buffer}function str64EncodeUnicode(t){return btoa(encodeURIComponent(t).replace(/%([0-9A-F]{2})/g,function(t,e){return String.fromCharCode(parseInt(e,16))}))}function str64ToJwkBase64(t){return t.replace(/\+/g,"-").replace(/\//g,"_").replace(/\=+$/,"")}function str2ArrayBuffer(t){for(var e=new ArrayBuffer(t.length),n=new uint8Array(e),r=0,i=t.length;r<i;r++)n[r]=t.charCodeAt(r);return e}function tripleHash(t){for(var e=0,n=5381,r=0,i=t.length-1;i>=0;i--){var o=t.charCodeAt(i);e=o+(e<<6)+(e<<16)-e,n=o+((n<<5)+n),r=o+((r<<5)-r),r&=r}var s=e^n^r;return s<0&&(s=~s),s.toString(16).toUpperCase()}function asPromise(t){return"oncomplete"in t&&(t.then=function(e,n){t.resolve=e,t.reject=n},t.oncomplete=function(e){t.resolve(t.result)},t.onerror=function(e){t.reject()}),t}
+
+/***/ }),
+
+/***/ "./src/app/software/card/card-citizen-dialog/card-citizen-dialog.component.css":
+/*!*************************************************************************************!*\
+  !*** ./src/app/software/card/card-citizen-dialog/card-citizen-dialog.component.css ***!
+  \*************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL2NhcmQvY2FyZC1jaXRpemVuLWRpYWxvZy9jYXJkLWNpdGl6ZW4tZGlhbG9nLmNvbXBvbmVudC5jc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/software/card/card-citizen-dialog/card-citizen-dialog.component.ts":
+/*!************************************************************************************!*\
+  !*** ./src/app/software/card/card-citizen-dialog/card-citizen-dialog.component.ts ***!
+  \************************************************************************************/
+/*! exports provided: CardCitizenDialogComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CardCitizenDialogComponent", function() { return CardCitizenDialogComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm5/dialog.es5.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! wijmo/wijmo */ "./node_modules/wijmo/wijmo.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _card_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../card.service */ "./src/app/software/card/card.service.ts");
+/* harmony import */ var _card_model__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../card.model */ "./src/app/software/card/card.model.ts");
+/* harmony import */ var _card_search_citizen_dialog_card_search_citizen_dialog_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./card-search-citizen-dialog/card-search-citizen-dialog.component */ "./src/app/software/card/card-citizen-dialog/card-search-citizen-dialog/card-search-citizen-dialog.component.ts");
+/* harmony import */ var _card_detail_dialog_card_detail_dialog_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../card-detail-dialog/card-detail-dialog.component */ "./src/app/software/card/card-detail-dialog/card-detail-dialog.component.ts");
+
+
+
+
+
+
+
+
+var CardCitizenDialogComponent = /** @class */ (function () {
+    function CardCitizenDialogComponent(cardService, cardCitizenDialogRef, sarchCitizenlDialog, cardDetailDialog) {
+        this.cardService = cardService;
+        this.cardCitizenDialogRef = cardCitizenDialogRef;
+        this.sarchCitizenlDialog = sarchCitizenlDialog;
+        this.cardDetailDialog = cardDetailDialog;
+        this.listCitizenObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listCitizenCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listCitizenObservableArray);
+        this.listCitizenPageIndex = 7;
+        this.isFilterShow = false;
+        this.filterString = "";
+        this.cardModel = new _card_model__WEBPACK_IMPORTED_MODULE_5__["CardModel"]();
+    }
+    CardCitizenDialogComponent.prototype.listCitizenData = function () {
+        var _this = this;
+        this.listCitizenObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listCitizenCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listCitizenObservableArray);
+        this.listCitizenCollectionView.pageSize = 15;
+        this.listCitizenCollectionView.trackChanges = true;
+        this.listCitizenCollectionView.refresh();
+        this.cardService.listCitizen();
+        this.listCitizenSubscription = this.cardService.listCitizenListObservable.subscribe(function (data) {
+            if (data.length > 0) {
+                _this.listCitizenObservableArray = data;
+                _this.listCitizenCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](_this.listCitizenObservableArray);
+                _this.listCitizenCollectionView.pageSize = _this.listCitizenPageIndex;
+                _this.listCitizenCollectionView.trackChanges = true;
+                _this.listCitizenCollectionView.refresh();
+            }
+            if (_this.listCitizenSubscription != null)
+                _this.listCitizenSubscription.unsubscribe();
+        });
+    };
+    CardCitizenDialogComponent.prototype.btnCloseCitizenDialog = function () {
+        this.cardCitizenDialogRef.close();
+        if (this.listCitizenSubscription != null)
+            this.listCitizenSubscription.unsubscribe();
+    };
+    CardCitizenDialogComponent.prototype.btnSearchCitizen = function () {
+        var _this = this;
+        var sarchCitizenlDialogRef = this.sarchCitizenlDialog.open(_card_search_citizen_dialog_card_search_citizen_dialog_component__WEBPACK_IMPORTED_MODULE_6__["CardSearchCitizenDialogComponent"], {
+            width: '800px',
+            disableClose: true
+        });
+        sarchCitizenlDialogRef.afterClosed().subscribe(function (result) {
+            if (result != null) {
+                if (result[1] != "" || result[1] != null) {
+                    _this.isFilterShow = true;
+                    _this.filterString = result[1];
+                }
+                _this.listCitizenObservableArray = result[0];
+                _this.listCitizenCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](_this.listCitizenObservableArray);
+                _this.listCitizenCollectionView.pageSize = _this.listCitizenPageIndex;
+                _this.listCitizenCollectionView.trackChanges = true;
+                _this.listCitizenCollectionView.refresh();
+            }
+        });
+    };
+    CardCitizenDialogComponent.prototype.btnClearFilter = function () {
+        this.isFilterShow = false;
+        this.filterString = "";
+        this.listCitizenData();
+    };
+    CardCitizenDialogComponent.prototype.btnPickCitizen = function () {
+        var _this = this;
+        var currentEditItem = this.listCitizenCollectionView.currentItem;
+        this.cardModel.CitizenId = currentEditItem.Id;
+        this.cardModel.Citizen = currentEditItem.Fullname;
+        var cardDetailDialogRef = this.cardDetailDialog.open(_card_detail_dialog_card_detail_dialog_component__WEBPACK_IMPORTED_MODULE_7__["CardDetailDialogComponent"], {
+            width: '500px',
+            data: {
+                objDialogTitle: "Edit Card",
+                objCardModel: this.cardModel
+            },
+            disableClose: true
+        });
+        cardDetailDialogRef.afterClosed().subscribe(function (result) {
+            if (result == 200) {
+                setTimeout(function () {
+                    _this.cardCitizenDialogRef.close(200);
+                    if (_this.listCitizenSubscription != null)
+                        _this.listCitizenSubscription.unsubscribe();
+                }, 100);
+            }
+        });
+    };
+    CardCitizenDialogComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.listCitizenData();
+        setTimeout(function () {
+            _this.btnSearchCitizen();
+        }, 100);
+    };
+    CardCitizenDialogComponent.prototype.ngOnDestroy = function () {
+        if (this.listCitizenSubscription != null)
+            this.listCitizenSubscription.unsubscribe();
+    };
+    CardCitizenDialogComponent.ctorParameters = function () { return [
+        { type: _card_service__WEBPACK_IMPORTED_MODULE_4__["CardService"] },
+        { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"] },
+        { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialog"] },
+        { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialog"] }
+    ]; };
+    CardCitizenDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-card-citizen-dialog',
+            template: __webpack_require__(/*! raw-loader!./card-citizen-dialog.component.html */ "./node_modules/raw-loader/index.js!./src/app/software/card/card-citizen-dialog/card-citizen-dialog.component.html"),
+            styles: [__webpack_require__(/*! ./card-citizen-dialog.component.css */ "./src/app/software/card/card-citizen-dialog/card-citizen-dialog.component.css")]
+        })
+    ], CardCitizenDialogComponent);
+    return CardCitizenDialogComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/card/card-citizen-dialog/card-search-citizen-dialog/card-search-citizen-dialog.component.css":
+/*!***********************************************************************************************************************!*\
+  !*** ./src/app/software/card/card-citizen-dialog/card-search-citizen-dialog/card-search-citizen-dialog.component.css ***!
+  \***********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL2NhcmQvY2FyZC1jaXRpemVuLWRpYWxvZy9jYXJkLXNlYXJjaC1jaXRpemVuLWRpYWxvZy9jYXJkLXNlYXJjaC1jaXRpemVuLWRpYWxvZy5jb21wb25lbnQuY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/software/card/card-citizen-dialog/card-search-citizen-dialog/card-search-citizen-dialog.component.ts":
+/*!**********************************************************************************************************************!*\
+  !*** ./src/app/software/card/card-citizen-dialog/card-search-citizen-dialog/card-search-citizen-dialog.component.ts ***!
+  \**********************************************************************************************************************/
+/*! exports provided: CardSearchCitizenDialogComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CardSearchCitizenDialogComponent", function() { return CardSearchCitizenDialogComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm5/dialog.es5.js");
+/* harmony import */ var _card_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../card.service */ "./src/app/software/card/card.service.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+
+
+
+
+
+var CardSearchCitizenDialogComponent = /** @class */ (function () {
+    function CardSearchCitizenDialogComponent(cardService, citizenSearchDialogRef, toastr) {
+        this.cardService = cardService;
+        this.citizenSearchDialogRef = citizenSearchDialogRef;
+        this.toastr = toastr;
+        this.searchKeyword = "";
+    }
+    CardSearchCitizenDialogComponent.prototype.btnSarchCitizen = function () {
+        var _this = this;
+        if (this.searchKeyword == "" || this.searchKeyword == null) {
+            this.toastr.error("Search input cannot be empty.", "Invalid Search");
+        }
+        else {
+            var btnSarchCitizen_1 = document.getElementById("btnSarchCitizen");
+            var btnCloseSarchCitizen_1 = document.getElementById("btnCloseSarchCitizen");
+            btnSarchCitizen_1.setAttribute("disabled", "disabled");
+            btnCloseSarchCitizen_1.setAttribute("disabled", "disabled");
+            this.cardService.searchCitizen(this.searchKeyword);
+            this.sarchCitizenSubscription = this.cardService.searchCitizenListObservable.subscribe(function (data) {
+                _this.toastr.success("Search successfully done.", "Success");
+                _this.citizenSearchDialogRef.close([data, _this.searchKeyword]);
+                btnSarchCitizen_1.removeAttribute("disabled");
+                btnCloseSarchCitizen_1.removeAttribute("disabled");
+                if (_this.sarchCitizenSubscription != null)
+                    _this.sarchCitizenSubscription.unsubscribe();
+            });
+        }
+    };
+    CardSearchCitizenDialogComponent.prototype.btnCloseSearchDialog = function () {
+        this.citizenSearchDialogRef.close();
+        if (this.sarchCitizenSubscription != null)
+            this.sarchCitizenSubscription.unsubscribe();
+    };
+    CardSearchCitizenDialogComponent.prototype.ngOnInit = function () {
+    };
+    CardSearchCitizenDialogComponent.prototype.ngOnDestroy = function () {
+        if (this.sarchCitizenSubscription != null)
+            this.sarchCitizenSubscription.unsubscribe();
+    };
+    CardSearchCitizenDialogComponent.ctorParameters = function () { return [
+        { type: _card_service__WEBPACK_IMPORTED_MODULE_3__["CardService"] },
+        { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"] },
+        { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_4__["ToastrService"] }
+    ]; };
+    CardSearchCitizenDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-card-search-citizen-dialog',
+            template: __webpack_require__(/*! raw-loader!./card-search-citizen-dialog.component.html */ "./node_modules/raw-loader/index.js!./src/app/software/card/card-citizen-dialog/card-search-citizen-dialog/card-search-citizen-dialog.component.html"),
+            styles: [__webpack_require__(/*! ./card-search-citizen-dialog.component.css */ "./src/app/software/card/card-citizen-dialog/card-search-citizen-dialog/card-search-citizen-dialog.component.css")]
+        })
+    ], CardSearchCitizenDialogComponent);
+    return CardSearchCitizenDialogComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/card/card-delete-dialog/card-delete-dialog.component.css":
+/*!***********************************************************************************!*\
+  !*** ./src/app/software/card/card-delete-dialog/card-delete-dialog.component.css ***!
+  \***********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL2NhcmQvY2FyZC1kZWxldGUtZGlhbG9nL2NhcmQtZGVsZXRlLWRpYWxvZy5jb21wb25lbnQuY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/software/card/card-delete-dialog/card-delete-dialog.component.ts":
+/*!**********************************************************************************!*\
+  !*** ./src/app/software/card/card-delete-dialog/card-delete-dialog.component.ts ***!
+  \**********************************************************************************/
+/*! exports provided: CardDeleteDialogComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CardDeleteDialogComponent", function() { return CardDeleteDialogComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm5/dialog.es5.js");
+/* harmony import */ var _card_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../card.service */ "./src/app/software/card/card.service.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+
+
+
+
+
+var CardDeleteDialogComponent = /** @class */ (function () {
+    function CardDeleteDialogComponent(cardService, cardDeleteDialogRef, cardData, toastr) {
+        this.cardService = cardService;
+        this.cardDeleteDialogRef = cardDeleteDialogRef;
+        this.cardData = cardData;
+        this.toastr = toastr;
+    }
+    CardDeleteDialogComponent.prototype.btnDeleteCard = function () {
+        var _this = this;
+        var btnDeleteCard = document.getElementById("btnDeleteCard");
+        var btnCloseDeleteDialog = document.getElementById("btnCloseDeleteDialog");
+        btnDeleteCard.setAttribute("disabled", "disabled");
+        btnCloseDeleteDialog.setAttribute("disabled", "disabled");
+        this.cardService.deleteCard(this.cardData.objCardModel.Id);
+        this.deleteCardSubscription = this.cardService.deleteCardObservable.subscribe(function (data) {
+            if (data[0] == "success") {
+                _this.toastr.success("Card was successfully deleted.", "Success");
+                _this.cardDeleteDialogRef.close(200);
+            }
+            else if (data[0] == "failed") {
+                _this.toastr.error(data[1], "Error");
+                btnDeleteCard.removeAttribute("disabled");
+                btnCloseDeleteDialog.removeAttribute("disabled");
+            }
+            if (_this.deleteCardSubscription != null)
+                _this.deleteCardSubscription.unsubscribe();
+        });
+    };
+    CardDeleteDialogComponent.prototype.btnCloseDeleteDialog = function () {
+        this.cardDeleteDialogRef.close();
+        if (this.deleteCardSubscription != null)
+            this.deleteCardSubscription.unsubscribe();
+    };
+    CardDeleteDialogComponent.prototype.ngOnInit = function () {
+    };
+    CardDeleteDialogComponent.prototype.ngOnDestroy = function () {
+        if (this.deleteCardSubscription != null)
+            this.deleteCardSubscription.unsubscribe();
+    };
+    CardDeleteDialogComponent.ctorParameters = function () { return [
+        { type: _card_service__WEBPACK_IMPORTED_MODULE_3__["CardService"] },
+        { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"] },
+        { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"],] }] },
+        { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_4__["ToastrService"] }
+    ]; };
+    CardDeleteDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-card-delete-dialog',
+            template: __webpack_require__(/*! raw-loader!./card-delete-dialog.component.html */ "./node_modules/raw-loader/index.js!./src/app/software/card/card-delete-dialog/card-delete-dialog.component.html"),
+            styles: [__webpack_require__(/*! ./card-delete-dialog.component.css */ "./src/app/software/card/card-delete-dialog/card-delete-dialog.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"]))
+    ], CardDeleteDialogComponent);
+    return CardDeleteDialogComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/card/card-detail-dialog/card-detail-dialog.component.css":
+/*!***********************************************************************************!*\
+  !*** ./src/app/software/card/card-detail-dialog/card-detail-dialog.component.css ***!
+  \***********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL2NhcmQvY2FyZC1kZXRhaWwtZGlhbG9nL2NhcmQtZGV0YWlsLWRpYWxvZy5jb21wb25lbnQuY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/software/card/card-detail-dialog/card-detail-dialog.component.ts":
+/*!**********************************************************************************!*\
+  !*** ./src/app/software/card/card-detail-dialog/card-detail-dialog.component.ts ***!
+  \**********************************************************************************/
+/*! exports provided: CardDetailDialogComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CardDetailDialogComponent", function() { return CardDetailDialogComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm5/dialog.es5.js");
+/* harmony import */ var _card_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../card.service */ "./src/app/software/card/card.service.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! wijmo/wijmo */ "./node_modules/wijmo/wijmo.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5__);
+
+
+
+
+
+
+var CardDetailDialogComponent = /** @class */ (function () {
+    function CardDetailDialogComponent(cardService, cardDetailDialogRef, cardData, toastr) {
+        this.cardService = cardService;
+        this.cardDetailDialogRef = cardDetailDialogRef;
+        this.cardData = cardData;
+        this.toastr = toastr;
+        this.dialogTitle = "Card Detail";
+        this.cardModel = {
+            Id: this.cardData.objCardModel.Id,
+            CitizenId: this.cardData.objCardModel.CitizenId,
+            Citizen: this.cardData.objCardModel.Citizen,
+            CardNumber: this.cardData.objCardModel.CardNumber,
+            TotalBalance: this.cardData.objCardModel.TotalBalance,
+            StatusId: this.cardData.objCardModel.StatusId
+        };
+        this.listCardDropdownStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5__["ObservableArray"]();
+    }
+    CardDetailDialogComponent.prototype.listDropdownStatus = function () {
+        var _this = this;
+        this.cardService.listDropdownStatus();
+        this.listCardDropdownStatusSubscription = this.cardService.listDropdownCardStatusObservable.subscribe(function (data) {
+            _this.listCardDropdownStatusObservableArray = data;
+            if (_this.listCardDropdownStatusSubscription != null)
+                _this.listCardDropdownStatusSubscription.unsubscribe();
+        });
+    };
+    CardDetailDialogComponent.prototype.btnSaveCard = function () {
+        var _this = this;
+        var btnSaveCard = document.getElementById("btnSaveCard");
+        var btnCloseCardDialog = document.getElementById("btnCloseCardDialog");
+        btnSaveCard.setAttribute("disabled", "disabled");
+        btnCloseCardDialog.setAttribute("disabled", "disabled");
+        this.cardService.saveCard(this.cardModel);
+        this.saveCardSubscription = this.cardService.saveCardObservable.subscribe(function (data) {
+            if (data[0] == "success") {
+                _this.toastr.success("Card was successfully saved.", "Success");
+                _this.cardDetailDialogRef.close(200);
+            }
+            else if (data[0] == "failed") {
+                _this.toastr.error(data[1], "Error");
+                btnSaveCard.removeAttribute("disabled");
+                btnCloseCardDialog.removeAttribute("disabled");
+            }
+            if (_this.saveCardSubscription != null)
+                _this.saveCardSubscription.unsubscribe();
+        });
+    };
+    CardDetailDialogComponent.prototype.btnCloseCardDialog = function () {
+        this.cardDetailDialogRef.close();
+        if (this.listCardDropdownStatusSubscription != null)
+            this.listCardDropdownStatusSubscription.unsubscribe();
+        if (this.saveCardSubscription != null)
+            this.saveCardSubscription.unsubscribe();
+    };
+    CardDetailDialogComponent.prototype.ngOnInit = function () {
+        this.dialogTitle = this.cardData.objDialogTitle;
+        this.listDropdownStatus();
+    };
+    CardDetailDialogComponent.prototype.ngOnDestroy = function () {
+        if (this.listCardDropdownStatusSubscription != null)
+            this.listCardDropdownStatusSubscription.unsubscribe();
+        if (this.saveCardSubscription != null)
+            this.saveCardSubscription.unsubscribe();
+    };
+    CardDetailDialogComponent.ctorParameters = function () { return [
+        { type: _card_service__WEBPACK_IMPORTED_MODULE_3__["CardService"] },
+        { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"] },
+        { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"],] }] },
+        { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_4__["ToastrService"] }
+    ]; };
+    CardDetailDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-card-detail-dialog',
+            template: __webpack_require__(/*! raw-loader!./card-detail-dialog.component.html */ "./node_modules/raw-loader/index.js!./src/app/software/card/card-detail-dialog/card-detail-dialog.component.html"),
+            styles: [__webpack_require__(/*! ./card-detail-dialog.component.css */ "./src/app/software/card/card-detail-dialog/card-detail-dialog.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"]))
+    ], CardDetailDialogComponent);
+    return CardDetailDialogComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/card/card.component.css":
+/*!**************************************************!*\
+  !*** ./src/app/software/card/card.component.css ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL2NhcmQvY2FyZC5jb21wb25lbnQuY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/software/card/card.component.ts":
+/*!*************************************************!*\
+  !*** ./src/app/software/card/card.component.ts ***!
+  \*************************************************/
+/*! exports provided: CardComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CardComponent", function() { return CardComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm5/dialog.es5.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! wijmo/wijmo */ "./node_modules/wijmo/wijmo.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _card_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./card.service */ "./src/app/software/card/card.service.ts");
+/* harmony import */ var _card_model__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./card.model */ "./src/app/software/card/card.model.ts");
+/* harmony import */ var _card_detail_dialog_card_detail_dialog_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./card-detail-dialog/card-detail-dialog.component */ "./src/app/software/card/card-detail-dialog/card-detail-dialog.component.ts");
+/* harmony import */ var _card_delete_dialog_card_delete_dialog_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./card-delete-dialog/card-delete-dialog.component */ "./src/app/software/card/card-delete-dialog/card-delete-dialog.component.ts");
+/* harmony import */ var _card_citizen_dialog_card_citizen_dialog_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./card-citizen-dialog/card-citizen-dialog.component */ "./src/app/software/card/card-citizen-dialog/card-citizen-dialog.component.ts");
+
+
+
+
+
+
+
+
+
+var CardComponent = /** @class */ (function () {
+    function CardComponent(cardService, cardDetailDialog, cardDeleteDialog, cardCitizenlDialog) {
+        this.cardService = cardService;
+        this.cardDetailDialog = cardDetailDialog;
+        this.cardDeleteDialog = cardDeleteDialog;
+        this.cardCitizenlDialog = cardCitizenlDialog;
+        this.listCardObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listCardCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listCardObservableArray);
+        this.listCardPageIndex = 15;
+        this.cardModel = new _card_model__WEBPACK_IMPORTED_MODULE_5__["CardModel"]();
+    }
+    CardComponent.prototype.listCardData = function () {
+        var _this = this;
+        this.listCardObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listCardCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listCardObservableArray);
+        this.listCardCollectionView.pageSize = 15;
+        this.listCardCollectionView.trackChanges = true;
+        this.listCardCollectionView.refresh();
+        this.cardService.listCard();
+        this.listCardSubscription = this.cardService.listCardObservable.subscribe(function (data) {
+            if (data.length > 0) {
+                _this.listCardObservableArray = data;
+                _this.listCardCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](_this.listCardObservableArray);
+                _this.listCardCollectionView.pageSize = _this.listCardPageIndex;
+                _this.listCardCollectionView.trackChanges = true;
+                _this.listCardCollectionView.refresh();
+            }
+            if (_this.listCardSubscription != null)
+                _this.listCardSubscription.unsubscribe();
+        });
+    };
+    CardComponent.prototype.btnAddCard = function () {
+        var _this = this;
+        this.cardModel = new _card_model__WEBPACK_IMPORTED_MODULE_5__["CardModel"]();
+        var cardCitizenlDialogRef = this.cardCitizenlDialog.open(_card_citizen_dialog_card_citizen_dialog_component__WEBPACK_IMPORTED_MODULE_8__["CardCitizenDialogComponent"], {
+            width: '1200px',
+            disableClose: true
+        });
+        cardCitizenlDialogRef.afterClosed().subscribe(function (result) {
+            if (result == 200) {
+                _this.listCardData();
+            }
+        });
+    };
+    CardComponent.prototype.btnEditCard = function () {
+        var _this = this;
+        var currentEditItem = this.listCardCollectionView.currentItem;
+        this.cardModel.Id = currentEditItem.Id;
+        this.cardModel.CitizenId = currentEditItem.CitizenId;
+        this.cardModel.Citizen = currentEditItem.Citizen;
+        this.cardModel.CardNumber = currentEditItem.CardNumber;
+        this.cardModel.TotalBalance = currentEditItem.TotalBalance;
+        this.cardModel.StatusId = currentEditItem.StatusId;
+        var cardDetailDialogRef = this.cardDetailDialog.open(_card_detail_dialog_card_detail_dialog_component__WEBPACK_IMPORTED_MODULE_6__["CardDetailDialogComponent"], {
+            width: '500px',
+            data: {
+                objDialogTitle: "Edit Card",
+                objCardModel: this.cardModel
+            },
+            disableClose: true
+        });
+        cardDetailDialogRef.afterClosed().subscribe(function (result) {
+            if (result == 200) {
+                _this.listCardData();
+            }
+        });
+    };
+    CardComponent.prototype.btnDeleteCard = function () {
+        var _this = this;
+        var currentEditItem = this.listCardCollectionView.currentItem;
+        this.cardModel.Id = currentEditItem.Id;
+        var cardDeleteDialogRef = this.cardDeleteDialog.open(_card_delete_dialog_card_delete_dialog_component__WEBPACK_IMPORTED_MODULE_7__["CardDeleteDialogComponent"], {
+            width: '300px',
+            data: { objCardModel: this.cardModel },
+            disableClose: true
+        });
+        cardDeleteDialogRef.afterClosed().subscribe(function (result) {
+            if (result == 200) {
+                _this.listCardData();
+            }
+        });
+    };
+    CardComponent.prototype.ngOnInit = function () {
+        this.listCardData();
+    };
+    CardComponent.ctorParameters = function () { return [
+        { type: _card_service__WEBPACK_IMPORTED_MODULE_4__["CardService"] },
+        { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialog"] },
+        { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialog"] },
+        { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialog"] }
+    ]; };
+    CardComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-card',
+            template: __webpack_require__(/*! raw-loader!./card.component.html */ "./node_modules/raw-loader/index.js!./src/app/software/card/card.component.html"),
+            styles: [__webpack_require__(/*! ./card.component.css */ "./src/app/software/card/card.component.css")]
+        })
+    ], CardComponent);
+    return CardComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/card/card.model.ts":
+/*!*********************************************!*\
+  !*** ./src/app/software/card/card.model.ts ***!
+  \*********************************************/
+/*! exports provided: CardModel */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CardModel", function() { return CardModel; });
+var CardModel = /** @class */ (function () {
+    function CardModel() {
+        this.Id = 0;
+        this.CitizenId = 0;
+        this.Citizen = "";
+        this.CardNumber = "";
+        this.TotalBalance = 0;
+        this.StatusId = 0;
+    }
+    return CardModel;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/card/card.service.ts":
+/*!***********************************************!*\
+  !*** ./src/app/software/card/card.service.ts ***!
+  \***********************************************/
+/*! exports provided: CardService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CardService", function() { return CardService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _app_settings__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../app-settings */ "./src/app/app-settings.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! wijmo/wijmo */ "./node_modules/wijmo/wijmo.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+
+
+
+
+
+
+var CardService = /** @class */ (function () {
+    function CardService(appSettings, httpClient) {
+        this.appSettings = appSettings;
+        this.httpClient = httpClient;
+        this.defaultAPIURLHost = this.appSettings.APIURLHost;
+        this.options = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+            })
+        };
+        this.listCardSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listCardObservable = this.listCardSubject.asObservable();
+        this.searchCitizenListSource = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.searchCitizenListObservable = this.searchCitizenListSource.asObservable();
+        this.listCitizenListSource = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listCitizenListObservable = this.listCitizenListSource.asObservable();
+        this.listDropdownCardStatusSource = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listDropdownCardStatusObservable = this.listDropdownCardStatusSource.asObservable();
+        this.saveCardSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.saveCardObservable = this.saveCardSubject.asObservable();
+        this.deleteCardSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.deleteCardObservable = this.deleteCardSubject.asObservable();
+    }
+    CardService.prototype.listCard = function () {
+        var _this = this;
+        var listCardObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listCardSubject.next(listCardObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/mst/citizen/card/list", this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listCardObservableArray.push({
+                        Id: results[i].Id,
+                        CitizenId: results[i].CitizenId,
+                        Citizen: results[i].Citizen,
+                        CardNumber: results[i].CardNumber,
+                        TotalBalance: results[i].TotalBalance,
+                        StatusId: results[i].StatusId,
+                        Status: results[i].Status
+                    });
+                }
+            }
+            _this.listCardSubject.next(listCardObservableArray);
+        });
+    };
+    CardService.prototype.listCitizen = function () {
+        var _this = this;
+        var listCitizenObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listCitizenListSource.next(listCitizenObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/mst/citizen/card/citizen/list", this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listCitizenObservableArray.push({
+                        Id: results[i].Id,
+                        Surname: results[i].Surname,
+                        Firstname: results[i].Firstname,
+                        Middlename: results[i].Middlename,
+                        Extensionname: results[i].Extensionname,
+                        Fullname: results[i].Surname + ", " + results[i].Firstname + " " + results[i].Middlename + " " + results[i].Extensionname,
+                        DateOfBirth: results[i].DateOfBirth,
+                        PlaceOfBirth: results[i].PlaceOfBirth,
+                        Sex: results[i].Sex
+                    });
+                }
+            }
+            _this.listCitizenListSource.next(listCitizenObservableArray);
+        });
+    };
+    CardService.prototype.searchCitizen = function (keyword) {
+        var _this = this;
+        var searchCitizenObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.searchCitizenListSource.next(searchCitizenObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/mst/citizen/card/citizen/search?keyword=" + keyword, this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    searchCitizenObservableArray.push({
+                        Id: results[i].Id,
+                        Surname: results[i].Surname,
+                        Firstname: results[i].Firstname,
+                        Middlename: results[i].Middlename,
+                        Extensionname: results[i].Extensionname,
+                        Fullname: results[i].Surname + ", " + results[i].Firstname + " " + results[i].Middlename + " " + results[i].Extensionname,
+                        DateOfBirth: results[i].DateOfBirth,
+                        PlaceOfBirth: results[i].PlaceOfBirth,
+                        Sex: results[i].Sex
+                    });
+                }
+            }
+            _this.searchCitizenListSource.next(searchCitizenObservableArray);
+        });
+    };
+    CardService.prototype.listDropdownStatus = function () {
+        var _this = this;
+        var listDropdownStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listDropdownCardStatusSource.next(listDropdownStatusObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/mst/citizen/card/status/dropdown/list", this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listDropdownStatusObservableArray.push({
+                        Id: results[i].Id,
+                        Status: results[i].Status
+                    });
+                }
+            }
+            _this.listDropdownCardStatusSource.next(listDropdownStatusObservableArray);
+        });
+    };
+    CardService.prototype.saveCard = function (objCitizensChildModel) {
+        var _this = this;
+        if (objCitizensChildModel.Id == 0) {
+            this.httpClient.post(this.defaultAPIURLHost + "/api/mst/citizen/card/add", JSON.stringify(objCitizensChildModel), this.options).subscribe(function (response) {
+                var responseResults = ["success", response.toString()];
+                _this.saveCardSubject.next(responseResults);
+            }, function (error) {
+                var errorResults = ["failed", error["error"]];
+                _this.saveCardSubject.next(errorResults);
+            });
+        }
+        else {
+            this.httpClient.put(this.defaultAPIURLHost + "/api/mst/citizen/card/update/" + objCitizensChildModel.Id, JSON.stringify(objCitizensChildModel), this.options).subscribe(function (response) {
+                var responseResults = ["success", response.toString()];
+                _this.saveCardSubject.next(responseResults);
+            }, function (error) {
+                var errorResults = ["failed", error["error"]];
+                _this.saveCardSubject.next(errorResults);
+            });
+        }
+    };
+    CardService.prototype.deleteCard = function (id) {
+        var _this = this;
+        this.httpClient.delete(this.defaultAPIURLHost + "/api/mst/citizen/card/delete/" + id, this.options).subscribe(function (response) {
+            var responseResults = ["success", ""];
+            _this.deleteCardSubject.next(responseResults);
+        }, function (error) {
+            var errorResults = ["failed", error["error"]];
+            _this.deleteCardSubject.next(errorResults);
+        });
+    };
+    CardService.ctorParameters = function () { return [
+        { type: _app_settings__WEBPACK_IMPORTED_MODULE_2__["AppSettings"] },
+        { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] }
+    ]; };
+    CardService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        })
+    ], CardService);
+    return CardService;
+}());
+
+
 
 /***/ }),
 
@@ -16959,6 +18671,1520 @@ var DashboardComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/software/reports/reports.component.css":
+/*!********************************************************!*\
+  !*** ./src/app/software/reports/reports.component.css ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL3JlcG9ydHMvcmVwb3J0cy5jb21wb25lbnQuY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/software/reports/reports.component.ts":
+/*!*******************************************************!*\
+  !*** ./src/app/software/reports/reports.component.ts ***!
+  \*******************************************************/
+/*! exports provided: ReportsComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ReportsComponent", function() { return ReportsComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+var ReportsComponent = /** @class */ (function () {
+    function ReportsComponent() {
+    }
+    ReportsComponent.prototype.ngOnInit = function () {
+    };
+    ReportsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-reports',
+            template: __webpack_require__(/*! raw-loader!./reports.component.html */ "./node_modules/raw-loader/index.js!./src/app/software/reports/reports.component.html"),
+            styles: [__webpack_require__(/*! ./reports.component.css */ "./src/app/software/reports/reports.component.css")]
+        })
+    ], ReportsComponent);
+    return ReportsComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/services/service-delete-dialog/service-delete-dialog.component.css":
+/*!*********************************************************************************************!*\
+  !*** ./src/app/software/services/service-delete-dialog/service-delete-dialog.component.css ***!
+  \*********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL3NlcnZpY2VzL3NlcnZpY2UtZGVsZXRlLWRpYWxvZy9zZXJ2aWNlLWRlbGV0ZS1kaWFsb2cuY29tcG9uZW50LmNzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/software/services/service-delete-dialog/service-delete-dialog.component.ts":
+/*!********************************************************************************************!*\
+  !*** ./src/app/software/services/service-delete-dialog/service-delete-dialog.component.ts ***!
+  \********************************************************************************************/
+/*! exports provided: ServiceDeleteDialogComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ServiceDeleteDialogComponent", function() { return ServiceDeleteDialogComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm5/dialog.es5.js");
+/* harmony import */ var _services_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services.service */ "./src/app/software/services/services.service.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+
+
+
+
+
+var ServiceDeleteDialogComponent = /** @class */ (function () {
+    function ServiceDeleteDialogComponent(servicesService, serviceDeleteDialogRef, serviceData, toastr) {
+        this.servicesService = servicesService;
+        this.serviceDeleteDialogRef = serviceDeleteDialogRef;
+        this.serviceData = serviceData;
+        this.toastr = toastr;
+    }
+    ServiceDeleteDialogComponent.prototype.btnDeleteService = function () {
+        var _this = this;
+        var btnDeleteService = document.getElementById("btnDeleteService");
+        var btnCloseDeleteDialog = document.getElementById("btnCloseDeleteDialog");
+        btnDeleteService.setAttribute("disabled", "disabled");
+        btnCloseDeleteDialog.setAttribute("disabled", "disabled");
+        this.servicesService.deleteService(this.serviceData.objServiceModel.Id);
+        this.deleteServiceSubscription = this.servicesService.deleteServiceObservable.subscribe(function (data) {
+            if (data[0] == "success") {
+                _this.toastr.success("Service was successfully deleted.", "Success");
+                _this.serviceDeleteDialogRef.close(200);
+            }
+            else if (data[0] == "failed") {
+                _this.toastr.error(data[1], "Error");
+                btnDeleteService.removeAttribute("disabled");
+                btnCloseDeleteDialog.removeAttribute("disabled");
+            }
+            if (_this.deleteServiceSubscription != null)
+                _this.deleteServiceSubscription.unsubscribe();
+        });
+    };
+    ServiceDeleteDialogComponent.prototype.btnCloseDeleteDialog = function () {
+        this.serviceDeleteDialogRef.close();
+        if (this.deleteServiceSubscription != null)
+            this.deleteServiceSubscription.unsubscribe();
+    };
+    ServiceDeleteDialogComponent.prototype.ngOnInit = function () {
+    };
+    ServiceDeleteDialogComponent.prototype.ngOnDestroy = function () {
+        if (this.deleteServiceSubscription != null)
+            this.deleteServiceSubscription.unsubscribe();
+    };
+    ServiceDeleteDialogComponent.ctorParameters = function () { return [
+        { type: _services_service__WEBPACK_IMPORTED_MODULE_3__["ServicesService"] },
+        { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"] },
+        { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"],] }] },
+        { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_4__["ToastrService"] }
+    ]; };
+    ServiceDeleteDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-service-delete-dialog',
+            template: __webpack_require__(/*! raw-loader!./service-delete-dialog.component.html */ "./node_modules/raw-loader/index.js!./src/app/software/services/service-delete-dialog/service-delete-dialog.component.html"),
+            styles: [__webpack_require__(/*! ./service-delete-dialog.component.css */ "./src/app/software/services/service-delete-dialog/service-delete-dialog.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"]))
+    ], ServiceDeleteDialogComponent);
+    return ServiceDeleteDialogComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/services/service-department-delete-dialog/service-department-delete-dialog.component.css":
+/*!*******************************************************************************************************************!*\
+  !*** ./src/app/software/services/service-department-delete-dialog/service-department-delete-dialog.component.css ***!
+  \*******************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL3NlcnZpY2VzL3NlcnZpY2UtZGVwYXJ0bWVudC1kZWxldGUtZGlhbG9nL3NlcnZpY2UtZGVwYXJ0bWVudC1kZWxldGUtZGlhbG9nLmNvbXBvbmVudC5jc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/software/services/service-department-delete-dialog/service-department-delete-dialog.component.ts":
+/*!******************************************************************************************************************!*\
+  !*** ./src/app/software/services/service-department-delete-dialog/service-department-delete-dialog.component.ts ***!
+  \******************************************************************************************************************/
+/*! exports provided: ServiceDepartmentDeleteDialogComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ServiceDepartmentDeleteDialogComponent", function() { return ServiceDepartmentDeleteDialogComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm5/dialog.es5.js");
+/* harmony import */ var _services_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services.service */ "./src/app/software/services/services.service.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+
+
+
+
+
+var ServiceDepartmentDeleteDialogComponent = /** @class */ (function () {
+    function ServiceDepartmentDeleteDialogComponent(servicesService, serviceDepartmentDeleteDialogRef, serviceDepartmentData, toastr) {
+        this.servicesService = servicesService;
+        this.serviceDepartmentDeleteDialogRef = serviceDepartmentDeleteDialogRef;
+        this.serviceDepartmentData = serviceDepartmentData;
+        this.toastr = toastr;
+    }
+    ServiceDepartmentDeleteDialogComponent.prototype.btnDeleteServiceDepartment = function () {
+        var _this = this;
+        var btnDeleteServiceDepartment = document.getElementById("btnDeleteServiceDepartment");
+        var btnCloseDeleteDialog = document.getElementById("btnCloseDeleteDialog");
+        btnDeleteServiceDepartment.setAttribute("disabled", "disabled");
+        btnCloseDeleteDialog.setAttribute("disabled", "disabled");
+        this.servicesService.deleteServiceDepartment(this.serviceDepartmentData.objServiceDepartmentModel.Id);
+        this.deleteServiceDepartmentSubscription = this.servicesService.deleteServiceDepartmentObservable.subscribe(function (data) {
+            if (data[0] == "success") {
+                _this.toastr.success("Service department was successfully deleted.", "Success");
+                _this.serviceDepartmentDeleteDialogRef.close(200);
+            }
+            else if (data[0] == "failed") {
+                _this.toastr.error(data[1], "Error");
+                btnDeleteServiceDepartment.removeAttribute("disabled");
+                btnCloseDeleteDialog.removeAttribute("disabled");
+            }
+            if (_this.deleteServiceDepartmentSubscription != null)
+                _this.deleteServiceDepartmentSubscription.unsubscribe();
+        });
+    };
+    ServiceDepartmentDeleteDialogComponent.prototype.btnCloseDeleteDialog = function () {
+        this.serviceDepartmentDeleteDialogRef.close();
+        if (this.deleteServiceDepartmentSubscription != null)
+            this.deleteServiceDepartmentSubscription.unsubscribe();
+    };
+    ServiceDepartmentDeleteDialogComponent.prototype.ngOnInit = function () {
+    };
+    ServiceDepartmentDeleteDialogComponent.prototype.ngOnDestroy = function () {
+        if (this.deleteServiceDepartmentSubscription != null)
+            this.deleteServiceDepartmentSubscription.unsubscribe();
+    };
+    ServiceDepartmentDeleteDialogComponent.ctorParameters = function () { return [
+        { type: _services_service__WEBPACK_IMPORTED_MODULE_3__["ServicesService"] },
+        { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"] },
+        { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"],] }] },
+        { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_4__["ToastrService"] }
+    ]; };
+    ServiceDepartmentDeleteDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-service-department-delete-dialog',
+            template: __webpack_require__(/*! raw-loader!./service-department-delete-dialog.component.html */ "./node_modules/raw-loader/index.js!./src/app/software/services/service-department-delete-dialog/service-department-delete-dialog.component.html"),
+            styles: [__webpack_require__(/*! ./service-department-delete-dialog.component.css */ "./src/app/software/services/service-department-delete-dialog/service-department-delete-dialog.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"]))
+    ], ServiceDepartmentDeleteDialogComponent);
+    return ServiceDepartmentDeleteDialogComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/services/service-department-detail-dialog/service-department-detail-dialog.component.css":
+/*!*******************************************************************************************************************!*\
+  !*** ./src/app/software/services/service-department-detail-dialog/service-department-detail-dialog.component.css ***!
+  \*******************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL3NlcnZpY2VzL3NlcnZpY2UtZGVwYXJ0bWVudC1kZXRhaWwtZGlhbG9nL3NlcnZpY2UtZGVwYXJ0bWVudC1kZXRhaWwtZGlhbG9nLmNvbXBvbmVudC5jc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/software/services/service-department-detail-dialog/service-department-detail-dialog.component.ts":
+/*!******************************************************************************************************************!*\
+  !*** ./src/app/software/services/service-department-detail-dialog/service-department-detail-dialog.component.ts ***!
+  \******************************************************************************************************************/
+/*! exports provided: ServiceDepartmentDetailDialogComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ServiceDepartmentDetailDialogComponent", function() { return ServiceDepartmentDetailDialogComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm5/dialog.es5.js");
+/* harmony import */ var _services_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services.service */ "./src/app/software/services/services.service.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+
+
+
+
+
+var ServiceDepartmentDetailDialogComponent = /** @class */ (function () {
+    function ServiceDepartmentDetailDialogComponent(servicesService, serviceDepartmentDetailDialogRef, serviceDepartmentData, toastr) {
+        this.servicesService = servicesService;
+        this.serviceDepartmentDetailDialogRef = serviceDepartmentDetailDialogRef;
+        this.serviceDepartmentData = serviceDepartmentData;
+        this.toastr = toastr;
+        this.dialogTitle = "Service Department Detail";
+        this.serviceDepartmentModel = {
+            Id: this.serviceDepartmentData.objServiceDepartmentModel.Id,
+            ServiceDepartment: this.serviceDepartmentData.objServiceDepartmentModel.ServiceDepartment,
+            OfficerInCharge: this.serviceDepartmentData.objServiceDepartmentModel.OfficerInCharge,
+            ContactNumber: this.serviceDepartmentData.objServiceDepartmentModel.ContactNumber,
+            EmailAddress: this.serviceDepartmentData.objServiceDepartmentModel.EmailAddress,
+        };
+    }
+    ServiceDepartmentDetailDialogComponent.prototype.btnSaveServiceDepartment = function () {
+        var _this = this;
+        var btnSaveServiceDepartment = document.getElementById("btnSaveServiceDepartment");
+        var btnCloseServiceDepartmentDialog = document.getElementById("btnCloseServiceDepartmentDialog");
+        btnSaveServiceDepartment.setAttribute("disabled", "disabled");
+        btnCloseServiceDepartmentDialog.setAttribute("disabled", "disabled");
+        this.servicesService.saveServiceDepartment(this.serviceDepartmentModel);
+        this.saveServiceDepartmentSubscription = this.servicesService.saveServiceDepartmentObservable.subscribe(function (data) {
+            if (data[0] == "success") {
+                _this.toastr.success("Service department was successfully saved.", "Success");
+                _this.serviceDepartmentDetailDialogRef.close(200);
+            }
+            else if (data[0] == "failed") {
+                _this.toastr.error(data[1], "Error");
+                btnSaveServiceDepartment.removeAttribute("disabled");
+                btnCloseServiceDepartmentDialog.removeAttribute("disabled");
+            }
+            if (_this.saveServiceDepartmentSubscription != null)
+                _this.saveServiceDepartmentSubscription.unsubscribe();
+        });
+    };
+    ServiceDepartmentDetailDialogComponent.prototype.btnCloseServiceDepartmentDialog = function () {
+        this.serviceDepartmentDetailDialogRef.close();
+        if (this.saveServiceDepartmentSubscription != null)
+            this.saveServiceDepartmentSubscription.unsubscribe();
+    };
+    ServiceDepartmentDetailDialogComponent.prototype.ngOnInit = function () {
+        this.dialogTitle = this.serviceDepartmentData.objDialogTitle;
+    };
+    ServiceDepartmentDetailDialogComponent.prototype.ngOnDestroy = function () {
+        if (this.saveServiceDepartmentSubscription != null)
+            this.saveServiceDepartmentSubscription.unsubscribe();
+    };
+    ServiceDepartmentDetailDialogComponent.ctorParameters = function () { return [
+        { type: _services_service__WEBPACK_IMPORTED_MODULE_3__["ServicesService"] },
+        { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"] },
+        { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"],] }] },
+        { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_4__["ToastrService"] }
+    ]; };
+    ServiceDepartmentDetailDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-service-department-detail-dialog',
+            template: __webpack_require__(/*! raw-loader!./service-department-detail-dialog.component.html */ "./node_modules/raw-loader/index.js!./src/app/software/services/service-department-detail-dialog/service-department-detail-dialog.component.html"),
+            styles: [__webpack_require__(/*! ./service-department-detail-dialog.component.css */ "./src/app/software/services/service-department-detail-dialog/service-department-detail-dialog.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"]))
+    ], ServiceDepartmentDetailDialogComponent);
+    return ServiceDepartmentDetailDialogComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/services/service-detail-dialog/service-detail-dialog.component.css":
+/*!*********************************************************************************************!*\
+  !*** ./src/app/software/services/service-detail-dialog/service-detail-dialog.component.css ***!
+  \*********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL3NlcnZpY2VzL3NlcnZpY2UtZGV0YWlsLWRpYWxvZy9zZXJ2aWNlLWRldGFpbC1kaWFsb2cuY29tcG9uZW50LmNzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/software/services/service-detail-dialog/service-detail-dialog.component.ts":
+/*!********************************************************************************************!*\
+  !*** ./src/app/software/services/service-detail-dialog/service-detail-dialog.component.ts ***!
+  \********************************************************************************************/
+/*! exports provided: ServiceDetailDialogComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ServiceDetailDialogComponent", function() { return ServiceDetailDialogComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm5/dialog.es5.js");
+/* harmony import */ var _services_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services.service */ "./src/app/software/services/services.service.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! wijmo/wijmo */ "./node_modules/wijmo/wijmo.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5__);
+
+
+
+
+
+
+var ServiceDetailDialogComponent = /** @class */ (function () {
+    function ServiceDetailDialogComponent(servicesService, serviceDetailDialogRef, serviceData, toastr) {
+        this.servicesService = servicesService;
+        this.serviceDetailDialogRef = serviceDetailDialogRef;
+        this.serviceData = serviceData;
+        this.toastr = toastr;
+        this.dialogTitle = "Service  Detail";
+        this.serviceModel = {
+            Id: this.serviceData.objServiceModel.Id,
+            Service: this.serviceData.objServiceModel.Service,
+            Description: this.serviceData.objServiceModel.Description,
+            ServiceGroupId: this.serviceData.objServiceModel.ServiceGroupId,
+            DateEncoded: this.serviceData.objServiceModel.DateEncoded,
+            DateExpiry: this.serviceData.objServiceModel.DateExpiry,
+            LimitAmount: this.serviceData.objServiceModel.LimitAmount,
+            IsMultipleUse: this.serviceData.objServiceModel.IsMultipleUse,
+            StatusId: this.serviceData.objServiceModel.StatusId,
+            IsLocked: this.serviceData.objServiceModel.IsLocked
+        };
+        this.listDropdownServiceGroupObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5__["ObservableArray"]();
+        this.listDropdownStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5__["ObservableArray"]();
+    }
+    ServiceDetailDialogComponent.prototype.listDropdownServiceGroup = function () {
+        var _this = this;
+        this.servicesService.listDropdownServiceGroup();
+        this.listDropdownServiceGroupSubscription = this.servicesService.listDropdownServiceGroupObservable.subscribe(function (data) {
+            _this.listDropdownServiceGroupObservableArray = data;
+            if (_this.listDropdownServiceGroupSubscription != null)
+                _this.listDropdownServiceGroupSubscription.unsubscribe();
+            _this.listDropdownStatus();
+        });
+    };
+    ServiceDetailDialogComponent.prototype.listDropdownStatus = function () {
+        var _this = this;
+        this.servicesService.listDropdownStatus();
+        this.listDropdownStatusSubscription = this.servicesService.listDropdownStatusObservable.subscribe(function (data) {
+            _this.listDropdownStatusObservableArray = data;
+            if (_this.listDropdownStatusSubscription != null)
+                _this.listDropdownStatusSubscription.unsubscribe();
+        });
+    };
+    ServiceDetailDialogComponent.prototype.btnSaveService = function () {
+        var _this = this;
+        var btnSaveService = document.getElementById("btnSaveService");
+        var btnLockService = document.getElementById("btnLockService");
+        var btnCloseService = document.getElementById("btnCloseService");
+        btnSaveService.setAttribute("disabled", "disabled");
+        btnLockService.setAttribute("disabled", "disabled");
+        btnCloseService.setAttribute("disabled", "disabled");
+        this.servicesService.saveService(this.serviceModel);
+        this.saveServiceSubscription = this.servicesService.saveServiceObservable.subscribe(function (data) {
+            if (data[0] == "success") {
+                _this.toastr.success("Service was successfully saved.", "Success");
+            }
+            else if (data[0] == "failed") {
+                _this.toastr.error(data[1], "Error");
+            }
+            btnSaveService.removeAttribute("disabled");
+            btnLockService.removeAttribute("disabled");
+            btnCloseService.removeAttribute("disabled");
+            if (_this.saveServiceSubscription != null)
+                _this.saveServiceSubscription.unsubscribe();
+        });
+    };
+    ServiceDetailDialogComponent.prototype.btnLockService = function () {
+        var _this = this;
+        var btnSaveService = document.getElementById("btnSaveService");
+        var btnLockService = document.getElementById("btnLockService");
+        var btnCloseService = document.getElementById("btnCloseService");
+        btnSaveService.setAttribute("disabled", "disabled");
+        btnLockService.setAttribute("disabled", "disabled");
+        btnCloseService.setAttribute("disabled", "disabled");
+        this.servicesService.lockService(this.serviceModel);
+        this.lockServiceSubscription = this.servicesService.lockServiceObservable.subscribe(function (data) {
+            if (data[0] == "success") {
+                _this.toastr.success("Service was successfully locked.", "Success");
+                _this.serviceModel.IsLocked = true;
+                btnCloseService.removeAttribute("disabled");
+            }
+            else if (data[0] == "failed") {
+                _this.toastr.error(data[1], "Error");
+                btnSaveService.removeAttribute("disabled");
+                btnLockService.removeAttribute("disabled");
+                btnCloseService.removeAttribute("disabled");
+            }
+            if (_this.lockServiceSubscription != null)
+                _this.lockServiceSubscription.unsubscribe();
+        });
+    };
+    ServiceDetailDialogComponent.prototype.btnUnlockService = function () {
+        var _this = this;
+        var btnSaveService = document.getElementById("btnSaveService");
+        var btnLockService = document.getElementById("btnLockService");
+        var btnUnlockService = document.getElementById("btnUnlockService");
+        var btnCloseService = document.getElementById("btnCloseService");
+        btnSaveService.setAttribute("disabled", "disabled");
+        btnLockService.setAttribute("disabled", "disabled");
+        btnUnlockService.setAttribute("disabled", "disabled");
+        btnCloseService.setAttribute("disabled", "disabled");
+        this.servicesService.unlockService(this.serviceModel);
+        this.unlockServiceSubscription = this.servicesService.unlockServiceObservable.subscribe(function (data) {
+            if (data[0] == "success") {
+                _this.toastr.success("Service was successfully unlocked.", "Success");
+                _this.serviceModel.IsLocked = false;
+                btnCloseService.removeAttribute("disabled");
+            }
+            else if (data[0] == "failed") {
+                _this.toastr.error(data[1], "Error");
+                btnUnlockService.removeAttribute("disabled");
+                btnCloseService.removeAttribute("disabled");
+            }
+            if (_this.unlockServiceSubscription != null)
+                _this.unlockServiceSubscription.unsubscribe();
+        });
+    };
+    ServiceDetailDialogComponent.prototype.btnCloseService = function () {
+        this.serviceDetailDialogRef.close(200);
+        if (this.listDropdownServiceGroupSubscription != null)
+            this.listDropdownServiceGroupSubscription.unsubscribe();
+        if (this.listDropdownStatusSubscription != null)
+            this.listDropdownStatusSubscription.unsubscribe();
+        if (this.saveServiceSubscription != null)
+            this.saveServiceSubscription.unsubscribe();
+        if (this.lockServiceSubscription != null)
+            this.lockServiceSubscription.unsubscribe();
+        if (this.unlockServiceSubscription != null)
+            this.unlockServiceSubscription.unsubscribe();
+    };
+    ServiceDetailDialogComponent.prototype.ngOnInit = function () {
+        this.listDropdownServiceGroup();
+        this.dialogTitle = this.serviceData.objDialogTitle;
+    };
+    ServiceDetailDialogComponent.prototype.ngOnDestroy = function () {
+        if (this.listDropdownServiceGroupSubscription != null)
+            this.listDropdownServiceGroupSubscription.unsubscribe();
+        if (this.listDropdownStatusSubscription != null)
+            this.listDropdownStatusSubscription.unsubscribe();
+        if (this.saveServiceSubscription != null)
+            this.saveServiceSubscription.unsubscribe();
+        if (this.lockServiceSubscription != null)
+            this.lockServiceSubscription.unsubscribe();
+        if (this.unlockServiceSubscription != null)
+            this.unlockServiceSubscription.unsubscribe();
+    };
+    ServiceDetailDialogComponent.ctorParameters = function () { return [
+        { type: _services_service__WEBPACK_IMPORTED_MODULE_3__["ServicesService"] },
+        { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"] },
+        { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"],] }] },
+        { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_4__["ToastrService"] }
+    ]; };
+    ServiceDetailDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-service-detail-dialog',
+            template: __webpack_require__(/*! raw-loader!./service-detail-dialog.component.html */ "./node_modules/raw-loader/index.js!./src/app/software/services/service-detail-dialog/service-detail-dialog.component.html"),
+            styles: [__webpack_require__(/*! ./service-detail-dialog.component.css */ "./src/app/software/services/service-detail-dialog/service-detail-dialog.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"]))
+    ], ServiceDetailDialogComponent);
+    return ServiceDetailDialogComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/services/service-group-delete-dialog/service-group-delete-dialog.component.css":
+/*!*********************************************************************************************************!*\
+  !*** ./src/app/software/services/service-group-delete-dialog/service-group-delete-dialog.component.css ***!
+  \*********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL3NlcnZpY2VzL3NlcnZpY2UtZ3JvdXAtZGVsZXRlLWRpYWxvZy9zZXJ2aWNlLWdyb3VwLWRlbGV0ZS1kaWFsb2cuY29tcG9uZW50LmNzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/software/services/service-group-delete-dialog/service-group-delete-dialog.component.ts":
+/*!********************************************************************************************************!*\
+  !*** ./src/app/software/services/service-group-delete-dialog/service-group-delete-dialog.component.ts ***!
+  \********************************************************************************************************/
+/*! exports provided: ServiceGroupDeleteDialogComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ServiceGroupDeleteDialogComponent", function() { return ServiceGroupDeleteDialogComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm5/dialog.es5.js");
+/* harmony import */ var _services_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services.service */ "./src/app/software/services/services.service.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+
+
+
+
+
+var ServiceGroupDeleteDialogComponent = /** @class */ (function () {
+    function ServiceGroupDeleteDialogComponent(servicesService, serviceGroupDeleteDialogRef, serviceGroupData, toastr) {
+        this.servicesService = servicesService;
+        this.serviceGroupDeleteDialogRef = serviceGroupDeleteDialogRef;
+        this.serviceGroupData = serviceGroupData;
+        this.toastr = toastr;
+    }
+    ServiceGroupDeleteDialogComponent.prototype.btnDeleteServiceGroup = function () {
+        var _this = this;
+        var btnDeleteServiceGroup = document.getElementById("btnDeleteServiceGroup");
+        var btnCloseDeleteDialog = document.getElementById("btnCloseDeleteDialog");
+        btnDeleteServiceGroup.setAttribute("disabled", "disabled");
+        btnCloseDeleteDialog.setAttribute("disabled", "disabled");
+        this.servicesService.deleteServiceGroup(this.serviceGroupData.objServiceGroupModel.Id);
+        this.deleteServiceGroupSubscription = this.servicesService.deleteServiceGroupObservable.subscribe(function (data) {
+            if (data[0] == "success") {
+                _this.toastr.success("Service group was successfully deleted.", "Success");
+                _this.serviceGroupDeleteDialogRef.close(200);
+            }
+            else if (data[0] == "failed") {
+                _this.toastr.error(data[1], "Error");
+                btnDeleteServiceGroup.removeAttribute("disabled");
+                btnCloseDeleteDialog.removeAttribute("disabled");
+            }
+            if (_this.deleteServiceGroupSubscription != null)
+                _this.deleteServiceGroupSubscription.unsubscribe();
+        });
+    };
+    ServiceGroupDeleteDialogComponent.prototype.btnCloseDeleteDialog = function () {
+        this.serviceGroupDeleteDialogRef.close();
+        if (this.deleteServiceGroupSubscription != null)
+            this.deleteServiceGroupSubscription.unsubscribe();
+    };
+    ServiceGroupDeleteDialogComponent.prototype.ngOnInit = function () {
+    };
+    ServiceGroupDeleteDialogComponent.prototype.ngOnDestroy = function () {
+        if (this.deleteServiceGroupSubscription != null)
+            this.deleteServiceGroupSubscription.unsubscribe();
+    };
+    ServiceGroupDeleteDialogComponent.ctorParameters = function () { return [
+        { type: _services_service__WEBPACK_IMPORTED_MODULE_3__["ServicesService"] },
+        { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"] },
+        { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"],] }] },
+        { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_4__["ToastrService"] }
+    ]; };
+    ServiceGroupDeleteDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-service-group-delete-dialog',
+            template: __webpack_require__(/*! raw-loader!./service-group-delete-dialog.component.html */ "./node_modules/raw-loader/index.js!./src/app/software/services/service-group-delete-dialog/service-group-delete-dialog.component.html"),
+            styles: [__webpack_require__(/*! ./service-group-delete-dialog.component.css */ "./src/app/software/services/service-group-delete-dialog/service-group-delete-dialog.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"]))
+    ], ServiceGroupDeleteDialogComponent);
+    return ServiceGroupDeleteDialogComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/services/service-group-detail-dialog/service-group-detail-dialog.component.css":
+/*!*********************************************************************************************************!*\
+  !*** ./src/app/software/services/service-group-detail-dialog/service-group-detail-dialog.component.css ***!
+  \*********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL3NlcnZpY2VzL3NlcnZpY2UtZ3JvdXAtZGV0YWlsLWRpYWxvZy9zZXJ2aWNlLWdyb3VwLWRldGFpbC1kaWFsb2cuY29tcG9uZW50LmNzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/software/services/service-group-detail-dialog/service-group-detail-dialog.component.ts":
+/*!********************************************************************************************************!*\
+  !*** ./src/app/software/services/service-group-detail-dialog/service-group-detail-dialog.component.ts ***!
+  \********************************************************************************************************/
+/*! exports provided: ServiceGroupDetailDialogComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ServiceGroupDetailDialogComponent", function() { return ServiceGroupDetailDialogComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm5/dialog.es5.js");
+/* harmony import */ var _services_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services.service */ "./src/app/software/services/services.service.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! wijmo/wijmo */ "./node_modules/wijmo/wijmo.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5__);
+
+
+
+
+
+
+var ServiceGroupDetailDialogComponent = /** @class */ (function () {
+    function ServiceGroupDetailDialogComponent(servicesService, serviceGroupDetailDialogRef, serviceGroupData, toastr) {
+        this.servicesService = servicesService;
+        this.serviceGroupDetailDialogRef = serviceGroupDetailDialogRef;
+        this.serviceGroupData = serviceGroupData;
+        this.toastr = toastr;
+        this.dialogTitle = "Service Group Detail";
+        this.serviceGroupModel = {
+            Id: this.serviceGroupData.objServiceGroupModel.Id,
+            ServiceGroup: this.serviceGroupData.objServiceGroupModel.ServiceGroup,
+            Description: this.serviceGroupData.objServiceGroupModel.Description,
+            ServiceDepartmentId: this.serviceGroupData.objServiceGroupModel.ServiceDepartmentId
+        };
+        this.listDropdownServiceDepartmentObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_5__["ObservableArray"]();
+    }
+    ServiceGroupDetailDialogComponent.prototype.listDropdownServiceDepartment = function () {
+        var _this = this;
+        this.servicesService.listDropdownServiceDepartment();
+        this.listDropdownServiceDepartmentSubscription = this.servicesService.listDropdownServiceDepartmentObservable.subscribe(function (data) {
+            _this.listDropdownServiceDepartmentObservableArray = data;
+            if (_this.listDropdownServiceDepartmentSubscription != null)
+                _this.listDropdownServiceDepartmentSubscription.unsubscribe();
+        });
+    };
+    ServiceGroupDetailDialogComponent.prototype.btnSaveServiceGroup = function () {
+        var _this = this;
+        var btnSaveServiceGroup = document.getElementById("btnSaveServiceGroup");
+        var btnCloseServiceGroupDialog = document.getElementById("btnCloseServiceGroupDialog");
+        btnSaveServiceGroup.setAttribute("disabled", "disabled");
+        btnCloseServiceGroupDialog.setAttribute("disabled", "disabled");
+        this.servicesService.saveServiceGroup(this.serviceGroupModel);
+        this.saveServiceGroupSubscription = this.servicesService.saveServiceGroupObservable.subscribe(function (data) {
+            if (data[0] == "success") {
+                _this.toastr.success("Service group was successfully saved.", "Success");
+                _this.serviceGroupDetailDialogRef.close(200);
+            }
+            else if (data[0] == "failed") {
+                _this.toastr.error(data[1], "Error");
+                btnSaveServiceGroup.removeAttribute("disabled");
+                btnCloseServiceGroupDialog.removeAttribute("disabled");
+            }
+            if (_this.saveServiceGroupSubscription != null)
+                _this.saveServiceGroupSubscription.unsubscribe();
+        });
+    };
+    ServiceGroupDetailDialogComponent.prototype.btnCloseServiceGroupDialog = function () {
+        this.serviceGroupDetailDialogRef.close();
+        if (this.listDropdownServiceDepartmentSubscription != null)
+            this.listDropdownServiceDepartmentSubscription.unsubscribe();
+        if (this.saveServiceGroupSubscription != null)
+            this.saveServiceGroupSubscription.unsubscribe();
+    };
+    ServiceGroupDetailDialogComponent.prototype.ngOnInit = function () {
+        this.listDropdownServiceDepartment();
+        this.dialogTitle = this.serviceGroupData.objDialogTitle;
+    };
+    ServiceGroupDetailDialogComponent.prototype.ngOnDestroy = function () {
+        if (this.listDropdownServiceDepartmentSubscription != null)
+            this.listDropdownServiceDepartmentSubscription.unsubscribe();
+        if (this.saveServiceGroupSubscription != null)
+            this.saveServiceGroupSubscription.unsubscribe();
+    };
+    ServiceGroupDetailDialogComponent.ctorParameters = function () { return [
+        { type: _services_service__WEBPACK_IMPORTED_MODULE_3__["ServicesService"] },
+        { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"] },
+        { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"],] }] },
+        { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_4__["ToastrService"] }
+    ]; };
+    ServiceGroupDetailDialogComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-service-group-detail-dialog',
+            template: __webpack_require__(/*! raw-loader!./service-group-detail-dialog.component.html */ "./node_modules/raw-loader/index.js!./src/app/software/services/service-group-detail-dialog/service-group-detail-dialog.component.html"),
+            styles: [__webpack_require__(/*! ./service-group-detail-dialog.component.css */ "./src/app/software/services/service-group-detail-dialog/service-group-detail-dialog.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__param"](2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"]))
+    ], ServiceGroupDetailDialogComponent);
+    return ServiceGroupDetailDialogComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/services/services.component.css":
+/*!**********************************************************!*\
+  !*** ./src/app/software/services/services.component.css ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NvZnR3YXJlL3NlcnZpY2VzL3NlcnZpY2VzLmNvbXBvbmVudC5jc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/software/services/services.component.ts":
+/*!*********************************************************!*\
+  !*** ./src/app/software/services/services.component.ts ***!
+  \*********************************************************/
+/*! exports provided: ServicesComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ServicesComponent", function() { return ServicesComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm5/dialog.es5.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! wijmo/wijmo */ "./node_modules/wijmo/wijmo.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _services_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./services.service */ "./src/app/software/services/services.service.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var _services_model__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./services.model */ "./src/app/software/services/services.model.ts");
+/* harmony import */ var _service_department_detail_dialog_service_department_detail_dialog_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./service-department-detail-dialog/service-department-detail-dialog.component */ "./src/app/software/services/service-department-detail-dialog/service-department-detail-dialog.component.ts");
+/* harmony import */ var _service_department_delete_dialog_service_department_delete_dialog_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./service-department-delete-dialog/service-department-delete-dialog.component */ "./src/app/software/services/service-department-delete-dialog/service-department-delete-dialog.component.ts");
+/* harmony import */ var _service_group_detail_dialog_service_group_detail_dialog_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./service-group-detail-dialog/service-group-detail-dialog.component */ "./src/app/software/services/service-group-detail-dialog/service-group-detail-dialog.component.ts");
+/* harmony import */ var _service_group_delete_dialog_service_group_delete_dialog_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./service-group-delete-dialog/service-group-delete-dialog.component */ "./src/app/software/services/service-group-delete-dialog/service-group-delete-dialog.component.ts");
+/* harmony import */ var _service_detail_dialog_service_detail_dialog_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./service-detail-dialog/service-detail-dialog.component */ "./src/app/software/services/service-detail-dialog/service-detail-dialog.component.ts");
+/* harmony import */ var _service_delete_dialog_service_delete_dialog_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./service-delete-dialog/service-delete-dialog.component */ "./src/app/software/services/service-delete-dialog/service-delete-dialog.component.ts");
+
+
+
+
+
+
+
+
+
+
+
+
+
+var ServicesComponent = /** @class */ (function () {
+    function ServicesComponent(servicesService, serviceDepartmentDetailDialog, serviceDepartmentDeleteDialog, serviceGroupDetailDialog, serviceGroupDeleteDialog, serviceAddDialog, serviceEditDialog, serviceDeleteDialog, toastr) {
+        this.servicesService = servicesService;
+        this.serviceDepartmentDetailDialog = serviceDepartmentDetailDialog;
+        this.serviceDepartmentDeleteDialog = serviceDepartmentDeleteDialog;
+        this.serviceGroupDetailDialog = serviceGroupDetailDialog;
+        this.serviceGroupDeleteDialog = serviceGroupDeleteDialog;
+        this.serviceAddDialog = serviceAddDialog;
+        this.serviceEditDialog = serviceEditDialog;
+        this.serviceDeleteDialog = serviceDeleteDialog;
+        this.toastr = toastr;
+        this.listServiceDepartmentObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listServiceDepartmentCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listServiceDepartmentObservableArray);
+        this.listServiceDepartmentPageIndex = 15;
+        this.serviceDepartmentModel = new _services_model__WEBPACK_IMPORTED_MODULE_6__["ServiceDepartmentModel"]();
+        this.listServiceGroupObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listServiceGroupCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listServiceGroupObservableArray);
+        this.listServiceGroupPageIndex = 15;
+        this.serviceGroupModel = new _services_model__WEBPACK_IMPORTED_MODULE_6__["ServiceGroupModel"]();
+        this.listServiceObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listServiceCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listServiceObservableArray);
+        this.listServicePageIndex = 15;
+        this.serviceModel = new _services_model__WEBPACK_IMPORTED_MODULE_6__["ServiceModel"]();
+    }
+    ServicesComponent.prototype.listServiceDepartmentData = function () {
+        var _this = this;
+        this.listServiceDepartmentObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listServiceDepartmentCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listServiceDepartmentObservableArray);
+        this.listServiceDepartmentCollectionView.pageSize = 15;
+        this.listServiceDepartmentCollectionView.trackChanges = true;
+        this.listServiceDepartmentCollectionView.refresh();
+        this.servicesService.listServiceDepartment();
+        this.listServiceDepartmentSubscription = this.servicesService.listServiceDepartmentObservable.subscribe(function (data) {
+            if (data.length > 0) {
+                _this.listServiceDepartmentObservableArray = data;
+                _this.listServiceDepartmentCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](_this.listServiceDepartmentObservableArray);
+                _this.listServiceDepartmentCollectionView.pageSize = _this.listServiceDepartmentPageIndex;
+                _this.listServiceDepartmentCollectionView.trackChanges = true;
+                _this.listServiceDepartmentCollectionView.refresh();
+            }
+            if (_this.listServiceDepartmentSubscription != null)
+                _this.listServiceDepartmentSubscription.unsubscribe();
+        });
+    };
+    ServicesComponent.prototype.btnAddServiceDepartment = function () {
+        var _this = this;
+        this.serviceDepartmentModel = new _services_model__WEBPACK_IMPORTED_MODULE_6__["ServiceDepartmentModel"]();
+        var serviceDepartmentDetailDialogRef = this.serviceDepartmentDetailDialog.open(_service_department_detail_dialog_service_department_detail_dialog_component__WEBPACK_IMPORTED_MODULE_7__["ServiceDepartmentDetailDialogComponent"], {
+            width: '500px',
+            data: {
+                objDialogTitle: "Add Service Department",
+                objServiceDepartmentModel: this.serviceDepartmentModel
+            },
+            disableClose: true
+        });
+        serviceDepartmentDetailDialogRef.afterClosed().subscribe(function (result) {
+            if (result == 200) {
+                _this.listServiceDepartmentData();
+            }
+        });
+    };
+    ServicesComponent.prototype.btnEditServiceDepartment = function () {
+        var _this = this;
+        var currentEditItem = this.listServiceDepartmentCollectionView.currentItem;
+        this.serviceDepartmentModel.Id = currentEditItem.Id;
+        this.serviceDepartmentModel.ServiceDepartment = currentEditItem.ServiceDepartment;
+        this.serviceDepartmentModel.OfficerInCharge = currentEditItem.OfficerInCharge;
+        this.serviceDepartmentModel.ContactNumber = currentEditItem.ContactNumber;
+        this.serviceDepartmentModel.EmailAddress = currentEditItem.EmailAddress;
+        var serviceDepartmentDetailDialogRef = this.serviceDepartmentDetailDialog.open(_service_department_detail_dialog_service_department_detail_dialog_component__WEBPACK_IMPORTED_MODULE_7__["ServiceDepartmentDetailDialogComponent"], {
+            width: '500px',
+            data: {
+                objDialogTitle: "Edit Service Department",
+                objServiceDepartmentModel: this.serviceDepartmentModel
+            },
+            disableClose: true
+        });
+        serviceDepartmentDetailDialogRef.afterClosed().subscribe(function (result) {
+            if (result == 200) {
+                _this.listServiceDepartmentData();
+            }
+        });
+    };
+    ServicesComponent.prototype.btnDeleteServiceDepartment = function () {
+        var _this = this;
+        var currentEditItem = this.listServiceDepartmentCollectionView.currentItem;
+        this.serviceDepartmentModel.Id = currentEditItem.Id;
+        var serviceDepartmentDeleteDialogRef = this.serviceDepartmentDeleteDialog.open(_service_department_delete_dialog_service_department_delete_dialog_component__WEBPACK_IMPORTED_MODULE_8__["ServiceDepartmentDeleteDialogComponent"], {
+            width: '300px',
+            data: { objServiceDepartmentModel: this.serviceDepartmentModel },
+            disableClose: true
+        });
+        serviceDepartmentDeleteDialogRef.afterClosed().subscribe(function (result) {
+            if (result == 200) {
+                _this.listServiceDepartmentData();
+            }
+        });
+    };
+    ServicesComponent.prototype.listServiceGroupData = function () {
+        var _this = this;
+        this.listServiceGroupObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listServiceGroupCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listServiceGroupObservableArray);
+        this.listServiceGroupCollectionView.pageSize = 15;
+        this.listServiceGroupCollectionView.trackChanges = true;
+        this.listServiceGroupCollectionView.refresh();
+        this.servicesService.listServiceGroup();
+        this.listServiceGroupSubscription = this.servicesService.listServiceGroupObservable.subscribe(function (data) {
+            if (data.length > 0) {
+                _this.listServiceGroupObservableArray = data;
+                _this.listServiceGroupCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](_this.listServiceGroupObservableArray);
+                _this.listServiceGroupCollectionView.pageSize = _this.listServiceGroupPageIndex;
+                _this.listServiceGroupCollectionView.trackChanges = true;
+                _this.listServiceGroupCollectionView.refresh();
+            }
+            if (_this.listServiceGroupSubscription != null)
+                _this.listServiceGroupSubscription.unsubscribe();
+        });
+    };
+    ServicesComponent.prototype.btnAddServiceGroup = function () {
+        var _this = this;
+        this.serviceGroupModel = new _services_model__WEBPACK_IMPORTED_MODULE_6__["ServiceGroupModel"]();
+        var serviceGroupDetailDialogRef = this.serviceGroupDetailDialog.open(_service_group_detail_dialog_service_group_detail_dialog_component__WEBPACK_IMPORTED_MODULE_9__["ServiceGroupDetailDialogComponent"], {
+            width: '500px',
+            data: {
+                objDialogTitle: "Add Service Department",
+                objServiceGroupModel: this.serviceGroupModel
+            },
+            disableClose: true
+        });
+        serviceGroupDetailDialogRef.afterClosed().subscribe(function (result) {
+            if (result == 200) {
+                _this.listServiceGroupData();
+            }
+        });
+    };
+    ServicesComponent.prototype.btnEditServiceGroup = function () {
+        var _this = this;
+        var currentEditItem = this.listServiceGroupCollectionView.currentItem;
+        this.serviceGroupModel.Id = currentEditItem.Id;
+        this.serviceGroupModel.ServiceGroup = currentEditItem.ServiceGroup;
+        this.serviceGroupModel.Description = currentEditItem.Description;
+        this.serviceGroupModel.ServiceDepartmentId = currentEditItem.ServiceDepartmentId;
+        var serviceGroupDetailDialogRef = this.serviceGroupDetailDialog.open(_service_group_detail_dialog_service_group_detail_dialog_component__WEBPACK_IMPORTED_MODULE_9__["ServiceGroupDetailDialogComponent"], {
+            width: '500px',
+            data: {
+                objDialogTitle: "Edit Service Department",
+                objServiceGroupModel: this.serviceGroupModel
+            },
+            disableClose: true
+        });
+        serviceGroupDetailDialogRef.afterClosed().subscribe(function (result) {
+            if (result == 200) {
+                _this.listServiceGroupData();
+            }
+        });
+    };
+    ServicesComponent.prototype.btnDeleteServiceGroup = function () {
+        var _this = this;
+        var currentEditItem = this.listServiceGroupCollectionView.currentItem;
+        this.serviceGroupModel.Id = currentEditItem.Id;
+        var serviceGroupDeleteDialogRef = this.serviceGroupDeleteDialog.open(_service_group_delete_dialog_service_group_delete_dialog_component__WEBPACK_IMPORTED_MODULE_10__["ServiceGroupDeleteDialogComponent"], {
+            width: '300px',
+            data: { objServiceGroupModel: this.serviceGroupModel },
+            disableClose: true
+        });
+        serviceGroupDeleteDialogRef.afterClosed().subscribe(function (result) {
+            if (result == 200) {
+                _this.listServiceGroupData();
+            }
+        });
+    };
+    ServicesComponent.prototype.listServiceData = function () {
+        var _this = this;
+        this.listServiceObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["ObservableArray"]();
+        this.listServiceCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](this.listServiceObservableArray);
+        this.listServiceCollectionView.pageSize = 15;
+        this.listServiceCollectionView.trackChanges = true;
+        this.listServiceCollectionView.refresh();
+        this.servicesService.listService();
+        this.listServiceSubscription = this.servicesService.listServiceObservable.subscribe(function (data) {
+            if (data.length > 0) {
+                _this.listServiceObservableArray = data;
+                _this.listServiceCollectionView = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_3__["CollectionView"](_this.listServiceObservableArray);
+                _this.listServiceCollectionView.pageSize = _this.listServicePageIndex;
+                _this.listServiceCollectionView.trackChanges = true;
+                _this.listServiceCollectionView.refresh();
+            }
+            if (_this.listServiceSubscription != null)
+                _this.listServiceSubscription.unsubscribe();
+        });
+    };
+    ServicesComponent.prototype.btnAddService = function () {
+        var _this = this;
+        var btnAddService = document.getElementById("btnAddService");
+        btnAddService.setAttribute("disabled", "disabled");
+        this.servicesService.addService();
+        this.addServiceSubscription = this.servicesService.addServiceObservable.subscribe(function (data) {
+            if (data[0] == "success") {
+                _this.toastr.info("Service was successfully created as draft.", "Info");
+                _this.getServiceDetail(parseInt(data[1]));
+            }
+            else if (data[0] == "failed") {
+                _this.toastr.error(data[1], "Error");
+                btnAddService.removeAttribute("disabled");
+            }
+            if (_this.addServiceSubscription != null)
+                _this.addServiceSubscription.unsubscribe();
+        });
+    };
+    ServicesComponent.prototype.getServiceDetail = function (id) {
+        var _this = this;
+        var btnAddService = document.getElementById("btnAddService");
+        this.servicesService.detailService(id);
+        this.detailServiceSubscription = this.servicesService.detailServiceObservable.subscribe(function (data) {
+            if (data != null) {
+                _this.listServiceData();
+                _this.serviceModel.Id = data.Id;
+                _this.serviceModel.Service = data.Service;
+                _this.serviceModel.Description = data.Description;
+                _this.serviceModel.ServiceGroupId = data.ServiceGroupId;
+                _this.serviceModel.DateEncoded = new Date(data.DateEncoded);
+                _this.serviceModel.DateExpiry = new Date(data.DateExpiry);
+                _this.serviceModel.LimitAmount = data.LimitAmount;
+                _this.serviceModel.IsMultipleUse = data.IsMultipleUse;
+                _this.serviceModel.StatusId = data.StatusId;
+                _this.serviceModel.IsLocked = data.IsLocked;
+                var serviceAddDialogRef = _this.serviceAddDialog.open(_service_detail_dialog_service_detail_dialog_component__WEBPACK_IMPORTED_MODULE_11__["ServiceDetailDialogComponent"], {
+                    width: '500px',
+                    data: {
+                        objDialogTitle: "Add Service",
+                        objServiceModel: _this.serviceModel
+                    },
+                    disableClose: true
+                });
+                serviceAddDialogRef.afterClosed().subscribe(function (result) {
+                    if (result == 200) {
+                        _this.listServiceData();
+                    }
+                });
+            }
+            if (_this.detailServiceSubscription != null)
+                _this.detailServiceSubscription.unsubscribe();
+            btnAddService.removeAttribute("disabled");
+        });
+    };
+    ServicesComponent.prototype.btnEditService = function () {
+        var _this = this;
+        var currentService = this.listServiceCollectionView.currentItem;
+        this.serviceModel.Id = currentService.Id;
+        this.serviceModel.Service = currentService.Service;
+        this.serviceModel.Description = currentService.Description;
+        this.serviceModel.ServiceGroupId = currentService.ServiceGroupId;
+        this.serviceModel.DateEncoded = new Date(currentService.DateEncoded);
+        if (currentService.DateExpiry != null) {
+            this.serviceModel.DateExpiry = new Date(currentService.DateExpiry);
+        }
+        else {
+            this.serviceModel.DateExpiry = null;
+        }
+        this.serviceModel.LimitAmount = currentService.LimitAmount;
+        this.serviceModel.IsMultipleUse = currentService.IsMultipleUse;
+        this.serviceModel.StatusId = currentService.StatusId;
+        this.serviceModel.IsLocked = currentService.IsLocked;
+        var serviceEditDialogRef = this.serviceEditDialog.open(_service_detail_dialog_service_detail_dialog_component__WEBPACK_IMPORTED_MODULE_11__["ServiceDetailDialogComponent"], {
+            width: '500px',
+            data: {
+                objDialogTitle: "Edit Service",
+                objServiceModel: this.serviceModel
+            },
+            disableClose: true
+        });
+        serviceEditDialogRef.afterClosed().subscribe(function (result) {
+            if (result == 200) {
+                _this.listServiceData();
+            }
+        });
+    };
+    ServicesComponent.prototype.btnDeleteService = function () {
+        var _this = this;
+        var currentEditItem = this.listServiceCollectionView.currentItem;
+        if (currentEditItem.IsLocked == true) {
+            this.toastr.error("Service cannot be deleted if locked.", "Error");
+        }
+        else {
+            this.serviceModel.Id = currentEditItem.Id;
+            var serviceDeleteDialogRef = this.serviceDeleteDialog.open(_service_delete_dialog_service_delete_dialog_component__WEBPACK_IMPORTED_MODULE_12__["ServiceDeleteDialogComponent"], {
+                width: '300px',
+                data: { objServiceModel: this.serviceModel },
+                disableClose: true
+            });
+            serviceDeleteDialogRef.afterClosed().subscribe(function (result) {
+                if (result == 200) {
+                    _this.listServiceData();
+                }
+            });
+        }
+    };
+    ServicesComponent.prototype.ngOnInit = function () {
+        this.listServiceData();
+        this.listServiceGroupData();
+        this.listServiceDepartmentData();
+    };
+    ServicesComponent.prototype.ngOnDestroy = function () {
+        if (this.listServiceDepartmentSubscription != null)
+            this.listServiceDepartmentSubscription.unsubscribe();
+        if (this.listServiceGroupSubscription != null)
+            this.listServiceGroupSubscription.unsubscribe();
+        if (this.listServiceSubscription != null)
+            this.listServiceSubscription.unsubscribe();
+        if (this.addServiceSubscription != null)
+            this.addServiceSubscription.unsubscribe();
+        if (this.detailServiceSubscription != null)
+            this.detailServiceSubscription.unsubscribe();
+    };
+    ServicesComponent.ctorParameters = function () { return [
+        { type: _services_service__WEBPACK_IMPORTED_MODULE_4__["ServicesService"] },
+        { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialog"] },
+        { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialog"] },
+        { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialog"] },
+        { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialog"] },
+        { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialog"] },
+        { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialog"] },
+        { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialog"] },
+        { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_5__["ToastrService"] }
+    ]; };
+    ServicesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-services',
+            template: __webpack_require__(/*! raw-loader!./services.component.html */ "./node_modules/raw-loader/index.js!./src/app/software/services/services.component.html"),
+            styles: [__webpack_require__(/*! ./services.component.css */ "./src/app/software/services/services.component.css")]
+        })
+    ], ServicesComponent);
+    return ServicesComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/services/services.model.ts":
+/*!*****************************************************!*\
+  !*** ./src/app/software/services/services.model.ts ***!
+  \*****************************************************/
+/*! exports provided: ServiceDepartmentModel, ServiceGroupModel, ServiceModel */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ServiceDepartmentModel", function() { return ServiceDepartmentModel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ServiceGroupModel", function() { return ServiceGroupModel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ServiceModel", function() { return ServiceModel; });
+var ServiceDepartmentModel = /** @class */ (function () {
+    function ServiceDepartmentModel() {
+        this.Id = 0;
+        this.ServiceDepartment = "";
+        this.OfficerInCharge = "";
+        this.ContactNumber = "";
+        this.EmailAddress = "";
+    }
+    return ServiceDepartmentModel;
+}());
+
+var ServiceGroupModel = /** @class */ (function () {
+    function ServiceGroupModel() {
+        this.Id = 0;
+        this.ServiceGroup = "";
+        this.Description = "";
+        this.ServiceDepartmentId = 0;
+    }
+    return ServiceGroupModel;
+}());
+
+var ServiceModel = /** @class */ (function () {
+    function ServiceModel() {
+        this.Id = 0;
+        this.Service = "";
+        this.Description = "";
+        this.ServiceGroupId = 0;
+        this.DateEncoded = new Date();
+        this.DateExpiry = new Date();
+        this.LimitAmount = 0;
+        this.IsMultipleUse = false;
+        this.StatusId = 0;
+        this.IsLocked = false;
+    }
+    return ServiceModel;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/software/services/services.service.ts":
+/*!*******************************************************!*\
+  !*** ./src/app/software/services/services.service.ts ***!
+  \*******************************************************/
+/*! exports provided: ServicesService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ServicesService", function() { return ServicesService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _app_settings__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../app-settings */ "./src/app/app-settings.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! wijmo/wijmo */ "./node_modules/wijmo/wijmo.js");
+/* harmony import */ var wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+
+
+
+
+
+
+var ServicesService = /** @class */ (function () {
+    function ServicesService(appSettings, httpClient) {
+        this.appSettings = appSettings;
+        this.httpClient = httpClient;
+        this.defaultAPIURLHost = this.appSettings.APIURLHost;
+        this.options = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+            })
+        };
+        this.listServiceDepartmentSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listServiceDepartmentObservable = this.listServiceDepartmentSubject.asObservable();
+        this.saveServiceDepartmentSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.saveServiceDepartmentObservable = this.saveServiceDepartmentSubject.asObservable();
+        this.deleteServiceDepartmentSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.deleteServiceDepartmentObservable = this.deleteServiceDepartmentSubject.asObservable();
+        this.listServiceGroupSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listServiceGroupObservable = this.listServiceGroupSubject.asObservable();
+        this.listDropdownServiceDepartmentSource = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listDropdownServiceDepartmentObservable = this.listDropdownServiceDepartmentSource.asObservable();
+        this.saveServiceGroupSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.saveServiceGroupObservable = this.saveServiceGroupSubject.asObservable();
+        this.deleteServiceGroupSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.deleteServiceGroupObservable = this.deleteServiceGroupSubject.asObservable();
+        this.listServiceSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listServiceObservable = this.listServiceSubject.asObservable();
+        this.detailServiceSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.detailServiceObservable = this.detailServiceSubject.asObservable();
+        this.listDropdownServiceGroupSource = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listDropdownServiceGroupObservable = this.listDropdownServiceGroupSource.asObservable();
+        this.listDropdownStatusSource = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.listDropdownStatusObservable = this.listDropdownStatusSource.asObservable();
+        this.addServiceSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.addServiceObservable = this.addServiceSubject.asObservable();
+        this.saveServiceSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.saveServiceObservable = this.saveServiceSubject.asObservable();
+        this.lockServiceSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.lockServiceObservable = this.lockServiceSubject.asObservable();
+        this.unlockServiceSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.unlockServiceObservable = this.unlockServiceSubject.asObservable();
+        this.deleteServiceSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+        this.deleteServiceObservable = this.deleteServiceSubject.asObservable();
+    }
+    ServicesService.prototype.listServiceDepartment = function () {
+        var _this = this;
+        var listServiceDepartmentObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listServiceDepartmentSubject.next(listServiceDepartmentObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/mst/service/department/list", this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listServiceDepartmentObservableArray.push({
+                        Id: results[i].Id,
+                        ServiceDepartment: results[i].ServiceDepartment,
+                        OfficerInCharge: results[i].OfficerInCharge,
+                        ContactNumber: results[i].ContactNumber,
+                        EmailAddress: results[i].EmailAddress
+                    });
+                }
+            }
+            _this.listServiceDepartmentSubject.next(listServiceDepartmentObservableArray);
+        });
+    };
+    ServicesService.prototype.saveServiceDepartment = function (objServicesChildModel) {
+        var _this = this;
+        if (objServicesChildModel.Id == 0) {
+            this.httpClient.post(this.defaultAPIURLHost + "/api/mst/service/department/add", JSON.stringify(objServicesChildModel), this.options).subscribe(function (response) {
+                var responseResults = ["success", response.toString()];
+                _this.saveServiceDepartmentSubject.next(responseResults);
+            }, function (error) {
+                var errorResults = ["failed", error["error"]];
+                _this.saveServiceDepartmentSubject.next(errorResults);
+            });
+        }
+        else {
+            this.httpClient.put(this.defaultAPIURLHost + "/api/mst/service/department/update/" + objServicesChildModel.Id, JSON.stringify(objServicesChildModel), this.options).subscribe(function (response) {
+                var responseResults = ["success", response.toString()];
+                _this.saveServiceDepartmentSubject.next(responseResults);
+            }, function (error) {
+                var errorResults = ["failed", error["error"]];
+                _this.saveServiceDepartmentSubject.next(errorResults);
+            });
+        }
+    };
+    ServicesService.prototype.deleteServiceDepartment = function (id) {
+        var _this = this;
+        this.httpClient.delete(this.defaultAPIURLHost + "/api/mst/service/department/delete/" + id, this.options).subscribe(function (response) {
+            var responseResults = ["success", ""];
+            _this.deleteServiceDepartmentSubject.next(responseResults);
+        }, function (error) {
+            var errorResults = ["failed", error["error"]];
+            _this.deleteServiceDepartmentSubject.next(errorResults);
+        });
+    };
+    ServicesService.prototype.listServiceGroup = function () {
+        var _this = this;
+        var listServiceGroupObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listServiceGroupSubject.next(listServiceGroupObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/mst/service/group/list", this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listServiceGroupObservableArray.push({
+                        Id: results[i].Id,
+                        ServiceGroup: results[i].ServiceGroup,
+                        Description: results[i].Description,
+                        ServiceDepartmentId: results[i].ServiceDepartmentId,
+                        ServiceDepartment: results[i].ServiceDepartment
+                    });
+                }
+            }
+            _this.listServiceGroupSubject.next(listServiceGroupObservableArray);
+        });
+    };
+    ServicesService.prototype.listDropdownServiceDepartment = function () {
+        var _this = this;
+        var listDropdownServiceDepartmentObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listDropdownServiceDepartmentSource.next(listDropdownServiceDepartmentObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/mst/service/group/serviceDepartment/dropdown/list", this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listDropdownServiceDepartmentObservableArray.push({
+                        Id: results[i].Id,
+                        ServiceDepartment: results[i].ServiceDepartment
+                    });
+                }
+            }
+            _this.listDropdownServiceDepartmentSource.next(listDropdownServiceDepartmentObservableArray);
+        });
+    };
+    ServicesService.prototype.saveServiceGroup = function (objServicesChildModel) {
+        var _this = this;
+        if (objServicesChildModel.Id == 0) {
+            this.httpClient.post(this.defaultAPIURLHost + "/api/mst/service/group/add", JSON.stringify(objServicesChildModel), this.options).subscribe(function (response) {
+                var responseResults = ["success", response.toString()];
+                _this.saveServiceGroupSubject.next(responseResults);
+            }, function (error) {
+                var errorResults = ["failed", error["error"]];
+                _this.saveServiceGroupSubject.next(errorResults);
+            });
+        }
+        else {
+            this.httpClient.put(this.defaultAPIURLHost + "/api/mst/service/group/update/" + objServicesChildModel.Id, JSON.stringify(objServicesChildModel), this.options).subscribe(function (response) {
+                var responseResults = ["success", response.toString()];
+                _this.saveServiceGroupSubject.next(responseResults);
+            }, function (error) {
+                var errorResults = ["failed", error["error"]];
+                _this.saveServiceGroupSubject.next(errorResults);
+            });
+        }
+    };
+    ServicesService.prototype.deleteServiceGroup = function (id) {
+        var _this = this;
+        this.httpClient.delete(this.defaultAPIURLHost + "/api/mst/service/group/delete/" + id, this.options).subscribe(function (response) {
+            var responseResults = ["success", ""];
+            _this.deleteServiceGroupSubject.next(responseResults);
+        }, function (error) {
+            var errorResults = ["failed", error["error"]];
+            _this.deleteServiceGroupSubject.next(errorResults);
+        });
+    };
+    ServicesService.prototype.listService = function () {
+        var _this = this;
+        var listServiceObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listServiceSubject.next(listServiceObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/mst/service/list", this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listServiceObservableArray.push({
+                        Id: results[i].Id,
+                        Service: results[i].Service,
+                        Description: results[i].Description,
+                        ServiceGroupId: results[i].ServiceGroupId,
+                        ServiceGroup: results[i].ServiceGroup,
+                        DateEncoded: results[i].DateEncoded,
+                        DateExpiry: results[i].DateExpiry,
+                        LimitAmount: results[i].LimitAmount,
+                        IsMultipleUse: results[i].IsMultipleUse,
+                        StatusId: results[i].StatusId,
+                        Status: results[i].Status,
+                        IsLocked: results[i].IsLocked,
+                        CreatedByUserId: results[i].CreatedByUserId,
+                        CreatedByUser: results[i].Fullname,
+                        CreatedDateTime: results[i].CreatedDateTime,
+                        UpdatedByUserId: results[i].UpdatedByUserId,
+                        UpdatedByUser: results[i].Fullname,
+                        UpdatedDateTime: results[i].UpdatedDateTime
+                    });
+                }
+            }
+            _this.listServiceSubject.next(listServiceObservableArray);
+        });
+    };
+    ServicesService.prototype.detailService = function (id) {
+        var _this = this;
+        var serviceModel;
+        this.httpClient.get(this.defaultAPIURLHost + "/api/mst/service/detail/" + id, this.options).subscribe(function (response) {
+            var results = response;
+            if (results != null) {
+                serviceModel = {
+                    Id: results["Id"],
+                    Service: results["Service"],
+                    Description: results["Description"],
+                    ServiceGroupId: results["ServiceGroupId"],
+                    DateEncoded: results["DateEncoded"],
+                    DateExpiry: results["DateExpiry"],
+                    LimitAmount: results["LimitAmount"],
+                    IsMultipleUse: results["IsMultipleUse"],
+                    StatusId: results["StatusId"],
+                    IsLocked: results["IsLocked"]
+                };
+            }
+            _this.detailServiceSubject.next(serviceModel);
+        });
+    };
+    ServicesService.prototype.listDropdownServiceGroup = function () {
+        var _this = this;
+        var listDropdownServiceGroupObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listDropdownServiceGroupSource.next(listDropdownServiceGroupObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/mst/service/serviceGroup/dropdown/list", this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listDropdownServiceGroupObservableArray.push({
+                        Id: results[i].Id,
+                        ServiceGroup: results[i].ServiceGroup
+                    });
+                }
+            }
+            _this.listDropdownServiceGroupSource.next(listDropdownServiceGroupObservableArray);
+        });
+    };
+    ServicesService.prototype.listDropdownStatus = function () {
+        var _this = this;
+        var listDropdownStatusObservableArray = new wijmo_wijmo__WEBPACK_IMPORTED_MODULE_4__["ObservableArray"]();
+        this.listDropdownStatusSource.next(listDropdownStatusObservableArray);
+        this.httpClient.get(this.defaultAPIURLHost + "/api/mst/service/status/dropdown/list", this.options).subscribe(function (response) {
+            var results = response;
+            if (results["length"] > 0) {
+                for (var i = 0; i <= results["length"] - 1; i++) {
+                    listDropdownStatusObservableArray.push({
+                        Id: results[i].Id,
+                        Status: results[i].Status
+                    });
+                }
+            }
+            _this.listDropdownStatusSource.next(listDropdownStatusObservableArray);
+        });
+    };
+    ServicesService.prototype.addService = function () {
+        var _this = this;
+        this.httpClient.post(this.defaultAPIURLHost + "/api/mst/service/add", JSON.stringify(""), this.options).subscribe(function (response) {
+            var responseResults = ["success", response.toString()];
+            _this.addServiceSubject.next(responseResults);
+        }, function (error) {
+            var errorResults = ["failed", error["error"]];
+            _this.addServiceSubject.next(errorResults);
+        });
+    };
+    ServicesService.prototype.saveService = function (objServiceModel) {
+        var _this = this;
+        this.httpClient.put(this.defaultAPIURLHost + "/api/mst/service/save/" + objServiceModel.Id, JSON.stringify(objServiceModel), this.options).subscribe(function (response) {
+            var responseResults = ["success", response.toString()];
+            _this.saveServiceSubject.next(responseResults);
+        }, function (error) {
+            var errorResults = ["failed", error["error"]];
+            _this.saveServiceSubject.next(errorResults);
+        });
+    };
+    ServicesService.prototype.lockService = function (objServiceModel) {
+        var _this = this;
+        this.httpClient.put(this.defaultAPIURLHost + "/api/mst/service/lock/" + objServiceModel.Id, JSON.stringify(objServiceModel), this.options).subscribe(function (response) {
+            var responseResults = ["success", response.toString()];
+            _this.lockServiceSubject.next(responseResults);
+        }, function (error) {
+            var errorResults = ["failed", error["error"]];
+            _this.lockServiceSubject.next(errorResults);
+        });
+    };
+    ServicesService.prototype.unlockService = function (objServiceModel) {
+        var _this = this;
+        this.httpClient.put(this.defaultAPIURLHost + "/api/mst/service/unlock/" + objServiceModel.Id, JSON.stringify(""), this.options).subscribe(function (response) {
+            var responseResults = ["success", response.toString()];
+            _this.unlockServiceSubject.next(responseResults);
+        }, function (error) {
+            var errorResults = ["failed", error["error"]];
+            _this.unlockServiceSubject.next(errorResults);
+        });
+    };
+    ServicesService.prototype.deleteService = function (id) {
+        var _this = this;
+        this.httpClient.delete(this.defaultAPIURLHost + "/api/mst/service/delete/" + id, this.options).subscribe(function (response) {
+            var responseResults = ["success", ""];
+            _this.deleteServiceSubject.next(responseResults);
+        }, function (error) {
+            var errorResults = ["failed", error["error"]];
+            _this.deleteServiceSubject.next(errorResults);
+        });
+    };
+    ServicesService.ctorParameters = function () { return [
+        { type: _app_settings__WEBPACK_IMPORTED_MODULE_2__["AppSettings"] },
+        { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] }
+    ]; };
+    ServicesService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        })
+    ], ServicesService);
+    return ServicesService;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/software/software-routing.module.ts":
 /*!*****************************************************!*\
   !*** ./src/app/software/software-routing.module.ts ***!
@@ -16977,7 +20203,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _citizen_citizen_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./citizen/citizen.component */ "./src/app/software/citizen/citizen.component.ts");
 /* harmony import */ var _user_user_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./user/user.component */ "./src/app/software/user/user.component.ts");
 /* harmony import */ var _system_tables_system_tables_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./system-tables/system-tables.component */ "./src/app/software/system-tables/system-tables.component.ts");
-/* harmony import */ var _software_router_activate__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./software.router.activate */ "./src/app/software/software.router.activate.ts");
+/* harmony import */ var _card_card_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./card/card.component */ "./src/app/software/card/card.component.ts");
+/* harmony import */ var _services_services_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./services/services.component */ "./src/app/software/services/services.component.ts");
+/* harmony import */ var _reports_reports_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./reports/reports.component */ "./src/app/software/reports/reports.component.ts");
+/* harmony import */ var _software_router_activate__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./software.router.activate */ "./src/app/software/software.router.activate.ts");
+
+
+
 
 
 
@@ -16991,44 +20223,65 @@ var routes = [
     {
         path: '',
         canActivate: [
-            _software_router_activate__WEBPACK_IMPORTED_MODULE_8__["SoftwareRouterActivate"]
+            _software_router_activate__WEBPACK_IMPORTED_MODULE_11__["SoftwareRouterActivate"]
         ],
         component: _software_component__WEBPACK_IMPORTED_MODULE_3__["SoftwareComponent"],
         children: [
             {
                 path: '',
                 canActivate: [
-                    _software_router_activate__WEBPACK_IMPORTED_MODULE_8__["SoftwareRouterActivate"]
+                    _software_router_activate__WEBPACK_IMPORTED_MODULE_11__["SoftwareRouterActivate"]
                 ],
                 component: _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_4__["DashboardComponent"]
             },
             {
                 path: 'dashboard',
                 canActivate: [
-                    _software_router_activate__WEBPACK_IMPORTED_MODULE_8__["SoftwareRouterActivate"]
+                    _software_router_activate__WEBPACK_IMPORTED_MODULE_11__["SoftwareRouterActivate"]
                 ],
                 component: _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_4__["DashboardComponent"]
             },
             {
                 path: 'citizen',
                 canActivate: [
-                    _software_router_activate__WEBPACK_IMPORTED_MODULE_8__["SoftwareRouterActivate"]
+                    _software_router_activate__WEBPACK_IMPORTED_MODULE_11__["SoftwareRouterActivate"]
                 ],
                 component: _citizen_citizen_component__WEBPACK_IMPORTED_MODULE_5__["CitizenComponent"]
             },
             {
                 path: 'user',
                 canActivate: [
-                    _software_router_activate__WEBPACK_IMPORTED_MODULE_8__["SoftwareRouterActivate"]
+                    _software_router_activate__WEBPACK_IMPORTED_MODULE_11__["SoftwareRouterActivate"]
                 ],
                 component: _user_user_component__WEBPACK_IMPORTED_MODULE_6__["UserComponent"]
             },
             {
                 path: 'system-tables',
                 canActivate: [
-                    _software_router_activate__WEBPACK_IMPORTED_MODULE_8__["SoftwareRouterActivate"]
+                    _software_router_activate__WEBPACK_IMPORTED_MODULE_11__["SoftwareRouterActivate"]
                 ],
                 component: _system_tables_system_tables_component__WEBPACK_IMPORTED_MODULE_7__["SystemTablesComponent"]
+            },
+            {
+                path: 'card',
+                canActivate: [
+                    _software_router_activate__WEBPACK_IMPORTED_MODULE_11__["SoftwareRouterActivate"]
+                ],
+                component: _card_card_component__WEBPACK_IMPORTED_MODULE_8__["CardComponent"]
+            },
+            {
+                path: 'services',
+                canActivate: [
+                    _software_router_activate__WEBPACK_IMPORTED_MODULE_11__["SoftwareRouterActivate"]
+                ],
+                component: _services_services_component__WEBPACK_IMPORTED_MODULE_9__["ServicesComponent"]
+            },
+            {
+                path: 'reports',
+                canActivate: [
+                    _software_router_activate__WEBPACK_IMPORTED_MODULE_11__["SoftwareRouterActivate"]
+                ],
+                component: _reports_reports_component__WEBPACK_IMPORTED_MODULE_10__["ReportsComponent"]
             }
         ]
     }
@@ -17140,45 +20393,59 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm5/dialog.es5.js");
 /* harmony import */ var _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @angular/material/datepicker */ "./node_modules/@angular/material/esm5/datepicker.es5.js");
 /* harmony import */ var _angular_material_select__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @angular/material/select */ "./node_modules/@angular/material/esm5/select.es5.js");
-/* harmony import */ var _software_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./software.component */ "./src/app/software/software.component.ts");
-/* harmony import */ var _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./dashboard/dashboard.component */ "./src/app/software/dashboard/dashboard.component.ts");
-/* harmony import */ var _citizen_citizen_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./citizen/citizen.component */ "./src/app/software/citizen/citizen.component.ts");
-/* harmony import */ var _citizen_citizen_detail_dialog_citizen_detail_dialog_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./citizen/citizen-detail-dialog/citizen-detail-dialog.component */ "./src/app/software/citizen/citizen-detail-dialog/citizen-detail-dialog.component.ts");
-/* harmony import */ var _citizen_citizen_delete_dialog_citizen_delete_dialog_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./citizen/citizen-delete-dialog/citizen-delete-dialog.component */ "./src/app/software/citizen/citizen-delete-dialog/citizen-delete-dialog.component.ts");
-/* harmony import */ var _citizen_citizen_detail_dialog_citizen_camera_dialog_citizen_camera_dialog_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./citizen/citizen-detail-dialog/citizen-camera-dialog/citizen-camera-dialog.component */ "./src/app/software/citizen/citizen-detail-dialog/citizen-camera-dialog/citizen-camera-dialog.component.ts");
-/* harmony import */ var _citizen_citizen_detail_dialog_citizen_children_detail_dialog_citizen_children_detail_dialog_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./citizen/citizen-detail-dialog/citizen-children-detail-dialog/citizen-children-detail-dialog.component */ "./src/app/software/citizen/citizen-detail-dialog/citizen-children-detail-dialog/citizen-children-detail-dialog.component.ts");
-/* harmony import */ var _citizen_citizen_detail_dialog_citizen_children_delete_dialog_citizen_children_delete_dialog_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./citizen/citizen-detail-dialog/citizen-children-delete-dialog/citizen-children-delete-dialog.component */ "./src/app/software/citizen/citizen-detail-dialog/citizen-children-delete-dialog/citizen-children-delete-dialog.component.ts");
-/* harmony import */ var _citizen_citizen_detail_dialog_citizen_education_detail_dialog_citizen_education_detail_dialog_component__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./citizen/citizen-detail-dialog/citizen-education-detail-dialog/citizen-education-detail-dialog.component */ "./src/app/software/citizen/citizen-detail-dialog/citizen-education-detail-dialog/citizen-education-detail-dialog.component.ts");
-/* harmony import */ var _citizen_citizen_detail_dialog_citizen_education_delete_dialog_citizen_education_delete_dialog_component__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./citizen/citizen-detail-dialog/citizen-education-delete-dialog/citizen-education-delete-dialog.component */ "./src/app/software/citizen/citizen-detail-dialog/citizen-education-delete-dialog/citizen-education-delete-dialog.component.ts");
-/* harmony import */ var _citizen_citizen_search_dialog_citizen_search_dialog_component__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./citizen/citizen-search-dialog/citizen-search-dialog.component */ "./src/app/software/citizen/citizen-search-dialog/citizen-search-dialog.component.ts");
-/* harmony import */ var _user_user_component__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./user/user.component */ "./src/app/software/user/user.component.ts");
-/* harmony import */ var _system_tables_system_tables_component__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./system-tables/system-tables.component */ "./src/app/software/system-tables/system-tables.component.ts");
-/* harmony import */ var _system_tables_citizenship_detail_dialog_citizenship_detail_dialog_component__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./system-tables/citizenship-detail-dialog/citizenship-detail-dialog.component */ "./src/app/software/system-tables/citizenship-detail-dialog/citizenship-detail-dialog.component.ts");
-/* harmony import */ var _system_tables_citizenship_delete_dialog_citizenship_delete_dialog_component__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./system-tables/citizenship-delete-dialog/citizenship-delete-dialog.component */ "./src/app/software/system-tables/citizenship-delete-dialog/citizenship-delete-dialog.component.ts");
-/* harmony import */ var _system_tables_type_of_citizenship_detail_dialog_type_of_citizenship_detail_dialog_component__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./system-tables/type-of-citizenship-detail-dialog/type-of-citizenship-detail-dialog.component */ "./src/app/software/system-tables/type-of-citizenship-detail-dialog/type-of-citizenship-detail-dialog.component.ts");
-/* harmony import */ var _system_tables_type_of_citizenship_delete_dialog_type_of_citizenship_delete_dialog_component__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./system-tables/type-of-citizenship-delete-dialog/type-of-citizenship-delete-dialog.component */ "./src/app/software/system-tables/type-of-citizenship-delete-dialog/type-of-citizenship-delete-dialog.component.ts");
-/* harmony import */ var _system_tables_sex_detail_dialog_sex_detail_dialog_component__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./system-tables/sex-detail-dialog/sex-detail-dialog.component */ "./src/app/software/system-tables/sex-detail-dialog/sex-detail-dialog.component.ts");
-/* harmony import */ var _system_tables_sex_delete_dialog_sex_delete_dialog_component__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./system-tables/sex-delete-dialog/sex-delete-dialog.component */ "./src/app/software/system-tables/sex-delete-dialog/sex-delete-dialog.component.ts");
-/* harmony import */ var _system_tables_civil_status_delete_dialog_civil_status_delete_dialog_component__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./system-tables/civil-status-delete-dialog/civil-status-delete-dialog.component */ "./src/app/software/system-tables/civil-status-delete-dialog/civil-status-delete-dialog.component.ts");
-/* harmony import */ var _system_tables_civil_status_detail_dialog_civil_status_detail_dialog_component__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./system-tables/civil-status-detail-dialog/civil-status-detail-dialog.component */ "./src/app/software/system-tables/civil-status-detail-dialog/civil-status-detail-dialog.component.ts");
-/* harmony import */ var _system_tables_education_level_detail_dialog_education_level_detail_dialog_component__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./system-tables/education-level-detail-dialog/education-level-detail-dialog.component */ "./src/app/software/system-tables/education-level-detail-dialog/education-level-detail-dialog.component.ts");
-/* harmony import */ var _system_tables_education_level_delete_dialog_education_level_delete_dialog_component__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./system-tables/education-level-delete-dialog/education-level-delete-dialog.component */ "./src/app/software/system-tables/education-level-delete-dialog/education-level-delete-dialog.component.ts");
-/* harmony import */ var _system_tables_occupation_detail_dialog_occupation_detail_dialog_component__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./system-tables/occupation-detail-dialog/occupation-detail-dialog.component */ "./src/app/software/system-tables/occupation-detail-dialog/occupation-detail-dialog.component.ts");
-/* harmony import */ var _system_tables_occupation_delete_dialog_occupation_delete_dialog_component__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ./system-tables/occupation-delete-dialog/occupation-delete-dialog.component */ "./src/app/software/system-tables/occupation-delete-dialog/occupation-delete-dialog.component.ts");
-/* harmony import */ var _system_tables_blood_type_detail_dialog_blood_type_detail_dialog_component__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ./system-tables/blood-type-detail-dialog/blood-type-detail-dialog.component */ "./src/app/software/system-tables/blood-type-detail-dialog/blood-type-detail-dialog.component.ts");
-/* harmony import */ var _system_tables_blood_type_delete_dialog_blood_type_delete_dialog_component__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ./system-tables/blood-type-delete-dialog/blood-type-delete-dialog.component */ "./src/app/software/system-tables/blood-type-delete-dialog/blood-type-delete-dialog.component.ts");
-/* harmony import */ var _system_tables_status_detail_dialog_status_detail_dialog_component__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! ./system-tables/status-detail-dialog/status-detail-dialog.component */ "./src/app/software/system-tables/status-detail-dialog/status-detail-dialog.component.ts");
-/* harmony import */ var _system_tables_status_delete_dialog_status_delete_dialog_component__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! ./system-tables/status-delete-dialog/status-delete-dialog.component */ "./src/app/software/system-tables/status-delete-dialog/status-delete-dialog.component.ts");
-/* harmony import */ var _user_user_detail_dialog_user_detail_dialog_component__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! ./user/user-detail-dialog/user-detail-dialog.component */ "./src/app/software/user/user-detail-dialog/user-detail-dialog.component.ts");
-/* harmony import */ var wijmo_wijmo_angular2_grid_filter__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! wijmo/wijmo.angular2.grid.filter */ "./node_modules/wijmo/wijmo.angular2.grid.filter.js");
-/* harmony import */ var wijmo_wijmo_angular2_grid_filter__WEBPACK_IMPORTED_MODULE_53___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo_angular2_grid_filter__WEBPACK_IMPORTED_MODULE_53__);
-/* harmony import */ var wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_54__ = __webpack_require__(/*! wijmo/wijmo.angular2.grid */ "./node_modules/wijmo/wijmo.angular2.grid.js");
-/* harmony import */ var wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_54___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_54__);
-/* harmony import */ var wijmo_wijmo_angular2_input__WEBPACK_IMPORTED_MODULE_55__ = __webpack_require__(/*! wijmo/wijmo.angular2.input */ "./node_modules/wijmo/wijmo.angular2.input.js");
-/* harmony import */ var wijmo_wijmo_angular2_input__WEBPACK_IMPORTED_MODULE_55___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo_angular2_input__WEBPACK_IMPORTED_MODULE_55__);
-/* harmony import */ var _angular_flex_layout__WEBPACK_IMPORTED_MODULE_56__ = __webpack_require__(/*! @angular/flex-layout */ "./node_modules/@angular/flex-layout/esm5/flex-layout.es5.js");
-/* harmony import */ var _fortawesome_angular_fontawesome__WEBPACK_IMPORTED_MODULE_57__ = __webpack_require__(/*! @fortawesome/angular-fontawesome */ "./node_modules/@fortawesome/angular-fontawesome/fesm5/angular-fontawesome.js");
-/* harmony import */ var ngx_webcam__WEBPACK_IMPORTED_MODULE_58__ = __webpack_require__(/*! ngx-webcam */ "./node_modules/ngx-webcam/fesm5/ngx-webcam.js");
+/* harmony import */ var _angular_material_checkbox__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @angular/material/checkbox */ "./node_modules/@angular/material/esm5/checkbox.es5.js");
+/* harmony import */ var _software_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./software.component */ "./src/app/software/software.component.ts");
+/* harmony import */ var _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./dashboard/dashboard.component */ "./src/app/software/dashboard/dashboard.component.ts");
+/* harmony import */ var _citizen_citizen_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./citizen/citizen.component */ "./src/app/software/citizen/citizen.component.ts");
+/* harmony import */ var _citizen_citizen_detail_dialog_citizen_detail_dialog_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./citizen/citizen-detail-dialog/citizen-detail-dialog.component */ "./src/app/software/citizen/citizen-detail-dialog/citizen-detail-dialog.component.ts");
+/* harmony import */ var _citizen_citizen_delete_dialog_citizen_delete_dialog_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./citizen/citizen-delete-dialog/citizen-delete-dialog.component */ "./src/app/software/citizen/citizen-delete-dialog/citizen-delete-dialog.component.ts");
+/* harmony import */ var _citizen_citizen_detail_dialog_citizen_camera_dialog_citizen_camera_dialog_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./citizen/citizen-detail-dialog/citizen-camera-dialog/citizen-camera-dialog.component */ "./src/app/software/citizen/citizen-detail-dialog/citizen-camera-dialog/citizen-camera-dialog.component.ts");
+/* harmony import */ var _citizen_citizen_detail_dialog_citizen_children_detail_dialog_citizen_children_detail_dialog_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./citizen/citizen-detail-dialog/citizen-children-detail-dialog/citizen-children-detail-dialog.component */ "./src/app/software/citizen/citizen-detail-dialog/citizen-children-detail-dialog/citizen-children-detail-dialog.component.ts");
+/* harmony import */ var _citizen_citizen_detail_dialog_citizen_children_delete_dialog_citizen_children_delete_dialog_component__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./citizen/citizen-detail-dialog/citizen-children-delete-dialog/citizen-children-delete-dialog.component */ "./src/app/software/citizen/citizen-detail-dialog/citizen-children-delete-dialog/citizen-children-delete-dialog.component.ts");
+/* harmony import */ var _citizen_citizen_detail_dialog_citizen_education_detail_dialog_citizen_education_detail_dialog_component__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./citizen/citizen-detail-dialog/citizen-education-detail-dialog/citizen-education-detail-dialog.component */ "./src/app/software/citizen/citizen-detail-dialog/citizen-education-detail-dialog/citizen-education-detail-dialog.component.ts");
+/* harmony import */ var _citizen_citizen_detail_dialog_citizen_education_delete_dialog_citizen_education_delete_dialog_component__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./citizen/citizen-detail-dialog/citizen-education-delete-dialog/citizen-education-delete-dialog.component */ "./src/app/software/citizen/citizen-detail-dialog/citizen-education-delete-dialog/citizen-education-delete-dialog.component.ts");
+/* harmony import */ var _citizen_citizen_search_dialog_citizen_search_dialog_component__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./citizen/citizen-search-dialog/citizen-search-dialog.component */ "./src/app/software/citizen/citizen-search-dialog/citizen-search-dialog.component.ts");
+/* harmony import */ var _user_user_component__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./user/user.component */ "./src/app/software/user/user.component.ts");
+/* harmony import */ var _system_tables_system_tables_component__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./system-tables/system-tables.component */ "./src/app/software/system-tables/system-tables.component.ts");
+/* harmony import */ var _system_tables_citizenship_detail_dialog_citizenship_detail_dialog_component__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./system-tables/citizenship-detail-dialog/citizenship-detail-dialog.component */ "./src/app/software/system-tables/citizenship-detail-dialog/citizenship-detail-dialog.component.ts");
+/* harmony import */ var _system_tables_citizenship_delete_dialog_citizenship_delete_dialog_component__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./system-tables/citizenship-delete-dialog/citizenship-delete-dialog.component */ "./src/app/software/system-tables/citizenship-delete-dialog/citizenship-delete-dialog.component.ts");
+/* harmony import */ var _system_tables_type_of_citizenship_detail_dialog_type_of_citizenship_detail_dialog_component__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./system-tables/type-of-citizenship-detail-dialog/type-of-citizenship-detail-dialog.component */ "./src/app/software/system-tables/type-of-citizenship-detail-dialog/type-of-citizenship-detail-dialog.component.ts");
+/* harmony import */ var _system_tables_type_of_citizenship_delete_dialog_type_of_citizenship_delete_dialog_component__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./system-tables/type-of-citizenship-delete-dialog/type-of-citizenship-delete-dialog.component */ "./src/app/software/system-tables/type-of-citizenship-delete-dialog/type-of-citizenship-delete-dialog.component.ts");
+/* harmony import */ var _system_tables_sex_detail_dialog_sex_detail_dialog_component__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./system-tables/sex-detail-dialog/sex-detail-dialog.component */ "./src/app/software/system-tables/sex-detail-dialog/sex-detail-dialog.component.ts");
+/* harmony import */ var _system_tables_sex_delete_dialog_sex_delete_dialog_component__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./system-tables/sex-delete-dialog/sex-delete-dialog.component */ "./src/app/software/system-tables/sex-delete-dialog/sex-delete-dialog.component.ts");
+/* harmony import */ var _system_tables_civil_status_delete_dialog_civil_status_delete_dialog_component__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./system-tables/civil-status-delete-dialog/civil-status-delete-dialog.component */ "./src/app/software/system-tables/civil-status-delete-dialog/civil-status-delete-dialog.component.ts");
+/* harmony import */ var _system_tables_civil_status_detail_dialog_civil_status_detail_dialog_component__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./system-tables/civil-status-detail-dialog/civil-status-detail-dialog.component */ "./src/app/software/system-tables/civil-status-detail-dialog/civil-status-detail-dialog.component.ts");
+/* harmony import */ var _system_tables_education_level_detail_dialog_education_level_detail_dialog_component__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./system-tables/education-level-detail-dialog/education-level-detail-dialog.component */ "./src/app/software/system-tables/education-level-detail-dialog/education-level-detail-dialog.component.ts");
+/* harmony import */ var _system_tables_education_level_delete_dialog_education_level_delete_dialog_component__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./system-tables/education-level-delete-dialog/education-level-delete-dialog.component */ "./src/app/software/system-tables/education-level-delete-dialog/education-level-delete-dialog.component.ts");
+/* harmony import */ var _system_tables_occupation_detail_dialog_occupation_detail_dialog_component__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ./system-tables/occupation-detail-dialog/occupation-detail-dialog.component */ "./src/app/software/system-tables/occupation-detail-dialog/occupation-detail-dialog.component.ts");
+/* harmony import */ var _system_tables_occupation_delete_dialog_occupation_delete_dialog_component__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ./system-tables/occupation-delete-dialog/occupation-delete-dialog.component */ "./src/app/software/system-tables/occupation-delete-dialog/occupation-delete-dialog.component.ts");
+/* harmony import */ var _system_tables_blood_type_detail_dialog_blood_type_detail_dialog_component__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ./system-tables/blood-type-detail-dialog/blood-type-detail-dialog.component */ "./src/app/software/system-tables/blood-type-detail-dialog/blood-type-detail-dialog.component.ts");
+/* harmony import */ var _system_tables_blood_type_delete_dialog_blood_type_delete_dialog_component__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! ./system-tables/blood-type-delete-dialog/blood-type-delete-dialog.component */ "./src/app/software/system-tables/blood-type-delete-dialog/blood-type-delete-dialog.component.ts");
+/* harmony import */ var _system_tables_status_detail_dialog_status_detail_dialog_component__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! ./system-tables/status-detail-dialog/status-detail-dialog.component */ "./src/app/software/system-tables/status-detail-dialog/status-detail-dialog.component.ts");
+/* harmony import */ var _system_tables_status_delete_dialog_status_delete_dialog_component__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! ./system-tables/status-delete-dialog/status-delete-dialog.component */ "./src/app/software/system-tables/status-delete-dialog/status-delete-dialog.component.ts");
+/* harmony import */ var _user_user_detail_dialog_user_detail_dialog_component__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! ./user/user-detail-dialog/user-detail-dialog.component */ "./src/app/software/user/user-detail-dialog/user-detail-dialog.component.ts");
+/* harmony import */ var _card_card_component__WEBPACK_IMPORTED_MODULE_54__ = __webpack_require__(/*! ./card/card.component */ "./src/app/software/card/card.component.ts");
+/* harmony import */ var _card_card_detail_dialog_card_detail_dialog_component__WEBPACK_IMPORTED_MODULE_55__ = __webpack_require__(/*! ./card/card-detail-dialog/card-detail-dialog.component */ "./src/app/software/card/card-detail-dialog/card-detail-dialog.component.ts");
+/* harmony import */ var _card_card_delete_dialog_card_delete_dialog_component__WEBPACK_IMPORTED_MODULE_56__ = __webpack_require__(/*! ./card/card-delete-dialog/card-delete-dialog.component */ "./src/app/software/card/card-delete-dialog/card-delete-dialog.component.ts");
+/* harmony import */ var _card_card_citizen_dialog_card_citizen_dialog_component__WEBPACK_IMPORTED_MODULE_57__ = __webpack_require__(/*! ./card/card-citizen-dialog/card-citizen-dialog.component */ "./src/app/software/card/card-citizen-dialog/card-citizen-dialog.component.ts");
+/* harmony import */ var _card_card_citizen_dialog_card_search_citizen_dialog_card_search_citizen_dialog_component__WEBPACK_IMPORTED_MODULE_58__ = __webpack_require__(/*! ./card/card-citizen-dialog/card-search-citizen-dialog/card-search-citizen-dialog.component */ "./src/app/software/card/card-citizen-dialog/card-search-citizen-dialog/card-search-citizen-dialog.component.ts");
+/* harmony import */ var _services_services_component__WEBPACK_IMPORTED_MODULE_59__ = __webpack_require__(/*! ./services/services.component */ "./src/app/software/services/services.component.ts");
+/* harmony import */ var _services_service_department_detail_dialog_service_department_detail_dialog_component__WEBPACK_IMPORTED_MODULE_60__ = __webpack_require__(/*! ./services/service-department-detail-dialog/service-department-detail-dialog.component */ "./src/app/software/services/service-department-detail-dialog/service-department-detail-dialog.component.ts");
+/* harmony import */ var _services_service_department_delete_dialog_service_department_delete_dialog_component__WEBPACK_IMPORTED_MODULE_61__ = __webpack_require__(/*! ./services/service-department-delete-dialog/service-department-delete-dialog.component */ "./src/app/software/services/service-department-delete-dialog/service-department-delete-dialog.component.ts");
+/* harmony import */ var _services_service_group_detail_dialog_service_group_detail_dialog_component__WEBPACK_IMPORTED_MODULE_62__ = __webpack_require__(/*! ./services/service-group-detail-dialog/service-group-detail-dialog.component */ "./src/app/software/services/service-group-detail-dialog/service-group-detail-dialog.component.ts");
+/* harmony import */ var _services_service_group_delete_dialog_service_group_delete_dialog_component__WEBPACK_IMPORTED_MODULE_63__ = __webpack_require__(/*! ./services/service-group-delete-dialog/service-group-delete-dialog.component */ "./src/app/software/services/service-group-delete-dialog/service-group-delete-dialog.component.ts");
+/* harmony import */ var _services_service_detail_dialog_service_detail_dialog_component__WEBPACK_IMPORTED_MODULE_64__ = __webpack_require__(/*! ./services/service-detail-dialog/service-detail-dialog.component */ "./src/app/software/services/service-detail-dialog/service-detail-dialog.component.ts");
+/* harmony import */ var _services_service_delete_dialog_service_delete_dialog_component__WEBPACK_IMPORTED_MODULE_65__ = __webpack_require__(/*! ./services/service-delete-dialog/service-delete-dialog.component */ "./src/app/software/services/service-delete-dialog/service-delete-dialog.component.ts");
+/* harmony import */ var _reports_reports_component__WEBPACK_IMPORTED_MODULE_66__ = __webpack_require__(/*! ./reports/reports.component */ "./src/app/software/reports/reports.component.ts");
+/* harmony import */ var wijmo_wijmo_angular2_grid_filter__WEBPACK_IMPORTED_MODULE_67__ = __webpack_require__(/*! wijmo/wijmo.angular2.grid.filter */ "./node_modules/wijmo/wijmo.angular2.grid.filter.js");
+/* harmony import */ var wijmo_wijmo_angular2_grid_filter__WEBPACK_IMPORTED_MODULE_67___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo_angular2_grid_filter__WEBPACK_IMPORTED_MODULE_67__);
+/* harmony import */ var wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_68__ = __webpack_require__(/*! wijmo/wijmo.angular2.grid */ "./node_modules/wijmo/wijmo.angular2.grid.js");
+/* harmony import */ var wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_68___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_68__);
+/* harmony import */ var wijmo_wijmo_angular2_input__WEBPACK_IMPORTED_MODULE_69__ = __webpack_require__(/*! wijmo/wijmo.angular2.input */ "./node_modules/wijmo/wijmo.angular2.input.js");
+/* harmony import */ var wijmo_wijmo_angular2_input__WEBPACK_IMPORTED_MODULE_69___default = /*#__PURE__*/__webpack_require__.n(wijmo_wijmo_angular2_input__WEBPACK_IMPORTED_MODULE_69__);
+/* harmony import */ var _angular_flex_layout__WEBPACK_IMPORTED_MODULE_70__ = __webpack_require__(/*! @angular/flex-layout */ "./node_modules/@angular/flex-layout/esm5/flex-layout.es5.js");
+/* harmony import */ var _fortawesome_angular_fontawesome__WEBPACK_IMPORTED_MODULE_71__ = __webpack_require__(/*! @fortawesome/angular-fontawesome */ "./node_modules/@fortawesome/angular-fontawesome/fesm5/angular-fontawesome.js");
+/* harmony import */ var ngx_webcam__WEBPACK_IMPORTED_MODULE_72__ = __webpack_require__(/*! ngx-webcam */ "./node_modules/ngx-webcam/fesm5/ngx-webcam.js");
 
 // Modules
 
@@ -17189,6 +20456,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // Material
+
 
 
 
@@ -17236,6 +20504,19 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Wijmo
 
 
@@ -17250,78 +20531,101 @@ var SoftwareModule = /** @class */ (function () {
     SoftwareModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             declarations: [
-                _software_component__WEBPACK_IMPORTED_MODULE_23__["SoftwareComponent"],
-                _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_24__["DashboardComponent"],
-                _citizen_citizen_component__WEBPACK_IMPORTED_MODULE_25__["CitizenComponent"],
-                _citizen_citizen_detail_dialog_citizen_detail_dialog_component__WEBPACK_IMPORTED_MODULE_26__["CitizenDetailDialogComponent"],
-                _citizen_citizen_delete_dialog_citizen_delete_dialog_component__WEBPACK_IMPORTED_MODULE_27__["CitizenDeleteDialogComponent"],
-                _citizen_citizen_detail_dialog_citizen_camera_dialog_citizen_camera_dialog_component__WEBPACK_IMPORTED_MODULE_28__["CitizenCameraDialogComponent"],
-                _citizen_citizen_detail_dialog_citizen_children_detail_dialog_citizen_children_detail_dialog_component__WEBPACK_IMPORTED_MODULE_29__["CitizenChildrenDetailDialogComponent"],
-                _citizen_citizen_detail_dialog_citizen_children_delete_dialog_citizen_children_delete_dialog_component__WEBPACK_IMPORTED_MODULE_30__["CitizenChildrenDeleteDialogComponent"],
-                _citizen_citizen_detail_dialog_citizen_education_detail_dialog_citizen_education_detail_dialog_component__WEBPACK_IMPORTED_MODULE_31__["CitizenEducationDetailDialogComponent"],
-                _citizen_citizen_detail_dialog_citizen_education_delete_dialog_citizen_education_delete_dialog_component__WEBPACK_IMPORTED_MODULE_32__["CitizenEducationDeleteDialogComponent"],
-                _citizen_citizen_search_dialog_citizen_search_dialog_component__WEBPACK_IMPORTED_MODULE_33__["CitizenSearchDialogComponent"],
-                _user_user_component__WEBPACK_IMPORTED_MODULE_34__["UserComponent"],
-                _system_tables_system_tables_component__WEBPACK_IMPORTED_MODULE_35__["SystemTablesComponent"],
-                _system_tables_citizenship_detail_dialog_citizenship_detail_dialog_component__WEBPACK_IMPORTED_MODULE_36__["CitizenshipDetailDialogComponent"],
-                _system_tables_citizenship_delete_dialog_citizenship_delete_dialog_component__WEBPACK_IMPORTED_MODULE_37__["CitizenshipDeleteDialogComponent"],
-                _system_tables_type_of_citizenship_detail_dialog_type_of_citizenship_detail_dialog_component__WEBPACK_IMPORTED_MODULE_38__["TypeOfCitizenshipDetailDialogComponent"],
-                _system_tables_type_of_citizenship_delete_dialog_type_of_citizenship_delete_dialog_component__WEBPACK_IMPORTED_MODULE_39__["TypeOfCitizenshipDeleteDialogComponent"],
-                _system_tables_sex_detail_dialog_sex_detail_dialog_component__WEBPACK_IMPORTED_MODULE_40__["SexDetailDialogComponent"],
-                _system_tables_sex_delete_dialog_sex_delete_dialog_component__WEBPACK_IMPORTED_MODULE_41__["SexDeleteDialogComponent"],
-                _system_tables_civil_status_delete_dialog_civil_status_delete_dialog_component__WEBPACK_IMPORTED_MODULE_42__["CivilStatusDeleteDialogComponent"],
-                _system_tables_civil_status_detail_dialog_civil_status_detail_dialog_component__WEBPACK_IMPORTED_MODULE_43__["CivilStatusDetailDialogComponent"],
-                _system_tables_education_level_detail_dialog_education_level_detail_dialog_component__WEBPACK_IMPORTED_MODULE_44__["EducationLevelDetailDialogComponent"],
-                _system_tables_education_level_delete_dialog_education_level_delete_dialog_component__WEBPACK_IMPORTED_MODULE_45__["EducationLevelDeleteDialogComponent"],
-                _system_tables_occupation_detail_dialog_occupation_detail_dialog_component__WEBPACK_IMPORTED_MODULE_46__["OccupationDetailDialogComponent"],
-                _system_tables_occupation_delete_dialog_occupation_delete_dialog_component__WEBPACK_IMPORTED_MODULE_47__["OccupationDeleteDialogComponent"],
-                _system_tables_blood_type_detail_dialog_blood_type_detail_dialog_component__WEBPACK_IMPORTED_MODULE_48__["BloodTypeDetailDialogComponent"],
-                _system_tables_blood_type_delete_dialog_blood_type_delete_dialog_component__WEBPACK_IMPORTED_MODULE_49__["BloodTypeDeleteDialogComponent"],
-                _system_tables_status_detail_dialog_status_detail_dialog_component__WEBPACK_IMPORTED_MODULE_50__["StatusDetailDialogComponent"],
-                _system_tables_status_delete_dialog_status_delete_dialog_component__WEBPACK_IMPORTED_MODULE_51__["StatusDeleteDialogComponent"],
-                _user_user_detail_dialog_user_detail_dialog_component__WEBPACK_IMPORTED_MODULE_52__["UserDetailDialogComponent"]
+                _software_component__WEBPACK_IMPORTED_MODULE_24__["SoftwareComponent"],
+                _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_25__["DashboardComponent"],
+                _citizen_citizen_component__WEBPACK_IMPORTED_MODULE_26__["CitizenComponent"],
+                _citizen_citizen_detail_dialog_citizen_detail_dialog_component__WEBPACK_IMPORTED_MODULE_27__["CitizenDetailDialogComponent"],
+                _citizen_citizen_delete_dialog_citizen_delete_dialog_component__WEBPACK_IMPORTED_MODULE_28__["CitizenDeleteDialogComponent"],
+                _citizen_citizen_detail_dialog_citizen_camera_dialog_citizen_camera_dialog_component__WEBPACK_IMPORTED_MODULE_29__["CitizenCameraDialogComponent"],
+                _citizen_citizen_detail_dialog_citizen_children_detail_dialog_citizen_children_detail_dialog_component__WEBPACK_IMPORTED_MODULE_30__["CitizenChildrenDetailDialogComponent"],
+                _citizen_citizen_detail_dialog_citizen_children_delete_dialog_citizen_children_delete_dialog_component__WEBPACK_IMPORTED_MODULE_31__["CitizenChildrenDeleteDialogComponent"],
+                _citizen_citizen_detail_dialog_citizen_education_detail_dialog_citizen_education_detail_dialog_component__WEBPACK_IMPORTED_MODULE_32__["CitizenEducationDetailDialogComponent"],
+                _citizen_citizen_detail_dialog_citizen_education_delete_dialog_citizen_education_delete_dialog_component__WEBPACK_IMPORTED_MODULE_33__["CitizenEducationDeleteDialogComponent"],
+                _citizen_citizen_search_dialog_citizen_search_dialog_component__WEBPACK_IMPORTED_MODULE_34__["CitizenSearchDialogComponent"],
+                _user_user_component__WEBPACK_IMPORTED_MODULE_35__["UserComponent"],
+                _system_tables_system_tables_component__WEBPACK_IMPORTED_MODULE_36__["SystemTablesComponent"],
+                _system_tables_citizenship_detail_dialog_citizenship_detail_dialog_component__WEBPACK_IMPORTED_MODULE_37__["CitizenshipDetailDialogComponent"],
+                _system_tables_citizenship_delete_dialog_citizenship_delete_dialog_component__WEBPACK_IMPORTED_MODULE_38__["CitizenshipDeleteDialogComponent"],
+                _system_tables_type_of_citizenship_detail_dialog_type_of_citizenship_detail_dialog_component__WEBPACK_IMPORTED_MODULE_39__["TypeOfCitizenshipDetailDialogComponent"],
+                _system_tables_type_of_citizenship_delete_dialog_type_of_citizenship_delete_dialog_component__WEBPACK_IMPORTED_MODULE_40__["TypeOfCitizenshipDeleteDialogComponent"],
+                _system_tables_sex_detail_dialog_sex_detail_dialog_component__WEBPACK_IMPORTED_MODULE_41__["SexDetailDialogComponent"],
+                _system_tables_sex_delete_dialog_sex_delete_dialog_component__WEBPACK_IMPORTED_MODULE_42__["SexDeleteDialogComponent"],
+                _system_tables_civil_status_delete_dialog_civil_status_delete_dialog_component__WEBPACK_IMPORTED_MODULE_43__["CivilStatusDeleteDialogComponent"],
+                _system_tables_civil_status_detail_dialog_civil_status_detail_dialog_component__WEBPACK_IMPORTED_MODULE_44__["CivilStatusDetailDialogComponent"],
+                _system_tables_education_level_detail_dialog_education_level_detail_dialog_component__WEBPACK_IMPORTED_MODULE_45__["EducationLevelDetailDialogComponent"],
+                _system_tables_education_level_delete_dialog_education_level_delete_dialog_component__WEBPACK_IMPORTED_MODULE_46__["EducationLevelDeleteDialogComponent"],
+                _system_tables_occupation_detail_dialog_occupation_detail_dialog_component__WEBPACK_IMPORTED_MODULE_47__["OccupationDetailDialogComponent"],
+                _system_tables_occupation_delete_dialog_occupation_delete_dialog_component__WEBPACK_IMPORTED_MODULE_48__["OccupationDeleteDialogComponent"],
+                _system_tables_blood_type_detail_dialog_blood_type_detail_dialog_component__WEBPACK_IMPORTED_MODULE_49__["BloodTypeDetailDialogComponent"],
+                _system_tables_blood_type_delete_dialog_blood_type_delete_dialog_component__WEBPACK_IMPORTED_MODULE_50__["BloodTypeDeleteDialogComponent"],
+                _system_tables_status_detail_dialog_status_detail_dialog_component__WEBPACK_IMPORTED_MODULE_51__["StatusDetailDialogComponent"],
+                _system_tables_status_delete_dialog_status_delete_dialog_component__WEBPACK_IMPORTED_MODULE_52__["StatusDeleteDialogComponent"],
+                _user_user_detail_dialog_user_detail_dialog_component__WEBPACK_IMPORTED_MODULE_53__["UserDetailDialogComponent"],
+                _card_card_component__WEBPACK_IMPORTED_MODULE_54__["CardComponent"],
+                _card_card_detail_dialog_card_detail_dialog_component__WEBPACK_IMPORTED_MODULE_55__["CardDetailDialogComponent"],
+                _card_card_delete_dialog_card_delete_dialog_component__WEBPACK_IMPORTED_MODULE_56__["CardDeleteDialogComponent"],
+                _card_card_citizen_dialog_card_citizen_dialog_component__WEBPACK_IMPORTED_MODULE_57__["CardCitizenDialogComponent"],
+                _card_card_citizen_dialog_card_search_citizen_dialog_card_search_citizen_dialog_component__WEBPACK_IMPORTED_MODULE_58__["CardSearchCitizenDialogComponent"],
+                _services_services_component__WEBPACK_IMPORTED_MODULE_59__["ServicesComponent"],
+                _services_service_department_detail_dialog_service_department_detail_dialog_component__WEBPACK_IMPORTED_MODULE_60__["ServiceDepartmentDetailDialogComponent"],
+                _services_service_department_delete_dialog_service_department_delete_dialog_component__WEBPACK_IMPORTED_MODULE_61__["ServiceDepartmentDeleteDialogComponent"],
+                _services_service_group_detail_dialog_service_group_detail_dialog_component__WEBPACK_IMPORTED_MODULE_62__["ServiceGroupDetailDialogComponent"],
+                _services_service_group_delete_dialog_service_group_delete_dialog_component__WEBPACK_IMPORTED_MODULE_63__["ServiceGroupDeleteDialogComponent"],
+                _services_service_detail_dialog_service_detail_dialog_component__WEBPACK_IMPORTED_MODULE_64__["ServiceDetailDialogComponent"],
+                _services_service_delete_dialog_service_delete_dialog_component__WEBPACK_IMPORTED_MODULE_65__["ServiceDeleteDialogComponent"],
+                _reports_reports_component__WEBPACK_IMPORTED_MODULE_66__["ReportsComponent"]
             ],
             entryComponents: [
-                _citizen_citizen_detail_dialog_citizen_detail_dialog_component__WEBPACK_IMPORTED_MODULE_26__["CitizenDetailDialogComponent"],
-                _citizen_citizen_delete_dialog_citizen_delete_dialog_component__WEBPACK_IMPORTED_MODULE_27__["CitizenDeleteDialogComponent"],
-                _citizen_citizen_detail_dialog_citizen_camera_dialog_citizen_camera_dialog_component__WEBPACK_IMPORTED_MODULE_28__["CitizenCameraDialogComponent"],
-                _citizen_citizen_detail_dialog_citizen_children_detail_dialog_citizen_children_detail_dialog_component__WEBPACK_IMPORTED_MODULE_29__["CitizenChildrenDetailDialogComponent"],
-                _citizen_citizen_detail_dialog_citizen_children_delete_dialog_citizen_children_delete_dialog_component__WEBPACK_IMPORTED_MODULE_30__["CitizenChildrenDeleteDialogComponent"],
-                _citizen_citizen_detail_dialog_citizen_education_detail_dialog_citizen_education_detail_dialog_component__WEBPACK_IMPORTED_MODULE_31__["CitizenEducationDetailDialogComponent"],
-                _citizen_citizen_detail_dialog_citizen_education_delete_dialog_citizen_education_delete_dialog_component__WEBPACK_IMPORTED_MODULE_32__["CitizenEducationDeleteDialogComponent"],
-                _citizen_citizen_search_dialog_citizen_search_dialog_component__WEBPACK_IMPORTED_MODULE_33__["CitizenSearchDialogComponent"],
-                _system_tables_citizenship_detail_dialog_citizenship_detail_dialog_component__WEBPACK_IMPORTED_MODULE_36__["CitizenshipDetailDialogComponent"],
-                _system_tables_citizenship_delete_dialog_citizenship_delete_dialog_component__WEBPACK_IMPORTED_MODULE_37__["CitizenshipDeleteDialogComponent"],
-                _system_tables_type_of_citizenship_detail_dialog_type_of_citizenship_detail_dialog_component__WEBPACK_IMPORTED_MODULE_38__["TypeOfCitizenshipDetailDialogComponent"],
-                _system_tables_type_of_citizenship_delete_dialog_type_of_citizenship_delete_dialog_component__WEBPACK_IMPORTED_MODULE_39__["TypeOfCitizenshipDeleteDialogComponent"],
-                _system_tables_sex_detail_dialog_sex_detail_dialog_component__WEBPACK_IMPORTED_MODULE_40__["SexDetailDialogComponent"],
-                _system_tables_sex_delete_dialog_sex_delete_dialog_component__WEBPACK_IMPORTED_MODULE_41__["SexDeleteDialogComponent"],
-                _system_tables_civil_status_delete_dialog_civil_status_delete_dialog_component__WEBPACK_IMPORTED_MODULE_42__["CivilStatusDeleteDialogComponent"],
-                _system_tables_civil_status_detail_dialog_civil_status_detail_dialog_component__WEBPACK_IMPORTED_MODULE_43__["CivilStatusDetailDialogComponent"],
-                _system_tables_education_level_detail_dialog_education_level_detail_dialog_component__WEBPACK_IMPORTED_MODULE_44__["EducationLevelDetailDialogComponent"],
-                _system_tables_education_level_delete_dialog_education_level_delete_dialog_component__WEBPACK_IMPORTED_MODULE_45__["EducationLevelDeleteDialogComponent"],
-                _system_tables_occupation_detail_dialog_occupation_detail_dialog_component__WEBPACK_IMPORTED_MODULE_46__["OccupationDetailDialogComponent"],
-                _system_tables_occupation_delete_dialog_occupation_delete_dialog_component__WEBPACK_IMPORTED_MODULE_47__["OccupationDeleteDialogComponent"],
-                _system_tables_blood_type_detail_dialog_blood_type_detail_dialog_component__WEBPACK_IMPORTED_MODULE_48__["BloodTypeDetailDialogComponent"],
-                _system_tables_blood_type_delete_dialog_blood_type_delete_dialog_component__WEBPACK_IMPORTED_MODULE_49__["BloodTypeDeleteDialogComponent"],
-                _system_tables_status_detail_dialog_status_detail_dialog_component__WEBPACK_IMPORTED_MODULE_50__["StatusDetailDialogComponent"],
-                _system_tables_status_delete_dialog_status_delete_dialog_component__WEBPACK_IMPORTED_MODULE_51__["StatusDeleteDialogComponent"],
-                _user_user_detail_dialog_user_detail_dialog_component__WEBPACK_IMPORTED_MODULE_52__["UserDetailDialogComponent"]
+                _citizen_citizen_detail_dialog_citizen_detail_dialog_component__WEBPACK_IMPORTED_MODULE_27__["CitizenDetailDialogComponent"],
+                _citizen_citizen_delete_dialog_citizen_delete_dialog_component__WEBPACK_IMPORTED_MODULE_28__["CitizenDeleteDialogComponent"],
+                _citizen_citizen_detail_dialog_citizen_camera_dialog_citizen_camera_dialog_component__WEBPACK_IMPORTED_MODULE_29__["CitizenCameraDialogComponent"],
+                _citizen_citizen_detail_dialog_citizen_children_detail_dialog_citizen_children_detail_dialog_component__WEBPACK_IMPORTED_MODULE_30__["CitizenChildrenDetailDialogComponent"],
+                _citizen_citizen_detail_dialog_citizen_children_delete_dialog_citizen_children_delete_dialog_component__WEBPACK_IMPORTED_MODULE_31__["CitizenChildrenDeleteDialogComponent"],
+                _citizen_citizen_detail_dialog_citizen_education_detail_dialog_citizen_education_detail_dialog_component__WEBPACK_IMPORTED_MODULE_32__["CitizenEducationDetailDialogComponent"],
+                _citizen_citizen_detail_dialog_citizen_education_delete_dialog_citizen_education_delete_dialog_component__WEBPACK_IMPORTED_MODULE_33__["CitizenEducationDeleteDialogComponent"],
+                _citizen_citizen_search_dialog_citizen_search_dialog_component__WEBPACK_IMPORTED_MODULE_34__["CitizenSearchDialogComponent"],
+                _system_tables_citizenship_detail_dialog_citizenship_detail_dialog_component__WEBPACK_IMPORTED_MODULE_37__["CitizenshipDetailDialogComponent"],
+                _system_tables_citizenship_delete_dialog_citizenship_delete_dialog_component__WEBPACK_IMPORTED_MODULE_38__["CitizenshipDeleteDialogComponent"],
+                _system_tables_type_of_citizenship_detail_dialog_type_of_citizenship_detail_dialog_component__WEBPACK_IMPORTED_MODULE_39__["TypeOfCitizenshipDetailDialogComponent"],
+                _system_tables_type_of_citizenship_delete_dialog_type_of_citizenship_delete_dialog_component__WEBPACK_IMPORTED_MODULE_40__["TypeOfCitizenshipDeleteDialogComponent"],
+                _system_tables_sex_detail_dialog_sex_detail_dialog_component__WEBPACK_IMPORTED_MODULE_41__["SexDetailDialogComponent"],
+                _system_tables_sex_delete_dialog_sex_delete_dialog_component__WEBPACK_IMPORTED_MODULE_42__["SexDeleteDialogComponent"],
+                _system_tables_civil_status_delete_dialog_civil_status_delete_dialog_component__WEBPACK_IMPORTED_MODULE_43__["CivilStatusDeleteDialogComponent"],
+                _system_tables_civil_status_detail_dialog_civil_status_detail_dialog_component__WEBPACK_IMPORTED_MODULE_44__["CivilStatusDetailDialogComponent"],
+                _system_tables_education_level_detail_dialog_education_level_detail_dialog_component__WEBPACK_IMPORTED_MODULE_45__["EducationLevelDetailDialogComponent"],
+                _system_tables_education_level_delete_dialog_education_level_delete_dialog_component__WEBPACK_IMPORTED_MODULE_46__["EducationLevelDeleteDialogComponent"],
+                _system_tables_occupation_detail_dialog_occupation_detail_dialog_component__WEBPACK_IMPORTED_MODULE_47__["OccupationDetailDialogComponent"],
+                _system_tables_occupation_delete_dialog_occupation_delete_dialog_component__WEBPACK_IMPORTED_MODULE_48__["OccupationDeleteDialogComponent"],
+                _system_tables_blood_type_detail_dialog_blood_type_detail_dialog_component__WEBPACK_IMPORTED_MODULE_49__["BloodTypeDetailDialogComponent"],
+                _system_tables_blood_type_delete_dialog_blood_type_delete_dialog_component__WEBPACK_IMPORTED_MODULE_50__["BloodTypeDeleteDialogComponent"],
+                _system_tables_status_detail_dialog_status_detail_dialog_component__WEBPACK_IMPORTED_MODULE_51__["StatusDetailDialogComponent"],
+                _system_tables_status_delete_dialog_status_delete_dialog_component__WEBPACK_IMPORTED_MODULE_52__["StatusDeleteDialogComponent"],
+                _user_user_detail_dialog_user_detail_dialog_component__WEBPACK_IMPORTED_MODULE_53__["UserDetailDialogComponent"],
+                _services_service_department_detail_dialog_service_department_detail_dialog_component__WEBPACK_IMPORTED_MODULE_60__["ServiceDepartmentDetailDialogComponent"],
+                _services_service_department_delete_dialog_service_department_delete_dialog_component__WEBPACK_IMPORTED_MODULE_61__["ServiceDepartmentDeleteDialogComponent"],
+                _services_service_group_detail_dialog_service_group_detail_dialog_component__WEBPACK_IMPORTED_MODULE_62__["ServiceGroupDetailDialogComponent"],
+                _services_service_group_delete_dialog_service_group_delete_dialog_component__WEBPACK_IMPORTED_MODULE_63__["ServiceGroupDeleteDialogComponent"],
+                _services_service_detail_dialog_service_detail_dialog_component__WEBPACK_IMPORTED_MODULE_64__["ServiceDetailDialogComponent"],
+                _services_service_delete_dialog_service_delete_dialog_component__WEBPACK_IMPORTED_MODULE_65__["ServiceDeleteDialogComponent"],
+                _card_card_detail_dialog_card_detail_dialog_component__WEBPACK_IMPORTED_MODULE_55__["CardDetailDialogComponent"],
+                _card_card_delete_dialog_card_delete_dialog_component__WEBPACK_IMPORTED_MODULE_56__["CardDeleteDialogComponent"],
+                _card_card_citizen_dialog_card_citizen_dialog_component__WEBPACK_IMPORTED_MODULE_57__["CardCitizenDialogComponent"],
+                _card_card_citizen_dialog_card_search_citizen_dialog_card_search_citizen_dialog_component__WEBPACK_IMPORTED_MODULE_58__["CardSearchCitizenDialogComponent"]
             ],
             imports: [
                 _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"],
                 _software_routing_module__WEBPACK_IMPORTED_MODULE_5__["SoftwareRoutingModule"],
-                _angular_flex_layout__WEBPACK_IMPORTED_MODULE_56__["FlexLayoutModule"],
-                _fortawesome_angular_fontawesome__WEBPACK_IMPORTED_MODULE_57__["FontAwesomeModule"],
+                _angular_flex_layout__WEBPACK_IMPORTED_MODULE_70__["FlexLayoutModule"],
+                _fortawesome_angular_fontawesome__WEBPACK_IMPORTED_MODULE_71__["FontAwesomeModule"],
                 _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_7__["MatToolbarModule"], _angular_material_button__WEBPACK_IMPORTED_MODULE_8__["MatButtonModule"], _angular_material_menu__WEBPACK_IMPORTED_MODULE_9__["MatMenuModule"], _angular_material_sidenav__WEBPACK_IMPORTED_MODULE_10__["MatSidenavModule"], _angular_material_tabs__WEBPACK_IMPORTED_MODULE_11__["MatTabsModule"], _angular_material_list__WEBPACK_IMPORTED_MODULE_12__["MatListModule"], _angular_material_grid_list__WEBPACK_IMPORTED_MODULE_13__["MatGridListModule"], _angular_material_button_toggle__WEBPACK_IMPORTED_MODULE_14__["MatButtonToggleModule"],
                 _angular_material_card__WEBPACK_IMPORTED_MODULE_15__["MatCardModule"], _angular_material_expansion__WEBPACK_IMPORTED_MODULE_16__["MatExpansionModule"], _angular_material_input__WEBPACK_IMPORTED_MODULE_17__["MatInputModule"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_18__["MatFormFieldModule"], _angular_material_chips__WEBPACK_IMPORTED_MODULE_19__["MatChipsModule"], _angular_material_dialog__WEBPACK_IMPORTED_MODULE_20__["MatDialogModule"],
-                _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_21__["MatDatepickerModule"], _angular_material_core__WEBPACK_IMPORTED_MODULE_4__["MatNativeDateModule"], _angular_material_select__WEBPACK_IMPORTED_MODULE_22__["MatSelectModule"],
-                wijmo_wijmo_angular2_grid_filter__WEBPACK_IMPORTED_MODULE_53__["WjGridFilterModule"],
-                wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_54__["WjGridModule"],
-                wijmo_wijmo_angular2_input__WEBPACK_IMPORTED_MODULE_55__["WjInputModule"],
-                ngx_webcam__WEBPACK_IMPORTED_MODULE_58__["WebcamModule"]
+                _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_21__["MatDatepickerModule"], _angular_material_core__WEBPACK_IMPORTED_MODULE_4__["MatNativeDateModule"], _angular_material_select__WEBPACK_IMPORTED_MODULE_22__["MatSelectModule"], _angular_material_checkbox__WEBPACK_IMPORTED_MODULE_23__["MatCheckboxModule"],
+                wijmo_wijmo_angular2_grid_filter__WEBPACK_IMPORTED_MODULE_67__["WjGridFilterModule"],
+                wijmo_wijmo_angular2_grid__WEBPACK_IMPORTED_MODULE_68__["WjGridModule"],
+                wijmo_wijmo_angular2_input__WEBPACK_IMPORTED_MODULE_69__["WjInputModule"],
+                ngx_webcam__WEBPACK_IMPORTED_MODULE_72__["WebcamModule"]
             ],
             providers: [
                 _software_router_activate__WEBPACK_IMPORTED_MODULE_6__["SoftwareRouterActivate"]
