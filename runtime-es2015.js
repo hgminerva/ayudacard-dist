@@ -64,7 +64,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"default~account-account-module~landing-landing-module~software-software-module":"default~account-account-module~landing-landing-module~software-software-module","default~account-account-module~software-software-module":"default~account-account-module~software-software-module","account-account-module":"account-account-module","default~landing-landing-module~software-software-module":"default~landing-landing-module~software-software-module","software-software-module":"software-software-module","landing-landing-module":"landing-landing-module"}[chunkId]||chunkId) + "-es2015.js"
+/******/ 		return __webpack_require__.p + "" + ({"default~account-account-module~landing-landing-module~software-software-module":"default~account-account-module~landing-landing-module~software-software-module","default~account-account-module~software-software-module":"default~account-account-module~software-software-module","account-account-module":"account-account-module","default~landing-landing-module~software-software-module":"default~landing-landing-module~software-software-module","software-software-module":"software-software-module","landing-landing-module":"landing-landing-module","pdfjsWorker":"pdfjsWorker"}[chunkId]||chunkId) + "-es2015.js"
 /******/ 	}
 /******/
 /******/ 	// The require function
