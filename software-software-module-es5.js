@@ -52717,8 +52717,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm5/dialog.es5.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var ngx_webcam__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-webcam */ "./node_modules/ngx-webcam/fesm5/ngx-webcam.js");
-
 
 
 
@@ -52728,7 +52726,6 @@ var CitizenCameraDialogComponent = /** @class */ (function () {
         this.cameraDialogRef = cameraDialogRef;
         this.pictureTaken = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
         this.trigger = new rxjs__WEBPACK_IMPORTED_MODULE_3__["Subject"]();
-        this.multipleWebcamsAvailable = false;
         this.errors = [];
     }
     CitizenCameraDialogComponent.prototype.btnCapturePhoto = function () {
@@ -52752,11 +52749,6 @@ var CitizenCameraDialogComponent = /** @class */ (function () {
         this.errors.push(error);
     };
     CitizenCameraDialogComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        ngx_webcam__WEBPACK_IMPORTED_MODULE_4__["WebcamUtil"].getAvailableVideoInputs()
-            .then(function (mediaDevices) {
-            _this.multipleWebcamsAvailable = mediaDevices && mediaDevices.length > 1;
-        });
     };
     CitizenCameraDialogComponent.ctorParameters = function () { return [
         { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"] }
