@@ -48106,7 +48106,7 @@ module.exports = "<h1 mat-dialog-title>\n    Delete Citizen\n</h1>\n<mat-divider
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h1 mat-dialog-title>\n    Camera\n</h1>\n<mat-divider></mat-divider>\n<div mat-dialog-content style=\"display: flex; justify-content: center; padding: 15px;\">\n    <webcam [height]=\"500\" [width]=\"500\" [trigger]=\"triggerObservable\" (imageCapture)=\"handleImage($event)\">\n    </webcam>\n</div>\n<mat-divider></mat-divider>\n<div mat-dialog-actions align=\"right\">\n    <button mat-stroked-button color=\"\" style=\"margin-right: 5px;\" (click)=\"btnCapturePhoto()\" id=\"btnCapture\">\n        <fa-icon icon=\"camera\" fixedWidth=\"true\"></fa-icon> Capture\n    </button>\n    <button mat-stroked-button color=\"\" (click)=\"btnCloseCameraDialog()\" id=\"btnCloseCamera\">\n        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Close\n    </button>\n</div>"
+module.exports = "<h1 mat-dialog-title>\n    Camera\n</h1>\n<mat-divider></mat-divider>\n<div mat-dialog-content style=\"display: flex; justify-content: center; padding: 15px;\">\n    <webcam [height]=\"500\" [width]=\"500\" [trigger]=\"triggerObservable\" (imageCapture)=\"handleImage($event)\"\n        (initError)=\"handleInitError($event)\">\n    </webcam>\n</div>\n<mat-divider></mat-divider>\n<div mat-dialog-actions align=\"right\">\n    <button mat-stroked-button color=\"\" style=\"margin-right: 5px;\" (click)=\"btnCapturePhoto()\" id=\"btnCapture\">\n        <fa-icon icon=\"camera\" fixedWidth=\"true\"></fa-icon> Capture\n    </button>\n    <button mat-stroked-button color=\"\" (click)=\"btnCloseCameraDialog()\" id=\"btnCloseCamera\">\n        <fa-icon icon=\"times\" fixedWidth=\"true\"></fa-icon> Close\n    </button>\n</div>"
 
 /***/ }),
 
@@ -52717,6 +52717,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm5/dialog.es5.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var ngx_webcam__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-webcam */ "./node_modules/ngx-webcam/fesm5/ngx-webcam.js");
+
 
 
 
@@ -52726,6 +52728,8 @@ var CitizenCameraDialogComponent = /** @class */ (function () {
         this.cameraDialogRef = cameraDialogRef;
         this.pictureTaken = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
         this.trigger = new rxjs__WEBPACK_IMPORTED_MODULE_3__["Subject"]();
+        this.multipleWebcamsAvailable = false;
+        this.errors = [];
     }
     CitizenCameraDialogComponent.prototype.btnCapturePhoto = function () {
         this.trigger.next();
@@ -52744,7 +52748,15 @@ var CitizenCameraDialogComponent = /** @class */ (function () {
     CitizenCameraDialogComponent.prototype.btnCloseCameraDialog = function () {
         this.cameraDialogRef.close(null);
     };
+    CitizenCameraDialogComponent.prototype.handleInitError = function (error) {
+        this.errors.push(error);
+    };
     CitizenCameraDialogComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        ngx_webcam__WEBPACK_IMPORTED_MODULE_4__["WebcamUtil"].getAvailableVideoInputs()
+            .then(function (mediaDevices) {
+            _this.multipleWebcamsAvailable = mediaDevices && mediaDevices.length > 1;
+        });
     };
     CitizenCameraDialogComponent.ctorParameters = function () { return [
         { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"] }
