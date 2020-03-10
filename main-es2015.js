@@ -94,8 +94,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppSettings", function() { return AppSettings; });
 class AppSettings {
     constructor() {
-        // public APIURLHost = "http://localhost:63677";
-        this.APIURLHost = "https://ayudacard-api.azurewebsites.net";
+        this.APIURLHost = "http://localhost:63677";
+        // public APIURLHost = "https://ayudacard-api.azurewebsites.net";
     }
 }
 
